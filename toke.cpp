@@ -1502,7 +1502,7 @@ void doifdef(int intok) {
       }
     }
     //			printf("lastoper=%d endrez=%d
-    //locrez=%d\n",lastoper,endrez,locrez);
+    // locrez=%d\n",lastoper,endrez,locrez);
     if (next)
       nexttok();
     while (tok == tk_closebracket) {
@@ -1751,7 +1751,7 @@ void directive() {
     else
       endifcount--;
     //			printf("%s (%u) endif:
-    //endifcount=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,endifcount);
+    // endifcount=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,endifcount);
     break;
   case d_ifdef:
   case d_if:
@@ -2212,7 +2212,7 @@ void directive() {
       break;
     case p_pa:
       //					printf("ptr=%08X input=%08X
-      //tok=%d\n",ptr,input,tok);
+      // tok=%d\n",ptr,input,tok);
       SetNewStr(ptr);
       displaytokerrors = 1;
       FastTok(1);
@@ -2293,7 +2293,7 @@ void directive() {
       }
       pushpop(i);
       //					printf("ptr=%08X input=%08X
-      //tok=%d\n",ptr,input,tok);
+      // tok=%d\n",ptr,input,tok);
       inptr2 = inptr;
       cha2 = cha;
       while (ptr == input)
@@ -2336,13 +2336,13 @@ void directive() {
         gotoendif--;
         endifcount--;
         //			printf("%s (%u) endif shadow:
-        //endifcount=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,endifcount);
+        // endifcount=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,endifcount);
       } else if (itok.number == d_ifdef || itok.number == d_ifndef ||
                  itok.number == d_if) {
         gotoendif++;
         endifcount++;
         //			printf("%s (%u) if shadow:
-        //endifcount=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,endifcount);
+        // endifcount=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,endifcount);
         CheckNumIF();
         useelse[endifcount] = 1;
       } else if (itok.number == d_else) {
@@ -2616,7 +2616,7 @@ void searchvar(char *name, int err) {
 }
 
 void doprestuff() //инициализация начального кода, like resize mem, jump to
-                  //main...
+                  // main...
 {
   ITOK oitok;
   int otok, otok2;

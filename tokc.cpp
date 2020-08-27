@@ -459,7 +459,7 @@ void opb(unsigned long num, unsigned int ofs, unsigned int size) {
     *(long *)&outputdata[s + 4] &= GetBitMask(0, ofs + size - 32);
     *(long *)&outputdata[s + 4] |= (num >> (64 - ofs - size));
     //		printf("continue ofs=%Xh mask=%X
-    //value=%X\n",s+4,GetBitMask(0,ofs+size-32),num>>(64-ofs-size));
+    // value=%X\n",s+4,GetBitMask(0,ofs+size-32),num>>(64-ofs-size));
   }
 }
 
@@ -1030,7 +1030,7 @@ void CorrectStack(unsigned int num) {
   if (addstack) {
     sizestack += num;
     //		printf("%s(%d)> Add %d bytes
-    //stacks.\n",startfileinfo==NULL?"":(startfileinfo+currentfileinfo)->filename,linenumber,num);
+    // stacks.\n",startfileinfo==NULL?"":(startfileinfo+currentfileinfo)->filename,linenumber,num);
   } else {
     if (short_ok(num)) {
       outword(0xC483);
@@ -3029,8 +3029,8 @@ int constructcompare(int invertflag, unsigned int startloc)
       default:
         if (itok.flag & f_retproc) {
           comparetok = (itok.flag & f_retproc) / 256 + tk_overflowflag - 1;
-          //							printf("tok=%d flag=%08X comparetok=%u
-          //%s\n",tok,itok.flag,comparetok,itok.name);
+          //							printf("tok=%d flag=%08X
+          //comparetok=%u %s\n",tok,itok.flag,comparetok,itok.name);
           //							notflag=(notflag==FALSE?TRUE:FALSE);
           switch (tok) {
           case tk_undefproc:
@@ -4363,7 +4363,7 @@ ICOMP *bigcompare(int type, unsigned int *numcomp, REGISTERSTAT **bakreg,
     merge_if2:
 
       //			printf("%s (%u) %s %s
-      //tok=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,itok.name,string,tok);
+      // tok=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,itok.name,string,tok);
 
       if (*numcomp == 1 &&
           (!(tok == tk_goto && (tok2 == tk_reg || tok2 == tk_reg32)))) {
@@ -5694,7 +5694,7 @@ loopsw:
             //							AddUndefOff(1,itok.name);
           }
           //						else
-          //if((itok.flag&f_reloc)!=0)AddReloc();
+          // if((itok.flag&f_reloc)!=0)AddReloc();
           i = doconstdwordmath();
         } else {
           numexpected();
@@ -6420,7 +6420,8 @@ void setproc(int defflag) {
   setuprm();
   //	printf("rm=%d %s\n",itok.rm,itok.name);
   if (defflag) { //ранее уже были вызовы
-                 //		updatecall(updatetree(),(unsigned int)itok.number,0);
+                 //		updatecall(updatetree(),(unsigned
+                 //int)itok.number,0);
     regs = itok.post;
     if (updatecall(updatetree(), (unsigned int)itok.number, 0) == -1 &&
         strcmp(itok.name, mesmain) == 0 /*&&jumptomain!=CALL_NONE*/) {
@@ -6499,7 +6500,7 @@ void setproc(int defflag) {
       declareparams();
       if (otok.type == tp_declare && defflag && strcmp(bstring, param) != 0) {
         //					printf("old=%s
-        //new=%s\n",bstring,param);
+        // new=%s\n",bstring,param);
         redeclare(otok.name);
       }
       //			if(bstring[0]!=0&&bstring[0]!='A'&&strcmp(bstring,param)!=0)redeclare();
@@ -7113,10 +7114,10 @@ void declareparams() /* declare procedure parameters */
           // idrec *newrec,*trec;
           lsize = Align(tteg->size, (am32 + 1) * 2);
           i += sprintf(&param[i], "T%u", lsize);
-          //					newrec=(struct idrec *)MALLOC(sizeof(struct
-          //idrec)); 					if(lstructlist==NULL)lstructlist=newrec; 					else{
-          //						trec=lstructlist;
-          //						while(trec->left!=NULL)trec=trec->left;
+          //					newrec=(struct idrec
+          //*)MALLOC(sizeof(struct idrec));
+          // if(lstructlist==NULL)lstructlist=newrec;
+          // else{ 						trec=lstructlist; 						while(trec->left!=NULL)trec=trec->left;
           //						trec->left=newrec;
           //					}
           //					newrec->right=newrec->left=NULL;
@@ -7626,7 +7627,7 @@ mode = 1 if local vars after {
               itok.number += addESP;
           }
           //										printf("numinit=%d
-          //firstinit=%d\n%s\n",numinit,firstinit,BackTextBlock);
+          // firstinit=%d\n%s\n",numinit,firstinit,BackTextBlock);
           if (SizeBackBuf != 0) {
             CharToBackBuf('}');
             CharToBackBuf(0);
@@ -7717,7 +7718,7 @@ mode = 1 if local vars after {
               lrec->rec.file = currentfileinfo;
               lrec->rec.count = 0;
               //							lptr->rec.type=(unsigned
-              //short)type;
+              // short)type;
               lrec->rec.npointr = (unsigned short)numpointr;
               lrec->rec.sbuf = dynamic_var();
               lrec->rec.recsib = type;
@@ -8184,7 +8185,7 @@ int swapparam() {
   //	if(crec)printf("start0 swapparams num=%08X\n",crec->recnumber);
   bufpar = (unsigned char *)MALLOC(i - inptr2 + 2);
   //	printf("crec=%08X size=%d bufpar=%08X
-  //size=%d\n",crec,sizeof(idrec),bufpar,i-inptr2+2);
+  // size=%d\n",crec,sizeof(idrec),bufpar,i-inptr2+2);
   inptr2 = i;
   ochar = input[inptr2];
   inptr2++;
@@ -8687,7 +8688,7 @@ int doparams() /* do stack procedure parameter pushing */
               break;
             default:
               //								preerror("for
-              //parametr function required structure");
+              // parametr function required structure");
               do_e_axmath(0, r32, &ofsstr);
               ClearReg(AX);
               if (am32) {
@@ -8752,7 +8753,7 @@ int doparams() /* do stack procedure parameter pushing */
             case tk_longvar:
             case tk_dwordvar:
               //								if(am32==FALSE)goto
-              //deflt;
+              // deflt;
               i = 2;
             case tk_intvar:
             case tk_wordvar:
@@ -8856,7 +8857,7 @@ int doparams() /* do stack procedure parameter pushing */
               op(0xFF); // PUSH [dword]
               op(0x30 + itok.rm);
               //								printf("push
-              //rm=%08X sib=%08X post=%u num=%08X rec=%08X flag=%08X
+              // rm=%08X sib=%08X post=%u num=%08X rec=%08X flag=%08X
               //%s\n",itok.rm,itok.sib,itok.post,itok.number,itok.rec,itok.flag,itok.name);
               outaddress(&itok);
               break;
@@ -8906,7 +8907,7 @@ int doparams() /* do stack procedure parameter pushing */
                 if (vartype == tk_long)
                   i = 1;
                 //									printf("tok=%d
-                //rm=%08X %s\n",tok,itok.rm,itok.name);
+                // rm=%08X %s\n",tok,itok.rm,itok.name);
                 if (tok == tk_rmnumber && am32 && bufrm == NULL &&
                     strinf.bufstr == NULL && ((itok.rm & 7) != 4) &&
                     ((itok.rm & 7) != 5) &&
@@ -9777,7 +9778,7 @@ void outseg(ITOK *outtok, unsigned int locadd) {
         (postbuf + posts)->num = (int)outtok->rec;
     }
     //		else if((outtok->flag&f_dataseg))(postbuf+posts)->type=(unsigned
-    //short)(am32==0?DATABLOCK_VAR:DATABLOCK_VAR32);
+    // short)(am32==0?DATABLOCK_VAR:DATABLOCK_VAR32);
     else
       (postbuf + posts)->type =
           (unsigned short)(am32 == 0 ? POST_VAR : POST_VAR32);
@@ -11040,7 +11041,7 @@ int testInitVar(int checkaldef) {
                (itok.rm == (am32 == 0 ? tk_word : tk_dword))))
             break;
           //					printf("rm=%d
-          //rmnew=%d\n",itok.rm,rettype);
+          // rmnew=%d\n",itok.rm,rettype);
           if (checkaldef)
             redeclare(itok.name);
         }
@@ -11406,7 +11407,7 @@ void RestoreStack() {
         outdword(sizestack);
     }
     //		printf("%s(%d)> Restore %d bytes
-    //stacks.\n",startfileinfo==NULL?"":(startfileinfo+currentfileinfo)->filename,linenumber,sizestack);
+    // stacks.\n",startfileinfo==NULL?"":(startfileinfo+currentfileinfo)->filename,linenumber,sizestack);
     addESP -= sizestack;
     sizestack = 0;
   }

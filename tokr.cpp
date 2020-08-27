@@ -5579,11 +5579,11 @@ int iTest(int mode) {
   expecting2(tk_camma);
   i = r16;
   //	printf("tok=%d itok.number=%u bufrm=%s htok=%d hstok.number=%u
-  //nbuf=%s\n", 	 tok,itok.number,bufrm,htok,hstok.number,hbuf);
+  // nbuf=%s\n", 	 tok,itok.number,bufrm,htok,hstok.number,hbuf);
   if (htok == tk_number || htok == tk_postnumber)
     Swap2tok(&tok, &itok, &bufrm, &strinf, &htok, &hstok, &hbuf, &hstr);
   //	printf("tok=%d itok.number=%u bufrm=%s htok=%d hstok.number=%u
-  //nbuf=%s\n", 	 tok,itok.number,bufrm,htok,hstok.number,hbuf);
+  // nbuf=%s\n", 	 tok,itok.number,bufrm,htok,hstok.number,hbuf);
   switch (htok) {
   case tk_reg32:
     i = r32;

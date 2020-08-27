@@ -275,7 +275,7 @@ int leamul32(unsigned long num, int reg, int razr) {
     return TRUE;
   }
   //			if(chip>3&&chip<7)return FALSE;	//избежать AGI для
-  //486,p5,p5mmx
+  // 486,p5,p5mmx
   switch (num) {
   case 2:
     vop = reg;
@@ -446,7 +446,7 @@ int speedmul(unsigned long num,
 void CheckRegForLea(int reg, int *idx, int *base, int *zoom, unsigned long *val,
                     unsigned int *rflag, ITOK *posttok) {
   //	printf("in:reg=%02X base=%02X idx=%02X
-  //zoom=%02X\n",reg,*base,*idx,*zoom);
+  // zoom=%02X\n",reg,*base,*idx,*zoom);
   for (;;) {
     //		printf("tok=%d flag=%08X %s\n",tok2,itok2.flag,itok2.name);
     //		printf("tok=%d tok2=%d %s\n",tok,tok2,itok2.name);
@@ -564,7 +564,7 @@ void CheckRegForLea(int reg, int *idx, int *base, int *zoom, unsigned long *val,
     *idx = -1;
   }
   //	printf("out:reg=%02X base=%02X idx=%02X
-  //zoom=%02X\n",reg,*base,*idx,*zoom);
+  // zoom=%02X\n",reg,*base,*idx,*zoom);
 }
 
 int OutLea(int reg, int idx, int base, int zoom, unsigned long val,
@@ -835,7 +835,7 @@ int RegEqualToLea(int reg) {
   if (val == 0 && rflag == 0 && posttok.post == 0)
     next |= 8;
   //	printf("base=%d idx=%d zoom=%d val=%d
-  //next=%d\n",base,idx,zoom,val,next);
+  // next=%d\n",base,idx,zoom,val,next);
   if (val == 0 && rflag == 0 && posttok.post == 0)
     next |= 8;
   switch (next) {
@@ -1234,8 +1234,8 @@ int Reg16ToLea(int reg) //оптимизация сложения 16-битны�
   switch (next) {
   case 0: // base+idx+num
   case 1: // base+num
-    //		case 2:	//idx+num
-    //		case 3:	//num
+          //		case 2:	//idx+num
+          //		case 3:	//num
   case 4: // base+idx
     //		case 6:	//idx
     //		case 7:	//
@@ -1308,8 +1308,8 @@ int Reg16ToLea2(int reg) //оптимизация сложения 16-битны
       if (val < 3 && rflag == 0 && posttok.post == 0)
         goto retfalse;
     case 0: // base+idx+num
-      //		case 2:	//idx+num
-      //		case 3:	//num
+            //		case 2:	//idx+num
+            //		case 3:	//num
     case 4: // base+idx
       //		case 6:	//idx
       //		case 7:	//
@@ -2200,7 +2200,7 @@ int do_d_wordvar(
       goto labl1;
     } else {
 //		 		if(hnumber!=EAX&&(tok==tk_reg||tok==tk_reg32)&&itok.number==EAX)goto
-//labl1;
+// labl1;
 #ifdef OPTVARCONST
       CheckConstVar3(&tok, &itok, razr);
 #endif
@@ -2466,7 +2466,7 @@ int do_d_wordvar(
       } else {
         CheckAllMassiv(wbuf, razr, &wstr, &wtok, reg1, reg2);
         //	printf("flag=%08X rm=%d num=%d post=%d
-        //sib=%d\n",wtok.flag,wtok.rm,wtok.number,wtok.post,wtok.sib);
+        // sib=%d\n",wtok.flag,wtok.rm,wtok.number,wtok.post,wtok.sib);
         op66(razr);
         outseg(&wtok, 2);
         op(0x89);
@@ -3948,7 +3948,8 @@ loopswitch:
     if (tok == tk_undefofs) {
       AddUndefOff(2, itok.name);
       //				AddUndefOff(0,itok.name);
-      ////22.11.04 20:52 				itok.flag=0;	//new 07.07.04 23:57
+      ////22.11.04 20:52 				itok.flag=0;	//new
+      ///07.07.04 23:57
     } else
       (itok.flag & f_extern) == 0 ? setwordpost(&itok)
                                   : setwordext(&itok.number);
@@ -9430,7 +9431,8 @@ void setwordpost(ITOK *stok) /* for post word num setting */
   if (stok->post == USED_DIN_VAR) {
     (postbuf + posts)->type = (unsigned short)(am32 == 0 ? DIN_VAR : DIN_VAR32);
     //			printf("Add tok=%d
-    //%s\n",stok->rec->rectok,stok->rec->recid); 		printf("rec=%08X\n",stok->rec);
+    //%s\n",stok->rec->rectok,stok->rec->recid);
+    //printf("rec=%08X\n",stok->rec);
     if (stok->rec->rectok == tk_structvar && stok->rec->recsib == tp_gvar) {
       (postbuf + posts)->num = (int)stok->rec; // 02.09.05 17:11 ->right;
     } else
@@ -10185,7 +10187,7 @@ int getintoreg(int reg, int razr, int sign, char **ofsstr) {
           COM_MOD *temp = cur_mod;
           cur_mod = cur_mod->next;
           //						printf("bmod=%08X
-          //cur_mod=%08X\n",bmod,cur_mod);
+          // cur_mod=%08X\n",bmod,cur_mod);
           if (temp->paramdef)
             free(temp->paramdef);
           free(temp);
@@ -10207,8 +10209,8 @@ int getintoreg(int reg, int razr, int sign, char **ofsstr) {
     cha2 = ocha;
     endoffile = 0;
     //			printf("input=%08X inptr=%08X
-    //%s\n",input,inptr2,input+inptr2); 			if(bufrm)free(bufrm);
-    //			if(strinf.bufstr)free(strinf.bufstr);
+    //%s\n",input,inptr2,input+inptr2);
+    //if(bufrm)free(bufrm); 			if(strinf.bufstr)free(strinf.bufstr);
     bufrm = obuf;
     strinf = ostr;
     break;
@@ -10994,7 +10996,7 @@ int doqwordvar(int terminater) // 64 bit memory variable
           else if (tok == tk_undefofs)
             AddUndefOff(0, itok.name);
           //						else
-          //if((itok.flag&f_reloc)!=0)AddReloc();
+          // if((itok.flag&f_reloc)!=0)AddReloc();
           outdword(itok.number);
         }
         wtok.number += 4;
