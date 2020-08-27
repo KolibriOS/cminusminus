@@ -26,10 +26,10 @@ typedef struct _PROCINFO_ {
 
 typedef struct _idrec_ {
   union {
-    struct idrec *left;
-    struct localrec *next;
+    struct _idrec_ *left;
+    struct _localrec_ *next;
   };
-  struct idrec *right;  //предыдущ и следующ запись
+  struct _idrec_ *right;  //предыдущ и следующ запись
   char recid[IDLENGTH]; //имя
   unsigned int flag;
   char *newid; //блок с даными, для структур адрес тега,для процедур параметры
@@ -128,7 +128,7 @@ typedef struct _ITOK_ {
   unsigned int flag;
 } ITOK;
 
-struct elementteg {
+typedef struct _elementteg_ {
   union {
     void *nteg; //адрес тега вложенной структуры
     idrec *rec;
@@ -140,14 +140,14 @@ struct elementteg {
   };
   unsigned int ofs; //смещение от начала структуры
   char name[IDLENGTH];
-};
+} elementteg;
 
 typedef struct _structteg_ {
-  struct structteg *left;  //следующий тег
-  struct structteg *right; //следующий тег
+  struct _structteg_ *left;  //следующий тег
+  struct _structteg_ *right; //следующий тег
   unsigned int size;       //размер тега
   unsigned int numoper;    //число операндов структуры
-  struct elementteg *baza; //адрес с описанием элементов тега
+  elementteg *baza; //адрес с описанием элементов тега
   unsigned int flag;
   char name[IDLENGTH];
 } structteg;
@@ -182,7 +182,7 @@ typedef struct _SINFO_ {
 
 //структура списка api-процедур
 typedef struct _APIPROC_ {
-  struct idrec *recapi;
+  idrec *recapi;
 } APIPROC;
 
 //

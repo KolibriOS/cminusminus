@@ -166,7 +166,7 @@ extern unsigned int externnum;
 extern unsigned char FastCallApi; //разрешить быстрый вызов API процедур
 extern unsigned char FixUp; //Делать ли таблицу перемещений
 extern void *liststring; //цепочка информационных блоков о строках
-extern struct FILEINFO *startfileinfo;
+extern FILEINFO *startfileinfo;
 extern unsigned int totalmodule;
 extern int retproc;
 extern unsigned char splitdata; //отделить данные от кода
@@ -206,7 +206,7 @@ extern char id2[ID2S][9];
 extern char regs[2][8][4];
 extern char begs[8][3];
 extern char segs[8][3];
-extern struct idrec *treestart;
+extern idrec *treestart;
 extern unsigned int linenum2;
 extern unsigned int inptr2;
 extern unsigned char cha2;
@@ -215,10 +215,10 @@ extern char *bufrm;
 extern UNDEFOFF *undefoffstart;
 extern DLLLIST *listdll;
 extern char skipfind;
-extern struct structteg *tegtree; //глобальный срисок тегов
-extern struct structteg *ltegtree; //локальный срисок тегов
+extern structteg *tegtree; //глобальный срисок тегов
+extern structteg *ltegtree; //локальный срисок тегов
 // extern struct idrec *lstructlist; //список локальных структур
-extern struct idrec *definestart;
+extern idrec *definestart;
 extern SINFO strinf;
 extern char *startline, *endinput;
 extern ITOK structadr;
@@ -355,7 +355,7 @@ void AddUndefOff(int segm, char *ostring);
 void InitStruct(); //инициализировать структуру
 unsigned long
 LocalStruct(int flag, int *localline); //инициализировать локальную структуру
-struct structteg *FindTeg(int Global, char *name = itok.name); //найти тег
+structteg *FindTeg(int Global, char *name = itok.name); //найти тег
 void dostruct();
 int FastSearch(unsigned char *list, short *ofs, int type, char *str);
 void FindDirectiv();
@@ -379,7 +379,7 @@ void DateToStr(char *buf);
 int CalcRm16(int base, int idx);
 int CheckDef();
 void SetNewStr(char *name);
-struct structteg *CreatTeg(int Global, int useunion = FALSE,
+structteg *CreatTeg(int Global, int useunion = FALSE,
                            int noname = FALSE);
 void InitStruct2(unsigned int flag, structteg *tteg);
 unsigned long LocalStruct2(int flag, int *localline, int binptr, char bcha,
