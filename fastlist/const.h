@@ -184,7 +184,7 @@ enum{
 #define	DR6		6
 #define	DR7		7
 
-//переменная, указатель, дальний указатель,сегментный указатель.
+//╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╨░╤П, ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М, ╨┤╨░╨╗╤М╨╜╨╕╨╣ ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М,╤Б╨╡╨│╨╝╨╡╨╜╤В╨╜╤Л╨╣ ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М.
 #define	variable	0
 #define	pointer		1
 //#define	farpointer	2
@@ -287,38 +287,38 @@ STACK_SIZE32,
 #define file_meos 6
 #define file_bin  7
 
-//типы моделей памяти
+//╤В╨╕╨┐╤Л ╨╝╨╛╨┤╨╡╨╗╨╡╨╣ ╨┐╨░╨╝╤П╤В╨╕
 #define	TINY		0
 #define	SMALL		1
 
-//флаги процедур в структурах
+//╤Д╨╗╨░╨│╨╕ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А ╨▓ ╤Б╤В╤А╤Г╨║╤В╤Г╤А╨░╤Е
 #define fs_constructor 0x4000
 #define fs_destructor 0x8000
 //#define fs_useconstr 0x10000
 
-//флаги
-#define	f_reloc		1	//адрес может измениться
-#define	f_typeproc	6	//тип вызова процедуры
-#define	f_far		8	//дальняя процедура
-#define	f_extern	0x10	//внешняя процедура, переменная
-#define	f_interrupt	0x20	//прерывание
-#define	f_export	0x40	//экспортируемая процедура
-#define f_inline  0x80	//inline процедура
-#define f_retproc 0xf00	//возврат флага из процедуры
+//╤Д╨╗╨░╨│╨╕
+#define	f_reloc		1	//╨░╨┤╤А╨╡╤Б ╨╝╨╛╨╢╨╡╤В ╨╕╨╖╨╝╨╡╨╜╨╕╤В╤М╤Б╤П
+#define	f_typeproc	6	//╤В╨╕╨┐ ╨▓╤Л╨╖╨╛╨▓╨░ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╤Л
+#define	f_far		8	//╨┤╨░╨╗╤М╨╜╤П╤П ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╨░
+#define	f_extern	0x10	//╨▓╨╜╨╡╤И╨╜╤П╤П ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╨░, ╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╨░╤П
+#define	f_interrupt	0x20	//╨┐╤А╨╡╤А╤Л╨▓╨░╨╜╨╕╨╡
+#define	f_export	0x40	//╤Н╨║╤Б╨┐╨╛╤А╤В╨╕╤А╤Г╨╡╨╝╨░╤П ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╨░
+#define f_inline  0x80	//inline ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╨░
+#define f_retproc 0xf00	//╨▓╨╛╨╖╨▓╤А╨░╤В ╤Д╨╗╨░╨│╨░ ╨╕╨╖ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╤Л
 #define f_static  0x1000	//
-#define f_classproc 0x2000	//процедура из класса
+#define f_classproc 0x2000	//╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╨░ ╨╕╨╖ ╨║╨╗╨░╤Б╤Б╨░
 
-//типы процедур
+//╤В╨╕╨┐╤Л ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
 #define	tp_pascal	0
 #define	tp_cdecl	2
 #define	tp_stdcall	4
 #define	tp_fastcall	6
 
-//типы вызова API процедур
+//╤В╨╕╨┐╤Л ╨▓╤Л╨╖╨╛╨▓╨░ API ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
 #define	API_FAST	1
 #define	API_JMP		2
 
-//статус union
+//╤Б╤В╨░╤В╤Г╤Б union
 #define	u_start		1
 #define	u_global	2
 #define	u_globali	3
@@ -327,7 +327,7 @@ STACK_SIZE32,
 #define USEFIRST4REG 1
 #define USEONLY_AX   2
 
-//нумерация списка директив
+//╨╜╤Г╨╝╨╡╤А╨░╤Ж╨╕╤П ╤Б╨┐╨╕╤Б╨║╨░ ╨┤╨╕╤А╨╡╨║╤В╨╕╨▓
 enum{
 	d_ctrl,  d_jump, d_command,d_argc, d_resize,
 	d_resmes,d_stack,d_start,	 d_atr,  d_name,
