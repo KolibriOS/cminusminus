@@ -11,7 +11,7 @@ ITOK itok,itok2,ptok;
 char *pbuf;
 SINFO pstr;
 
-LISTFLOAT *floatnum=NULL;	//á¯¨á®ª float ª®­áâ ­â
+LISTFLOAT *floatnum=NULL;	//ÑÐ¿Ð¸ÑÐ¾Ðº float ÐºÐ¾Ð½ÑÑ‚Ð°Ð½Ñ‚
 unsigned int numfloatconst=0;
 unsigned int maxnumfloatconst;
 #define STEPFLOATCONST 16
@@ -213,7 +213,7 @@ int vop=0,i=8*reg+4;
 			if(reg==BP)op(0);
 			return TRUE;
 	}
-//			if(chip>3&&chip<7)return FALSE;	//¨§¡¥¦ âì AGI ¤«ï 486,p5,p5mmx
+//			if(chip>3&&chip<7)return FALSE;	//Ð¸Ð·Ð±ÐµÐ¶Ð°Ñ‚ÑŒ AGI Ð´Ð»Ñ 486,p5,p5mmx
 	switch(num){
 		case 2: vop=reg; break;
 		case 4: vop=0x85; break;
@@ -261,8 +261,8 @@ int i;
 	return FALSE;
 }
 
-int speedmul(unsigned long num, int razr)	//¯®¨áª ¢®§¬®¦­®áâ¨ § ¬¥­ë ã¬­®¦¥­¨ï ­ 
-//á¤¢¨£¨ ¨ á«®¦¥­¨ï
+int speedmul(unsigned long num, int razr)	//Ð¿Ð¾Ð¸ÑÐº Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ÑÑ‚Ð¸ Ð·Ð°Ð¼ÐµÐ½Ñ‹ ÑƒÐ¼Ð½Ð¾Ð¶ÐµÐ½Ð¸Ñ Ð½Ð°
+//ÑÐ´Ð²Ð¸Ð³Ð¸ Ð¸ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ
 {
 int first,second;
 	for(unsigned int j=1;j<NUMNUM;j++){
@@ -534,7 +534,7 @@ int q;
 	return TRUE;
 }
 
-int Reg32ToLea2(int reg)	//®¯â¨¬¨§ æ¨ï á«®¦¥­¨ï 32-¡¨â­ëå à¥£¨áâà®¢ ¢ LEA
+int Reg32ToLea2(int reg)	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ 32-Ð±Ð¸Ñ‚Ð½Ñ‹Ñ… Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¾Ð² Ð² LEA
 {
 int idx,base,zoom;
 unsigned long val;
@@ -734,7 +734,7 @@ retfalse:
 	return TRUE;
 }
 
-int Reg32ToLea(int reg)	//®¯â¨¬¨§ æ¨ï á«®¦¥­¨ï 32-¡¨â­ëå à¥£¨áâà®¢ ¢ LEA
+int Reg32ToLea(int reg)	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ 32-Ð±Ð¸Ñ‚Ð½Ñ‹Ñ… Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¾Ð² Ð² LEA
 {
 int idx,base,zoom;
 unsigned long val;
@@ -972,7 +972,7 @@ int rm;
 	}
 }
 
-int Reg16ToLea(int reg)	//®¯â¨¬¨§ æ¨ï á«®¦¥­¨ï 16-¡¨â­ëå à¥£¨áâà®¢ ¢ LEA
+int Reg16ToLea(int reg)	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ 16-Ð±Ð¸Ñ‚Ð½Ñ‹Ñ… Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¾Ð² Ð² LEA
 {
 int idx,base;
 unsigned long val;
@@ -1057,7 +1057,7 @@ retfalse:
 	return TRUE;
 }
 
-int Reg16ToLea2(int reg)	//®¯â¨¬¨§ æ¨ï á«®¦¥­¨ï 16-¡¨â­ëå à¥£¨áâà®¢ ¢ LEA
+int Reg16ToLea2(int reg)	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ 16-Ð±Ð¸Ñ‚Ð½Ñ‹Ñ… Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¾Ð² Ð² LEA
 {
 int idx,base;
 unsigned long val;
@@ -1124,14 +1124,14 @@ retfalse:
 	return FALSE;
 }
 
-int OptimNum()	//®¯â¨¬¨§ æ¨ï æ¨äà®¢ëå ®¯¥à ­¤®¢
+int OptimNum()	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ Ñ†Ð¸Ñ„Ñ€Ð¾Ð²Ñ‹Ñ… Ð¾Ð¿ÐµÑ€Ð°Ð½Ð´Ð¾Ð²
 {
 int otok,oinptr,deistv,negflag,starttok;
 char ocha2;
 long long val;
 unsigned int flag,oflag;
 int plusreloc=0;
-	if(optnumber==FALSE||cur_mod)return FALSE;	//®¯â¨¬¨§ æ¨ï ®âª«îç¥­ 
+	if(optnumber==FALSE||cur_mod)return FALSE;	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ Ð¾Ñ‚ÐºÐ»ÑŽÑ‡ÐµÐ½Ð°
 	if(tok==tk_minus&&(itok2.flag&f_reloc))return FALSE;
 	deistv=0;
 	negflag=0;
@@ -1146,15 +1146,15 @@ int plusreloc=0;
 		case tk_minus:
 			val=-val;
 		case tk_plus:
-			for(;;){	//®¯â¨¬¨§ æ¨ï á«®¦¥­¨©-¢ëç¨â ­¨©
+			for(;;){	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ð¹-Ð²Ñ‹Ñ‡Ð¸Ñ‚Ð°Ð½Ð¸Ð¹
 				nexttok();
 				if((tok!=tk_plus&&tok!=tk_minus)||tok2!=tk_number||
-						(tok==tk_minus&&(itok2.flag&f_reloc)&&plusreloc==0)){//­¥ æëäà  ¨«¨ ¤àã£®¥ ¤¥©áâ¢¨¥
+						(tok==tk_minus&&(itok2.flag&f_reloc)&&plusreloc==0)){//Ð½Ðµ Ñ†Ñ‹Ñ„Ñ€Ð° Ð¸Ð»Ð¸ Ð´Ñ€ÑƒÐ³Ð¾Ðµ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ
 					tok=otok;
 					cha2=ocha2;
 					inptr2=oinptr;
 					endoffile=0;
-					if(deistv==0)break;	//­¨ç¥£® ­¥ ¡ë«® ®¯â¨¬¨§¨à®¢ ­®
+					if(deistv==0)break;	//Ð½Ð¸Ñ‡ÐµÐ³Ð¾ Ð½Ðµ Ð±Ñ‹Ð»Ð¾ Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¾
 					warningoptnum();
 					tok=tk_plus;
 					itok.lnumber=val;
@@ -1408,7 +1408,7 @@ num_imul:
 				}
 			}
 			else{
-				if((flag&f_reloc)==0&&short_ok(num,razr/2-1))i=2;	//ª®à®âª ï ä®à¬ 
+				if((flag&f_reloc)==0&&short_ok(num,razr/2-1))i=2;	//ÐºÐ¾Ñ€Ð¾Ñ‚ÐºÐ°Ñ Ñ„Ð¾Ñ€Ð¼Ð°
 			 	op66(razr);
 				op(0x69+i);	//imul
 				op(0xc0+reg*9);
@@ -1450,7 +1450,7 @@ long long hold;
 
 int OnlyNumber(int sign)
 /*-----------------11.09.00 12:44-------------------
- ¯à®¢¥à¨âì çâ® áâà®ª  á®áâ®¨â â®«ìª® ¨§ æ¨äà.
+ Ð¿Ñ€Ð¾Ð²ÐµÑ€Ð¸Ñ‚ÑŒ Ñ‡Ñ‚Ð¾ ÑÑ‚Ñ€Ð¾ÐºÐ° ÑÐ¾ÑÑ‚Ð¾Ð¸Ñ‚ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð¸Ð· Ñ†Ð¸Ñ„Ñ€.
 --------------------------------------------------*/
 {
 ITOK oitok=itok;
@@ -1461,9 +1461,9 @@ int otype2=itok2.type;
 	itok.lnumber=CalcNumber(sign);
 //	printf("tok=%d num=%d type=%d\n",tok,itok.number,itok.type);
 	if(itok.type==tp_stopper){
-		return TRUE;	//â®«ìª® æ¨äàë
+		return TRUE;	//Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ñ†Ð¸Ñ„Ñ€Ñ‹
 	}
-	cha2=ocha;	//¢®áâ ­®¢¨âì ¨áå®¤­®¥ á®áâ®ï­¨¥
+	cha2=ocha;	//Ð²Ð¾ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ðµ ÑÐ¾ÑÑ‚Ð¾ÑÐ½Ð¸Ðµ
 	inptr2=oinptr;
 	tok2=otok2;
 	tok=tk_number;
@@ -1904,8 +1904,8 @@ unsigned int oaddESP=addESP;
 			if(tok==tk_pointer)cpointr(am32==TRUE?EAX:BX,numpointr);
 			CheckMinusNum();
 //			printf("tok=%d tok2=%d\n",tok,tok2);
-			if(itok2.type==tp_opperand){	//á«®¦­®¥ ¢ëà ¦¥­¨¥
-				if(tok==tk_number){	//¯à®¢¥àª  ¨ áã¬¬¨à®¢ ­¨¥ ç¨á¥«
+			if(itok2.type==tp_opperand){	//ÑÐ»Ð¾Ð¶Ð½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ
+				if(tok==tk_number){	//Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¸ ÑÑƒÐ¼Ð¼Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ‡Ð¸ÑÐµÐ»
 					if(OnlyNumber(rettype==tk_float?2:sign)){
 						next=0;
 						itok.flag=(unsigned char)postnumflag;
@@ -2196,7 +2196,7 @@ getfromax:
 				expected('(');
 				FindStopTok();
 			}
-		case tk_openbracket:	//¢ë§®¢ ¯à®æ¥¤ãàë ¯®  ¤à¥áã ¢ à¥£¨áâà¥
+		case tk_openbracket:	//Ð²Ñ‹Ð·Ð¾Ð² Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ñ‹ Ð¿Ð¾ Ð°Ð´Ñ€ÐµÑÑƒ Ð² Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ðµ
 			param[0]=0;
 			int i;
 			i=0;
@@ -2698,7 +2698,7 @@ unsigned int oaddESP=addESP;
 			if(tok==tk_pointer)cpointr(am32==TRUE?EAX:BX,numpointr);
 			CheckMinusNum();
 			if(itok2.type==tp_opperand){
-				if(rettype!=tk_float&&tok==tk_number){	//¯à®¢¥àª  ¨ áã¬¬¨à®¢ ­¨¥ ç¨á¥«
+				if(rettype!=tk_float&&tok==tk_number){	//Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¸ ÑÑƒÐ¼Ð¼Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ‡Ð¸ÑÐµÐ»
 					if(OnlyNumber(sign)){
 						next=0;
 						goto numbertovar;
@@ -3298,7 +3298,7 @@ movxxr:
 			break;
 		case tk_reg:
 			if(razr==r32){
-				if(tok2==tk_openbracket){	//¢ë§®¢ ¯à®æ¥¤ãàë ¯®  ¤à¥áã ¢ à¥£¨áâà¥
+				if(tok2==tk_openbracket){	//Ð²Ñ‹Ð·Ð¾Ð² Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ñ‹ Ð¿Ð¾ Ð°Ð´Ñ€ÐµÑÑƒ Ð² Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ðµ
 					reg1=gstok->number;
 					nexttok();
 					param[0]=0;
@@ -3342,7 +3342,7 @@ movxr:
 				break;
 			}
 		case tk_reg32:
-			if(tok2==tk_openbracket){	//¢ë§®¢ ¯à®æ¥¤ãàë ¯®  ¤à¥áã ¢ à¥£¨áâà¥
+			if(tok2==tk_openbracket){	//Ð²Ñ‹Ð·Ð¾Ð² Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ñ‹ Ð¿Ð¾ Ð°Ð´Ñ€ÐµÑÑƒ Ð² Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ðµ
 				reg1=gstok->number;
 				nexttok();
 				param[0]=0;
@@ -3426,11 +3426,11 @@ int loop=0,otok;
 	if(uselea){
 		if(razr==r32){
 			if(Reg32ToLea(EAX)){
-				goto contloop;	//®¯â¨¬¨§ æ¨ï á«®¦¥­¨ï 32-¡¨â­ëå à¥£¨áâà®¢ ¢ LEA
+				goto contloop;	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ 32-Ð±Ð¸Ñ‚Ð½Ñ‹Ñ… Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¾Ð² Ð² LEA
 			}
 		}
 		else if(Reg16ToLea(AX)){
-			goto contloop;	//®¯â¨¬¨§ æ¨ï á«®¦¥­¨ï 32-¡¨â­ëå à¥£¨áâà®¢
+			goto contloop;	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ 32-Ð±Ð¸Ñ‚Ð½Ñ‹Ñ… Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¾Ð²
 		}
 	}
 loopswitch:
@@ -3608,7 +3608,7 @@ unsigned char oaddstack;
 		if(tok2==tk_number)calcnumber=TRUE;
 #endif
 		if(uselea&&razr==r32){
-			if(Reg32ToLea2(EAX))continue;	//®¯â¨¬¨§ æ¨ï á«®¦¥­¨ï 32-¡¨â­ëå à¥£¨áâà®¢ ¢ LEA
+			if(Reg32ToLea2(EAX))continue;	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ 32-Ð±Ð¸Ñ‚Ð½Ñ‹Ñ… Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¾Ð² Ð² LEA
 			if(itok.type==tp_stopper||tok==tk_eof||itok.type==tp_compare)break;
 		}
 
@@ -3761,7 +3761,7 @@ defxor:
 				break;
 			case tk_multminus: negflag=1;
 			case tk_mult:
-				expand=expandvar();	//¢®§¬®¦­®áâì à áè¨à¥­¨ï à §àï¤­®áâ¨
+				expand=expandvar();	//Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ÑÑ‚ÑŒ Ñ€Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸Ñ Ñ€Ð°Ð·Ñ€ÑÐ´Ð½Ð¾ÑÑ‚Ð¸
 			  if(optnum==FALSE)getoperand();
 				else{
 					tok=tk_number;
@@ -4449,7 +4449,7 @@ defbeg:
 								else{
 									if(expand==FALSE){
 										if(optimizespeed&&(itok.flag&f_reloc)==0&&sign==0){	//for signed needed new algoritm
-											//§ ¬¥­  ¤¥«¥­¨ï ã¬­®¦¥­¨¥¬
+											//Ð·Ð°Ð¼ÐµÐ½Ð° Ð´ÐµÐ»ÐµÐ½Ð¸Ñ ÑƒÐ¼Ð½Ð¾Ð¶ÐµÐ½Ð¸ÐµÐ¼
 											itok.number=256/(unsigned int)itok.number+1;
 											if(chip>4){
 												xorAHAH();
@@ -4983,7 +4983,7 @@ nn1:
 				expected('(');
 				FindStopTok();
 			}
-		case tk_openbracket:	//¢ë§®¢ ¯à®æ¥¤ãàë ¯®  ¤à¥áã ¢ à¥£¨áâà¥
+		case tk_openbracket:	//Ð²Ñ‹Ð·Ð¾Ð² Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ñ‹ Ð¿Ð¾ Ð°Ð´Ñ€ÐµÑÑƒ Ð² Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ðµ
 			param[0]=0;
 			i=0;
 			switch ( vop ) {
@@ -5209,7 +5209,7 @@ defadd:
 					if(reg==AX){
 						getintoreg_32(ECX,razr,sign,&ofsstr);
 						doregmath_32(ECX,razr,sign,&ofsstr);
-						sign=CX;	//sign ¨á¯ ª ª ¯à®¬ à¥£¨áâà
+						sign=CX;	//sign Ð¸ÑÐ¿ ÐºÐ°Ðº Ð¿Ñ€Ð¾Ð¼ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€
 					}
 					else{
 						do_e_axmath(0,razr,&ofsstr);
@@ -5297,7 +5297,7 @@ shiftcl:
 					if(reg==AX){
 						getintoreg_32(ECX,razr,sign,&ofsstr);
 						doregmath_32(ECX,razr,sign,&ofsstr);
-						sign=CX;	//sign ¨á¯ ª ª ¯à®¬ à¥£¨áâà
+						sign=CX;	//sign Ð¸ÑÐ¿ ÐºÐ°Ðº Ð¿Ñ€Ð¾Ð¼ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€
 					}
 					else{
 						do_e_axmath(0,razr,&ofsstr);
@@ -5683,7 +5683,7 @@ nn1:
 				if(beg==AL){
 					getintobeg(CL,&ofsstr);
 					dobegmath(CL);
-					sign=CL;	//sign ¨á¯ ª ª ¯à®¬ à¥£¨áâà
+					sign=CL;	//sign Ð¸ÑÐ¿ ÐºÐ°Ðº Ð¿Ñ€Ð¾Ð¼ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€
 				}
 				else{
 					doalmath(0,&ofsstr);
@@ -5973,7 +5973,7 @@ int vop,i,optnum,negflag=FALSE;
 #endif
 		if(uselea){
 			if(razr==r32){
-				if(Reg32ToLea2(reg))continue;	//®¯â¨¬¨§ æ¨ï á«®¦¥­¨ï 32-¡¨â­ëå à¥£¨áâà®¢ ¢ LEA
+				if(Reg32ToLea2(reg))continue;	//Ð¾Ð¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ñ 32-Ð±Ð¸Ñ‚Ð½Ñ‹Ñ… Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¾Ð² Ð² LEA
 			}
 			else if(Reg16ToLea2(reg))continue;
 			if(itok.type==tp_stopper||tok==tk_eof)break;
@@ -6742,7 +6742,7 @@ dwordvar:
 			break;
 		case tk_reg:
 			if(razr==r32){
-				if(tok2==tk_openbracket){	//¢ë§®¢ ¯à®æ¥¤ãàë ¯®  ¤à¥áã ¢ à¥£¨áâà¥
+				if(tok2==tk_openbracket){	//Ð²Ñ‹Ð·Ð¾Ð² Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ñ‹ Ð¿Ð¾ Ð°Ð´Ñ€ÐµÑÑƒ Ð² Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ðµ
 					reg1=itok.number;
 					nexttok();
 					param[0]=0;
@@ -6771,7 +6771,7 @@ dwordvar:
 				break;
 			}
 		case tk_reg32:
-			if(tok2==tk_openbracket){	//¢ë§®¢ ¯à®æ¥¤ãàë ¯®  ¤à¥áã ¢ à¥£¨áâà¥
+			if(tok2==tk_openbracket){	//Ð²Ñ‹Ð·Ð¾Ð² Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ñ‹ Ð¿Ð¾ Ð°Ð´Ñ€ÐµÑÑƒ Ð² Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ðµ
 				reg1=itok.number;
 				reg2=tok==tk_reg32?r32:r16;
 				nexttok();
@@ -7104,8 +7104,8 @@ int rm=outtok->rm;
 }
 
 /*-----------------05.01.00 23:37-------------------
- Ž¡à ¡®âª  float
- ®¯¥à æ¨¨ á ¯¥à¥¬¥­­ë¬¨ â¨¯  float
+ ÐžÐ±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° float
+ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¸ Ñ Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ñ‹Ð¼Ð¸ Ñ‚Ð¸Ð¿Ð° float
  --------------------------------------------------*/
 int dofloatvar(int addop,int retrez,int terminater)
 {
@@ -7140,8 +7140,8 @@ char *ofsstr=NULL;
 				goto getfromeax;
 			}
 			CheckMinusNum();
-			if(itok2.type==tp_opperand){	//á®áâ ¢­®¥
-				if(tok==tk_number){	//¯à®¢¥àª  ¨ áã¬¬¨à®¢ ­¨¥ ç¨á¥«
+			if(itok2.type==tp_opperand){	//ÑÐ¾ÑÑ‚Ð°Ð²Ð½Ð¾Ðµ
+				if(tok==tk_number){	//Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¸ ÑÑƒÐ¼Ð¼Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ‡Ð¸ÑÐµÐ»
 					if(OnlyNumber(rettype==tk_float?2:3)){
 						next=0;
 						itok.flag=(unsigned char)postnumflag;
@@ -7452,7 +7452,7 @@ endequals1:
 						}
 						RestoreBP();
 						break;
-					case tk_reg32:	//¤®¡ ¢¨âì ®¡à ¡®âªã ¨­â¥à¯à¨â æ¨¨ float, long
+					case tk_reg32:	//Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÑƒ Ð¸Ð½Ñ‚ÐµÑ€Ð¿Ñ€Ð¸Ñ‚Ð°Ñ†Ð¸Ð¸ float, long
 						CheckInitBP();
 						op66(r32);	//push 0L
 						outword(0x6a);
@@ -7508,7 +7508,7 @@ endequals1:
 			bufrm=NULL;
 			if(am32!=FALSE&&wbuf!=NULL&&wstr.bufstr!=NULL)regdi=FALSE;
 			switch(tok){
-				case tk_reg32:	//¤®¡ ¢¨âì ®¡à ¡®âªã ¨­â¥à¯à¨â æ¨¨ float, long
+				case tk_reg32:	//Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÑƒ Ð¸Ð½Ñ‚ÐµÑ€Ð¿Ñ€Ð¸Ñ‚Ð°Ñ†Ð¸Ð¸ float, long
 					CheckInitBP();
 					op66(r32);   		//push 0L
 					outword(0x6a);
@@ -7790,7 +7790,7 @@ void fld_stack(int size)
 }
 
 void FloatToNumer(int addop)
-//ª®­¢¥àâ æ¨ï float ¢ ç¨á«®
+//ÐºÐ¾Ð½Ð²ÐµÑ€Ñ‚Ð°Ñ†Ð¸Ñ float Ð² Ñ‡Ð¸ÑÐ»Ð¾
 {
 	CheckInitBP();
 	op(0xD9+addop);
@@ -8033,7 +8033,7 @@ casenumber:
 int onums;
 			onums=nums;
 			nums=-(int)localsize;
-			vop=procdo(tk_fpust);	//¢®§¢à ¨§ ¯à®æ¥¤ãà
+			vop=procdo(tk_fpust);	//Ð²Ð¾Ð·Ð²Ñ€ Ð¸Ð· Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€
 			nums=onums;
 			if(tok2==tk_semicolon&&vop!=tk_fpust&&vop!=tk_double){
 				nexttok();
@@ -8407,8 +8407,8 @@ void setwordext(long *id)
 	CheckPosts();
 	(postbuf+posts)->type=EXT_VAR;
 	(postbuf+posts)->loc=outptr;
-	(postbuf+posts)->num=*id&0xFFFF;	//id ­®¬¥à ¢­¥è­¥© ¯¥à¥¬¥­­®©
-	*id>>=16;	//¥¥ §­ ç¥­¨¥
+	(postbuf+posts)->num=*id&0xFFFF;	//id Ð½Ð¾Ð¼ÐµÑ€ Ð²Ð½ÐµÑˆÐ½ÐµÐ¹ Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð¾Ð¹
+	*id>>=16;	//ÐµÐµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ
 	posts++;
 }
 
@@ -8765,7 +8765,7 @@ defal:
 				setzeroflag=FALSE;
 			}
 		}
-		else{	//¤¥«¥­¨¥
+		else{	//Ð´ÐµÐ»ÐµÐ½Ð¸Ðµ
 			if((itok.flag&f_reloc)!=0)goto divin;
 			switch(itok.number){
 				case 0:
@@ -8974,7 +8974,7 @@ unsigned long num2;
 			op66(r32);
 			op(0x25);
 			outdword(0xffff);	//and EAX,ffff
-			if(short_ok(num2,FALSE))i=2;	//ª®à®âª ï ä®à¬ 
+			if(short_ok(num2,FALSE))i=2;	//ÐºÐ¾Ñ€Ð¾Ñ‚ÐºÐ°Ñ Ñ„Ð¾Ñ€Ð¼Ð°
 		 	op66(r32);
 			op(0x69+i);	//imul EAX,num
 			op(0xc0);
@@ -9053,7 +9053,7 @@ COM_MOD *bmod;
 		case tk_declare:
 			break;
 		default:
-//			if(cur_mod)break;	//10.08.04 22:50 ¨§-§  define ¯à¥ªà â¨âì
+//			if(cur_mod)break;	//10.08.04 22:50 Ð¸Ð·-Ð·Ð° define Ð¿Ñ€ÐµÐºÑ€Ð°Ñ‚Ð¸Ñ‚ÑŒ
 			obuf=bufrm;
 			bufrm=NULL;
 			ostr=strinf;
@@ -9214,7 +9214,7 @@ char *ofsstr=NULL;
 		if(tok==tk_pointer)cpointr(am32==TRUE?EAX:BX,numpointr);
 		CheckMinusNum();
 		if(tok==tk_number){
-			if(itok2.type==tp_opperand){	//á«®¦­®¥ ¢ëà ¦¥­¨¥
+			if(itok2.type==tp_opperand){	//ÑÐ»Ð¾Ð¶Ð½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ
 				if(!OnlyNumber(0))goto labl1;
 				itok.flag=(unsigned char)postnumflag;
 			}
@@ -9804,8 +9804,8 @@ int reg1=idxregs[0],reg2=idxregs[1];
 				unuseableinput();
 			}
 			CheckMinusNum();
-			if(itok2.type==tp_opperand){	//á«®¦­®¥ ¢ëà ¦¥­¨¥
-				if(tok==tk_number){	//¯à®¢¥àª  ¨ áã¬¬¨à®¢ ­¨¥ ç¨á¥«
+			if(itok2.type==tp_opperand){	//ÑÐ»Ð¾Ð¶Ð½Ð¾Ðµ Ð²Ñ‹Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ
+				if(tok==tk_number){	//Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¸ ÑÑƒÐ¼Ð¼Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ‡Ð¸ÑÐµÐ»
 					switch(rettype){
 						case tk_float: sign=2; break;
 						case tk_double: sign=3; break;
@@ -10530,7 +10530,7 @@ int numpointr=0;
 				unuseableinput();
 			}
 			CheckMinusNum();
-			if(tok==tk_number){	//¯à®¢¥àª  ¨ áã¬¬¨à®¢ ­¨¥ ç¨á¥«
+			if(tok==tk_number){	//Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¸ ÑÑƒÐ¼Ð¼Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ‡Ð¸ÑÐµÐ»
 				switch(rettype){
 					case tk_float: sign=2; break;
 					case tk_double: sign=3; break;
@@ -11662,7 +11662,7 @@ lshift:
 					MovRegNum(r32,0,itok.lnumber>>32,EAX);
 					goto mul;
 				}
-				//¢ë§®¢ ¯à®æ¥¤ãàë __llmul
+				//Ð²Ñ‹Ð·Ð¾Ð² Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ñ‹ __llmul
 				op66(r32);
 				op(0x50+r2);
 				op66(r32);
@@ -11976,7 +11976,7 @@ int reg1,reg2;
 			ZeroReg(r2,r32);
 			break;
 		case tk_reg:
-			if(tok2==tk_openbracket){	//¢ë§®¢ ¯à®æ¥¤ãàë ¯®  ¤à¥áã ¢ à¥£¨áâà¥
+			if(tok2==tk_openbracket){	//Ð²Ñ‹Ð·Ð¾Ð² Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ñ‹ Ð¿Ð¾ Ð°Ð´Ñ€ÐµÑÑƒ Ð² Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ðµ
 				reg1=itok.number;
 				nexttok();
 				param[0]=0;
@@ -12005,7 +12005,7 @@ int reg1,reg2;
 			ZeroReg(r2,r32);
 			break;
 		case tk_reg32:
-			if(tok2==tk_openbracket){	//¢ë§®¢ ¯à®æ¥¤ãàë ¯®  ¤à¥áã ¢ à¥£¨áâà¥
+			if(tok2==tk_openbracket){	//Ð²Ñ‹Ð·Ð¾Ð² Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ñ‹ Ð¿Ð¾ Ð°Ð´Ñ€ÐµÑÑƒ Ð² Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ðµ
 				reg1=itok.number;
 				nexttok();
 				param[0]=0;
@@ -12177,7 +12177,7 @@ struct idrec *ptrs;
 			break;
 		case tk_proc:
 			if(itok4.segm==DYNAMIC)itok4.segm=ptrs->recsegm=DYNAMIC_USED;
-			if(itok4.segm<NOT_DYNAMIC){	//¤¨­ ¬¨ç¥áª ï ¯à®æ¥¤ãà 
+			if(itok4.segm<NOT_DYNAMIC){	//Ð´Ð¸Ð½Ð°Ð¼Ð¸Ñ‡ÐµÑÐºÐ°Ñ Ð¿Ñ€Ð¾Ñ†ÐµÐ´ÑƒÑ€Ð°
 				addacall(itok4.number,(unsigned char)(am32!=FALSE?CALL_32:CALL_NEAR));
 				callloc0();
 			}

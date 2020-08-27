@@ -12,21 +12,21 @@
 #endif
 #include "res.h"
 
-RES *listres;	//‚†°´®Ê† ‡•·„‡·Æ¢
-int numres=0;	//‚•™„È•• Á®·´Æ ‡•·„‡·Æ¢
-int maxres=0;	//¨†™·®¨†´Ï≠Æ• Á®·´Æ ‡•·„‡·Æ¢
+RES *listres;	//—Ç–∞–±–ª–∏—Ü–∞ —Ä–µ—Å—É—Ä—Å–æ–≤
+int numres=0;	//—Ç–µ–∫—É—â–µ–µ —á–∏—Å–ª–æ —Ä–µ—Å—É—Ä—Å–æ–≤
+int maxres=0;	//–º–∞–∫—Å–∏–º–∞–ª—å–Ω–æ–µ —á–∏—Å–ª–æ —Ä–µ—Å—É—Ä—Å–æ–≤
 
-unsigned short *sortidx;	//¨†·®¢ Æ‚·Æ‡‚®‡Æ¢†≠ÎÂ ®≠§•™·Æ¢ ‡•·„‡·Æ¢
-RES *curtres;	//‚•™„È†Ô ‚†°´®Ê† ‡•·„‡·Æ¢
+unsigned short *sortidx;	//–º–∞—Å–∏–≤ –æ—Ç—Å–æ—Ä—Ç–∏—Ä–æ–≤–∞–Ω—ã—Ö –∏–Ω–¥–µ–∫—Å–æ–≤ —Ä–µ—Å—É—Ä—Å–æ–≤
+RES *curtres;	//—Ç–µ–∫—É—â–∞—è —Ç–∞–±–ª–∏—Ü–∞ —Ä–µ—Å—É—Ä—Å–æ–≤
 
 unsigned char *resbuf;
 unsigned int cursizeresbuf;
 unsigned int curposbuf=0;
-unsigned int iconcount=0;	//Á®·´Æ ®™Æ≠Æ™
-unsigned int cursorcount=0;	//Á®·´Æ ™„‡·Æ‡Æ¢
-unsigned int numidres;	//Á®·´Æ ‡•·„‡·Æ¢ · ‡†ß≠Î¨ id
-unsigned int numlangres=0;	//Á®·´Æ ‡•·„‡·Æ¢ · ÔßÎ™†¨®
-unsigned int numhlangres=0;	//Á®·´Æ „ß´Æ¢ · ÔßÎ™†¨®
+unsigned int iconcount=0;	//—á–∏—Å–ª–æ –∏–∫–æ–Ω–æ–∫
+unsigned int cursorcount=0;	//—á–∏—Å–ª–æ –∫—É—Ä—Å–æ—Ä–æ–≤
+unsigned int numidres;	//—á–∏—Å–ª–æ —Ä–µ—Å—É—Ä—Å–æ–≤ —Å —Ä–∞–∑–Ω—ã–º id
+unsigned int numlangres=0;	//—á–∏—Å–ª–æ —Ä–µ—Å—É—Ä—Å–æ–≤ —Å —è–∑—ã–∫–∞–º–∏
+unsigned int numhlangres=0;	//—á–∏—Å–ª–æ —É–∑–ª–æ–≤ —Å —è–∑—ã–∫–∞–º–∏
 unsigned short langdef=0;
 unsigned short numzerotype=0;
 
@@ -36,10 +36,10 @@ int numstrtbl=0;
 struct TUSE{
 	unsigned short id;
 	unsigned short count;
-	char *tname;	//®¨Ô ‚®Ø†
+	char *tname;	//–∏–º—è —Ç–∏–ø–∞
 }*tuse=NULL;
 
-unsigned int numtyperes=0;	//Á®·´Æ ‚®ØÆ¢ ‡•·„‡·Æ¢
+unsigned int numtyperes=0;	//—á–∏—Å–ª–æ —Ç–∏–ø–æ–≤ —Ä–µ—Å—É—Ä—Å–æ–≤
 
 void AddType(unsigned short type,char *tname=NULL)
 {
@@ -70,10 +70,10 @@ static char idname[IDLENGTH];
 static char resname[IDLENGTH];
 static int restok;
 
-void InitBufRes();	//®≠®Ê®†´®ß®‡Æ¢†‚Ï °„‰•‡ §´Ô ‡•·„‡·†
-void CheckResBuf(unsigned int size);	//Ø‡Æ¢•‡®‚Ï ® •·´® ≠†§Æ „¢•´®Á®‚Ï °„‰•‡
-void AddWString(unsigned char *name); //§Æ°†¢®‚Ï ·‚‡Æ™„ ¢ ‡•·„‡·
-void AddNumOrd(unsigned char *name);	//§Æ°†¢®‚Ï Æ‡§®≠†´/·‚‡Æ™„
+void InitBufRes();	//–∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞—Ç—å –±—É—Ñ–µ—Ä –¥–ª—è —Ä–µ—Å—É—Ä—Å–∞
+void CheckResBuf(unsigned int size);	//–ø—Ä–æ–≤–µ—Ä–∏—Ç—å –∏ –µ—Å–ª–∏ –Ω–∞–¥–æ —É–≤–µ–ª–∏—á–∏—Ç—å –±—É—Ñ–µ—Ä
+void AddWString(unsigned char *name); //–¥–æ–±–∞–≤–∏—Ç—å —Å—Ç—Ä–æ–∫—É –≤ —Ä–µ—Å—É—Ä—Å
+void AddNumOrd(unsigned char *name);	//–¥–æ–±–∞–≤–∏—Ç—å –æ—Ä–¥–∏–Ω–∞–ª/—Å—Ç—Ä–æ–∫—É
 void r_Accelerators();
 void r_Dialog();
 void r_Icon();
@@ -135,7 +135,7 @@ void input_res()
 	while(tok!=tk_eof){
 		while(tok==tk_semicolon||tok==tk_endline)nexttok();
 		while(tok==tk_question){
-			directive();//Æ°‡†°Æ‚™† §®‡•™‚®¢
+			directive();//–æ–±—Ä–∞–±–æ—Ç–∫–∞ –¥–∏—Ä–µ–∫—Ç–∏–≤
 			while(tok==tk_semicolon||tok==tk_endline)nexttok();
 		}
 		if(scanlexmode!=RESLEX||tok==tk_eof)break;
@@ -233,12 +233,12 @@ void GetResBlock()
 	if(numres==0){
 		maxres=DRESNUM;
 		listres=(RES *)MALLOC(DRESNUM*sizeof(RES));
-		memset(listres,0,DRESNUM*sizeof(RES));//ÆÁ®·‚®‚Ï ‚†°´®Ê„
+		memset(listres,0,DRESNUM*sizeof(RES));//–æ—á–∏—Å—Ç–∏—Ç—å —Ç–∞–±–ª–∏—Ü—É
 	}
 	else{
 		if((numres+1)==maxres){
 			listres=(RES *)REALLOC(listres,sizeof(RES)*(maxres+DRESNUM));
-			memset(listres+maxres,0,DRESNUM*sizeof(RES));//ÆÁ®·‚®‚Ï ‚†°´®Ê„
+			memset(listres+maxres,0,DRESNUM*sizeof(RES));//–æ—á–∏—Å—Ç–∏—Ç—å —Ç–∞–±–ª–∏—Ü—É
 			maxres+=DRESNUM;
 		}
 	}
@@ -343,7 +343,7 @@ NameOrdinal Temp;
 void InitBufRes()
 {
 	resbuf=(unsigned char *)MALLOC(SIZERESBUF);
-	memset(resbuf,0,SIZERESBUF);//ÆÁ®·‚®‚Ï ‚†°´®Ê„
+	memset(resbuf,0,SIZERESBUF);//–æ—á–∏—Å—Ç–∏—Ç—å —Ç–∞–±–ª–∏—Ü—É
 	curposbuf=0;
 	cursizeresbuf=SIZERESBUF;
 }
@@ -352,7 +352,7 @@ void CheckResBuf(unsigned int size)
 {
 	while((size+curposbuf)>=cursizeresbuf){
 		resbuf=(unsigned char *)REALLOC(resbuf,cursizeresbuf+SIZERESBUF);
-		memset(resbuf+cursizeresbuf,0,SIZERESBUF);//ÆÁ®·‚®‚Ï ‚†°´®Ê„
+		memset(resbuf+cursizeresbuf,0,SIZERESBUF);//–æ—á–∏—Å—Ç–∏—Ç—å —Ç–∞–±–ª–∏—Ü—É
 		cursizeresbuf+=SIZERESBUF;
 	}
 }
@@ -394,7 +394,7 @@ int num;
 int j;
 	if(strinfo==NULL)strinfo=(_STRINGS_ *)MALLOC(sizeof(_STRINGS_)*MAXSTRTABINFO);
 	while(tok!=tk_endline&&tok!=tk_eof)nexttok();
-	if(!OpenBlock())badformat("STRINGTABLE");	//§Æ°†¢®‚Ï ≠Æ¢„Ó
+	if(!OpenBlock())badformat("STRINGTABLE");	//–¥–æ–±–∞–≤–∏—Ç—å –Ω–æ–≤—É—é
 	do{
 		num=GetNumber(1);
 		for(j=0;j<numstrtbl;j++){
@@ -778,7 +778,7 @@ unsigned char *font=NULL;
 int sizefont=0,i;
 NameOrdinal Menu;
 NameOrdinal Class;
-unsigned int poscount;	//ØÆß®Ê®Ô ·Á•‚Á®™† Ì´•¨•≠‚Æ¢
+unsigned int poscount;	//–ø–æ–∑–∏—Ü–∏—è —Å—á–µ—Ç—á–∏–∫–∞ —ç–ª–µ–º–µ–Ω—Ç–æ–≤
 unsigned int exts=FALSE;
 //unsigned short id;
 	Menu.name=NULL;
@@ -794,14 +794,14 @@ unsigned int exts=FALSE;
 		*(unsigned long *)&resbuf[0]=0xFFFF0001;
 		curposbuf=8;
 		poscount=16;
-		*(unsigned long *)&resbuf[12]=0x80880000;//WS_POPUP|WS_BORDER|WS_SYSMENU;	//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+		*(unsigned long *)&resbuf[12]=0x80880000;//WS_POPUP|WS_BORDER|WS_SYSMENU;	//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 	}
 	else{
-		*(unsigned long *)&resbuf[0]=0x80880000;//WS_POPUP|WS_BORDER|WS_SYSMENU;	//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+		*(unsigned long *)&resbuf[0]=0x80880000;//WS_POPUP|WS_BORDER|WS_SYSMENU;	//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 		curposbuf=0;
 		poscount=8;
 	}
-	if(tok2!=tk_camma){	//Ø‡ÆØ„·™†•¨ ¢Æß¨Æ¶≠Î• Ø•‡¢Î• §¢† Ø†‡†¨•‚‡†
+	if(tok2!=tk_camma){	//–ø—Ä–æ–ø—É—Å–∫–∞–µ–º –≤–æ–∑–º–æ–∂–Ω—ã–µ –ø–µ—Ä–≤—ã–µ –¥–≤–∞ –ø–∞—Ä–∞–º–µ—Ç—Ä–∞
 		nexttok();
 		if(tok2!=tk_camma){
 			nexttok();
@@ -809,7 +809,7 @@ unsigned int exts=FALSE;
 		}
 	}
 	GetRectangle(&resbuf[curposbuf+10],1);
-	//ÆØ‡•§•´®‚Ï ¨•·‚Æ §´Ô IDHelp
+	//–æ–ø—Ä–µ–¥–µ–ª–∏—Ç—å –º–µ—Å—Ç–æ –¥–ª—è IDHelp
 	if(tok!=tk_endline&&exts)/**(unsigned long *)&resbuf[curposbuf]=*/GetNumber(0);
 	while(!OpenBlock()&&tok!=tk_eof){
 		if(tok!=tk_rescommand)expectedrescommand();
@@ -861,7 +861,7 @@ unsigned int exts=FALSE;
 		}
 		while(tok==tk_endline)nexttok();
 	}
-//§Æ‰Æ‡¨®‡Æ¢Î¢†•¨ §®†´Æ£
+//–¥–æ—Ñ–æ—Ä–º–∏—Ä–æ–≤—ã–≤–∞–µ–º –¥–∏–∞–ª–æ–≥
 	curposbuf=exts==TRUE?26:18;
 	AddNumOrd(Menu.name);
 	FreeOrdinal(Menu.name);
@@ -916,7 +916,7 @@ unsigned int exts=FALSE;
 				while(tok==tk_endline)nexttok();
 				GetRectangle(&resbuf[curposbuf+(exts==TRUE?4:8)],5);
 				if(exts&&tok==tk_number)*(unsigned long *)&resbuf[curposbuf-4]=GetNumber(9);
-				while(tok!=tk_endline&&tok!=tk_eof&&tok!=tk_rescommand)nexttok();	//Ø‡ÆØ„·™ ®ß´®Ë≠®Â Ø†‡†¨•‚‡Æ¢
+				while(tok!=tk_endline&&tok!=tk_eof&&tok!=tk_rescommand)nexttok();	//–ø—Ä–æ–ø—É—Å–∫ –∏–∑–ª–∏—à–Ω–∏—Ö –ø–∞—Ä–∞–º–µ—Ç—Ä–æ–≤
 				break;
 			case rc_auto3state:
 			case rc_autocheckbox:
@@ -954,7 +954,7 @@ unsigned int exts=FALSE;
 					}
 				}
 				if(exts&&tok==tk_number)*(unsigned long *)&resbuf[curposbuf-4]=GetNumber(i+9);
-				while(tok!=tk_endline&&tok!=tk_eof&&tok!=tk_rescommand)nexttok();	//Ø‡ÆØ„·™ ®ß´®Ë≠®Â Ø†‡†¨•‚‡Æ¢
+				while(tok!=tk_endline&&tok!=tk_eof&&tok!=tk_rescommand)nexttok();	//–ø—Ä–æ–ø—É—Å–∫ –∏–∑–ª–∏—à–Ω–∏—Ö –ø–∞—Ä–∞–º–µ—Ç—Ä–æ–≤
 				break;
 			case rc_icon:
 				GetOrdinal(&Menu.name,1);
@@ -1056,14 +1056,14 @@ unsigned char *bitobr;
 
 unsigned char *LoadBitmap()
 {
-//ß†£‡„ß®‚Ï
+//–∑–∞–≥—Ä—É–∑–∏—Ç—å
 unsigned char *bitobr=NULL;
 char name[80];
 	curposbuf=0;
 	name[0]=0;
 	GetFileName(name);
 	if(name[0]!=0)bitobr=LoadFileBin(name);
-	else if(tok==tk_endline){	//≠•‚ ®¨•≠® ‰†©´†
+	else if(tok==tk_endline){	//–Ω–µ—Ç –∏–º–µ–Ω–∏ —Ñ–∞–π–ª–∞
 		InitBufRes();
 		if(!OpenBlock()){
 			badico();
@@ -1073,7 +1073,7 @@ char name[80];
 			inptr=inptr2;
 			cha=cha2;
 			if(tok!=tk_singlquote)badico();
-			whitespace(); //Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+			whitespace(); //–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 			CheckResBuf(16);
 			displaytokerrors=1;
 			do{
@@ -1086,7 +1086,7 @@ char name[80];
 					nextchar();
 				}
 				resbuf[curposbuf++]=hold;
-				whitespace(); //Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+				whitespace(); //–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 			}while(cha!='\''&&cha!=26);
 			inptr2=inptr;
 			cha2=cha;
@@ -1106,7 +1106,7 @@ unsigned int size;
 unsigned char *bitobr;
 	if((bitobr=LoadBitmap())==NULL)return;
 	size=curposbuf-14;
-	GetResBlock();	//°®‚¨†‡
+	GetResBlock();	//–±–∏—Ç–º–∞—Ä
 	curtres->type=CRT_BITMAP;
 	if(idname[0]==0)curtres->id=idnum;
 	else curtres->name=BackString(idname);
@@ -1144,7 +1144,7 @@ void r_Font()
 unsigned char *fontobr;
 	if((fontobr=LoadBitmap())==NULL)return;
 	if((unsigned short)curposbuf==*(unsigned short *)&fontobr[2]){
-		GetResBlock();	//‰Æ≠‚
+		GetResBlock();	//—Ñ–æ–Ω—Ç
 		curtres->type=CRT_FONT;
 		if(idname[0]==0)curtres->id=idnum;
 		else curtres->name=BackString(idname);
@@ -1158,28 +1158,28 @@ void r_Icon()
 {
 unsigned char *icoobr;
 unsigned long size;
-//ß†£‡„ß®‚Ï ®™Æ≠™„
+//–∑–∞–≥—Ä—É–∑–∏—Ç—å –∏–∫–æ–Ω–∫—É
 	if((icoobr=LoadBitmap())==NULL)return;
-	GetResBlock();	//£‡„ØØ† ®™Æ≠
+	GetResBlock();	//–≥—Ä—É–ø–ø–∞ –∏–∫–æ–Ω
 	curtres->type=CRT_GROUP_ICON;
 	if(idname[0]==0)curtres->id=idnum;
 	else curtres->name=BackString(idname);
 	AddType(CRT_GROUP_ICON);
-unsigned int countico=*(unsigned short *)&icoobr[4];	//Á®·´Æ ®™Æ≠Æ™
+unsigned int countico=*(unsigned short *)&icoobr[4];	//—á–∏—Å–ª–æ –∏–∫–æ–Ω–æ–∫
 int sizeicohead=sizeof(_ICOHEAD_)+(sizeof(_RESDIR_)*countico);
 	curtres->size=sizeicohead;
 	curtres->res=(unsigned char *)MALLOC(sizeicohead);
 unsigned char *icohead=curtres->res;
 unsigned int i;
-	for(i=0;i<6;i++)icohead[i]=icoobr[i];	//ß†£Æ´Æ¢Æ™
+	for(i=0;i<6;i++)icohead[i]=icoobr[i];	//–∑–∞–≥–æ–ª–æ–≤–æ–∫
 unsigned int ofs=6;
 unsigned int ofs2=6;
 	for(i=0;i<countico;i++){
 		int j;
-		for(j=0;j<12;j++)icohead[j+ofs]=icoobr[j+ofs2];	//ÆØ®·†≠®• ®™Æ≠™®
+		for(j=0;j<12;j++)icohead[j+ofs]=icoobr[j+ofs2];	//–æ–ø–∏—Å–∞–Ω–∏–µ –∏–∫–æ–Ω–∫–∏
 		iconcount++;
-		*(unsigned short *)&icohead[ofs+12]=(unsigned short)iconcount;	//•• ≠Æ¨•‡
-		GetResBlock();	//Æ°‡†ß ®™Æ≠™®
+		*(unsigned short *)&icohead[ofs+12]=(unsigned short)iconcount;	//–µ–µ –Ω–æ–º–µ—Ä
+		GetResBlock();	//–æ–±—Ä–∞–∑ –∏–∫–æ–Ω–∫–∏
 		curtres->type=CRT_ICON;
 		curtres->id=iconcount;
 		curtres->size=size=*(unsigned long *)&icohead[ofs+8];
@@ -1197,20 +1197,20 @@ void r_Cursor()
 {
 unsigned char *curobr;
 unsigned long size;
-//ß†£‡„ß®‚Ï ™„‡·Æ‡
+//–∑–∞–≥—Ä—É–∑–∏—Ç—å –∫—É—Ä—Å–æ—Ä
 	if((curobr=LoadBitmap())==NULL)return;
-	GetResBlock();	//£‡„ØØ† ™„‡·Æ‡Æ¢
+	GetResBlock();	//–≥—Ä—É–ø–ø–∞ –∫—É—Ä—Å–æ—Ä–æ–≤
 	curtres->type=CRT_GROUP_CURSOR;
 	if(idname[0]==0)curtres->id=idnum;
 	else curtres->name=BackString(idname);
 	AddType(CRT_GROUP_CURSOR);
-unsigned int countcur=*(unsigned short *)&curobr[4];	//Á®·´Æ ™„‡·Æ‡Æ¢ ¢ ‰†©´•
+unsigned int countcur=*(unsigned short *)&curobr[4];	//—á–∏—Å–ª–æ –∫—É—Ä—Å–æ—Ä–æ–≤ –≤ —Ñ–∞–π–ª–µ
 int sizecurhead=sizeof(_ICOHEAD_)+(sizeof(_CURDIR_)*countcur);
 	curtres->size=sizecurhead;
 	curtres->res=(unsigned char *)MALLOC(sizecurhead);
 unsigned char *curhead=curtres->res;
 unsigned int i;
-	for(i=0;i<6;i++)curhead[i]=curobr[i];	//ß†£Æ´Æ¢Æ™
+	for(i=0;i<6;i++)curhead[i]=curobr[i];	//–∑–∞–≥–æ–ª–æ–≤–æ–∫
 unsigned int ofs=6;
 unsigned int ofs2=6;
 	for(i=0;i<countcur;i++){
@@ -1218,8 +1218,8 @@ unsigned int ofs2=6;
 		*(unsigned short *)&curhead[ofs]=curobr[ofs2];
 		*(unsigned short *)&curhead[ofs+2]=curobr[ofs2+1];
 		*(unsigned long *)&curhead[ofs+4]=0x10001;
-		*(unsigned short *)&curhead[ofs+12]=(unsigned short)cursorcount;	//•• ≠Æ¨•‡
-		GetResBlock();	//Æ°‡†ß ™„‡·Æ‡†
+		*(unsigned short *)&curhead[ofs+12]=(unsigned short)cursorcount;	//–µ–µ –Ω–æ–º–µ—Ä
+		GetResBlock();	//–æ–±—Ä–∞–∑ –∫—É—Ä—Å–æ—Ä–∞
 		curtres->type=CRT_CURSOR;
 		curtres->id=cursorcount;
 		curtres->size=size=*(unsigned long *)&curhead[ofs+8]=*(unsigned long *)&curobr[ofs2+8]+4;
@@ -1287,7 +1287,7 @@ void r_Accelerators()
 void SortRes()
 {
 int i,j,k;
-int sortpos=0;	//ØÆß®Ê®Ô ¢ ·Ø®·™• ·Æ‡‚®‡Æ¢™®
+int sortpos=0;	//–ø–æ–∑–∏—Ü–∏—è –≤ —Å–ø–∏—Å–∫–µ —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏
 	for(i=0;i<numtyperes;i++){
 		for(j=i+1;j<numtyperes;j++){
 			TUSE buf;
@@ -1331,13 +1331,13 @@ int sortpos=0;	//ØÆß®Ê®Ô ¢ ·Ø®·™• ·Æ‡‚®‡Æ¢™®
 				else{
 					if(k==0)sortidx[sortpos++]=(unsigned short)j;
 					else{
-						int m=k;	//Á®·´Æ Ì´•¨•≠‚Æ¢ · §†≠≠Î¨ ‚®ØÆ¨
+						int m=k;	//—á–∏—Å–ª–æ —ç–ª–µ–º–µ–Ω—Ç–æ–≤ —Å –¥–∞–Ω–Ω—ã–º —Ç–∏–ø–æ–º
 						int n=sortpos-k;
 						do{
 							m--;
 							if((listres+j)->name==NULL&&(listres+sortidx[m+n])->name==NULL){
-								if((listres+j)->id>=(listres+sortidx[m+n])->id){//≠Æ¢Î© °Æ´ÏË•
-									if((listres+j)->id==(listres+sortidx[m+n])->id){	//‡†¢≠Î
+								if((listres+j)->id>=(listres+sortidx[m+n])->id){//–Ω–æ–≤—ã–π –±–æ–ª—å—à–µ
+									if((listres+j)->id==(listres+sortidx[m+n])->id){	//—Ä–∞–≤–Ω—ã
 										numidres--;
 										numlangres++;
 										if((listres+j)->lang==0){
@@ -1345,17 +1345,17 @@ int sortpos=0;	//ØÆß®Ê®Ô ¢ ·Ø®·™• ·Æ‡‚®‡Æ¢™®
 											numhlangres++;
 										}
 										if((listres+j)->lang==(listres+sortidx[m+n])->lang)equalres();
-										if((listres+j)->lang>(listres+sortidx[m+n])->lang){	//„ ≠Æ¢Æ£Æ ÔßÎ™ ·‚†‡Ë•
-											sortidx[n+m+1]=(unsigned short)j;	//§Æ°†¢®‚Ï ¢ ™Æ≠•Ê
+										if((listres+j)->lang>(listres+sortidx[m+n])->lang){	//—É –Ω–æ–≤–æ–≥–æ —è–∑—ã–∫ —Å—Ç–∞—Ä—à–µ
+											sortidx[n+m+1]=(unsigned short)j;	//–¥–æ–±–∞–≤–∏—Ç—å –≤ –∫–æ–Ω–µ—Ü
 											break;
 										}
 									}
 									else{
-										sortidx[n+m+1]=(unsigned short)j;	//§Æ°†¢®‚Ï ¢ ™Æ≠•Ê
+										sortidx[n+m+1]=(unsigned short)j;	//–¥–æ–±–∞–≤–∏—Ç—å –≤ –∫–æ–Ω–µ—Ü
 										break;
 									}
 								}
-								sortidx[n+m+1]=sortidx[n+m];	//·§¢®≠„‚Ï
+								sortidx[n+m+1]=sortidx[n+m];	//—Å–¥–≤–∏–Ω—É—Ç—å
 							}
 							else if((listres+j)->name==NULL&&(listres+sortidx[m+n])->name!=NULL){
 								sortidx[n+m+1]=(unsigned short)j;
@@ -1419,12 +1419,12 @@ LISTRELOC *listr=NULL;
 	InitBufRes();
 	numidres=numres;
 	SortRes();
-//·Æß§†‚Ï ™Æ‡≠•¢Æ© „‡Æ¢•≠Ï
+//—Å–æ–∑–¥–∞—Ç—å –∫–æ—Ä–Ω–µ–≤–æ–π —É—Ä–æ–≤–µ–Ω—å
 	*(unsigned short *)&resbuf[12]=(unsigned short)numzerotype;
 	*(unsigned short *)&resbuf[14]=(unsigned short)(numtyperes-numzerotype);
 	curposbuf=16;
 	nextofs=numtyperes*8+16;
-//‡†·Á•‚ ‡†ß¨•‡Æ¢ „‡Æ¢≠•©
+//—Ä–∞—Å—á–µ—Ç —Ä–∞–∑–º–µ—Ä–æ–≤ —É—Ä–æ–≤–Ω–µ–π
 	startlang=curposbuf+numtyperes*24+numidres*8;
 	startofsdata=startlang+numhlangres*16+numlangres*8;
 	startdata=startofsdata+numres*16;
@@ -1452,12 +1452,12 @@ LISTRELOC *listr=NULL;
 		nextofs+=(tuse+i)->count*8+16;
 		curposbuf+=8;
 	}
-//‡†·Á•‚ ‡†ß¨•‡Æ¢ „‡Æ¢≠•©
+//—Ä–∞—Å—á–µ—Ç —Ä–∞–∑–º–µ—Ä–æ–≤ —É—Ä–æ–≤–Ω–µ–π
 /*	startlang=curposbuf+numtyperes*16+numidres*8;
 	startofsdata=startlang+numhlangres*16+numlangres*8;
 	startdata=startofsdata+numres*16;
 	CheckResBuf(startdata-curposbuf);*/
-//·Æß§†‚Ï „‡Æ¢•≠Ï ®¨•≠ ® ÔßÎ™†
+//—Å–æ–∑–¥–∞—Ç—å —É—Ä–æ–≤–µ–Ω—å –∏–º–µ–Ω –∏ —è–∑—ã–∫–∞
 	curres=listres+sortidx[0];
 	for(j=0;j<numres;){
 		ofsback=curposbuf+12;
@@ -1465,7 +1465,7 @@ LISTRELOC *listr=NULL;
 		unsigned int type=curres->type;
 		while((unsigned int)curres->type==type){
 			int k=j;
-			if(curres->name){	//§Æ°†¢®‚Ï ®¨Ô
+			if(curres->name){	//–¥–æ–±–∞–≤–∏—Ç—å –∏–º—è
 				if(j<(numres-1)&&type==(unsigned int)(listres+sortidx[j+1])->type&&
 					(listres+sortidx[j+1])->name!=NULL)
 					while(strcmp(curres->name,(listres+sortidx[j+1])->name)==0)j++;
@@ -1486,14 +1486,14 @@ LISTRELOC *listr=NULL;
 //				startdata=Align(startdata,4);
 				free(curres->name);
 			}
-			else{	//§Æ°†¢®‚Ï id
+			else{	//–¥–æ–±–∞–≤–∏—Ç—å id
 				if(j<(numres-1)&&type==(unsigned int)(listres+sortidx[j+1])->type)
 					while(curres->id==(listres+sortidx[j+1])->id)j++;
 				*(unsigned short *)&resbuf[ofsback+2]=(unsigned short)(*(unsigned short *)&resbuf[ofsback+2]+1);
 				*(unsigned long *)&resbuf[curposbuf]=curres->id;
 			}
 			curposbuf+=4;
-			if(j!=k){	//≠•·™Æ´Ï™Æ ®¨•≠ · ‡†ß≠Î¨® ÔßÎ™†¨®
+			if(j!=k){	//–Ω–µ—Å–∫–æ–ª—å–∫–æ –∏–º–µ–Ω —Å —Ä–∞–∑–Ω—ã–º–∏ —è–∑—ã–∫–∞–º–∏
 				*(unsigned long *)&resbuf[curposbuf]=startlang|0x80000000;
 				*(unsigned long *)&resbuf[startlang+12]=j-k+1;
 				startlang+=16;
@@ -1505,7 +1505,7 @@ LISTRELOC *listr=NULL;
 				}
 			}
 			else{
-				if(curres->lang){//„™†ß†≠ ÔßÎ™
+				if(curres->lang){//—É–∫–∞–∑–∞–Ω —è–∑—ã–∫
 					*(unsigned long *)&resbuf[curposbuf]=startlang|0x80000000;
 					resbuf[startlang+14]=1;
 					startlang+=16;
@@ -1523,7 +1523,7 @@ LISTRELOC *listr=NULL;
 		}
 	}
 	curposbuf=startlang;
-//·Æß§†‚Ï „‡Æ¢•≠Ï ·¨•È•≠®© §†≠≠ÎÂ
+//—Å–æ–∑–¥–∞—Ç—å —É—Ä–æ–≤–µ–Ω—å —Å–º–µ—â–µ–Ω–∏–π –¥–∞–Ω–Ω—ã—Ö
 	for(i=0;i<numres;i++){
 		startdata=Align(startdata,4);
 		curres=listres+sortidx[i];

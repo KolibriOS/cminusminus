@@ -1,12 +1,12 @@
 typedef struct _BIT_{
 	unsigned int siz:8;
 	unsigned int ofs:24;
-}BIT;
+} BIT;
 
 struct _PROCINFO_
 {
-	char *buf;	//адрес текста процедуры
-	void *classteg;	//адрес тега, где определена процедура
+	char *buf;	//╨░╨┤╤А╨╡╤Б ╤В╨╡╨║╤Б╤В╨░ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╤Л
+	void *classteg;	//╨░╨┤╤А╨╡╤Б ╤В╨╡╨│╨░, ╨│╨┤╨╡ ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╨░ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╨░
 	unsigned int warn:1;
 	unsigned int speed:1;
 	unsigned int lst:1;
@@ -31,23 +31,23 @@ struct idrec
 		struct idrec *left;
 		struct localrec *next;
 	};
-	struct idrec *right;	//предыдущ и следующ запись
-	char recid[IDLENGTH];	//имя
+	struct idrec *right;	//╨┐╤А╨╡╨┤╤Л╨┤╤Г╤Й ╨╕ ╤Б╨╗╨╡╨┤╤Г╤О╤Й ╨╖╨░╨┐╨╕╤Б╤М
+	char recid[IDLENGTH];	//╨╕╨╝╤П
 	unsigned int flag;
-	char *newid;  //блок с даными, для структур адрес тега,для процедур параметры
-	int rectok;		//тип
-	int recrm;    //для структур число копий
+	char *newid;  //╨▒╨╗╨╛╨║ ╤Б ╨┤╨░╨╜╤Л╨╝╨╕, ╨┤╨╗╤П ╤Б╤В╤А╤Г╨║╤В╤Г╤А ╨░╨┤╤А╨╡╤Б ╤В╨╡╨│╨░,╨┤╨╗╤П ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А ╨┐╨░╤А╨░╨╝╨╡╤В╤А╤Л
+	int rectok;		//╤В╨╕╨┐
+	int recrm;    //╨┤╨╗╤П ╤Б╤В╤А╤Г╨║╤В╤Г╤А ╤З╨╕╤Б╨╗╨╛ ╨║╨╛╨┐╨╕╨╣
 	int recsegm;
 	int recpost;
 	int recsize;
 	int recsib;
-	int line;	//номер линии
-	int file;	//файл
-	int count;	//счетчик использования
+	int line;	//╨╜╨╛╨╝╨╡╤А ╨╗╨╕╨╜╨╕╨╕
+	int file;	//╤Д╨░╨╣╨╗
+	int count;	//╤Б╤З╨╡╤В╤З╨╕╨║ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╤П
 	unsigned short type;
 	unsigned short npointr;
 	union{
-		char *sbuf;	//указатель на блок исходного текста
+		char *sbuf;	//╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М ╨╜╨░ ╨▒╨╗╨╛╨║ ╨╕╤Б╤Е╨╛╨┤╨╜╨╛╨│╨╛ ╤В╨╡╨║╤Б╤В╨░
 		_PROCINFO_ *pinfo;
 	};
 	union{
@@ -80,23 +80,23 @@ struct localrec
 	};
 	int locsize;
 	char localid[IDLENGTH];
-	unsigned char fuse;	//флаг использования
-	unsigned char flag;	//флаг static*/
+	unsigned char fuse;	//╤Д╨╗╨░╨│ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╤П
+	unsigned char flag;	//╤Д╨╗╨░╨│ static*/
 	idrec rec;
 	localinfo li;
-	unsigned char fuse;	//флаг использования
+	unsigned char fuse;	//╤Д╨╗╨░╨│ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╤П
 };
 
-#define INITBPPAR 1	//инициализация BP после параметров
-#define INITBPLOC 2 //инициализация BP после локальных
+#define INITBPPAR 1	//╨╕╨╜╨╕╤Ж╨╕╨░╨╗╨╕╨╖╨░╤Ж╨╕╤П BP ╨┐╨╛╤Б╨╗╨╡ ╨┐╨░╤А╨░╨╝╨╡╤В╤А╨╛╨▓
+#define INITBPLOC 2 //╨╕╨╜╨╕╤Ж╨╕╨░╨╗╨╕╨╖╨░╤Ж╨╕╤П BP ╨┐╨╛╤Б╨╗╨╡ ╨╗╨╛╨║╨░╨╗╤М╨╜╤Л╤Е
 #define INITBPENTER 4
 #define INITBPADDESP 8
 
 struct HEADLOC
 {
-	int type;	//тип заголовка
-	unsigned int ofs; //адрес значения
-	unsigned int num;	//величина значения
+	int type;	//╤В╨╕╨┐ ╨╖╨░╨│╨╛╨╗╨╛╨▓╨║╨░
+	unsigned int ofs; //╨░╨┤╤А╨╡╤Б ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П
+	unsigned int num;	//╨▓╨╡╨╗╨╕╤З╨╕╨╜╨░ ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П
 };
 
 struct treelocalrec
@@ -138,25 +138,25 @@ union{
 struct elementteg
 {
 	union{
-		void *nteg;	//адрес тега вложенной структуры
+		void *nteg;	//╨░╨┤╤А╨╡╤Б ╤В╨╡╨│╨░ ╨▓╨╗╨╛╨╢╨╡╨╜╨╜╨╛╨╣ ╤Б╤В╤А╤Г╨║╤В╤Г╤А╤Л
 		idrec *rec;
 	};
 	int tok;
 	union{
-		unsigned int numel;	//число элементов этого типа
+		unsigned int numel;	//╤З╨╕╤Б╨╗╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╤Н╤В╨╛╨│╨╛ ╤В╨╕╨┐╨░
 		BIT bit;
 	};
-	unsigned int ofs;	//смещение от начала структуры
+	unsigned int ofs;	//╤Б╨╝╨╡╤Й╨╡╨╜╨╕╨╡ ╨╛╤В ╨╜╨░╤З╨░╨╗╨░ ╤Б╤В╤А╤Г╨║╤В╤Г╤А╤Л
 	char name[IDLENGTH];
 };
 
 struct structteg
 {
-	struct structteg *left;	//следующий тег
-	struct structteg *right;	//следующий тег
-	unsigned int size;	//размер тега
-	unsigned int numoper;	//число операндов структуры
-	struct elementteg *baza;	//адрес с описанием элементов тега
+	struct structteg *left;	//╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╕╨╣ ╤В╨╡╨│
+	struct structteg *right;	//╤Б╨╗╨╡╨┤╤Г╤О╤Й╨╕╨╣ ╤В╨╡╨│
+	unsigned int size;	//╤А╨░╨╖╨╝╨╡╤А ╤В╨╡╨│╨░
+	unsigned int numoper;	//╤З╨╕╤Б╨╗╨╛ ╨╛╨┐╨╡╤А╨░╨╜╨┤╨╛╨▓ ╤Б╤В╤А╤Г╨║╤В╤Г╤А╤Л
+	struct elementteg *baza;	//╨░╨┤╤А╨╡╤Б ╤Б ╨╛╨┐╨╕╤Б╨░╨╜╨╕╨╡╨╝ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╤В╨╡╨│╨░
 	unsigned int flag;
 	char name[IDLENGTH];
 };
@@ -170,16 +170,16 @@ struct listexport
 typedef struct _IOFS_
 {
 	unsigned int ofs;
-	unsigned int line;	//номер линии
-	unsigned int file;	//файл
+	unsigned int line;	//╨╜╨╛╨╝╨╡╤А ╨╗╨╕╨╜╨╕╨╕
+	unsigned int file;	//╤Д╨░╨╣╨╗
 	unsigned char dataseg;
 }IOFS;
 
 typedef struct _UNDEFOFF_
 {
 	struct _UNDEFOFF_ *next;
-	IOFS *pos;	//буфер с адресами откуда ссылки
-	int num;	//число ссылок на эту метку
+	IOFS *pos;	//╨▒╤Г╤Д╨╡╤А ╤Б ╨░╨┤╤А╨╡╤Б╨░╨╝╨╕ ╨╛╤В╨║╤Г╨┤╨░ ╤Б╤Б╤Л╨╗╨║╨╕
+	int num;	//╤З╨╕╤Б╨╗╨╛ ╤Б╤Б╤Л╨╗╨╛╨║ ╨╜╨░ ╤Н╤В╤Г ╨╝╨╡╤В╨║╤Г
 	char name[IDLENGTH];
 }UNDEFOFF;
 
@@ -194,7 +194,7 @@ typedef struct _SINFO_
 	int size;
 }SINFO;
 
-//структура списка api-процедур
+//╤Б╤В╤А╤Г╨║╤В╤Г╤А╨░ ╤Б╨┐╨╕╤Б╨║╨░ api-╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
 typedef struct _APIPROC_
 {
 	struct idrec *recapi;
@@ -203,48 +203,48 @@ typedef struct _APIPROC_
 //
 typedef struct _DLLLIST_
 {
-	struct _DLLLIST_ *next;	//следующая DLL
-	struct _APIPROC_ *list;	//список процедур
-	unsigned short num;     //число процедур
-	char name[IDLENGTH];	//имя DLL
+	struct _DLLLIST_ *next;	//╤Б╨╗╨╡╨┤╤Г╤О╤Й╨░╤П DLL
+	struct _APIPROC_ *list;	//╤Б╨┐╨╕╤Б╨╛╨║ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
+	unsigned short num;     //╤З╨╕╤Б╨╗╨╛ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
+	char name[IDLENGTH];	//╨╕╨╝╤П DLL
 }DLLLIST;
 
 typedef struct _PE_HEADER_
 {
-	long sign;	//сигнатура - всегда  'PE'
-	short cpu;    //мин тип CPU - всегда 0x14C
-	short numobj;	//число входов в таблицу объектов
-	long date_time;	//дата модификации линкером
+	long sign;	//╤Б╨╕╨│╨╜╨░╤В╤Г╤А╨░ - ╨▓╤Б╨╡╨│╨┤╨░  'PE'
+	short cpu;    //╨╝╨╕╨╜ ╤В╨╕╨┐ CPU - ╨▓╤Б╨╡╨│╨┤╨░ 0x14C
+	short numobj;	//╤З╨╕╤Б╨╗╨╛ ╨▓╤Е╨╛╨┤╨╛╨▓ ╨▓ ╤В╨░╨▒╨╗╨╕╤Ж╤Г ╨╛╨▒╤К╨╡╨║╤В╨╛╨▓
+	long date_time;	//╨┤╨░╤В╨░ ╨╝╨╛╨┤╨╕╤Д╨╕╨║╨░╤Ж╨╕╨╕ ╨╗╨╕╨╜╨║╨╡╤А╨╛╨╝
 	long pCOFF;
 	long COFFsize;
-	short NTheadsize;	//размер заголовка PE от MAGIC - всегда 0xE0
+	short NTheadsize;	//╤А╨░╨╖╨╝╨╡╤А ╨╖╨░╨│╨╛╨╗╨╛╨▓╨║╨░ PE ╨╛╤В MAGIC - ╨▓╤Б╨╡╨│╨┤╨░ 0xE0
 	short flags;
-	short Magic;	//назначение прграммы
-	short LinkVer;	//версия линкера
+	short Magic;	//╨╜╨░╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ ╨┐╤А╨│╤А╨░╨╝╨╝╤Л
+	short LinkVer;	//╨▓╨╡╤А╤Б╨╕╤П ╨╗╨╕╨╜╨║╨╡╤А╨░
 	long sizecode;
 	long sizeinitdata;
 	long sizeuninitdata;
-	long EntryRVA;	//адрес относит IMAGE BASE по которому передается управление
-	long basecode;	//RVA секция, которая содержит программный код
-	long basedata;	//RVA секция,содержащая данные
-	long ImageBase;	//виртуальный начальный адрес загрузки программы
-	long objAlig;	//выравнивание программных секций
-	long fileAlig;	//Выравнивание секций в файле
-	long OSver;	//номер версии опер системы необх программе
+	long EntryRVA;	//╨░╨┤╤А╨╡╤Б ╨╛╤В╨╜╨╛╤Б╨╕╤В IMAGE BASE ╨┐╨╛ ╨║╨╛╤В╨╛╤А╨╛╨╝╤Г ╨┐╨╡╤А╨╡╨┤╨░╨╡╤В╤Б╤П ╤Г╨┐╤А╨░╨▓╨╗╨╡╨╜╨╕╨╡
+	long basecode;	//RVA ╤Б╨╡╨║╤Ж╨╕╤П, ╨║╨╛╤В╨╛╤А╨░╤П ╤Б╨╛╨┤╨╡╤А╨╢╨╕╤В ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨╜╤Л╨╣ ╨║╨╛╨┤
+	long basedata;	//RVA ╤Б╨╡╨║╤Ж╨╕╤П,╤Б╨╛╨┤╨╡╤А╨╢╨░╤Й╨░╤П ╨┤╨░╨╜╨╜╤Л╨╡
+	long ImageBase;	//╨▓╨╕╤А╤В╤Г╨░╨╗╤М╨╜╤Л╨╣ ╨╜╨░╤З╨░╨╗╤М╨╜╤Л╨╣ ╨░╨┤╤А╨╡╤Б ╨╖╨░╨│╤А╤Г╨╖╨║╨╕ ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╤Л
+	long objAlig;	//╨▓╤Л╤А╨░╨▓╨╜╨╕╨▓╨░╨╜╨╕╨╡ ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨╜╤Л╤Е ╤Б╨╡╨║╤Ж╨╕╨╣
+	long fileAlig;	//╨Т╤Л╤А╨░╨▓╨╜╨╕╨▓╨░╨╜╨╕╨╡ ╤Б╨╡╨║╤Ж╨╕╨╣ ╨▓ ╤Д╨░╨╣╨╗╨╡
+	long OSver;	//╨╜╨╛╨╝╨╡╤А ╨▓╨╡╤А╤Б╨╕╨╕ ╨╛╨┐╨╡╤А ╤Б╨╕╤Б╤В╨╡╨╝╤Л ╨╜╨╡╨╛╨▒╤Е ╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨╡
 	long userver;
 	long SubSysVer;
 	long rez;
-	long imagesize;	//размер в байтах загружаемого образа с заголовками выравненый
-	long headsize;	//разм всех заголовков stub+PE+objtabl
+	long imagesize;	//╤А╨░╨╖╨╝╨╡╤А ╨▓ ╨▒╨░╨╣╤В╨░╤Е ╨╖╨░╨│╤А╤Г╨╢╨░╨╡╨╝╨╛╨│╨╛ ╨╛╨▒╤А╨░╨╖╨░ ╤Б ╨╖╨░╨│╨╛╨╗╨╛╨▓╨║╨░╨╝╨╕ ╨▓╤Л╤А╨░╨▓╨╜╨╡╨╜╤Л╨╣
+	long headsize;	//╤А╨░╨╖╨╝ ╨▓╤Б╨╡╤Е ╨╖╨░╨│╨╛╨╗╨╛╨▓╨║╨╛╨▓ stub+PE+objtabl
 	long checksum;
-	short SubSys;	//операционная сист необх для запуска
+	short SubSys;	//╨╛╨┐╨╡╤А╨░╤Ж╨╕╨╛╨╜╨╜╨░╤П ╤Б╨╕╤Б╤В ╨╜╨╡╨╛╨▒╤Е ╨┤╨╗╤П ╨╖╨░╨┐╤Г╤Б╨║╨░
 	short DLLflag;
 	long stackRezSize;
 	long stackComSize;
 	long heapRezSize;
 	long heapComSize;
 	long loaderFlag;
-	long numRVA;	//всегда 10
+	long numRVA;	//╨▓╤Б╨╡╨│╨┤╨░ 10
 	long exportRVA;
 	long exportSize;
 	long importRVA;
@@ -303,12 +303,12 @@ typedef struct _EXPORT_TABLE_
 
 #if !defined(__WIN32__)
 struct ftime {
-	unsigned ft_tsec:5;  /* две секунды */
-	unsigned ft_min:6;   /* минуты */
-	unsigned ft_hour:5;  /* часы */
-	unsigned ft_day:5;   /* день */
-	unsigned ft_month:4; /* месяц */
-	unsigned ft_year:7;  /* год-1980 */
+	unsigned ft_tsec:5;  /* ╨┤╨▓╨╡ ╤Б╨╡╨║╤Г╨╜╨┤╤Л */
+	unsigned ft_min:6;   /* ╨╝╨╕╨╜╤Г╤В╤Л */
+	unsigned ft_hour:5;  /* ╤З╨░╤Б╤Л */
+	unsigned ft_day:5;   /* ╨┤╨╡╨╜╤М */
+	unsigned ft_month:4; /* ╨╝╨╡╤Б╤П╤Ж */
+	unsigned ft_year:7;  /* ╨│╨╛╨┤-1980 */
 };
 #else
 #include <io.h>
@@ -317,11 +317,11 @@ struct ftime {
 
 typedef struct _STRING_LIST_
 {
-	void *next;	//следующая структура
-	unsigned int len; //длина строки
-	unsigned int ofs;	//адрес в выходном файле
-	unsigned char type;	//тип терминатора
-	unsigned char plase;	//где сейчас строка - post or data
+	void *next;	//╤Б╨╗╨╡╨┤╤Г╤О╤Й╨░╤П ╤Б╤В╤А╤Г╨║╤В╤Г╤А╨░
+	unsigned int len; //╨┤╨╗╨╕╨╜╨░ ╤Б╤В╤А╨╛╨║╨╕
+	unsigned int ofs;	//╨░╨┤╤А╨╡╤Б ╨▓ ╨▓╤Л╤Е╨╛╨┤╨╜╨╛╨╝ ╤Д╨░╨╣╨╗╨╡
+	unsigned char type;	//╤В╨╕╨┐ ╤В╨╡╤А╨╝╨╕╨╜╨░╤В╨╛╤А╨░
+	unsigned char plase;	//╨│╨┤╨╡ ╤Б╨╡╨╣╤З╨░╤Б ╤Б╤В╤А╨╛╨║╨░ - post or data
 }STRING_LIST;
 
 struct FILEINFO
@@ -397,14 +397,14 @@ typedef struct _EXE_DOS_HEADER_
 typedef struct _FSWI_
 {
 	ISW *info;
-	int sizetab;	//число элементов
-	int type;	//разрядность
-	int numcase;	//число используемых элементов
-	int defal;	//значение по умолчанию.
-	int ptb;	//адрес указателя на эту таблицу в блоке кода
-	int ptv;	//адрес тавлицы величин
-	int mode;	//тип switch
-	int razr;	//разрядность величин
+	int sizetab;	//╤З╨╕╤Б╨╗╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓
+	int type;	//╤А╨░╨╖╤А╤П╨┤╨╜╨╛╤Б╤В╤М
+	int numcase;	//╤З╨╕╤Б╨╗╨╛ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╤Г╨╡╨╝╤Л╤Е ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓
+	int defal;	//╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О.
+	int ptb;	//╨░╨┤╤А╨╡╤Б ╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤П ╨╜╨░ ╤Н╤В╤Г ╤В╨░╨▒╨╗╨╕╤Ж╤Г ╨▓ ╨▒╨╗╨╛╨║╨╡ ╨║╨╛╨┤╨░
+	int ptv;	//╨░╨┤╤А╨╡╤Б ╤В╨░╨▓╨╗╨╕╤Ж╤Л ╨▓╨╡╨╗╨╕╤З╨╕╨╜
+	int mode;	//╤В╨╕╨┐ switch
+	int razr;	//╤А╨░╨╖╤А╤П╨┤╨╜╨╛╤Б╤В╤М ╨▓╨╡╨╗╨╕╤З╨╕╨╜
 }FSWI;
 
 struct paraminfo
@@ -431,7 +431,7 @@ struct LVIC{
 	idrec *rec;
 //	int blocks;
 	int typevar;
-	int contype;	//тип содержимого
+	int contype;	//╤В╨╕╨┐ ╤Б╨╛╨┤╨╡╤А╨╢╨╕╨╝╨╛╨│╨╛
 	union{
 		long number;
 		long long lnumber;
@@ -478,9 +478,9 @@ struct REGISTERSTAT
 
 struct SAVEREG
 {
-	unsigned int size;	//размер памяти для регистров
-	unsigned char all;	//все регистры
-	unsigned char reg[8];	//карта регистров
+	unsigned int size;	//╤А╨░╨╖╨╝╨╡╤А ╨┐╨░╨╝╤П╤В╨╕ ╨┤╨╗╤П ╤А╨╡╨│╨╕╤Б╤В╤А╨╛╨▓
+	unsigned char all;	//╨▓╤Б╨╡ ╤А╨╡╨│╨╕╤Б╤В╤А╤Л
+	unsigned char reg[8];	//╨║╨░╤А╤В╨░ ╤А╨╡╨│╨╕╤Б╤В╤А╨╛╨▓
 };
 
 struct SAVEPAR
@@ -490,13 +490,13 @@ struct SAVEPAR
  unsigned char odbg;
  unsigned char odosstring;
  unsigned char ouseinline;
- unsigned char oam32; 		      // режим 32 битной адресации
+ unsigned char oam32; 		      // ╤А╨╡╨╢╨╕╨╝ 32 ╨▒╨╕╤В╨╜╨╛╨╣ ╨░╨┤╤А╨╡╤Б╨░╤Ж╨╕╨╕
  unsigned char oalignword;
- unsigned char oAlignCycle;       //выравнивать начала циклов
- unsigned char oidasm;	//ассемблерные инструкции считать идентификаторами
+ unsigned char oAlignCycle;       //╨▓╤Л╤А╨░╨▓╨╜╨╕╨▓╨░╤В╤М ╨╜╨░╤З╨░╨╗╨░ ╤Ж╨╕╨║╨╗╨╛╨▓
+ unsigned char oidasm;	//╨░╤Б╤Б╨╡╨╝╨▒╨╗╨╡╤А╨╜╤Л╨╡ ╨╕╨╜╤Б╤В╤А╤Г╨║╤Ж╨╕╨╕ ╤Б╤З╨╕╤В╨░╤В╤М ╨╕╨┤╨╡╨╜╤В╨╕╤Д╨╕╨║╨░╤В╨╛╤А╨░╨╝╨╕
  int ooptnumber;
  int odivexpand;
- unsigned char ooptstr;	//оптимизация строковых констант
+ unsigned char ooptstr;	//╨╛╨┐╤В╨╕╨╝╨╕╨╖╨░╤Ж╨╕╤П ╤Б╤В╤А╨╛╨║╨╛╨▓╤Л╤Е ╨║╨╛╨╜╤Б╤В╨░╨╜╤В
  unsigned char ochip;
  int           oaligncycle;
  unsigned char ouselea;
@@ -512,10 +512,10 @@ struct COM_MOD
 	unsigned int inptr2; 		 /* index in input buffer */
 	unsigned int linenumber;
 	unsigned int currentfileinfo;
-	int numparamdef;	//число параметров в текущем define
-	char *declareparamdef;	//список объявленых параметров define
-	char *paramdef;	//список новых параметров
-	int freze;	//флаг запрещения удаления структуры
+	int numparamdef;	//╤З╨╕╤Б╨╗╨╛ ╨┐╨░╤А╨░╨╝╨╡╤В╤А╨╛╨▓ ╨▓ ╤В╨╡╨║╤Г╤Й╨╡╨╝ define
+	char *declareparamdef;	//╤Б╨┐╨╕╤Б╨╛╨║ ╨╛╨▒╤К╤П╨▓╨╗╨╡╨╜╤Л╤Е ╨┐╨░╤А╨░╨╝╨╡╤В╤А╨╛╨▓ define
+	char *paramdef;	//╤Б╨┐╨╕╤Б╨╛╨║ ╨╜╨╛╨▓╤Л╤Е ╨┐╨░╤А╨░╨╝╨╡╤В╤А╨╛╨▓
+	int freze;	//╤Д╨╗╨░╨│ ╨╖╨░╨┐╤А╨╡╤Й╨╡╨╜╨╕╤П ╤Г╨┤╨░╨╗╨╡╨╜╨╕╤П ╤Б╤В╤А╤Г╨║╤В╤Г╤А╤Л
 };
 
 struct LISTRELOC {

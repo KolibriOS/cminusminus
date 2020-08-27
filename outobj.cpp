@@ -9,7 +9,7 @@ void  obj_outLEDATA(unsigned int segm,unsigned int offset,unsigned int recordlen
 
 int *numextname;
 int maxnumextname=MAXNUMEXTNAME;
-unsigned int lenextstr=0;	//§´®≠† ·‚‡Æ™® · ¢≠•Ë≠®¨® ®¨•≠†¨®
+unsigned int lenextstr=0;	//–¥–ª–∏–Ω–∞ —Å—Ç—Ä–æ–∫–∏ —Å –≤–Ω–µ—à–Ω–∏–º–∏ –∏–º–µ–Ω–∞–º–∏
 int numextern=0;
 
 int postseg,stackseg;
@@ -36,7 +36,7 @@ unsigned int count,sizeblock;
 	*(short *)&string2[0]=0;
 	string2[2]=(unsigned char)i;
 	obj_outrecord(0x88,i+3,&string2[0]);// output the LNAMES
-	for(count=0;count<totalmodule;count++){	//®¨•≠† ¢™´ÓÁ†•¨ÎÂ ‰†©´Æ¢
+	for(count=0;count<totalmodule;count++){	//–∏–º–µ–Ω–∞ –≤–∫–ª—é—á–∞–µ–º—ã—Ö —Ñ–∞–π–ª–æ–≤
 		*(struct ftime *)&string2[2]=(startfileinfo+count)->time;
 		strcpy((char *)&string2[7],(startfileinfo+count)->filename);
 		i=strlen((startfileinfo+count)->filename);
@@ -44,10 +44,10 @@ unsigned int count,sizeblock;
 		string2[6]=(unsigned char)i;
 		obj_outrecord(0x88,i+7,&string2[0]);// output the LNAMES
 	}
-	count=outptr-startptr;	//‡†ß¨•‡ ™Æ§†
-	unsigned char *data=output+startptr;	//≠†Á†´Æ §†≠≠ÎÂ
+	count=outptr-startptr;	//—Ä–∞–∑–º–µ—Ä –∫–æ–¥–∞
+	unsigned char *data=output+startptr;	//–Ω–∞—á–∞–ª–æ –¥–∞–Ω–Ω—ã—Ö
 	*(short *)&string2[0]=0xE940;
-	obj_outrecord(0x88,2,&string2[0]);//™Æ≠•Ê ™Æ¨•≠‚†‡®©
+	obj_outrecord(0x88,2,&string2[0]);//–∫–æ–Ω–µ—Ü –∫–æ–º–µ–Ω—Ç–∞—Ä–∏–π
 	if(!am32){
 		*(short *)&string2[0]=0xEA00;
 		string2[2]=1;
@@ -63,16 +63,16 @@ unsigned int count,sizeblock;
 	if(!am32){
 		string2[0]=(unsigned char)0x28;
 		*(short *)&string2[1]=(short)outptr;//count;// Set the length of the segment of DATA or CODE
-		string2[3]=0x02;	//®¨Ô ·•£¨•≠‚† _TEXT
-		*(short *)&string2[4]=0x0103;	//™´†·· CODE Overlay NONE 1
+		string2[3]=0x02;	//–∏–º—è —Å–µ–≥–º–µ–Ω—Ç–∞ _TEXT
+		*(short *)&string2[4]=0x0103;	//–∫–ª–∞—Å—Å CODE Overlay NONE 1
 		obj_outrecord(0x98,6,string2);
 		i=2;
 
 		if(comfile==file_exe&&modelmem==SMALL){
 			string2[0]=(unsigned char)0x48;
 			*(short *)&string2[1]=outptrdata;// Set the length of the segment DATA
-			string2[3]=0x07;	//®¨Ô ·•£¨•≠‚† _DATA
-			*(short *)&string2[4]=0x0108;	//™´†·· DATA Overlay NONE
+			string2[3]=0x07;	//–∏–º—è —Å–µ–≥–º–µ–Ω—Ç–∞ _DATA
+			*(short *)&string2[4]=0x0108;	//–∫–ª–∞—Å—Å DATA Overlay NONE
 			obj_outrecord(0x98,6,string2);
 			i++;
 		}
@@ -80,8 +80,8 @@ unsigned int count,sizeblock;
 		postseg=i;
 		string2[0]=(unsigned char)0x48;
 		*(short *)&string2[1]=(short)postsize;// Set the length of the segment BSS
-		string2[3]=0x04;	//®¨Ô ·•£¨•≠‚† _BSS
-		*(short *)&string2[4]=0x0105;	//™´†·· BSS Overlay NONE
+		string2[3]=0x04;	//–∏–º—è —Å–µ–≥–º–µ–Ω—Ç–∞ _BSS
+		*(short *)&string2[4]=0x0105;	//–∫–ª–∞—Å—Å BSS Overlay NONE
 		obj_outrecord(0x98,6,string2);
 		i++;
 
@@ -89,12 +89,12 @@ unsigned int count,sizeblock;
 			obj_outrecord(0x96,6,(unsigned char *)"\005STACK");
 			string2[0]=0x74;
 			*(short *)&string2[1]=(short)stacksize;// Set the length of the segment STACK
-			string2[3]=0x09;	//®¨Ô ·•£¨•≠‚† STACK
-			*(short *)&string2[4]=0x0109;	//™´†·· STACK Overlay NONE
+			string2[3]=0x09;	//–∏–º—è —Å–µ–≥–º–µ–Ω—Ç–∞ STACK
+			*(short *)&string2[4]=0x0109;	//–∫–ª–∞—Å—Å STACK Overlay NONE
 			obj_outrecord(0x98,6,string2);
 			stackseg=i;
 		}
-		string2[0]=6;	//®¨Ô DGROUP
+		string2[0]=6;	//–∏–º—è DGROUP
 		if(comfile==file_exe&&modelmem==SMALL){
 			*(short *)&string2[1]=0x2FF;
 			*(short *)&string2[3]=0x3FF;//postseg*256+255;//0x3FF;
@@ -112,23 +112,23 @@ unsigned int count,sizeblock;
 	else{
 		string2[0]=(unsigned char)0xA9;
 		*(long *)&string2[1]=(long)outptr;//count;// Set the length of the segment of DATA or CODE
-		string2[5]=0x02;	//®¨Ô ·•£¨•≠‚† _TEXT
-		*(short *)&string2[6]=0x0103;	//™´†·· CODE Overlay NONE
+		string2[5]=0x02;	//–∏–º—è —Å–µ–≥–º–µ–Ω—Ç–∞ _TEXT
+		*(short *)&string2[6]=0x0103;	//–∫–ª–∞—Å—Å CODE Overlay NONE
 		obj_outrecord(0x99,8,string2);
 		i=2;
 /*
 		string2[0]=(unsigned char)0xA9;
 		*(long *)&string2[1]=0;// Set the length of the segment DATA
-		string2[5]=0x07;	//®¨Ô ·•£¨•≠‚† _DATA
-		*(short *)&string2[6]=0x0108;	//™´†·· DATA Overlay NONE
+		string2[5]=0x07;	//–∏–º—è —Å–µ–≥–º–µ–Ω—Ç–∞ _DATA
+		*(short *)&string2[6]=0x0108;	//–∫–ª–∞—Å—Å DATA Overlay NONE
 		obj_outrecord(0x99,8,string2);
 		i++;*/
 
 		postseg=i;
 		string2[0]=(unsigned char)0xA9;
 		*(long *)&string2[1]=(long)postsize;// Set the length of the segment BSS
-		string2[5]=0x04;	//®¨Ô ·•£¨•≠‚† _BSS
-		*(short *)&string2[6]=0x0105;	//™´†·· BSS Overlay NONE
+		string2[5]=0x04;	//–∏–º—è —Å–µ–≥–º–µ–Ω—Ç–∞ _BSS
+		*(short *)&string2[6]=0x0105;	//–∫–ª–∞—Å—Å BSS Overlay NONE
 		obj_outrecord(0x99,8,string2);
 		i++;
 
@@ -137,15 +137,15 @@ unsigned int count,sizeblock;
 		if(comfile!=file_w32){
 			string2[0]=0x75;
 			*(long *)&string2[1]=(long)stacksize;// Set the length of the segment STACK
-			string2[5]=0x09;	//®¨Ô ·•£¨•≠‚† STACK
-			*(short *)&string2[6]=0x0109;	//™´†·· STACK Overlay NONE
+			string2[5]=0x09;	//–∏–º—è —Å–µ–≥–º–µ–Ω—Ç–∞ STACK
+			*(short *)&string2[6]=0x0109;	//–∫–ª–∞—Å—Å STACK Overlay NONE
 			obj_outrecord(0x99,8,string2);
 			stackseg=i;
 		}
 		string2[0]=10;
 
 		obj_outrecord(0x9A,1,string2);	//GRPDEF Group: FLAT
-		string2[0]=6;	//®¨Ô DGROUP
+		string2[0]=6;	//–∏–º—è DGROUP
 		i=1;
 //		*(short *)&string2[i]=0x2FF;	//DATA
 //		i+=2;
@@ -157,7 +157,7 @@ unsigned int count,sizeblock;
 		}
 		obj_outrecord(0x9A,i,string2);
 	}
-// ¢Î¢Æ§ EXTDEF
+// –≤—ã–≤–æ–¥ EXTDEF
 	while(externnum>maxnumextname)maxnumextname+=MAXNUMEXTNAME;
 	numextname=(int *)MALLOC(maxnumextname*sizeof(int));
 // output the PUBDEF records for each exteral procedures (all procedures)
@@ -174,7 +174,7 @@ restart:
 			if((postbuf+j)->type>=CALL_EXT&&(postbuf+j)->type<=FIX_CODE32&&
 					(postbuf+j)->loc>=(i+startptr)&&(postbuf+j)->loc<(i+sizeblock+startptr)){
 				if((postbuf+j)->loc>(i+startptr+sizeblock-(am32==FALSE?2:4))){
-					sizeblock=(postbuf+j)->loc-i-startptr;//®ß¨•≠®‚Ï ‡†ß¨•‡ °´Æ™†
+					sizeblock=(postbuf+j)->loc-i-startptr;//–∏–∑–º–µ–Ω–∏—Ç—å —Ä–∞–∑–º–µ—Ä –±–ª–æ–∫–∞
 					goto restart;
 				}
 			}
@@ -248,7 +248,7 @@ restart:
 	}
 	else{
 		count=EntryPoint();
-		*(short *)&string2[0]=0xC1;	//£´†¢≠Î© ¨Æ§„´Ï ®¨••‚ ·‚†‡‚Æ¢Î© †§‡•· ™Æ‚Æ‡ ≠•´ÏßÔ ¨•≠Ô‚Ï.
+		*(short *)&string2[0]=0xC1;	//–≥–ª–∞–≤–Ω—ã–π –º–æ–¥—É–ª—å –∏–º–µ–µ—Ç —Å—Ç–∞—Ä—Ç–æ–≤—ã–π –∞–¥—Ä–µ—Å –∫–æ—Ç–æ—Ä –Ω–µ–ª—å–∑—è –º–µ–Ω—è—Ç—å.
 		*(short *)&string2[2]=0x101;
 		if(count<65536){
 			*(short *)&string2[4]=(short)count;
@@ -318,7 +318,7 @@ unsigned int i;
 		outeachPUBDEF(ptr->right);
 		if(ptr->rectok==tk_apiproc){
 			i=0;
-			for(unsigned int j=0;j<posts;j++){	//ØÆ®·™ ®·ØÆ´ÏßÆ¢†≠®Ô Ø‡ÆÊ•§„‡Î
+			for(unsigned int j=0;j<posts;j++){	//–ø–æ–∏—Å–∫ –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏—è –ø—Ä–æ—Ü–µ–¥—É—Ä—ã
 				if((postbuf+j)->num==(unsigned long)ptr->recnumber&&((postbuf+j)->type==CALL_32I||(postbuf+j)->type==CALL_32)){
 					i++;
 					(postbuf+j)->type=CALL_EXT;

@@ -9,7 +9,7 @@
 
 //#define DEBUGMODE
 
-#define OPTVARCONST // Замена переменных сонстантами
+#define OPTVARCONST // ╨Ч╨░╨╝╨╡╨╜╨░ ╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╤Е ╤Б╨╛╨╜╤Б╤В╨░╨╜╤В╨░╨╝╨╕
 
 #define MAXNUMPATH 16
 #define DATATYPES 9 	// number of data types
@@ -31,8 +31,8 @@
 #define MAXSYSCOM 25
 #define NUMNUM 32
 #define NUMNUM64 64
-#define OBJECTALIGN 4096	//выравнивание секций в памяти
-#define WARNCOUNT 15	//число различных предупреждений
+#define OBJECTALIGN 4096	//╨▓╤Л╤А╨░╨▓╨╜╨╕╨▓╨░╨╜╨╕╨╡ ╤Б╨╡╨║╤Ж╨╕╨╣ ╨▓ ╨┐╨░╨╝╤П╤В╨╕
+#define WARNCOUNT 15	//╤З╨╕╤Б╨╗╨╛ ╤А╨░╨╖╨╗╨╕╤З╨╜╤Л╤Е ╨┐╤А╨╡╨┤╤Г╨┐╤А╨╡╨╢╨┤╨╡╨╜╨╕╨╣
 
 #define ver1 0
 #define ver2 239
@@ -65,12 +65,12 @@
 	#endif
 #endif
 
-extern unsigned char FixUpTable;	//запретить создание таблици Fix UP for Windows
+extern unsigned char FixUpTable;	//╨╖╨░╨┐╤А╨╡╤В╨╕╤В╤М ╤Б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╤В╨░╨▒╨╗╨╕╤Ж╨╕ Fix UP for Windows
 extern unsigned char WinMonoBlock;
 extern unsigned int currentfileinfo;
 
 #if !defined (_MAIN_)
-extern char fobj;	//признак генерации obj
+extern char fobj;	//╨┐╤А╨╕╨╖╨╜╨░╨║ ╨│╨╡╨╜╨╡╤А╨░╤Ж╨╕╨╕ obj
 extern char *rawfilename;
 extern struct tm timeptr;
 extern char outext[];
@@ -82,22 +82,22 @@ extern int numfindpath;
 extern char *findpath[];
 extern char bufpath[];
 extern unsigned int  startptr;
-extern unsigned char wconsole;//признак генерации консольного приложения windows
+extern unsigned char wconsole;//╨┐╤А╨╕╨╖╨╜╨░╨║ ╨│╨╡╨╜╨╡╤А╨░╤Ж╨╕╨╕ ╨║╨╛╨╜╤Б╨╛╨╗╤М╨╜╨╛╨│╨╛ ╨┐╤А╨╕╨╗╨╛╨╢╨╡╨╜╨╕╤П windows
 extern unsigned long ImageBase;
 extern int numexport;
 extern struct listexport *lexport;
-extern unsigned char optstr;	//оптимизация строковых констант
+extern unsigned char optstr;	//╨╛╨┐╤В╨╕╨╝╨╕╨╖╨░╤Ж╨╕╤П ╤Б╤В╤А╨╛╨║╨╛╨▓╤Л╤Е ╨║╨╛╨╜╤Б╤В╨░╨╜╤В
 extern unsigned char crif;	//check reply include file
-extern unsigned char idasm;	//ассемблерные инструкции считать идентификаторами
+extern unsigned char idasm;	//╨░╤Б╤Б╨╡╨╝╨▒╨╗╨╡╤А╨╜╤Л╨╡ ╨╕╨╜╤Б╤В╤А╤Г╨║╤Ж╨╕╨╕ ╤Б╤З╨╕╤В╨░╤В╤М ╨╕╨┤╨╡╨╜╤В╨╕╤Д╨╕╨║╨░╤В╨╛╤А╨░╨╝╨╕
 extern char modelmem;
 extern char *stubfile;
 extern char comsymbios;
 extern unsigned char sobj;
 extern short dllflag;
-extern char *bufstr;	//буфер для строк из процедур
-extern int sbufstr;	//начальный размер этого буфера
-extern unsigned char wbss;	//пост переменные в отдельную секцию
-extern int numrel;	//число элементов в таблице перемещений
+extern char *bufstr;	//╨▒╤Г╤Д╨╡╤А ╨┤╨╗╤П ╤Б╤В╤А╨╛╨║ ╨╕╨╖ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
+extern int sbufstr;	//╨╜╨░╤З╨░╨╗╤М╨╜╤Л╨╣ ╤А╨░╨╖╨╝╨╡╤А ╤Н╤В╨╛╨│╨╛ ╨▒╤Г╤Д╨╡╤А╨░
+extern unsigned char wbss;	//╨┐╨╛╤Б╤В ╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡ ╨▓ ╨╛╤В╨┤╨╡╨╗╤М╨╜╤Г╤О ╤Б╨╡╨║╤Ж╨╕╤О
+extern int numrel;	//╤З╨╕╤Б╨╗╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╨▓ ╤В╨░╨▒╨╗╨╕╤Ж╨╡ ╨┐╨╡╤А╨╡╨╝╨╡╤Й╨╡╨╜╨╕╨╣
 extern unsigned char usestub;
 extern char *winstub;
 extern unsigned char dpmistub;
@@ -106,7 +106,7 @@ extern int startupfile;
 extern int alignproc,aligncycle;
 extern FILE *hout;
 extern unsigned char useDOS4GW;
-extern unsigned char use_env;	//переменная окружения
+extern unsigned char use_env;	//╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╨░╤П ╨╛╨║╤А╤Г╨╢╨╡╨╜╨╕╤П
 extern unsigned char clearpost;
 extern unsigned char uselea;
 extern unsigned char regoverstack;
@@ -121,9 +121,9 @@ extern unsigned char ESPloc;
 extern unsigned char string[STRLEN],string2[STRLEN+20];
 
 #if !defined (_TOKC_)
-extern unsigned int outptrsize;	//размер выходного буфера
+extern unsigned int outptrsize;	//╤А╨░╨╖╨╝╨╡╤А ╨▓╤Л╤Е╨╛╨┤╨╜╨╛╨│╨╛ ╨▒╤Г╤Д╨╡╤А╨░
 extern unsigned char string3[STRLEN];
-extern char *BackTextBlock;	//буфер для перенесенного текста
+extern char *BackTextBlock;	//╨▒╤Г╤Д╨╡╤А ╨┤╨╗╤П ╨┐╨╡╤А╨╡╨╜╨╡╤Б╨╡╨╜╨╜╨╛╨│╨╛ ╤В╨╡╨║╤Б╤В╨░
 extern int SizeBackBuf;
 extern unsigned char cha;
 extern unsigned int inptr;
@@ -160,33 +160,33 @@ extern unsigned int startStartup;
 extern unsigned char useStartup;
 extern unsigned int endStartup;
 extern unsigned char notpost;
-extern unsigned char am32; 		      // режим 32 битной адресации
+extern unsigned char am32; 		      // ╤А╨╡╨╢╨╕╨╝ 32 ╨▒╨╕╤В╨╜╨╛╨╣ ╨░╨┤╤А╨╡╤Б╨░╤Ж╨╕╨╕
 extern unsigned int externnum;
-extern unsigned char FastCallApi;	//разрешить быстрый вызов API процедур
-extern unsigned char FixUp;	//Делать ли таблицу перемещений
-extern void *liststring;	//цепочка информационных блоков о строках
+extern unsigned char FastCallApi;	//╤А╨░╨╖╤А╨╡╤И╨╕╤В╤М ╨▒╤Л╤Б╤В╤А╤Л╨╣ ╨▓╤Л╨╖╨╛╨▓ API ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
+extern unsigned char FixUp;	//╨Ф╨╡╨╗╨░╤В╤М ╨╗╨╕ ╤В╨░╨▒╨╗╨╕╤Ж╤Г ╨┐╨╡╤А╨╡╨╝╨╡╤Й╨╡╨╜╨╕╨╣
+extern void *liststring;	//╤Ж╨╡╨┐╨╛╤З╨║╨░ ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╨╛╨╜╨╜╤Л╤Е ╨▒╨╗╨╛╨║╨╛╨▓ ╨╛ ╤Б╤В╤А╨╛╨║╨░╤Е
 extern struct FILEINFO *startfileinfo;
 extern unsigned int totalmodule;
 extern int retproc;
-extern unsigned char splitdata;	//отделить данные от кода
-extern unsigned char AlignCycle;       //выравнивать начала циклов
-extern char param[];	//буфер для параметров процедуры
-extern unsigned char dynamic_flag;	//флаг обработки динамических элементов
-extern unsigned char setzeroflag;	//операция меняет zero flag
+extern unsigned char splitdata;	//╨╛╤В╨┤╨╡╨╗╨╕╤В╤М ╨┤╨░╨╜╨╜╤Л╨╡ ╨╛╤В ╨║╨╛╨┤╨░
+extern unsigned char AlignCycle;       //╨▓╤Л╤А╨░╨▓╨╜╨╕╨▓╨░╤В╤М ╨╜╨░╤З╨░╨╗╨░ ╤Ж╨╕╨║╨╗╨╛╨▓
+extern char param[];	//╨▒╤Г╤Д╨╡╤А ╨┤╨╗╤П ╨┐╨░╤А╨░╨╝╨╡╤В╤А╨╛╨▓ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╤Л
+extern unsigned char dynamic_flag;	//╤Д╨╗╨░╨│ ╨╛╨▒╤А╨░╨▒╨╛╤В╨║╨╕ ╨┤╨╕╨╜╨░╨╝╨╕╤З╨╡╤Б╨║╨╕╤Е ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓
+extern unsigned char setzeroflag;	//╨╛╨┐╨╡╤А╨░╤Ж╨╕╤П ╨╝╨╡╨╜╤П╨╡╤В zero flag
 extern unsigned char insertmode;
-extern unsigned int numblocks;	//номер вложенного блока
+extern unsigned int numblocks;	//╨╜╨╛╨╝╨╡╤А ╨▓╨╗╨╛╨╢╨╡╨╜╨╜╨╛╨│╨╛ ╨▒╨╗╨╛╨║╨░
 extern unsigned char notunreach;
 extern idrec *staticlist;
 extern unsigned int procedure_start; /* address of start of procedure */
-extern int lastcommand;	//последний оператор в блоке
+extern int lastcommand;	//╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╕╨╣ ╨╛╨┐╨╡╤А╨░╤В╨╛╤А ╨▓ ╨▒╨╗╨╛╨║╨╡
 extern unsigned int initBP;
 extern unsigned char fstatic;
-//extern int sizestack;	//размер не компенсированных параметров функций
+//extern int sizestack;	//╤А╨░╨╖╨╝╨╡╤А ╨╜╨╡ ╨║╨╛╨╝╨┐╨╡╨╜╤Б╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╤Е ╨┐╨░╤А╨░╨╝╨╡╤В╤А╨╛╨▓ ╤Д╤Г╨╜╨║╤Ж╨╕╨╣
 extern unsigned char addstack;
-extern unsigned long addESP;	//добавка стека
-extern unsigned char blockproc;	//идетразборка блока функции
-extern treelocalrec *tlr;	//цепочка локальных блоков
-extern treelocalrec *btlr;	//цепочка использованых локальных блоков
+extern unsigned long addESP;	//╨┤╨╛╨▒╨░╨▓╨║╨░ ╤Б╤В╨╡╨║╨░
+extern unsigned char blockproc;	//╨╕╨┤╨╡╤В╤А╨░╨╖╨▒╨╛╤А╨║╨░ ╨▒╨╗╨╛╨║╨░ ╤Д╤Г╨╜╨║╤Ж╨╕╨╕
+extern treelocalrec *tlr;	//╤Ж╨╡╨┐╨╛╤З╨║╨░ ╨╗╨╛╨║╨░╨╗╤М╨╜╤Л╤Е ╨▒╨╗╨╛╨║╨╛╨▓
+extern treelocalrec *btlr;	//╤Ж╨╡╨┐╨╛╤З╨║╨░ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╤Л╤Е ╨╗╨╛╨║╨░╨╗╤М╨╜╤Л╤Е ╨▒╨╗╨╛╨║╨╛╨▓
 extern int returntype; 				 /* return type, (void, byte, word, ...) */
 #endif
 extern int tok,tok2;
@@ -214,9 +214,9 @@ extern char *bufrm;
 extern UNDEFOFF *undefoffstart;
 extern DLLLIST *listdll;
 extern char skipfind;
-extern struct structteg *tegtree;			//глобальный срисок тегов
-extern struct structteg *ltegtree;		//локальный срисок тегов
-//extern struct idrec *lstructlist; //список локальных структур
+extern struct structteg *tegtree;			//╨│╨╗╨╛╨▒╨░╨╗╤М╨╜╤Л╨╣ ╤Б╤А╨╕╤Б╨╛╨║ ╤В╨╡╨│╨╛╨▓
+extern struct structteg *ltegtree;		//╨╗╨╛╨║╨░╨╗╤М╨╜╤Л╨╣ ╤Б╤А╨╕╤Б╨╛╨║ ╤В╨╡╨│╨╛╨▓
+//extern struct idrec *lstructlist; //╤Б╨┐╨╕╤Б╨╛╨║ ╨╗╨╛╨║╨░╨╗╤М╨╜╤Л╤Е ╤Б╤В╤А╤Г╨║╤В╤Г╤А
 extern struct idrec *definestart;
 extern SINFO strinf;
 extern char *startline, *endinput;
@@ -244,12 +244,12 @@ extern unsigned int stackstartaddress;
 extern int dataromstart,dataromsize;
 extern unsigned char startuptomain;
 extern unsigned char dosstring;
-extern unsigned int numdomain;	//число процедур запускаемых до main
-extern char *domain;	//буфер имен процедур запускаемых до main
-extern unsigned char usedirectiv;	//идет обработка директивы
+extern unsigned int numdomain;	//╤З╨╕╤Б╨╗╨╛ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А ╨╖╨░╨┐╤Г╤Б╨║╨░╨╡╨╝╤Л╤Е ╨┤╨╛ main
+extern char *domain;	//╨▒╤Г╤Д╨╡╤А ╨╕╨╝╨╡╨╜ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А ╨╖╨░╨┐╤Г╤Б╨║╨░╨╡╨╝╤Л╤Е ╨┤╨╛ main
+extern unsigned char usedirectiv;	//╨╕╨┤╨╡╤В ╨╛╨▒╤А╨░╨▒╨╛╤В╨║╨░ ╨┤╨╕╤А╨╡╨║╤В╨╕╨▓╤Л
 extern unsigned char atex;
-extern unsigned int postnumflag;	//флаг последнего идентификатора в вычислении номера
-extern unsigned char sdp_mode;	//режим принудительной выгрузки динамических процедур
+extern unsigned int postnumflag;	//╤Д╨╗╨░╨│ ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╡╨│╨╛ ╨╕╨┤╨╡╨╜╤В╨╕╤Д╨╕╨║╨░╤В╨╛╤А╨░ ╨▓ ╨▓╤Л╤З╨╕╤Б╨╗╨╡╨╜╨╕╨╕ ╨╜╨╛╨╝╨╡╤А╨░
+extern unsigned char sdp_mode;	//╤А╨╡╨╢╨╕╨╝ ╨┐╤А╨╕╨╜╤Г╨┤╨╕╤В╨╡╨╗╤М╨╜╨╛╨╣ ╨▓╤Л╨│╤А╤Г╨╖╨║╨╕ ╨┤╨╕╨╜╨░╨╝╨╕╤З╨╡╤Б╨║╨╕╤Е ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
 extern int calcnumber;
 extern int strpackdef;
 extern int strpackcur;
@@ -266,7 +266,7 @@ extern ITOK itok,itok2,ptok;
 extern int divexpand;
 extern int optnumber;
 extern char *badadr;
-extern LISTFLOAT *floatnum;	//список float констант
+extern LISTFLOAT *floatnum;	//╤Б╨┐╨╕╤Б╨╛╨║ float ╨║╨╛╨╜╤Б╤В╨░╨╜╤В
 extern unsigned int numfloatconst;
 extern unsigned int ofsfloatlist;
 #endif
@@ -281,9 +281,9 @@ extern unsigned int pdbg;      // number of post entrys
 
 #if !defined (_OUTPE_)
 extern unsigned long ImageBase;
-extern unsigned long vsizeheader; //виртуальный размер заголовка.
+extern unsigned long vsizeheader; //╨▓╨╕╤А╤В╤Г╨░╨╗╤М╨╜╤Л╨╣ ╤А╨░╨╖╨╝╨╡╤А ╨╖╨░╨│╨╛╨╗╨╛╨▓╨║╨░.
 extern int filingzerope;
-extern unsigned long FILEALIGN;	// выравнивание секций в файле
+extern unsigned long FILEALIGN;	// ╨▓╤Л╤А╨░╨▓╨╜╨╕╨▓╨░╨╜╨╕╨╡ ╤Б╨╡╨║╤Ж╨╕╨╣ ╨▓ ╤Д╨░╨╣╨╗╨╡
 #endif
 
 #if !defined (_ERRORS_)
@@ -309,7 +309,7 @@ extern int destructor;
 #if !defined (_RES_)
 extern unsigned char *resbuf;
 extern unsigned int curposbuf;
-extern int numres;	//текущее число ресурсов
+extern int numres;	//╤В╨╡╨║╤Г╤Й╨╡╨╡ ╤З╨╕╤Б╨╗╨╛ ╤А╨╡╤Б╤Г╤А╤Б╨╛╨▓
 extern int numstrtbl;
 #endif
 
@@ -317,7 +317,7 @@ extern unsigned char idxregs[5];
 
 // start of procedure pre-definitions
 /*-----------------19.09.98 17:18-------------------
-	 Функции определенные в main.cpp
+	 ╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╨╜╤Л╨╡ ╨▓ main.cpp
 --------------------------------------------------*/
 void *MALLOC(unsigned long size);
 void *REALLOC(void *block,unsigned long size);
@@ -325,7 +325,7 @@ void IncludePath(char *buf);
 int SelectComand(char *pptr,int *count);
 void strbtrim(char *st);
 unsigned long  Align(unsigned long size,unsigned long val);
-int AlignCD(char segm,int val);	//выравнять данные или код
+int AlignCD(char segm,int val);	//╨▓╤Л╤А╨░╨▓╨╜╤П╤В╤М ╨┤╨░╨╜╨╜╤Л╨╡ ╨╕╨╗╨╕ ╨║╨╛╨┤
 void ErrOpenFile(char *str);
 unsigned int EntryPoint();
 long CopyFile(FILE *in,FILE *out);
@@ -338,19 +338,19 @@ int MakeCoff();
 void setdindata(idrec *ptr,int i);
 
 /*-----------------08.03.98 20:10-------------------
- Функции определеные в toka.c
+ ╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╤Л╨╡ ╨▓ toka.c
 --------------------------------------------------*/
 void CheckAllMassiv(char *&buf,int sizeel,SINFO *strc,ITOK *ctok=&itok,int reg1=idxregs[0],int reg2=idxregs[1]);
 void docalls(); //attempt to declare undefs from library and dynamic proc's
 int FindOff(unsigned char *name,int base);
-void nextchar();	//опр в toke
+void nextchar();	//╨╛╨┐╤А ╨▓ toke
 void nexttok();
-void whitespace(); //пропуск нзначащих символов
+void whitespace(); //╨┐╤А╨╛╨┐╤Г╤Б╨║ ╨╜╨╖╨╜╨░╤З╨░╤Й╨╕╤Е ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓
 int searchtree(ITOK *itk4,int *tk4,unsigned char *strin4);
 void AddUndefOff(int segm,char *ostring);
-void InitStruct();	//инициализировать структуру
-unsigned long LocalStruct(int flag,int *localline);	//инициализировать локальную структуру
-struct structteg * FindTeg(int Global,char *name=itok.name);	//найти тег
+void InitStruct();	//╨╕╨╜╨╕╤Ж╨╕╨░╨╗╨╕╨╖╨╕╤А╨╛╨▓╨░╤В╤М ╤Б╤В╤А╤Г╨║╤В╤Г╤А╤Г
+unsigned long LocalStruct(int flag,int *localline);	//╨╕╨╜╨╕╤Ж╨╕╨░╨╗╨╕╨╖╨╕╤А╨╛╨▓╨░╤В╤М ╨╗╨╛╨║╨░╨╗╤М╨╜╤Г╤О ╤Б╤В╤А╤Г╨║╤В╤Г╤А╤Г
+struct structteg * FindTeg(int Global,char *name=itok.name);	//╨╜╨░╨╣╤В╨╕ ╤В╨╡╨│
 void dostruct();
 int FastSearch(unsigned char *list,short *ofs,int type,char *str);
 void FindDirectiv();
@@ -368,7 +368,7 @@ void dodelete();
 void donew();
 void RunNew(int size);
 int CallDestructor(structteg *searcht);
-int FindUseName(char *name);	//поиск ссылок на текущее имя
+int FindUseName(char *name);	//╨┐╨╛╨╕╤Б╨║ ╤Б╤Б╤Л╨╗╨╛╨║ ╨╜╨░ ╤В╨╡╨║╤Г╤Й╨╡╨╡ ╨╕╨╝╤П
 void DateToStr(char *buf);
 int CalcRm16(int base,int idx);
 int CheckDef();
@@ -381,7 +381,7 @@ void ExpandRm(int rm,int sib,int *zoom,int *base,int *idx);
 void BackMod();
 
 /*-----------------08.03.98 21:45-------------------
- Функции определеные в tokb.h
+ ╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╤Л╨╡ ╨▓ tokb.h
 --------------------------------------------------*/
 void AddReloc(int segm=itok.segm);
 int doalmath(int sign,char **ofsstr);
@@ -432,7 +432,7 @@ void float2stack(int num);
 void dofloatstack(int num);
 
 /*-----------------08.03.98 20:59-------------------
- Функции определеные в tokc.c
+ ╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╤Л╨╡ ╨▓ tokc.c
 --------------------------------------------------*/
 localrec * addlocalvar(char *str,int tok,unsigned int num,int addmain=FALSE);
 int addpoststring(int segm=CS,int len=itok.number, int term=itok.flag); 	 /* add a string to the post queue */
@@ -450,7 +450,7 @@ int doid (char uppercase,int expectedreturn);
 void insert_dynamic(int insert=FALSE);
 int macros(int expectedreturn);
 void op(int byte);
-void opd(int byte);	//вывод байта в сегмент данных
+void opd(int byte);	//╨▓╤Л╨▓╨╛╨┤ ╨▒╨░╨╣╤В╨░ ╨▓ ╤Б╨╡╨│╨╝╨╡╨╜╤В ╨┤╨░╨╜╨╜╤Л╤Е
 void op66(int ctoc);
 int op67(int ctok);
 void outqwordd (unsigned long long);
@@ -515,7 +515,7 @@ void LLabel();
 void AddApiToPost(unsigned int num);
 
 /*-----------------08.03.98 20:06-------------------
- функции определены в toke.c
+ ╤Д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╤Л ╨▓ toke.c
 --------------------------------------------------*/
 void jumperror(unsigned int line,char *type);
 void beep();			 /* beep for any internal errors */
@@ -569,7 +569,7 @@ int calcfloatnumber(float *retnum,float number,int operand);
 int calcdoublenumber(double *retnum,double number,int operand);
 
 /*-----------------08.03.98 22:24-------------------
- Функции определеные в tokr.c
+ ╨д╤Г╨╜╨║╤Ж╨╕╨╕ ╨╛╨┐╤А╨╡╨┤╨╡╨╗╨╡╨╜╤Л╨╡ ╨▓ tokr.c
 --------------------------------------------------*/
 void doasm(int next=FALSE);
 int short_ok(long thenumber,int reg32=FALSE);

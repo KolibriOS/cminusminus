@@ -4,10 +4,10 @@
 #define _OUTPE_
 
 /* -----------------------------------------------------------------------
- �������� PE �ଠ�
+ Создание PE формата
  ------------------------------------------------------------------------ */
 #define SIZESTUB 96
-#define STRVERS 0x20	//ᬥ饭�� ⥪�� � ����஬ ���ᨨ
+#define STRVERS 0x20	//смещение текста с номером версии
 
 char stub[]={0x4D,0x5A,0x50,0x00,0x02,0x00,0x00,0x00,
              0x04,0x00,0x0F,0x00,0xFF,0xFF,0x00,0x00,
@@ -28,12 +28,12 @@ char stub[]={0x4D,0x5A,0x50,0x00,0x02,0x00,0x00,0x00,
 char stub2[]={0x4D,0x5A,0x53,0x50,0x48,0x49,0x4E,0x58,
               0x20,0x43,0x2D,0x2D};
 unsigned int numdll,numapi;
-unsigned char FixUpTable=FALSE;	//������� ᮧ����� ⠡��� Fix UP for Windows
+unsigned char FixUpTable=FALSE;	//запретить создание таблици Fix UP for Windows
 unsigned char WinMonoBlock=TRUE;
 int numexport=0;
 unsigned long ImageBase=0x400000;
-unsigned long vsizeheader=0x1000; //����㠫�� ࠧ��� ���������.
-unsigned long FILEALIGN=0;//512;	// ��ࠢ������� ᥪ権 � 䠩��
+unsigned long vsizeheader=0x1000; //виртуальный размер заголовка.
+unsigned long FILEALIGN=0;//512;	// выравнивание секций в файле
 int filingzerope;
 
 struct listexport *lexport=NULL;
@@ -73,8 +73,8 @@ int i,j;
 
 void CheckMem()
 {
-	if(listdll!=NULL){	//���� api-���
-DLLLIST *newdll=listdll;	//��砫� ᯨ᪠ DLL
+	if(listdll!=NULL){	//есть api-проц
+DLLLIST *newdll=listdll;	//начало списка DLL
 APIPROC *listapi=newdll->list;
 idrec *rec=listapi->recapi;
 		PrintMem(rec);
@@ -83,57 +83,57 @@ idrec *rec=listapi->recapi;
 
 void AddJmpApi()
 {
-//���� api ��楤��
-//᪮�४�஢��� ���� �� ⠡���� ��६�饭��
+//поиск api процедур
+//скорректировать адреса из таблицы перемещений
 	alignersize+=AlignCD(CS,4);
-	if(listdll!=NULL){	//���� api-���
-		DLLLIST *newdll=listdll;	//��砫� ᯨ᪠ DLL
+	if(listdll!=NULL){	//есть api-проц
+		DLLLIST *newdll=listdll;	//начало списка DLL
 		numdll=numapi=0;
 		for(APIPROC *listapi=newdll->list;;){
-			unsigned short numapiprocdll=0;	//�᫮ �ᯮ��㥬�� � ������⥪� ��楤��
-			for(short i=0;i<newdll->num;i++){	//�஢���� �� ��楤���
+			unsigned short numapiprocdll=0;	//число используемых в библиотеке процедур
+			for(short i=0;i<newdll->num;i++){	//проверить все процедуры
 				idrec *rec=(listapi+i)->recapi;
-				unsigned int idnum=rec->recnumber;	//�����䨪��� ᯨ᪠
-				char useapi=FALSE;	//䫠� �ᯮ�짮�����
-				for(unsigned int j=0;j<posts;j++){	//���� �ᯮ�짮����� ��楤���
+				unsigned int idnum=rec->recnumber;	//идентификатор списка
+				char useapi=FALSE;	//флаг использования
+				for(unsigned int j=0;j<posts;j++){	//поиск использования процедуры
 					if((postbuf+j)->num==idnum){
-						if((postbuf+j)->type==CALL_32){	//��諨
-							useapi=API_JMP;	//䫠� �������
-							unsigned long hold=outptr-((postbuf+j)->loc+4);	//���ﭨ� �� �맮��
- 							*(long *)&output[(postbuf+j)->loc]=hold;	//��ࠢ���
+						if((postbuf+j)->type==CALL_32){	//нашли
+							useapi=API_JMP;	//флаг взведем
+							unsigned long hold=outptr-((postbuf+j)->loc+4);	//растояние до вызова
+ 							*(long *)&output[(postbuf+j)->loc]=hold;	//исправить
 						}
 						else if((postbuf+j)->type==CALL_32I){
-							useapi=API_FAST;	//䫠� �������
+							useapi=API_FAST;	//флаг взведем
 							numrel++;
 						}
 					}
 				}
-				if(useapi==API_JMP){	// ��楤�� ��뢠����
-					*(short *)&output[outptr]=0x25ff;	//������� JMP
+				if(useapi==API_JMP){	// процедура вызывалась
+					*(short *)&output[outptr]=0x25ff;	//генерация JMP
 					outptr+=2;
-					rec->recnumber=outptr;	//⥯��� ����� �����. �窠 �室�
-					AddReloc(CS);	//�������� �� � ⠡� ��६�饭��
-					*(long *)&output[outptr]=0;	//���� �맮��
+					rec->recnumber=outptr;	//теперь вместо идент. точка входа
+					AddReloc(CS);	//добавить ее в табл перемещений
+					*(long *)&output[outptr]=0;	//адрес вызова
 					outptr+=4;
-					numapi++;	//��饥 �᫮ �ᯮ�짮����� api-��楤��
-					numapiprocdll++;	//�᫮ �ᯮ�짮����� ��楤�� � �⮩ DLL
+					numapi++;	//общее число использованых api-процедур
+					numapiprocdll++;	//число использованых процедур в этой DLL
 				}
 				else if(useapi==API_FAST){
-					numapi++;	//��饥 �᫮ �ᯮ�짮����� api-��楤��
-					numapiprocdll++;	//�᫮ �ᯮ�짮����� ��楤�� � �⮩ DLL
+					numapi++;	//общее число использованых api-процедур
+					numapiprocdll++;	//число использованых процедур в этой DLL
 				}
-				rec->recrm=useapi;	//⨯ �맮�� api; 0 - not used
+				rec->recrm=useapi;	//тип вызова api; 0 - not used
 				if(rec->newid!=NULL){
-					free(rec->newid);	//ᯨ᮪ ��ࠬ��஢ ����� �� �㦥�
+					free(rec->newid);	//список параметров больше не нужен
 					rec->newid=NULL;
 				}
 			}
-			newdll->num=numapiprocdll;	//��ࠢ��� �᫮ ॠ�쭮 �ᯮ�� ��楤��
-			if(numapiprocdll==0){	//� �⮩ ������⥪� �� �ᯮ�� �� ���� �맮�
-				free(newdll->list);	//㤠���� ᯨ᮪ ��楤��.
+			newdll->num=numapiprocdll;	//исправить число реально использ процедур
+			if(numapiprocdll==0){	//в этой библиотеке не использ ни один вызов
+				free(newdll->list);	//удалить список процедур.
 			}
 			else numdll++;
-			if(newdll->next==NULL)break;	//����� ᯨ᪠
+			if(newdll->next==NULL)break;	//конец списка
 			newdll=newdll->next;
 			listapi=newdll->list;
 		}
@@ -152,63 +152,63 @@ unsigned long psize,vsize=0,sizereloc=0,sizeReloc=0,sizeImport=0,sizeExport=0,
 unsigned long startsec=0,startsecr=0,startsece=0,startsecres=0;
 unsigned int posrel=0,sizeimport=0,startimportname=0,sizeexport=0,sizeres=0,
              startexportname=0;
-unsigned int sizehead;	//ࠧ��� ���������
-unsigned int exportnum=0; //����� ᥪ樨 ��ᯮ��
-unsigned int relocnum=0;	//����� ᥪ樨 ��६�饭��
-unsigned int importnum=0;	//����� ᥪ樨 ������
-unsigned int codenum=0;	//����� ᥪ樨 ����
-unsigned int resnum=0;	//����� ᥪ樨 ����ᮢ
+unsigned int sizehead;	//размер заголовка
+unsigned int exportnum=0; //номер секции экспорта
+unsigned int relocnum=0;	//номер секции перемещений
+unsigned int importnum=0;	//номер секции импорта
+unsigned int codenum=0;	//номер секции кода
+unsigned int resnum=0;	//номер секции ресурсов
 	if(hout==NULL)return -1;
 	if(WinMonoBlock==FALSE){
-		vsize=Align(outptr+(wbss==FALSE?postsize:0),OBJECTALIGN);//����㠫�� ࠧ��� ᥪ樨 ����
-		psize=Align(outptr,FILEALIGN);	//䨧��᪨� ࠧ��� ᥪ樨 ����
+		vsize=Align(outptr+(wbss==FALSE?postsize:0),OBJECTALIGN);//виртуальный размер секции кода
+		psize=Align(outptr,FILEALIGN);	//физический размер секции кода
 	}
 	else vsize=outptr;
 //	sizehead=((postsize&&wbss)?2:1)*sizeof(OBJECT_ENTRY);
 	sizehead=numrs*sizeof(OBJECT_ENTRY);
-	OBJECT_ENTRY *objentry=(OBJECT_ENTRY *)MALLOC(sizehead);//⠢��� ��ꥪ⮢
-	memset(objentry,0,sizehead);//������ ⠡���� ��ꥪ⮢
-//ᥪ�� .bss
-	if(wbss){	//���� post ��६����
-		numobj++;     //㢥��稢��� �᫮ ��ꥪ⮢
-		codenum=1;	//����� ᥪ樨 ����
-		strcpy(objentry->name,".bss"); //��� ᥪ樨
+	OBJECT_ENTRY *objentry=(OBJECT_ENTRY *)MALLOC(sizehead);//тавлица объектов
+	memset(objentry,0,sizehead);//очистить таблицу объектов
+//секция .bss
+	if(wbss){	//есть post переменные
+		numobj++;     //увеличиваем число объектов
+		codenum=1;	//номер секции кода
+		strcpy(objentry->name,".bss"); //имя секции
 		objentry->vsize=sizebss=Align(postsize,OBJECTALIGN);
 		objentry->pOffset=objentry->psize=0;
 		objentry->flags=0xC0000080;
 		objentry->sectionRVA=vsizeheader;
 	}
-	strcpy((objentry+codenum)->name,"CODE");	//�� ���
-	(objentry+codenum)->vsize=vsize;          //ࠧ��� ᥪ樨 � �����
-	(objentry+codenum)->psize=psize;          //ࠧ��� ᥪ樨 � 䠩��
-	(objentry+codenum)->flags=0xe0000060;     //䫠� ᥪ樨
-	(objentry+codenum)->sectionRVA=vsizeheader+sizebss;//����㠫�� ���� ᥪ樨 � �����
-//ᥪ�� ������
-	if(numapi!=0){	//���� �맮�� api-��楤�� ᮧ� ᥪ�� ������
-		if(!WinMonoBlock){	//�᫨ �� ����� ����
+	strcpy((objentry+codenum)->name,"CODE");	//ее имя
+	(objentry+codenum)->vsize=vsize;          //размер секции в памяти
+	(objentry+codenum)->psize=psize;          //размер секции в файле
+	(objentry+codenum)->flags=0xe0000060;     //флаг секции
+	(objentry+codenum)->sectionRVA=vsizeheader+sizebss;//виртуальный адрес секции в памяти
+//секция импорта
+	if(numapi!=0){	//есть вызовы api-процедур созд секцию импорта
+		if(!WinMonoBlock){	//если не единый блок
 			importnum=numobj;
-			numobj++;     //㢥��稢��� �᫮ ��ꥪ⮢
+			numobj++;     //увеличиваем число объектов
 		}
-		startsec=vsizeheader+vsize+sizebss;	//��砫� ᥪ樨 � �����
-			//ॠ��� ࠧ��� ᥪ樨
+		startsec=vsizeheader+vsize+sizebss;	//начало секции в памяти
+			//реальный размер секции
 		startimportname=(numdll+1)*20+(numapi+numdll)*(shortimport==0?8:4);
-		sizeimport=Align(startimportname,FILEALIGN);	//ࠧ��� ᥪ樨 � �����
-		importblock=(char *)MALLOC(sizeimport);	//������ ��� ���
-		memset(importblock,0,sizeimport);	//������ ��
-		DLLLIST *newdll=listdll;	//⠡��窠 dll � �������㥬묨 ��楤�ࠬ�
+		sizeimport=Align(startimportname,FILEALIGN);	//размер секции в памяти
+		importblock=(char *)MALLOC(sizeimport);	//память под нее
+		memset(importblock,0,sizeimport);	//очистить ее
+		DLLLIST *newdll=listdll;	//табличка dll с импортируемыми процедурами
 		unsigned long sn,sn1;
 		sn1=sn=(numdll+1)*20;
 		for(int i=0;;i++){
-			while(newdll->num==0)if((newdll=newdll->next)==NULL)break;//�ய�� ���ᯮ��㥬��
-			if(newdll==NULL)break;	//�������� 横� �᫨ ᯨ᮪ dll ����
-			APIPROC *listapi=newdll->list;	//⠡��窠 ��楤�� �� ⥪�饩 dll
+			while(newdll->num==0)if((newdll=newdll->next)==NULL)break;//пропуск неиспользуемых
+			if(newdll==NULL)break;	//завершить цикл если список dll пуст
+			APIPROC *listapi=newdll->list;	//табличка процедур из текущей dll
 			*(long *)&importblock[i*20+12]=startsec+startimportname;
 			*(long *)&importblock[i*20]=(shortimport==0?startsec+sn:0);
 			*(long *)&importblock[i*20+16]=startsec+sn+(shortimport==0?(numdll+numapi)*4:0);
 			sn+=(newdll->num+1)*4;
 			unsigned int lenn=strlen(newdll->name)+1;
 			if((lenn+startimportname+1)>=sizeimport){
-				sizeimport+=FILEALIGN;	//㢥����� ࠧ��� ᥪ樨
+				sizeimport+=FILEALIGN;	//увеличить размер секции
 				importblock=(char *)REALLOC(importblock,sizeimport);
 				memset(importblock+sizeimport-FILEALIGN,0,FILEALIGN);
 			}
@@ -221,9 +221,9 @@ unsigned int resnum=0;	//����� ᥪ樨 ����ᮢ
 				newadr=ImageBase+startsec+sn1+(shortimport==0?(numdll+numapi)*4:0);
 				if(rec->recrm==API_JMP)*(long *)&output[rec->recnumber]=newadr;
 				else{
-					for(unsigned int j=0;j<posts;j++){	//���� �ᯮ�짮����� ��楤���
+					for(unsigned int j=0;j<posts;j++){	//поиск использования процедуры
 						if((postbuf+j)->num==(unsigned long)rec->recnumber&&(postbuf+j)->type==CALL_32I){
- 							*(long *)&output[(postbuf+j)->loc]=newadr;	//��ࠢ���
+ 							*(long *)&output[(postbuf+j)->loc]=newadr;	//исправить
 						}
 					}
 				}
@@ -256,8 +256,8 @@ unsigned int resnum=0;	//����� ᥪ樨 ����ᮢ
 		}
 		importblock[startimportname++]=0;
 
-		if(!WinMonoBlock){	//�᫨ �� ����� ����
-			strcpy((objentry+importnum)->name,".idata"); //��� ᥪ樨
+		if(!WinMonoBlock){	//если не единый блок
+			strcpy((objentry+importnum)->name,".idata"); //имя секции
 			(objentry+importnum)->vsize=sizeImport=Align(sizeimport,OBJECTALIGN);
 			(objentry+importnum)->psize=sizeimport;
 			(objentry+importnum)->flags=0xC0000040;
@@ -265,18 +265,18 @@ unsigned int resnum=0;	//����� ᥪ樨 ����ᮢ
 		}
 		else sizeImport=sizeimport=Align(startimportname,4);
 	}
-//ᥪ�� ��ᯮ��
+//секция экспорта
 	if(numexport!=0){
-		if(!WinMonoBlock){	//�᫨ �� ����� ����
+		if(!WinMonoBlock){	//если не единый блок
 			exportnum=numobj;
-			numobj++;     //㢥��稢��� �᫮ ��ꥪ⮢
+			numobj++;     //увеличиваем число объектов
 		}
-		startsece=vsizeheader+vsize+sizeImport+sizebss;//��砫� ᥪ樨 � �����
-		startexportname=sizeof(EXPORT_TABLE)+numexport*10;//ॠ��� ࠧ��� ᥪ樨
-		sizeexport=Align(startexportname,FILEALIGN);	//ࠧ��� ᥪ樨 � �����
-		exportblock=(char *)MALLOC(sizeexport);	//������ ��� ���
-		memset(exportblock,0,sizeexport);	//������ ��
-		*(long *)&exportblock[12]=startsece+startexportname;//���� ����� 䠩��
+		startsece=vsizeheader+vsize+sizeImport+sizebss;//начало секции в памяти
+		startexportname=sizeof(EXPORT_TABLE)+numexport*10;//реальный размер секции
+		sizeexport=Align(startexportname,FILEALIGN);	//размер секции в памяти
+		exportblock=(char *)MALLOC(sizeexport);	//память под нее
+		memset(exportblock,0,sizeexport);	//очистить ее
+		*(long *)&exportblock[12]=startsece+startexportname;//адрес имени файла
 		*(long *)&exportblock[16]=1;	//Ordinal Base
 		*(long *)&exportblock[20]=numexport;	//Num of Functions
 		*(long *)&exportblock[24]=numexport;	//Num of Name Pointer
@@ -291,28 +291,28 @@ unsigned int resnum=0;	//����� ᥪ樨 ����ᮢ
 		sprintf((char *)string,"%s.%s",oname,outext);
 		unsigned int lenn=strlen((char *)string)+1;
 		if((lenn+startexportname+1)>=sizeexport){
-			sizeexport+=FILEALIGN;	//㢥����� ࠧ��� ᥪ樨
+			sizeexport+=FILEALIGN;	//увеличить размер секции
 			exportblock=(char *)REALLOC(exportblock,sizeexport);
 			memset(exportblock+sizeexport-FILEALIGN,0,FILEALIGN);
 		}
 		strcpy(&exportblock[startexportname],(char *)string);
 		startexportname+=lenn;
 		for(int i=0;i<numexport;i++){
-			*(long *)&exportblock[sizeof(EXPORT_TABLE)+i*4]=(lexport+i)->address+vsizeheader+sizebss;	//���� �㭪権
-			*(long *)&exportblock[sizeof(EXPORT_TABLE)+(numexport+i)*4]=startsece+startexportname;	//���� ����
-			*(short *)&exportblock[sizeof(EXPORT_TABLE)+numexport*8+i*2]=(short)i;	//�न���� ����
+			*(long *)&exportblock[sizeof(EXPORT_TABLE)+i*4]=(lexport+i)->address+vsizeheader+sizebss;	//адреса функций
+			*(long *)&exportblock[sizeof(EXPORT_TABLE)+(numexport+i)*4]=startsece+startexportname;	//адреса имен
+			*(short *)&exportblock[sizeof(EXPORT_TABLE)+numexport*8+i*2]=(short)i;	//ординалы имен
 			lenn=strlen((lexport+i)->name)+1;
 			if((lenn+startexportname+1)>=sizeexport){
-				sizeexport+=FILEALIGN;	//㢥����� ࠧ��� ᥪ樨
+				sizeexport+=FILEALIGN;	//увеличить размер секции
 				exportblock=(char *)REALLOC(exportblock,sizeexport);
 				memset(exportblock+sizeexport-FILEALIGN,0,FILEALIGN);
 			}
 			strcpy(&exportblock[startexportname],(lexport+i)->name);
 			startexportname+=lenn;
 		}
-		free(lexport);//�᢮����� 㦥 �� �㦭� ����
-		if(!WinMonoBlock){	//�᫨ �� ����� ����
-			strcpy((objentry+exportnum)->name,".edata"); //��� ᥪ樨
+		free(lexport);//освободим уже не нужный блок
+		if(!WinMonoBlock){	//если не единый блок
+			strcpy((objentry+exportnum)->name,".edata"); //имя секции
 			(objentry+exportnum)->vsize=sizeExport=Align(sizeexport,OBJECTALIGN);
 			(objentry+exportnum)->psize=sizeexport;
 			(objentry+exportnum)->flags=0x40000040;
@@ -321,16 +321,16 @@ unsigned int resnum=0;	//����� ᥪ樨 ����ᮢ
 		else sizeexport=sizeExport=Align(startexportname,4);
 	}
 
-	if(numres){	//ᥪ�� ����ᮢ
-		if(WinMonoBlock==FALSE){	//�᫨ �� ����� ����
+	if(numres){	//секция ресурсов
+		if(WinMonoBlock==FALSE){	//если не единый блок
 			resnum=numobj;
-			numobj++;                     //㢥����� �᫮ ��ꥪ⮢
+			numobj++;                     //увеличить число объектов
 		}
-		startsecres=vsizeheader+vsize+sizeImport+sizebss+sizeExport;//��砫� ᥪ樨 � �����
+		startsecres=vsizeheader+vsize+sizeImport+sizebss+sizeExport;//начало секции в памяти
 		LISTRELOC *resrel;
 		if(MakeRes(startsecres,&resrel))free(resrel);
-		if(!WinMonoBlock){	//�᫨ �� ����� ����
-			strcpy((objentry+resnum)->name,".rsrc"); //��� ᥪ樨
+		if(!WinMonoBlock){	//если не единый блок
+			strcpy((objentry+resnum)->name,".rsrc"); //имя секции
 			(objentry+resnum)->vsize=sizeRes=Align(curposbuf,OBJECTALIGN);
 			(objentry+resnum)->psize=sizeres=Align(curposbuf,FILEALIGN);
 			(objentry+resnum)->flags=0x40000040;
@@ -339,27 +339,27 @@ unsigned int resnum=0;	//����� ᥪ樨 ����ᮢ
 		else sizeres=Align(curposbuf,4);
 	}
 
-//ᥪ�� ⠡��� ��६�饭��
-	if((FixUpTable==TRUE&&numrel!=0)/*||numexport!=0*/){//ᮧ���� ᥪ�� ��६�饭��
-		if(WinMonoBlock==FALSE||dllflag==TRUE){	//�᫨ �� ����� ���� � �� DLL
+//секция таблиц перемещения
+	if((FixUpTable==TRUE&&numrel!=0)/*||numexport!=0*/){//создать секцию перемещения
+		if(WinMonoBlock==FALSE||dllflag==TRUE){	//если не единый блок и это DLL
 			relocnum=numobj;
-			numobj++;                     //㢥����� �᫮ ��ꥪ⮢
+			numobj++;                     //увеличить число объектов
 		}
 		if(WinMonoBlock&&dllflag)startsecr=vsizeheader+
 			Align(sizeimport+sizeexport+outptr+(wbss==FALSE?postsize:0)+sizebss+sizeres,OBJECTALIGN);
-		else startsecr=vsizeheader+vsize+sizeImport+sizeExport+sizebss+sizeres;	//����㠫�� ���� ᥪ樨 � �����
-		//䨧��᪨� ࠧ��� ᥪ樨 ⠡���� ��६�饭��
+		else startsecr=vsizeheader+vsize+sizeImport+sizeExport+sizebss+sizeres;	//виртуальный адрес секции в памяти
+		//физический размер секции таблицы перемещений
 		sizereloc=Align(numrel*2+(outptr/4096+1)*10,FILEALIGN);
-		sizeReloc=Align(sizereloc,OBJECTALIGN);//����㠫�� ࠧ��� �⮩ ᥪ樨
-		relocblock=(char *)MALLOC(sizereloc);	//������ ��� ��� ᥪ��
-		memset(relocblock,0,sizereloc);	//������ ��
-		//������塞 ᥪ�� ��६�饭��
-		unsigned int startrsec=0;	//���� ��砫� ����� � ᥪ樨 ��६�饭��
-		unsigned int startblc=0;	//���� ��ࢮ�� �����
+		sizeReloc=Align(sizereloc,OBJECTALIGN);//виртуальный размер этой секции
+		relocblock=(char *)MALLOC(sizereloc);	//память под эту секцию
+		memset(relocblock,0,sizereloc);	//очистить ее
+		//заполняем секцию перемещения
+		unsigned int startrsec=0;	//адрес начала блока в секции перемещения
+		unsigned int startblc=0;	//адрес первого блока
 		posrel=8;
 		do{
-			unsigned char fr=FALSE;	//䫠� �������
-			for(unsigned int i=0;i<posts;i++){	//��室�� ��� ⠡���� post
+			unsigned char fr=FALSE;	//флаг элемента
+			for(unsigned int i=0;i<posts;i++){	//обходим всю таблицу post
 				if(
 						(
 						  (postbuf+i)->type==CALL_32I||
@@ -371,27 +371,27 @@ unsigned int resnum=0;	//����� ᥪ樨 ����ᮢ
 					fr=TRUE;
 				}
 			}
-			if(fr!=FALSE){	//�᫨ �뫨 ��६�頥�� ����
-				posrel+=posrel%4;	//��ࠢ������
+			if(fr!=FALSE){	//если были перемещаемые адреса
+				posrel+=posrel%4;	//выравниваем
 				*(long *)&relocblock[startrsec]=vsizeheader+sizebss+startblc;
-				*(long *)&relocblock[startrsec+4]=posrel-startrsec;	//ࠧ��� ��᪠
+				*(long *)&relocblock[startrsec+4]=posrel-startrsec;	//размер куска
 				startrsec=posrel;
 				posrel+=8;
 			}
 			startblc+=4096;
 		}while(startblc<vsize);
 		posrel-=8;
-		if(WinMonoBlock==FALSE||dllflag==TRUE){	//�᫨ �� ����� ����
-			strcpy((objentry+relocnum)->name,".reloc");	//��� ᥪ樨
-			(objentry+relocnum)->vsize=sizeReloc;        //ࠧ��� ᥪ樨 � �����
-			(objentry+relocnum)->psize=sizereloc;        //ࠧ��� ᥪ樨 � 䠩��
-			(objentry+relocnum)->flags=0x52000040;       //䫠� ᥪ樨
-			(objentry+relocnum)->sectionRVA=startsecr;   //����㠫�� ���� ᥪ樨 � �����
+		if(WinMonoBlock==FALSE||dllflag==TRUE){	//если не единый блок
+			strcpy((objentry+relocnum)->name,".reloc");	//имя секции
+			(objentry+relocnum)->vsize=sizeReloc;        //размер секции в памяти
+			(objentry+relocnum)->psize=sizereloc;        //размер секции в файле
+			(objentry+relocnum)->flags=0x52000040;       //флаг секции
+			(objentry+relocnum)->sectionRVA=startsecr;   //виртуальный адрес секции в памяти
 		}
 		else sizereloc=Align(posrel,4);
 	}
 	if(WinMonoBlock){
-		psize=sizeimport+sizeexport+(dllflag==FALSE?sizereloc:0)+sizeres;	//ࠧ��� �������⥫��� ������
+		psize=sizeimport+sizeexport+(dllflag==FALSE?sizereloc:0)+sizeres;	//размер дополнительных данных
 		if(wbss==0){
 			for(unsigned int i=0;i<posts;i++){
 				if((postbuf+i)->type==POST_VAR32)
@@ -399,8 +399,8 @@ unsigned int resnum=0;	//����� ᥪ樨 ����ᮢ
 			}
 		}
 		psize+=outptr;
-		(objentry+codenum)->vsize=vsize=Align(psize+(wbss==FALSE?postsize:0),OBJECTALIGN);//����㠫�� ࠧ��� ᥪ樨 ����
-		filingzerope=(objentry+codenum)->psize=Align(psize,FILEALIGN);	//䨧��᪨� ࠧ��� ᥪ樨 ����
+		(objentry+codenum)->vsize=vsize=Align(psize+(wbss==FALSE?postsize:0),OBJECTALIGN);//виртуальный размер секции кода
+		filingzerope=(objentry+codenum)->psize=Align(psize,FILEALIGN);	//физический размер секции кода
 		filingzerope-=psize;
 		psize=(objentry+codenum)->psize;
 		sizeImport=sizeExport=0;
@@ -437,13 +437,13 @@ unsigned int resnum=0;	//����� ᥪ樨 ����ᮢ
 	peheader->SubSysVer=4;
 	peheader->ImageBase=ImageBase;
 	peheader->headsize=sizehead;
-	peheader->imagesize=vsizeheader+	//ࠧ��� ���������
-			                vsize+	//ࠧ��� ����
-											sizebss+		//ࠧ��� post �����
-											sizeReloc+	//ࠧ��� ⠡���� ��६�饭��
-											sizeImport+//ࠧ��� ⠡���� ������
-											sizeRes+	//ࠧ��� ⠡���� ����ᮢ
-											sizeExport;//ࠧ��� ⠡���� ��ᯮ��
+	peheader->imagesize=vsizeheader+	//размер заголовка
+			                vsize+	//размер кода
+											sizebss+		//размер post блока
+											sizeReloc+	//размер таблицы перемещения
+											sizeImport+//размер таблицы импорта
+											sizeRes+	//размер таблицы ресурсов
+											sizeExport;//размер таблицы экспорта
 	peheader->SubSys=(short)(2+wconsole);	//GUIWIN
 	peheader->stackRezSize=stacksize*0x10;
 	peheader->stackComSize=stacksize;
@@ -487,7 +487,7 @@ errwrite:
 	ChSize(sizehead);
 	runfilesize=sizehead+psize;
 	outputcodestart=ftell(hout);
-	if(fwrite(output,outptr,1,hout)!=1)goto errwrite;	//���� ����
+	if(fwrite(output,outptr,1,hout)!=1)goto errwrite;	//блок кода
 	if(!WinMonoBlock){
 		filingzerope=psize-outptr;
 		ChSize(runfilesize);
@@ -518,7 +518,7 @@ errwrite:
 	free(objentry);
 	fclose(hout);
 	hout=NULL;
-	ImageBase+=vsizeheader+sizebss;	//��� ࠧ��� ��� ���⨭��
+	ImageBase+=vsizeheader+sizebss;	//изм размер для листинга
 	return 0;
 }
 
@@ -536,7 +536,7 @@ long delta,ssave;
 	}
 }
 
-int AlignCD(char segm,int val)	//��ࠢ���� ����� ��� ���
+int AlignCD(char segm,int val)	//выравнять данные или код
 {
 unsigned int a;
 	a=(segm==DS?outptrdata:outptr)%val;
@@ -562,19 +562,19 @@ void CreatWinStub()
 		}
 	}
 	else CreatStub(winstub);
-//�������� �᫮ ᥪ権
+//подсчитать число секций
 	if(wbss){
 		if(postsize)numrs++;
 		else wbss=FALSE;
 	}
-	if(WinMonoBlock==FALSE){	//�᫨ �� ����� ����
-		if(numapi)numrs++;	//���� �맮�� api-��楤��
-		if(numexport)numrs++;	//ᮧ���� ᥪ�� ������
-		if((FixUpTable==TRUE&&posts)/*||numexport!=0*/)numrs++;	//ᮧ���� ᥪ�� ��६�饭��
-		if(numres)numrs++;	//������
+	if(WinMonoBlock==FALSE){	//если не единый блок
+		if(numapi)numrs++;	//есть вызовы api-процедур
+		if(numexport)numrs++;	//создать секцию импорта
+		if((FixUpTable==TRUE&&posts)/*||numexport!=0*/)numrs++;	//создать секцию перемещения
+		if(numres)numrs++;	//ресурсы
 	}
-	else if(dllflag&&FixUpTable==TRUE&&posts!=0)numrs++;	//ᮧ���� ᥪ�� ��६�饭��
-//ࠧ��� ����㧮筮�� ��ࠧ�
+	else if(dllflag&&FixUpTable==TRUE&&posts!=0)numrs++;	//создать секцию перемещения
+//размер загрузочного образа
 	vsizeheader=Align(numrs*sizeof(OBJECT_ENTRY)+sizeof(PE_HEADER)+sizestub,0x1000);
 }
 
@@ -586,11 +586,11 @@ union{
 	OBJECT_ENTRY obj;
 };
 unsigned long temp;
-unsigned long export;	//ᥪ�� � ��ᯮ�⮬
-unsigned long numobj;	//�᫮ ��ꥪ⮢
-unsigned long posdll;	//������ ᥪ樨 � 䠩��
-unsigned long nameadr;	//⠡��� ���ᮢ ����
-unsigned long startname;	//��砫� �����
+unsigned long export;	//секция с експортом
+unsigned long numobj;	//число объектов
+unsigned long posdll;	//позиция секции в файле
+unsigned long nameadr;	//таблица адресов имен
+unsigned long startname;	//начало имени
 unsigned long ordinallist,ordinalbase;
 unsigned int i,j;
 DLLLIST *newdll;
@@ -657,7 +657,7 @@ errread:
 	j=0;
 	do{
 		if(fread(&string[j],1,1,infile)!=1)goto errread;
-	}while(string[j++]!=0);	//��� ������⥪�
+	}while(string[j++]!=0);	//имя библиотеки
 	newdll=FindDLL();
 	listapi=newdll->list;
 
@@ -696,7 +696,7 @@ errread:
 			itok.number=secondcallnum++;
 			itok.segm=NOT_DYNAMIC;
 			string[0]=0;
-			if(newdll->num==0)listapi=(APIPROC *)MALLOC(sizeof(APIPROC));	//��ࢠ� � ᯨ᪥
+			if(newdll->num==0)listapi=(APIPROC *)MALLOC(sizeof(APIPROC));	//первая в списке
 			else listapi=(APIPROC *)REALLOC(listapi,sizeof(APIPROC)*(newdll->num+1));
 			(listapi+newdll->num)->recapi=addtotree(itok.name);
 			newdll->num++;
@@ -743,7 +743,7 @@ errstub:
 		fseek(stubin,0,SEEK_END);
 		sizestub=ftell(stubin);
 		unsigned long temp;
-		if(exeheader.ofsreloc>=0x40){	//�஢�ઠ �� �� �� 32-���� 䠩�
+		if(exeheader.ofsreloc>=0x40){	//проверка что это не 32-битный файл
 			fseek(stubin,0x3c,SEEK_SET);
 			if(fread(&temp,4,1,stubin)!=1)goto errread;
 			if(temp<sizestub){
@@ -767,7 +767,7 @@ errstub:
 			exeheader.ofsreloc+=(unsigned short)0x20;
 		}
 		else exeheader.ofsreloc=0x40;
-		//ࠧ��� 䠩��
+		//размер файла
 		sizestub=Align(sizestub+32,8);
 		fseek(stubin,0x20,SEEK_SET);
 		exeheader.headsize+=(unsigned short)2;
@@ -815,7 +815,7 @@ unsigned int i;
 	if(ptr!=NULL){
 		CreatSymbolTable(ptr->right);
 		if(ptr->rectok==tk_apiproc){
-			for(unsigned int j=0;j<posts;j++){	//���� �ᯮ�짮����� ��楤���
+			for(unsigned int j=0;j<posts;j++){	//поиск использования процедуры
 				if((postbuf+j)->num==(unsigned long)ptr->recnumber&&((postbuf+j)->type==CALL_32I||(postbuf+j)->type==CALL_32)){
 					goto nameext;
 				}
@@ -828,7 +828,7 @@ nameext:
 			if(numsymbol+1>=maxnumsymbol){
 				maxnumsymbol+=MAXNUMSYMBOL;
 				isymbol=(IMAGE_SYMBOL *)REALLOC(isymbol,maxnumsymbol*sizeof(IMAGE_SYMBOL));
-			 	memset(isymbol+maxnumsymbol*sizeof(IMAGE_SYMBOL)-MAXSIZESYMBOL,0,MAXSIZESYMBOL);	//������ ��
+			 	memset(isymbol+maxnumsymbol*sizeof(IMAGE_SYMBOL)-MAXSIZESYMBOL,0,MAXSIZESYMBOL);	//очистить ее
 			}
 			if(ptr->rectok==tk_apiproc||ptr->rectok==tk_undefproc||
 					ptr->rectok==tk_proc||ptr->rectok==tk_interruptproc)(isymbol+numsymbol)->Type=32;
@@ -929,16 +929,16 @@ char *codesecname;
 	chead.date_time=0;
 	chead.Characteristics=0x100;
 	/*if(header)*/numrs=2;
-//�������� �᫮ ᥪ権
+//подсчитать число секций
 	if(wbss){
 		if(postsize)numrs++;
 		else wbss=FALSE;
 	}
-	if(numres)numrs++;	//������
+	if(numres)numrs++;	//ресурсы
 	chead.numobj=numrs;
 	sizehead=numrs*sizeof(OBJECT_ENTRY);
-	objentry=(OBJECT_ENTRY *)MALLOC(sizehead);//⠢��� ��ꥪ⮢
-	memset(objentry,0,sizehead);//������ ⠡���� ��ꥪ⮢
+	objentry=(OBJECT_ENTRY *)MALLOC(sizehead);//тавлица объектов
+	memset(objentry,0,sizehead);//очистить таблицу объектов
 	curobj=0;
 	lastoffset=sizehead+sizeof(COFF_HEADER);
 //	if(header){
@@ -977,7 +977,7 @@ char *codesecname;
 	sizelistName=0;numsymbol=0;
 	ListName=(char *)MALLOC(MAXLISTNAME);
 	isymbol=(IMAGE_SYMBOL *)MALLOC(MAXSIZESYMBOL);
- 	memset(isymbol,0,MAXSIZESYMBOL);	//������ ��
+ 	memset(isymbol,0,MAXSIZESYMBOL);	//очистить ее
 	maxsizelistname=MAXLISTNAME;
 	maxnumnameid=maxnumsymbol=MAXNUMSYMBOL;
 	NameId=(NAMEID *)MALLOC(MAXSIZENAMEID);
@@ -1066,7 +1066,7 @@ errwrite:
 //	if(header){
 		if(fwrite(&stub[STRVERS],(objentry+headernum)->psize,1,hout)!=1)goto errwrite;
 //	}
-	if(fwrite(output,outptr,1,hout)!=1)goto errwrite;	//���� ����
+	if(fwrite(output,outptr,1,hout)!=1)goto errwrite;	//блок кода
 	if(numreloc){
 		if(fwrite(treloc,numreloc*sizeof(IMAGE_RELOCATION),1,hout)!=1)goto errwrite;
 	}

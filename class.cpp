@@ -10,7 +10,7 @@ void notclassname(char *name)
 char buf[90];
 	sprintf(buf,"'%s' not class name",name);
 	preerror(buf);
-	nexttok();	//�ய�� ::
+	nexttok();	//пропуск ::
 	nexttok();
 }
 
@@ -33,13 +33,13 @@ void AddThis()
 
 void doclassproc(unsigned int tproc)
 {
-int type=itok.rm;	//⨯ ������
+int type=itok.rm;	//тип возврата
 unsigned int flag=itok.flag;
 unsigned int npointr=itok.npointr;
 char classname[IDLENGTH];
 	if((searchteg=FindTeg(TRUE,itok.name))!=NULL){
 		strcpy(classname,itok.name);
-		nexttok();	//�ய�� ::
+		nexttok();	//пропуск ::
 		if(tok2==tk_tilda){
 			nexttok();
 			destructor=TRUE;

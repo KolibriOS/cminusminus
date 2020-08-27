@@ -13,12 +13,12 @@
 
 unsigned char gotoendif=FALSE;
 unsigned char atex=FALSE;
-unsigned char usedirectiv=TRUE;	//идет обработка директивы
+unsigned char usedirectiv=TRUE;	//╨╕╨┤╨╡╤В ╨╛╨▒╤А╨░╨▒╨╛╤В╨║╨░ ╨┤╨╕╤А╨╡╨║╤В╨╕╨▓╤Л
 unsigned char parsecommandline = 0; 	// parse command line flag
-unsigned char sdp_mode=FALSE;	//режим принудительной выгрузки динамических процедур
+unsigned char sdp_mode=FALSE;	//╤А╨╡╨╢╨╕╨╝ ╨┐╤А╨╕╨╜╤Г╨┤╨╕╤В╨╡╨╗╤М╨╜╨╛╨╣ ╨▓╤Л╨│╤А╤Г╨╖╨║╨╕ ╨┤╨╕╨╜╨░╨╝╨╕╤З╨╡╤Б╨║╨╕╤Е ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
 unsigned int startexit;
 extern int	maxerrors; 				// number of errors to stop at
-unsigned int postnumflag;	//флаг последнего идентификатора в вычислении номера
+unsigned int postnumflag;	//╤Д╨╗╨░╨│ ╨┐╨╛╤Б╨╗╨╡╨┤╨╜╨╡╨│╨╛ ╨╕╨┤╨╡╨╜╤В╨╕╤Д╨╕╨║╨░╤В╨╛╤А╨░ ╨▓ ╨▓╤Л╤З╨╕╤Б╨╗╨╡╨╜╨╕╨╕ ╨╜╨╛╨╝╨╡╤А╨░
 int calcnumber=FALSE;
 
 char mesmain[]="main";
@@ -34,14 +34,14 @@ int ConvRetCode(int i);
 int CompConst(int firstval);
 int dirmode;
 
-#define NUMIFDEF 32	//максимальная вложеность директив ifdef/ifndef
+#define NUMIFDEF 32	//╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╨░╤П ╨▓╨╗╨╛╨╢╨╡╨╜╨╛╤Б╤В╤М ╨┤╨╕╤А╨╡╨║╤В╨╕╨▓ ifdef/ifndef
 int	endifcount=-1; 		 // depth count of ?if
 char ujo[]="Unknown #jumptomain option";
 char toelse[]="#else use once in #if";
 char ido[]="Unknown #inline option";
 unsigned char startuptomain=FALSE;
 unsigned char dosstring=FALSE;
-unsigned char useelse[NUMIFDEF];	//флаги использования директивы else
+unsigned char useelse[NUMIFDEF];	//╤Д╨╗╨░╨│╨╕ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╤П ╨┤╨╕╤А╨╡╨║╤В╨╕╨▓╤Л else
 unsigned char jumptomain = CALL_NEAR; // jump to the main()
 unsigned char resizemem = 1;					// set owned memory block to 64K
 unsigned char fargc=FALSE;
@@ -50,20 +50,20 @@ unsigned int resizesizeaddress;  /* location of resize memory size descr. */
 unsigned int stackstartaddress;  /* location of SP assignment */
 
 /*-----------------18.09.98 23:20-------------------
- Реализация SYS
+ ╨а╨╡╨░╨╗╨╕╨╖╨░╤Ж╨╕╤П SYS
 --------------------------------------------------*/
 char sysname[8]="NO_NAME";
 int sysatr=0x2000;
 int sysstack=0;
 int sysnumcom=0;
 int syscom;
-//переменные для компиляции rom-bios
+//╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡ ╨┤╨╗╤П ╨║╨╛╨╝╨┐╨╕╨╗╤П╤Ж╨╕╨╕ rom-bios
 int unsigned romsize=0;
 int dataromstart,dataromsize;
 int dataseg=0x70;
 
-unsigned int numdomain=0;	//число процедур запускаемых до main
-char *domain;	//буфер имен процедур запускаемых до main
+unsigned int numdomain=0;	//╤З╨╕╤Б╨╗╨╛ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А ╨╖╨░╨┐╤Г╤Б╨║╨░╨╡╨╝╤Л╤Е ╨┤╨╛ main
+char *domain;	//╨▒╤Г╤Д╨╡╤А ╨╕╨╝╨╡╨╜ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А ╨╖╨░╨┐╤Г╤Б╨║╨░╨╡╨╝╤Л╤Е ╨┤╨╛ main
 
 int ifdefconst();
 void CheckNumIF();
@@ -119,7 +119,7 @@ unsigned long long doconstqwordmath()
 {
 unsigned long long value;
 unsigned int htok;
-int fundef;	//флаг использования неизв адреса
+int fundef;	//╤Д╨╗╨░╨│ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╤П ╨╜╨╡╨╕╨╖╨▓ ╨░╨┤╤А╨╡╤Б╨░
 	CheckMinusNum();
 	if(tok!=tk_number){
 		numexpected();
@@ -191,7 +191,7 @@ unsigned long doconstdwordmath()
 {
 unsigned long value;
 unsigned int htok;
-int fundef;	//флаг использования неизв адреса
+int fundef;	//╤Д╨╗╨░╨│ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╤П ╨╜╨╡╨╕╨╖╨▓ ╨░╨┤╤А╨╡╤Б╨░
 	CheckMinusNum();
 	if(tok!=tk_number){
 		numexpected();
@@ -259,11 +259,11 @@ long value;
 }
 
 signed long doconstlongmath()
-//вычислить выражение
+//╨▓╤Л╤З╨╕╤Б╨╗╨╕╤В╤М ╨▓╤Л╤А╨░╨╢╨╡╨╜╨╕╨╡
 {
 long value;
 unsigned int htok;
-int fundef;	//флаг использования неизв адреса
+int fundef;	//╤Д╨╗╨░╨│ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╤П ╨╜╨╡╨╕╨╖╨▓ ╨░╨┤╤А╨╡╤Б╨░
 	CheckMinusNum();
 	if(tok!=tk_number){
 		numexpected();
@@ -276,7 +276,7 @@ int fundef;	//флаг использования неизв адреса
 	postnumflag=itok.flag;
 //	usedirectiv=TRUE;
 	calcnumber=TRUE;
-	while(itok2.type==tp_opperand){	//пока операнд
+	while(itok2.type==tp_opperand){	//╨┐╨╛╨║╨░ ╨╛╨┐╨╡╤А╨░╨╜╨┤
 		if(fundef==tk_undefofs&&tok2!=tk_plus&&tok2!=tk_minus)break;
 		nexttok();
 //		printf("tok=%d tok2=%d\n",tok,tok2);
@@ -321,7 +321,7 @@ float value;
 }
 
 long doconstfloatmath()
-//вычислить выражение
+//╨▓╤Л╤З╨╕╤Б╨╗╨╕╤В╤М ╨▓╤Л╤А╨░╨╢╨╡╨╜╨╕╨╡
 {
 float value;
 	postnumflag=0;
@@ -338,11 +338,11 @@ float value;
 	value=itok.fnumber;
 //	usedirectiv=TRUE;
 	calcnumber=TRUE;
-	while(itok2.type==tp_opperand){	//пока операнд
+	while(itok2.type==tp_opperand){	//╨┐╨╛╨║╨░ ╨╛╨┐╨╡╤А╨░╨╜╨┤
 		nexttok();
 		if(tok2!=tk_number){
 			calcnumber=FALSE;
-			return *(long *) &value;//нет никаких действий
+			return *(long *) &value;//╨╜╨╡╤В ╨╜╨╕╨║╨░╨║╨╕╤Е ╨┤╨╡╨╣╤Б╤В╨▓╨╕╨╣
 		}
 		if(itok2.rm==tk_double)*(float *)&itok2.number=itok2.dnumber;
 		else if(itok2.rm!=tk_float)*(float *)&itok2.number=itok2.number;
@@ -373,7 +373,7 @@ double value;
 }
 
 long long doconstdoublemath()
-//вычислить выражение
+//╨▓╤Л╤З╨╕╤Б╨╗╨╕╤В╤М ╨▓╤Л╤А╨░╨╢╨╡╨╜╨╕╨╡
 {
 double value;
 	postnumflag=0;
@@ -392,11 +392,11 @@ double value;
 	value=itok.dnumber;
 //	usedirectiv=TRUE;
 	calcnumber=TRUE;
-	while(itok2.type==tp_opperand){	//пока операнд
+	while(itok2.type==tp_opperand){	//╨┐╨╛╨║╨░ ╨╛╨┐╨╡╤А╨░╨╜╨┤
 		nexttok();
 		if(tok2!=tk_number){
 			calcnumber=FALSE;
-			return *(long long *) &value;//нет никаких действий
+			return *(long long *) &value;//╨╜╨╡╤В ╨╜╨╕╨║╨░╨║╨╕╤Е ╨┤╨╡╨╣╤Б╤В╨▓╨╕╨╣
 		}
 		if(itok2.rm==tk_float)itok2.dnumber=*(float *)&itok2.number;
 		else if(itok2.rm!=tk_double)itok2.dnumber=itok2.lnumber;;
@@ -465,7 +465,7 @@ void SwTok(int want)
 }
 
 /*-----------------03.07.99 22:48-------------------
- Внутренние процедуры
+ ╨Т╨╜╤Г╤В╤А╨╡╨╜╨╜╨╕╨╡ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╤Л
 	--------------------------------------------------*/
 void  outprocedure(unsigned char *array,unsigned int length)
 {
@@ -477,7 +477,7 @@ void  outprocedure(unsigned char *array,unsigned int length)
 
 #define MMBANER 11
 unsigned char aabaner[]={
-	0x53,0x50,0x48,0x49,0x4E,0x58,0x43,0x2d,0x2d,ver1,ver2};	//надпись SPHINXC--ver
+	0x53,0x50,0x48,0x49,0x4E,0x58,0x43,0x2d,0x2d,ver1,ver2};	//╨╜╨░╨┤╨┐╨╕╤Б╤М SPHINXC--ver
 
 #define MMEXP 18
 unsigned char aaEXP[]={
@@ -492,7 +492,7 @@ unsigned char aaEXP[]={
 	0xDD,0xD9 };	 //fstp	 st(1)
 
 void CallExitProcess()
-//вызов процедуры ExitProcess
+//╨▓╤Л╨╖╨╛╨▓ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╤Л ExitProcess
 {
 	tok=tk_id;
 	searchvar("ExitProcess");
@@ -632,7 +632,7 @@ int includeproc()
 }
 
 /*-----------------18.01.99 22:42-------------------
- Макропроцедуры
+ ╨Ь╨░╨║╤А╨╛╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╤Л
  --------------------------------------------------*/
 int CheckMacros()
 {
@@ -760,13 +760,13 @@ enout:
 		switch(m){
 			case m_sqrt:
 				outword(0xFAD9);	//FSQRT
-				return tk_fpust;	//результат в стеке fpu
+				return tk_fpust;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓ ╤Б╤В╨╡╨║╨╡ fpu
 			case m_cos:
 				outword(0xFFD9);
-				return tk_fpust;	//результат в стеке fpu
+				return tk_fpust;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓ ╤Б╤В╨╡╨║╨╡ fpu
 			case m_sin:
 				outword(0xFED9);
-				return tk_fpust;	//результат в стеке fpu
+				return tk_fpust;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓ ╤Б╤В╨╡╨║╨╡ fpu
 			case m_atan2:
 				if(expecting(tk_camma)){
 					missingpar(macroname[m]);
@@ -774,27 +774,27 @@ enout:
 				}
 				doeaxfloatmath(tk_fpust);
 				outword(0xF3D9);	//FPATAN
-				return tk_fpust;	//результат в стеке fpu
+				return tk_fpust;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓ ╤Б╤В╨╡╨║╨╡ fpu
 			case m_tan:
 				outdword(0xD8DDF2D9);	//FPTAN fstp st
-				return tk_fpust;	//результат в стеке fpu
+				return tk_fpust;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓ ╤Б╤В╨╡╨║╨╡ fpu
 			case m_log:
 				outword(0xEDD9);	//fldln2
 				outdword(0xF1D9C9D9);	//fxch st1  fyl2x
-				return tk_fpust;	//результат в стеке fpu
+				return tk_fpust;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓ ╤Б╤В╨╡╨║╨╡ fpu
 			case m_log10:
 				outword(0xECD9);	//fldlg2
 				outdword(0xF1D9C9D9);	//fxch st1  fyl2x
-				return tk_fpust;	//результат в стеке fpu
+				return tk_fpust;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓ ╤Б╤В╨╡╨║╨╡ fpu
 			case m_exp:
 				outprocedure(aaEXP,MMEXP);
-				return tk_fpust;	//результат в стеке fpu
+				return tk_fpust;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓ ╤Б╤В╨╡╨║╨╡ fpu
 			case m_atan:
 				outdword(0xF3D9E8D9);	//FLD1 FPATAN
-				return tk_fpust;	//результат в стеке fpu
+				return tk_fpust;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓ ╤Б╤В╨╡╨║╨╡ fpu
 			case m_fabs:
 				outword(0xE1D9);	//FABS
-				return tk_fpust;	//результат в стеке fpu
+				return tk_fpust;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨▓ ╤Б╤В╨╡╨║╨╡ fpu
 		}
 	}
 	if(s32!=0)return tk_dword;
@@ -803,7 +803,7 @@ enout:
 }
 
 /*-----------------06.02.99 16:09-------------------
- Работа с внешней библиотекой
+ ╨а╨░╨▒╨╛╤В╨░ ╤Б ╨▓╨╜╨╡╤И╨╜╨╡╨╣ ╨▒╨╕╨▒╨╗╨╕╨╛╤В╨╡╨║╨╛╨╣
 	--------------------------------------------------*/
 typedef struct _IPROC_
 {
@@ -877,11 +877,11 @@ int size;
 }
 
 void addconsttotree(char *keystring,long long constvalue,int type)
-//вставить константу в дерево
+//╨▓╤Б╤В╨░╨▓╨╕╤В╤М ╨║╨╛╨╜╤Б╤В╨░╨╜╤В╤Г ╨▓ ╨┤╨╡╤А╨╡╨▓╨╛
 {
 struct idrec *ptr,*newptr;
 int cmpresult;
-	newptr=(struct idrec *)MALLOC(sizeof(struct idrec));//новый блок константы
+	newptr=(struct idrec *)MALLOC(sizeof(struct idrec));//╨╜╨╛╨▓╤Л╨╣ ╨▒╨╗╨╛╨║ ╨║╨╛╨╜╤Б╤В╨░╨╜╤В╤Л
 	ptr=definestart;
 	if(ptr==NULL)definestart=newptr;
 	else{
@@ -925,21 +925,21 @@ int cmpresult;
 //	newptr->count=1;
 }
 
-void addtodefine(char *keystring)//добавить строку в дерево define
+void addtodefine(char *keystring)//╨┤╨╛╨▒╨░╨▓╨╕╤В╤М ╤Б╤В╤А╨╛╨║╤Г ╨▓ ╨┤╨╡╤А╨╡╨▓╨╛ define
 {
 struct idrec *ptr,*newptr,*left=NULL,*right=NULL;
 int cmpresult;
-//выделить память под новую проц
+//╨▓╤Л╨┤╨╡╨╗╨╕╤В╤М ╨┐╨░╨╝╤П╤В╤М ╨┐╨╛╨┤ ╨╜╨╛╨▓╤Г╤О ╨┐╤А╨╛╤Ж
 	newptr=(struct idrec *)MALLOC(sizeof(struct idrec));
-	ptr=definestart;	//начало дерева
+	ptr=definestart;	//╨╜╨░╤З╨░╨╗╨╛ ╨┤╨╡╤А╨╡╨▓╨░
 	if(ptr==NULL)definestart=newptr;
-	else{	//поиск строки в дереве
+	else{	//╨┐╨╛╨╕╤Б╨║ ╤Б╤В╤А╨╛╨║╨╕ ╨▓ ╨┤╨╡╤А╨╡╨▓╨╡
 		while(((cmpresult=strcmp(ptr->recid,keystring))<0&&ptr->left!=NULL)||
 		       (cmpresult>0&&ptr->right!=NULL)){
 			if(cmpresult<0)ptr=ptr->left;
 			else if(cmpresult>0)ptr=ptr->right;
 		}
-		if(cmpresult<0)ptr->left=newptr;	//строка меньше
+		if(cmpresult<0)ptr->left=newptr;	//╤Б╤В╤А╨╛╨║╨░ ╨╝╨╡╨╜╤М╤И╨╡
 		else if(cmpresult>0)ptr->right=newptr;
 		else{
 			free(newptr);
@@ -950,7 +950,7 @@ int cmpresult;
 			if(newptr->sbuf)free(newptr->sbuf);
 		}
 	}
-	strcpy(newptr->recid,keystring);//скопир название
+	strcpy(newptr->recid,keystring);//╤Б╨║╨╛╨┐╨╕╤А ╨╜╨░╨╖╨▓╨░╨╜╨╕╨╡
 	newptr->newid=NULL;
 	if(tok==tk_string){
 		newptr->newid=(char *)MALLOC(itok.number);
@@ -983,7 +983,7 @@ unsigned char get_directive_value()  //return the 0 or 1 value for directive
 {
 	nexttok();
 	if(tok==tk_number){
-		if(doconstlongmath())return(1);//если значение не нулевое вернуть 1
+		if(doconstlongmath())return(1);//╨╡╤Б╨╗╨╕ ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ ╨╜╨╡ ╨╜╤Г╨╗╨╡╨▓╨╛╨╡ ╨▓╨╡╤А╨╜╤Г╤В╤М 1
 		return(0);
 	}
 	numexpected();
@@ -1326,8 +1326,8 @@ int oscanlexmode;
 	switch(itok.number){
 		case d_alignc:
 			holdid[0]=CS;
-		case d_align: //использовать байт вставки если нечетный адрес
-			if(notdoneprestuff==TRUE)doprestuff();	//начальный код
+		case d_align: //╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╤М ╨▒╨░╨╣╤В ╨▓╤Б╤В╨░╨▓╨║╨╕ ╨╡╤Б╨╗╨╕ ╨╜╨╡╤З╨╡╤В╨╜╤Л╨╣ ╨░╨┤╤А╨╡╤Б
+			if(notdoneprestuff==TRUE)doprestuff();	//╨╜╨░╤З╨░╨╗╤М╨╜╤Л╨╣ ╨║╨╛╨┤
 			i=2;
 			nexttok();
 			next=0;
@@ -1338,15 +1338,15 @@ int oscanlexmode;
 			i=AlignCD(holdid[0],i);
 			if(holdid[0]==DS)alignersize+=i;
 			break;
-		case d_aligner://значение байта вставки
+		case d_aligner://╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡ ╨▒╨░╨╣╤В╨░ ╨▓╤Б╤В╨░╨▓╨║╨╕
 			nexttok();
 			if(tok==tk_number){
-				aligner=(unsigned char)doconstlongmath();//вычислить значение
+				aligner=(unsigned char)doconstlongmath();//╨▓╤Л╤З╨╕╤Б╨╗╨╕╤В╤М ╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡
 				next=0;
 			}
 			else numexpected();
 			break;
-		case d_alignw://выравнивание адресов
+		case d_alignw://╨▓╤Л╤А╨░╨▓╨╜╨╕╨▓╨░╨╜╨╕╨╡ ╨░╨┤╤А╨╡╤Б╨╛╨▓
 			alignword=get_directive_value();
 			next=0;
 			break;
@@ -1624,7 +1624,7 @@ endef:
 			}
 			else stringexpected();
 			break;
-		case d_com:	//список команд для SYS
+		case d_com:	//╤Б╨┐╨╕╤Б╨╛╨║ ╨║╨╛╨╝╨░╨╜╨┤ ╨┤╨╗╤П SYS
 			listcom=(LISTCOM *)MALLOC(sizeof(LISTCOM)*MAXSYSCOM);
 			do{
 				nexttok();
@@ -1647,7 +1647,7 @@ endef:
 			if(sysnumcom>MAXSYSCOM)preerror("to many commands");
 			else if(sysnumcom!=0&&sysnumcom!=MAXSYSCOM)listcom=(LISTCOM *)REALLOC(listcom,sysnumcom*sizeof(LISTCOM));
 			break;
-		case d_sdp:	//выгрузить динамические процедуры
+		case d_sdp:	//╨▓╤Л╨│╤А╤Г╨╖╨╕╤В╤М ╨┤╨╕╨╜╨░╨╝╨╕╤З╨╡╤Б╨║╨╕╨╡ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╤Л
 			next=notdoneprestuff;
 			sdp_mode=TRUE;
 			usedirectiv=FALSE;
@@ -1663,10 +1663,10 @@ endef:
 		case d_ip:
 			if(	GetStringAsIt()!=-1)IncludePath((char *)string3);
 			break;
-		case d_us:	//использовать код STARTUP
+		case d_us:	//╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╤В╤М ╨║╨╛╨┤ STARTUP
 			if(comfile==file_com)useStartup=TRUE;
 			break;
-		case d_suv:	//адрес начала использования под неинициализированные переменные
+		case d_suv:	//╨░╨┤╤А╨╡╤Б ╨╜╨░╤З╨░╨╗╨░ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╕╤П ╨┐╨╛╨┤ ╨╜╨╡╨╕╨╜╨╕╤Ж╨╕╨░╨╗╨╕╨╖╨╕╤А╨╛╨▓╨░╨╜╨╜╤Л╨╡ ╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡
 			nexttok();
 			if(comfile==file_com){
 				if(tok==tk_number)startStartup=doconstlongmath();
@@ -1678,14 +1678,14 @@ endef:
 			}
 			else OnlyComFile();
 			break;
-		case d_iav:	//инициализировать все переменные
+		case d_iav:	//╨╕╨╜╨╕╤Ж╨╕╨░╨╗╨╕╨╖╨╕╤А╨╛╨▓╨░╤В╤М ╨▓╤Б╨╡ ╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡
 			notpost=get_directive_value();
 			next=0;
 			break;
-		case d_atex:	//механизм ATEXIT
+		case d_atex:	//╨╝╨╡╤Е╨░╨╜╨╕╨╖╨╝ ATEXIT
 			atex=TRUE;
 			break;
-		case d_dseg:	//сегмент данных для rom-bios
+		case d_dseg:	//╤Б╨╡╨│╨╝╨╡╨╜╤В ╨┤╨░╨╜╨╜╤Л╤Е ╨┤╨╗╤П rom-bios
 			nexttok();
 			if(tok==tk_number){
 				dataseg=doconstlongmath();
@@ -1693,7 +1693,7 @@ endef:
 			}
 			else numexpected();
 			break;
-		case d_rsize:	//размер rom-bios
+		case d_rsize:	//╤А╨░╨╖╨╝╨╡╤А rom-bios
 			nexttok();
 			if(tok==tk_number){
 				romsize=doconstlongmath();
@@ -1701,11 +1701,11 @@ endef:
 			}
 			else numexpected();
 			break;
-		case d_mdr:	//переносить данные а  опер память
+		case d_mdr:	//╨┐╨╡╤А╨╡╨╜╨╛╤Б╨╕╤В╤М ╨┤╨░╨╜╨╜╤Л╨╡ ╨░  ╨╛╨┐╨╡╤А ╨┐╨░╨╝╤П╤В╤М
 			splitdata=modelmem=get_directive_value();
 			next=0;
 			break;
-		case d_am32:	//32 битная адресация
+		case d_am32:	//32 ╨▒╨╕╤В╨╜╨░╤П ╨░╨┤╤А╨╡╤Б╨░╤Ж╨╕╤П
 			nexttok();
 			if(tok!=tk_number)numexpected();
 			else am32=(unsigned char)(itok.number==0?FALSE:TRUE);
@@ -1748,7 +1748,7 @@ endef:
 			cha=cha2;
 			inptr=inptr2;
 			linenumber=linenum2;
-			whitespace(); //пропуск нзначащих символов
+			whitespace(); //╨┐╤А╨╛╨┐╤Г╤Б╨║ ╨╜╨╖╨╜╨░╤З╨░╤Й╨╕╤Е ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓
 			while(isdigit(cha)){
 				v1=v1*10+(cha-'0');
 				nextchar();
@@ -1787,7 +1787,7 @@ endef:
 			next=0;
 			gotoendif=1;
 			break;
-		case d_wmb: //формирование одного блока под win
+		case d_wmb: //╤Д╨╛╤А╨╝╨╕╤А╨╛╨▓╨░╨╜╨╕╨╡ ╨╛╨┤╨╜╨╛╨│╨╛ ╨▒╨╗╨╛╨║╨░ ╨┐╨╛╨┤ win
 			WinMonoBlock=get_directive_value();
 			next=0;
 			break;
@@ -2185,7 +2185,7 @@ int oendifcount;
 	}
 	scanlexmode=STDLEX;
 	opostnumflag=postnumflag;
-	holdinput=input;	//сохр некотор переменые
+	holdinput=input;	//╤Б╨╛╤Е╤А ╨╜╨╡╨║╨╛╤В╨╛╤А ╨┐╨╡╤А╨╡╨╝╨╡╨╜╤Л╨╡
 	holdinptr=inptr2;
 	holdcha=cha2;
 	holdlinenum=linenum2;
@@ -2195,7 +2195,7 @@ int oendifcount;
 	ostartline=startline;
 	ofileinfo=currentfileinfo;
 	(startfileinfo+currentfileinfo)->stlist=staticlist;
-	compilefile(fileincl,tfind);//откомпилировать
+	compilefile(fileincl,tfind);//╨╛╤В╨║╨╛╨╝╨┐╨╕╨╗╨╕╤А╨╛╨▓╨░╤В╤М
 	if(endifcount!=oendifcount){
 		sprintf((char *)string2,"num if prior %d after %d",oendifcount,endifcount);
 		preerror((char *)string2);
@@ -2204,7 +2204,7 @@ int oendifcount;
 	currentfileinfo=ofileinfo;
 	staticlist=(startfileinfo+currentfileinfo)->stlist;
 	warning=holdwarning;
-	endoffile=holdendoffile;//востановить переменые
+	endoffile=holdendoffile;//╨▓╨╛╤Б╤В╨░╨╜╨╛╨▓╨╕╤В╤М ╨┐╨╡╤А╨╡╨╝╨╡╨╜╤Л╨╡
 	endinptr=holdendinptr;
 	input=holdinput;
 	inptr2=holdinptr;
@@ -2218,7 +2218,7 @@ int oendifcount;
 }
 
 /*-----------------31.05.99 21:39-------------------
- поддержка startup
+ ╨┐╨╛╨┤╨┤╨╡╤А╨╢╨║╨░ startup
  --------------------------------------------------*/
 
 int startlabl(char *namelab)
@@ -2236,7 +2236,7 @@ void searchvar(char *name,int err)
 	if(searchtree(&itok,&tok,string)==FALSE&&err)thisundefined(name);
 }
 
-void doprestuff()  //инициализация начального кода, like resize mem, jump to main...
+void doprestuff()  //╨╕╨╜╨╕╤Ж╨╕╨░╨╗╨╕╨╖╨░╤Ж╨╕╤П ╨╜╨░╤З╨░╨╗╤М╨╜╨╛╨│╨╛ ╨║╨╛╨┤╨░, like resize mem, jump to main...
 {
 ITOK oitok;
 int otok,otok2;
@@ -2244,7 +2244,7 @@ unsigned int addresshold;
 unsigned char ojmp;
 char *bstring;
 int odbg=dbg;
-//сохранить параметры
+//╤Б╨╛╤Е╤А╨░╨╜╨╕╤В╤М ╨┐╨░╤А╨░╨╝╨╡╤В╤А╤Л
 //	if(FixUp==TRUE||comfile==file_w32)optnumber=FALSE;
 	oitok=itok;
 	bstring=BackString((char *)string);
@@ -2272,7 +2272,7 @@ int odbg=dbg;
 			goto endp;
 		}
 		else{
-			header=0;	//чтоб не было повторной надписи sphinx
+			header=0;	//╤З╤В╨╛╨▒ ╨╜╨╡ ╨▒╤Л╨╗╨╛ ╨┐╨╛╨▓╤В╨╛╤А╨╜╨╛╨╣ ╨╜╨░╨┤╨┐╨╕╤Б╨╕ sphinx
 			ojmp=jumptomain;
 			jumptomain=CALL_NONE;
 			startuptomain=FALSE;
@@ -2421,53 +2421,53 @@ void KillVarOfTree(idrec **treestart)
 {
 struct idrec *ptr,*leftptr,*rightptr,*prev;
 int cmpresult,ocmpresult=0;
-	ptr=*treestart;	//поиск
+	ptr=*treestart;	//╨┐╨╛╨╕╤Б╨║
 	while(ptr!=NULL&&(cmpresult=strcmp(ptr->recid,itok.name))!=0){
-		prev=ptr;	//родитель
-		ocmpresult=cmpresult;	//результат пред сравнения - опр в левой или правой ветви
+		prev=ptr;	//╤А╨╛╨┤╨╕╤В╨╡╨╗╤М
+		ocmpresult=cmpresult;	//╤А╨╡╨╖╤Г╨╗╤М╤В╨░╤В ╨┐╤А╨╡╨┤ ╤Б╤А╨░╨▓╨╜╨╡╨╜╨╕╤П - ╨╛╨┐╤А ╨▓ ╨╗╨╡╨▓╨╛╨╣ ╨╕╨╗╨╕ ╨┐╤А╨░╨▓╨╛╨╣ ╨▓╨╡╤В╨▓╨╕
 		if(cmpresult<0)ptr=ptr->left;
 		else ptr=ptr->right;
 	}
-	if(ptr!=NULL){	//найден объект удаления
-		if(ptr->newid)free(ptr->newid);	//удалить доп информ.
-		leftptr=ptr->left;	//дите
-		rightptr=ptr->right;//другое дите
-		if(leftptr==NULL&&rightptr==NULL){	//если нет дитей
-			if(ocmpresult<0)prev->left=NULL;  //то родитель остался сиротой
+	if(ptr!=NULL){	//╨╜╨░╨╣╨┤╨╡╨╜ ╨╛╨▒╤К╨╡╨║╤В ╤Г╨┤╨░╨╗╨╡╨╜╨╕╤П
+		if(ptr->newid)free(ptr->newid);	//╤Г╨┤╨░╨╗╨╕╤В╤М ╨┤╨╛╨┐ ╨╕╨╜╤Д╨╛╤А╨╝.
+		leftptr=ptr->left;	//╨┤╨╕╤В╨╡
+		rightptr=ptr->right;//╨┤╤А╤Г╨│╨╛╨╡ ╨┤╨╕╤В╨╡
+		if(leftptr==NULL&&rightptr==NULL){	//╨╡╤Б╨╗╨╕ ╨╜╨╡╤В ╨┤╨╕╤В╨╡╨╣
+			if(ocmpresult<0)prev->left=NULL;  //╤В╨╛ ╤А╨╛╨┤╨╕╤В╨╡╨╗╤М ╨╛╤Б╤В╨░╨╗╤Б╤П ╤Б╨╕╤А╨╛╤В╨╛╨╣
 			else if(ocmpresult>0)prev->right=NULL;
-			else *treestart=NULL;	//удален корень без ветвей
+			else *treestart=NULL;	//╤Г╨┤╨░╨╗╨╡╨╜ ╨║╨╛╤А╨╡╨╜╤М ╨▒╨╡╨╖ ╨▓╨╡╤В╨▓╨╡╨╣
 		}
-		else if(leftptr==NULL){	//одно дите справа
-			if(ocmpresult<0)prev->left=rightptr;	//передать внуков родителю
+		else if(leftptr==NULL){	//╨╛╨┤╨╜╨╛ ╨┤╨╕╤В╨╡ ╤Б╨┐╤А╨░╨▓╨░
+			if(ocmpresult<0)prev->left=rightptr;	//╨┐╨╡╤А╨╡╨┤╨░╤В╤М ╨▓╨╜╤Г╨║╨╛╨▓ ╤А╨╛╨┤╨╕╤В╨╡╨╗╤О
 			else if(ocmpresult>0)prev->right=rightptr;
-			else *treestart=rightptr;	//удален корень с одной правой веткой
+			else *treestart=rightptr;	//╤Г╨┤╨░╨╗╨╡╨╜ ╨║╨╛╤А╨╡╨╜╤М ╤Б ╨╛╨┤╨╜╨╛╨╣ ╨┐╤А╨░╨▓╨╛╨╣ ╨▓╨╡╤В╨║╨╛╨╣
 		}
-		else if(rightptr==NULL){	//тоже если дите слева
+		else if(rightptr==NULL){	//╤В╨╛╨╢╨╡ ╨╡╤Б╨╗╨╕ ╨┤╨╕╤В╨╡ ╤Б╨╗╨╡╨▓╨░
 			if(ocmpresult<0)prev->left=leftptr;
 			else if(ocmpresult>0)prev->right=leftptr;
-			else *treestart=leftptr;	//удален корень с одной левой веткой
+			else *treestart=leftptr;	//╤Г╨┤╨░╨╗╨╡╨╜ ╨║╨╛╤А╨╡╨╜╤М ╤Б ╨╛╨┤╨╜╨╛╨╣ ╨╗╨╡╨▓╨╛╨╣ ╨▓╨╡╤В╨║╨╛╨╣
 		}
-		else{	//если есть оба ребенка
+		else{	//╨╡╤Б╨╗╨╕ ╨╡╤Б╤В╤М ╨╛╨▒╨░ ╤А╨╡╨▒╨╡╨╜╨║╨░
 			struct idrec *ostptr,*ptrf;
-			if(ocmpresult<0){	//если мы дите слева
-				prev->left=leftptr;	//передать левого ребенка
-				ostptr=rightptr;    //правого к поиску места
+			if(ocmpresult<0){	//╨╡╤Б╨╗╨╕ ╨╝╤Л ╨┤╨╕╤В╨╡ ╤Б╨╗╨╡╨▓╨░
+				prev->left=leftptr;	//╨┐╨╡╤А╨╡╨┤╨░╤В╤М ╨╗╨╡╨▓╨╛╨│╨╛ ╤А╨╡╨▒╨╡╨╜╨║╨░
+				ostptr=rightptr;    //╨┐╤А╨░╨▓╨╛╨│╨╛ ╨║ ╨┐╨╛╨╕╤Б╨║╤Г ╨╝╨╡╤Б╤В╨░
 			}
-			else if(ocmpresult>0){	//если же мы дите справа
-				prev->right=rightptr; //передать правого ребенка
-				ostptr=leftptr;       //левого к поиску
+			else if(ocmpresult>0){	//╨╡╤Б╨╗╨╕ ╨╢╨╡ ╨╝╤Л ╨┤╨╕╤В╨╡ ╤Б╨┐╤А╨░╨▓╨░
+				prev->right=rightptr; //╨┐╨╡╤А╨╡╨┤╨░╤В╤М ╨┐╤А╨░╨▓╨╛╨│╨╛ ╤А╨╡╨▒╨╡╨╜╨║╨░
+				ostptr=leftptr;       //╨╗╨╡╨▓╨╛╨│╨╛ ╨║ ╨┐╨╛╨╕╤Б╨║╤Г
 			}
-			else{                   //если у нас нет родителя
-				*treestart=rightptr;   //один наугад становится главным
-				ostptr=leftptr;       //другого к поиску
+			else{                   //╨╡╤Б╨╗╨╕ ╤Г ╨╜╨░╤Б ╨╜╨╡╤В ╤А╨╛╨┤╨╕╤В╨╡╨╗╤П
+				*treestart=rightptr;   //╨╛╨┤╨╕╨╜ ╨╜╨░╤Г╨│╨░╨┤ ╤Б╤В╨░╨╜╨╛╨▓╨╕╤В╤Б╤П ╨│╨╗╨░╨▓╨╜╤Л╨╝
+				ostptr=leftptr;       //╨┤╤А╤Г╨│╨╛╨│╨╛ ╨║ ╨┐╨╛╨╕╤Б╨║╤Г
 			}
-			ptrf=*treestart;	//начало дерева
+			ptrf=*treestart;	//╨╜╨░╤З╨░╨╗╨╛ ╨┤╨╡╤А╨╡╨▓╨░
 			while(((cmpresult=strcmp(ptrf->recid,ostptr->recid))<0&&ptrf->left!=NULL)||
 	       (cmpresult>0&&ptrf->right!=NULL)){
 				if(cmpresult<0)ptrf=ptrf->left;
 				else ptrf=ptrf->right;
 			}
-			if(cmpresult<0)ptrf->left=ostptr;	//строка меньше
+			if(cmpresult<0)ptrf->left=ostptr;	//╤Б╤В╤А╨╛╨║╨░ ╨╝╨╡╨╜╤М╤И╨╡
 			else ptrf->right=ostptr;
 		}
 		if(ptr->newid)free(ptr->newid);

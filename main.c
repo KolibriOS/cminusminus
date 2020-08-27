@@ -1,19 +1,7 @@
 #define _MAIN_
-
-#ifndef _UNIX_
-#include <conio.h>
-#include <io.h>
-#else
 #include <unistd.h>
-#endif
-
 #include <fcntl.h>
 #include "tok.h"
-
-#ifndef _UNIX_
-#include <dos.h>
-//int outfile=1;
-#endif
 
 static char **_Argv; //!!! simplest way to make your own variable
 
@@ -50,15 +38,15 @@ char meinfo[]=
 time_t systime;
 struct tm timeptr;
 char comsymbios=FALSE;
-char fobj=FALSE;	//признак генерации obj
+char fobj=FALSE;	//╨┐╤А╨╕╨╖╨╜╨░╨║ ╨│╨╡╨╜╨╡╤А╨░╤Ж╨╕╨╕ obj
 unsigned int	startptr = 0x100; 			// start address
-unsigned char wconsole=FALSE;	//признак генерации консольного приложения windows
-unsigned char optstr=FALSE;	//оптимизация строковых констант
+unsigned char wconsole=FALSE;	//╨┐╤А╨╕╨╖╨╜╨░╨║ ╨│╨╡╨╜╨╡╤А╨░╤Ж╨╕╨╕ ╨║╨╛╨╜╤Б╨╛╨╗╤М╨╜╨╛╨│╨╛ ╨┐╤А╨╕╨╗╨╛╨╢╨╡╨╜╨╕╤П windows
+unsigned char optstr=FALSE;	//╨╛╨┐╤В╨╕╨╝╨╕╨╖╨░╤Ж╨╕╤П ╤Б╤В╤А╨╛╨║╨╛╨▓╤Л╤Е ╨║╨╛╨╜╤Б╤В╨░╨╜╤В
 unsigned char crif=TRUE;	//check reply include file
-unsigned char idasm=FALSE;	//ассемблерные инструкции считать идентификаторами
-unsigned char wbss=2;	//пост переменные в отдельную секцию
-unsigned char use_env=FALSE;	//переменная окружения
-int numrel=0;	//число элементов в таблице перемещений
+unsigned char idasm=FALSE;	//╨░╤Б╤Б╨╡╨╝╨▒╨╗╨╡╤А╨╜╤Л╨╡ ╨╕╨╜╤Б╤В╤А╤Г╨║╤Ж╨╕╨╕ ╤Б╤З╨╕╤В╨░╤В╤М ╨╕╨┤╨╡╨╜╤В╨╕╤Д╨╕╨║╨░╤В╨╛╤А╨░╨╝╨╕
+unsigned char wbss=2;	//╨┐╨╛╤Б╤В ╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╨╡ ╨▓ ╨╛╤В╨┤╨╡╨╗╤М╨╜╤Г╤О ╤Б╨╡╨║╤Ж╨╕╤О
+unsigned char use_env=FALSE;	//╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╨░╤П ╨╛╨║╤А╤Г╨╢╨╡╨╜╨╕╤П
+int numrel=0;	//╤З╨╕╤Б╨╗╨╛ ╤Н╨╗╨╡╨╝╨╡╨╜╤В╨╛╨▓ ╨▓ ╤В╨░╨▒╨╗╨╕╤Ж╨╡ ╨┐╨╡╤А╨╡╨╝╨╡╤Й╨╡╨╜╨╕╨╣
 unsigned char useordinal=FALSE;
 unsigned char useDOS4GW=FALSE;
 unsigned char clearpost=FALSE;
@@ -182,11 +170,11 @@ enum {
 #endif
 	c_map,   c_we,      c_end};
 
-#define NUMEXT 6	//число разрешенных расширений компилируемого файла
+#define NUMEXT 6	//╤З╨╕╤Б╨╗╨╛ ╤А╨░╨╖╤А╨╡╤И╨╡╨╜╨╜╤Л╤Е ╤А╨░╤Б╤И╨╕╤А╨╡╨╜╨╕╨╣ ╨║╨╛╨╝╨┐╨╕╨╗╨╕╤А╤Г╨╡╨╝╨╛╨│╨╛ ╤Д╨░╨╣╨╗╨░
 char extcompile[NUMEXT][4]={"c--","cmm","c","h--","hmm","h"};
 
-char *bufstr=NULL;	//буфер для строк из процедур
-int sbufstr=SIZEBUF;	//начальный размер этого буфера
+char *bufstr=NULL;	//╨▒╤Г╤Д╨╡╤А ╨┤╨╗╤П ╤Б╤В╤А╨╛╨║ ╨╕╨╖ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
+int sbufstr=SIZEBUF;	//╨╜╨░╤З╨░╨╗╤М╨╜╤Л╨╣ ╤А╨░╨╖╨╝╨╡╤А ╤Н╤В╨╛╨│╨╛ ╨▒╤Г╤Д╨╡╤А╨░
 
 void compile();
 void PrintInfo(char **str);
@@ -203,7 +191,7 @@ int writeoutput();
 void BadCommandLine(char *str);
 void  CheckExtenshions();
 void ImportName(char *name);
-void WarnUnusedVar();//предупреждения о неиспользованных процедурах и переменных
+void WarnUnusedVar();//╨┐╤А╨╡╨┤╤Г╨┐╤А╨╡╨╢╨┤╨╡╨╜╨╕╤П ╨╛ ╨╜╨╡╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╜╤Л╤Е ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╨░╤Е ╨╕ ╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╤Е
 void MakeExeHeader(EXE_DOS_HEADER *exeheader);
 void CheckPageCode(unsigned int ofs);
 int MakePE();
@@ -251,7 +239,7 @@ unsigned char pari=FALSE;
 		if(rawfilename!=NULL)IncludePath(rawfilename);
 		rawfilename=rawext=NULL;
 		LoadIni("c--.ini");
-		for(count=1;count<argc;count++){ //обработка командной строки
+		for(count=1;count<argc;count++){ //╨╛╨▒╤А╨░╨▒╨╛╤В╨║╨░ ╨║╨╛╨╝╨░╨╜╨┤╨╜╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╕
 			if(argv[count][0]=='/'||argv[count][0]=='-'){
 				if(SelectComand(argv[count]+1,&count)==c_end)BadCommandLine(argv[count]);
 			}
@@ -260,7 +248,7 @@ unsigned char pari=FALSE;
       	  rawfilename=argv[count];
       	  pari=TRUE;
         	if((rawext=strrchr(rawfilename,'.'))!=NULL){
-						if(stricmp(rawext,".ini")==0){	//указан ini файл
+						if(stricmp(rawext,".ini")==0){	//╤Г╨║╨░╨╖╨░╨╜ ini ╤Д╨░╨╣╨╗
 							rawfilename=NULL;
 							rawext=NULL;
 							LoadIni(argv[count]);
@@ -279,7 +267,7 @@ unsigned char pari=FALSE;
 		PrintInfo(usage);
 		exit( e_noinputspecified );
 	}
-	time(&systime); //текущее время
+	time(&systime); //╤В╨╡╨║╤Г╤Й╨╡╨╡ ╨▓╤А╨╡╨╝╤П
 	memcpy(&timeptr,localtime(&systime),sizeof(tm));
 	InitDefineConst();
 	compile();
@@ -306,11 +294,11 @@ union{
 	long longhold;
 	void *nextstr;
 };
-//создатьь имя файла с предупреждениями и если он есть удалить
+//╤Б╨╛╨╖╨┤╨░╤В╤М╤М ╨╕╨╝╤П ╤Д╨░╨╣╨╗╨░ ╤Б ╨┐╤А╨╡╨┤╤Г╨┐╤А╨╡╨╢╨┤╨╡╨╜╨╕╤П╨╝╨╕ ╨╕ ╨╡╤Б╨╗╨╕ ╨╛╨╜ ╨╡╤Б╤В╤М ╤Г╨┤╨░╨╗╨╕╤В╤М
 	errfile.name=(char *)MALLOC(strlen(rawfilename)+5);
 	sprintf(errfile.name,"%s.err",rawfilename);
 	if(stat(errfile.name,(struct stat *)string2)==0)remove(errfile.name);
-//если есть имя файла для предупреждений проверить его существование и удалить.
+//╨╡╤Б╨╗╨╕ ╨╡╤Б╤В╤М ╨╕╨╝╤П ╤Д╨░╨╣╨╗╨░ ╨┤╨╗╤П ╨┐╤А╨╡╨┤╤Г╨┐╤А╨╡╨╢╨┤╨╡╨╜╨╕╨╣ ╨┐╤А╨╛╨▓╨╡╤А╨╕╤В╤М ╨╡╨│╨╛ ╤Б╤Г╤Й╨╡╤Б╤В╨▓╨╛╨▓╨░╨╜╨╕╨╡ ╨╕ ╤Г╨┤╨░╨╗╨╕╤В╤М.
 	if(wartype.name!=NULL){
 		if(stat(wartype.name,(struct stat *)string2)==0)remove(wartype.name);
 	}
@@ -331,7 +319,7 @@ union{
 	inittokn();
 #endif
 
-	compilefile((char *)string,2); //собствено разборка и компиляция
+	compilefile((char *)string,2); //╤Б╨╛╨▒╤Б╤В╨▓╨╡╨╜╨╛ ╤А╨░╨╖╨▒╨╛╤А╨║╨░ ╨╕ ╨║╨╛╨╝╨┐╨╕╨╗╤П╤Ж╨╕╤П
 	puts("Link . . .");
 	if(comfile==file_w32&&wbss==2){
 		wbss=FALSE;
@@ -340,10 +328,10 @@ union{
 	if(notdoneprestuff==TRUE)doprestuff();	//startup cod
 	if(endifcount>=0)preerror("?endif expected before end of file");
 	AddObj();
-	docalls();	//добавить внешние процедуры
+	docalls();	//╨┤╨╛╨▒╨░╨▓╨╕╤В╤М ╨▓╨╜╨╡╤И╨╜╨╕╨╡ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╤Л
 	addinitvar();
 	CheckUndefClassProc();
-	if(undefoffstart!=NULL){	//выдать список неизвестных ссылок
+	if(undefoffstart!=NULL){	//╨▓╤Л╨┤╨░╤В╤М ╤Б╨┐╨╕╤Б╨╛╨║ ╨╜╨╡╨╕╨╖╨▓╨╡╤Б╤В╨╜╤Л╤Е ╤Б╤Б╤Л╨╗╨╛╨║
 		UNDEFOFF *curptr=undefoffstart;
 		for(;;){
 			char holdstr[80];
@@ -368,11 +356,11 @@ union{
 		liststring=nextstr;
 	}
 	free(bufstr);
-	if(warning==TRUE&&wact[7].usewarn)WarnUnusedVar();//предупреждения о неиспользованных процедурах и переменных
-	if(numstrtbl)CreatStrTabRes();	//завершить создание ресурсов
+	if(warning==TRUE&&wact[7].usewarn)WarnUnusedVar();//╨┐╤А╨╡╨┤╤Г╨┐╤А╨╡╨╢╨┤╨╡╨╜╨╕╤П ╨╛ ╨╜╨╡╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╜╤Л╤Е ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╨░╤Е ╨╕ ╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╤Е
+	if(numstrtbl)CreatStrTabRes();	//╨╖╨░╨▓╨╡╤А╤И╨╕╤В╤М ╤Б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╤А╨╡╤Б╤Г╤А╤Б╨╛╨▓
 	if(fobj==FALSE){
 		if(comfile==file_w32&&error==0){
-			AddJmpApi();	//коственные вызовы API
+			AddJmpApi();	//╨║╨╛╤Б╤В╨▓╨╡╨╜╨╜╤Л╨╡ ╨▓╤Л╨╖╨╛╨▓╤Л API
 			CreatWinStub();
 		}
 		longhold=outptr;
@@ -418,7 +406,7 @@ union{
 		}
 		else longhold+=(long)postsize+(long)(stacksize);
 		if(am32==0&&longhold>65535L&&!(modelmem==TINY&&(!resizemem)))preerror("Code, data and stack total exceeds 64k");
-		if(posts>0)doposts();  //Установить адреса вызовов процедур и переходов
+		if(posts>0)doposts();  //╨г╤Б╤В╨░╨╜╨╛╨▓╨╕╤В╤М ╨░╨┤╤А╨╡╤Б╨░ ╨▓╤Л╨╖╨╛╨▓╨╛╨▓ ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А ╨╕ ╨┐╨╡╤А╨╡╤Е╨╛╨┤╨╛╨▓
 		if(resizemem&&comfile==file_com){
 			segments_required=(outptr+postsize+stacksize+15)/16;
 			*(short *)&output[resizesizeaddress]=(short)segments_required;
@@ -548,8 +536,8 @@ void strbtrim(char *st)
 int i;
 char *p,*q;
 	p=q=st;
-	while(isspace(*p))p++;	//пока незначащие символы
-	while(*p)*q++=*p++;     //переместить строку
+	while(isspace(*p))p++;	//╨┐╨╛╨║╨░ ╨╜╨╡╨╖╨╜╨░╤З╨░╤Й╨╕╨╡ ╤Б╨╕╨╝╨▓╨╛╨╗╤Л
+	while(*p)*q++=*p++;     //╨┐╨╡╤А╨╡╨╝╨╡╤Б╤В╨╕╤В╤М ╤Б╤В╤А╨╛╨║╤Г
 	*q='\0';
 	for(i=strlen(st)-1;isspace(st[i])&&i>=0;i--);
 	st[i+1]='\0';
@@ -581,14 +569,14 @@ int i;
 unsigned char neg=FALSE;
 char *ptr;
 int len;
-	if((ptr=strchr(pptr,';'))!=NULL)*ptr=0;// ищем комментарий отсекаем все после него
-  if((ptr=strchr(pptr,'='))!=NULL){ // ищем знак равенства
-		*ptr=0; // делим
+	if((ptr=strchr(pptr,';'))!=NULL)*ptr=0;// ╨╕╤Й╨╡╨╝ ╨║╨╛╨╝╨╝╨╡╨╜╤В╨░╤А╨╕╨╣ ╨╛╤В╤Б╨╡╨║╨░╨╡╨╝ ╨▓╤Б╨╡ ╨┐╨╛╤Б╨╗╨╡ ╨╜╨╡╨│╨╛
+  if((ptr=strchr(pptr,'='))!=NULL){ // ╨╕╤Й╨╡╨╝ ╨╖╨╜╨░╨║ ╤А╨░╨▓╨╡╨╜╤Б╤В╨▓╨░
+		*ptr=0; // ╨┤╨╡╨╗╨╕╨╝
 		ptr++;
-	  strbtrim(ptr);	//убрать лишние пробелы
+	  strbtrim(ptr);	//╤Г╨▒╤А╨░╤В╤М ╨╗╨╕╤И╨╜╨╕╨╡ ╨┐╤А╨╛╨▒╨╡╨╗╤Л
 	}
-  strbtrim(pptr);	//убрать лишние пробелы
-	if(*pptr==0)return c_end+1;	//пустая строка
+  strbtrim(pptr);	//╤Г╨▒╤А╨░╤В╤М ╨╗╨╕╤И╨╜╨╕╨╡ ╨┐╤А╨╛╨▒╨╡╨╗╤Л
+	if(*pptr==0)return c_end+1;	//╨┐╤Г╤Б╤В╨░╤П ╤Б╤В╤А╨╛╨║╨░
 	if((i=strlen(pptr))>1&&pptr[i-1]=='-'){
 		neg=TRUE;
 		pptr[i-1]=0;
@@ -825,7 +813,7 @@ nexpardll:
 					break;
 				case c_scd:
 /*-----------------13.08.00 23:01-------------------
- будет введена после доработки динамических процедур
+ ╨▒╤Г╨┤╨╡╤В ╨▓╨▓╨╡╨┤╨╡╨╜╨░ ╨┐╨╛╤Б╨╗╨╡ ╨┤╨╛╤А╨░╨▒╨╛╤В╨║╨╕ ╨┤╨╕╨╜╨░╨╝╨╕╤З╨╡╤Б╨║╨╕╤Е ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А
 	--------------------------------------------------*/
 					splitdata=(unsigned char)1^neg;
 					if(modelmem==SMALL)splitdata=TRUE;
@@ -1042,7 +1030,7 @@ char m1[256];
 
 /*****************************************************************************
 * .NAME   : MALLOC
-* .TITLE  : Выделяет память с обработкой ошибок.
+* .TITLE  : ╨Т╤Л╨┤╨╡╨╗╤П╨╡╤В ╨┐╨░╨╝╤П╤В╤М ╤Б ╨╛╨▒╤А╨░╨▒╨╛╤В╨║╨╛╨╣ ╨╛╤И╨╕╨▒╨╛╨║.
 *****************************************************************************/
 void OutMemory()
 {
@@ -1108,11 +1096,11 @@ unsigned long addvalue,i,addval,addvalw32=0,addvalbss=0;
 	}
 	else{
 		if((outptrdata%2)==1){	/* alignment of entire post data block manditory */
-			addvalue++;	//начало неиниц.данных
+			addvalue++;	//╨╜╨░╤З╨░╨╗╨╛ ╨╜╨╡╨╕╨╜╨╕╤Ж.╨┤╨░╨╜╨╜╤Л╤Е
 			postsize++;
 		}
 /*		if(am32&&(outptrdata%4)==2){
-			addvalue+=2;	//начало неиниц.данных
+			addvalue+=2;	//╨╜╨░╤З╨░╨╗╨╛ ╨╜╨╡╨╕╨╜╨╕╤Ж.╨┤╨░╨╜╨╜╤Л╤Е
 			postsize+=2;
 		}*/
 	}
@@ -1153,7 +1141,7 @@ unsigned long addvalue,i,addval,addvalw32=0,addvalbss=0;
 				break;
 		}
 	}
-	ooutptr=addvalue;	//сохранить начало post для debug;
+	ooutptr=addvalue;	//╤Б╨╛╤Е╤А╨░╨╜╨╕╤В╤М ╨╜╨░╤З╨░╨╗╨╛ post ╨┤╨╗╤П debug;
 }
 
 void GetMemExeDat()
@@ -1402,7 +1390,7 @@ void warnunused(struct idrec *ptr)
 	}
 }
 
-void WarnUnusedVar()//предупреждения о неиспользованных процедурах и переменных
+void WarnUnusedVar()//╨┐╤А╨╡╨┤╤Г╨┐╤А╨╡╨╢╨┤╨╡╨╜╨╕╤П ╨╛ ╨╜╨╡╨╕╤Б╨┐╨╛╨╗╤М╨╖╨╛╨▓╨░╨╜╨╜╤Л╤Е ╨┐╤А╨╛╤Ж╨╡╨┤╤Г╤А╨░╤Е ╨╕ ╨┐╨╡╤А╨╡╨╝╨╡╨╜╨╜╤Л╤Е
 {
 	warnunused(treestart);
 	for(unsigned int i=0;i<totalmodule;i++)warnunused((startfileinfo+i)->stlist);
@@ -1411,7 +1399,7 @@ void WarnUnusedVar()//предупреждения о неиспользованных процедурах и переменных
 void addinitvar()
 {
 unsigned int i;
-	if(numfloatconst){	//вставить константы float и привязать их
+	if(numfloatconst){	//╨▓╤Б╤В╨░╨▓╨╕╤В╤М ╨║╨╛╨╜╤Б╤В╨░╨╜╤В╤Л float ╨╕ ╨┐╤А╨╕╨▓╤П╨╖╨░╤В╤М ╨╕╤Е
 		if(alignword||optimizespeed)AlignCD(DS,chip>5?16:4);
 		for(i=0;i<posts;i++){
 			if((postbuf+i)->type==POST_FLOATNUM){
@@ -1438,12 +1426,12 @@ unsigned int i;
 		numfloatconst=0;
 		floatnum=NULL;
 	}
-	for(i=0;i<(unsigned int)numswtable;i++){	//создать и вставить таблицы switch
+	for(i=0;i<(unsigned int)numswtable;i++){	//╤Б╨╛╨╖╨┤╨░╤В╤М ╨╕ ╨▓╤Б╤В╨░╨▓╨╕╤В╤М ╤В╨░╨▒╨╗╨╕╤Ж╤Л switch
 		int j;
 		FSWI *swt=swtables+i;
 		if(alignword)AlignCD(DS,swt->type);
 		if(dbg&2)AddDataNullLine((char)swt->type,"switch table address");
-		if(am32==FALSE){	//вставить в код адрес таблицы
+		if(am32==FALSE){	//╨▓╤Б╤В╨░╨▓╨╕╤В╤М ╨▓ ╨║╨╛╨┤ ╨░╨┤╤А╨╡╤Б ╤В╨░╨▒╨╗╨╕╤Ж╤Л
 			*(unsigned short *)&output[swt->ptb]=(unsigned short)outptrdata;
 		}
 		else *(unsigned long *)&output[swt->ptb]=outptrdata;
@@ -1452,7 +1440,7 @@ unsigned int i;
 
 		unsigned long val=swt->defal;
 		int oline=outptrdata;
-		for(j=0;j<swt->sizetab;j++){	//заполнить таблицу значениями по умолчанию
+		for(j=0;j<swt->sizetab;j++){	//╨╖╨░╨┐╨╛╨╗╨╜╨╕╤В╤М ╤В╨░╨▒╨╗╨╕╤Ж╤Г ╨╖╨╜╨░╤З╨╡╨╜╨╕╤П╨╝╨╕ ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О
 //			if((swt->info+jj)->type==singlcase)
 			AddReloc(DS);
 			if(am32)outdwordd(val);
@@ -1460,14 +1448,14 @@ unsigned int i;
 		}
 		if(swt->mode==2){
 			if(dbg&2)AddDataNullLine((char)swt->razr,"switch table value");
-			if(oam32==FALSE){	//вставить в код адрес таблицы
+			if(oam32==FALSE){	//╨▓╤Б╤В╨░╨▓╨╕╤В╤М ╨▓ ╨║╨╛╨┤ ╨░╨┤╤А╨╡╤Б ╤В╨░╨▒╨╗╨╕╤Ж╤Л
 				*(unsigned short *)&output[swt->ptv]=(unsigned short)outptrdata;
 			}
 			else *(unsigned long *)&output[swt->ptv]=outptrdata;
 		}
-		int ii=0;	//счетчик case
+		int ii=0;	//╤Б╤З╨╡╤В╤З╨╕╨║ case
 		for(int jj=0;jj<swt->numcase;jj++){
-			j=(swt->info+jj)->value;	//значение
+			j=(swt->info+jj)->value;	//╨╖╨╜╨░╤З╨╡╨╜╨╕╨╡
 			val=(swt->info+jj)->postcase;
 			if((swt->info+jj)->type==singlcase){
 				if(swt->mode==1){
@@ -1542,7 +1530,7 @@ unsigned char bcha;
 unsigned int oline,ofile;
 char *ostartline;
 	if(alignword){
-		if(ptr->rectok==tk_structvar)alignersize+=AlignCD(DS,2);	//выровнять
+		if(ptr->rectok==tk_structvar)alignersize+=AlignCD(DS,2);	//╨▓╤Л╤А╨╛╨▓╨╜╤П╤В╤М
 		else alignersize+=AlignCD(DS,GetVarSize(ptr->rectok));
 	}
 //	printf("loc=%08X out=%08X num=%08X\n",*(unsigned long *)&output[(postbuf+i)->loc],outptrdata,ptr->recnumber);

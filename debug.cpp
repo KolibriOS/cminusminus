@@ -5,7 +5,7 @@
 
 #define MAXDBGS 1000
 #define MAXNUMSYM 500
-#define MAXLSTSTR 128	//максимальный размер строки листинга
+#define MAXLSTSTR 128	//╨╝╨░╨║╤Б╨╕╨╝╨░╨╗╤М╨╜╤Л╨╣ ╤А╨░╨╖╨╝╨╡╤А ╤Б╤В╤А╨╛╨║╨╕ ╨╗╨╕╤Б╤В╨╕╨╜╨│╨░
 
 void AddNameToTable(char *name);
 void AddSymbolList(struct idrec *ptr);
@@ -13,18 +13,18 @@ int CreateDosDebug();
 int CreateW32Debug();
 void GeneratLst();
 
-unsigned int *dbgloc=NULL;	//адресс точки
-unsigned int *dbgnum;	//номер строки
-unsigned short *dbgmod;	//номер файла
-char **lststring;	//строки исходного текста
-unsigned char *lstflag=NULL;	//флаги управления листингом
+unsigned int *dbgloc=NULL;	//╨░╨┤╤А╨╡╤Б╤Б ╤В╨╛╤З╨║╨╕
+unsigned int *dbgnum;	//╨╜╨╛╨╝╨╡╤А ╤Б╤В╤А╨╛╨║╨╕
+unsigned short *dbgmod;	//╨╜╨╛╨╝╨╡╤А ╤Д╨░╨╣╨╗╨░
+char **lststring;	//╤Б╤В╤А╨╛╨║╨╕ ╨╕╤Б╤Е╨╛╨┤╨╜╨╛╨│╨╛ ╤В╨╡╨║╤Б╤В╨░
+unsigned char *lstflag=NULL;	//╤Д╨╗╨░╨│╨╕ ╤Г╨┐╤А╨░╨▓╨╗╨╡╨╜╨╕╤П ╨╗╨╕╤Б╤В╨╕╨╜╨│╨╛╨╝
 unsigned int *lstend;
 
 unsigned int pdbg=0;      /* number of post entrys */
 unsigned int pdbgmax=MAXDBGS;      /* max number of post entrys */
 static unsigned int oline=0,omodule=0xFFFFFFFF;
 unsigned int ooutptr=0xffffffff;
-char lsttypedata=0;	//тип данных для листинга, по умолчанию код
+char lsttypedata=0;	//╤В╨╕╨┐ ╨┤╨░╨╜╨╜╤Л╤Е ╨┤╨╗╤П ╨╗╨╕╤Б╤В╨╕╨╜╨│╨░, ╨┐╨╛ ╤Г╨╝╨╛╨╗╤З╨░╨╜╨╕╤О ╨║╨╛╨┤
 unsigned int outputcodestart=0;
 
 struct D16START{
@@ -46,9 +46,9 @@ struct D16START{
 	unsigned short data[2];  //60 Basic RTL String Segment Offset & Data Count
 	unsigned long casesensiv;//64 Case Sensivitive Link
 	unsigned long ucnovn;
-//только для 128-байтового заголовка
+//╤В╨╛╨╗╤М╨║╨╛ ╨┤╨╗╤П 128-╨▒╨░╨╣╤В╨╛╨▓╨╛╨│╨╛ ╨╖╨░╨│╨╛╨╗╨╛╨▓╨║╨░
 	unsigned long ucnovn1[6];
-	unsigned long sizeblock;	//размер между началом имен и концом заголовка
+	unsigned long sizeblock;	//╤А╨░╨╖╨╝╨╡╤А ╨╝╨╡╨╢╨┤╤Г ╨╜╨░╤З╨░╨╗╨╛╨╝ ╨╕╨╝╨╡╨╜ ╨╕ ╨║╨╛╨╜╤Ж╨╛╨╝ ╨╖╨░╨│╨╛╨╗╨╛╨▓╨║╨░
 	unsigned long ucnovn2[2];
 	unsigned short fdebug;	//Debug Flags
 	unsigned long reftsize;	//Reference Information Table Size (in bytes)
@@ -121,11 +121,11 @@ static int segcode;
 
 static struct _COR_INFO_
 {
-	unsigned int ofs;	//начало блока
-	unsigned int end; //конец блока
-	unsigned int startline;	//номер первой строки информации
-	unsigned short count;	//число строк
-	unsigned short file;	//файл
+	unsigned int ofs;	//╨╜╨░╤З╨░╨╗╨╛ ╨▒╨╗╨╛╨║╨░
+	unsigned int end; //╨║╨╛╨╜╨╡╤Ж ╨▒╨╗╨╛╨║╨░
+	unsigned int startline;	//╨╜╨╛╨╝╨╡╤А ╨┐╨╡╤А╨▓╨╛╨╣ ╤Б╤В╤А╨╛╨║╨╕ ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╨╕
+	unsigned short count;	//╤З╨╕╤Б╨╗╨╛ ╤Б╤В╤А╨╛╨║
+	unsigned short file;	//╤Д╨░╨╣╨╗
 }*corinfo=NULL;
 
 void InitDbg()
@@ -135,7 +135,7 @@ void InitDbg()
 		dbgloc=(unsigned int *)MALLOC(MAXDBGS*sizeof(unsigned int));
 		dbgnum=(unsigned int *)MALLOC(MAXDBGS*sizeof(unsigned int));
 		dbgmod=(unsigned short *)MALLOC(MAXDBGS*sizeof(unsigned short));
-		dbgact=1;	//запретить сбор информации
+		dbgact=1;	//╨╖╨░╨┐╤А╨╡╤В╨╕╤В╤М ╤Б╨▒╨╛╤А ╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╨╕
 	}
 	if((dbg&2)&&lstflag==NULL){
 		lststring=(char **)MALLOC(MAXDBGS*sizeof(char *));
@@ -162,7 +162,7 @@ void AddDataNullLine(char ssize,char *name)
 	lsttypedata=(unsigned char)(ssize<<1);
 	AddLine(TRUE);
 	lsttypedata=0;
-	dbgnum[pdbg-1]=0;	//очистить номер строки
+	dbgnum[pdbg-1]=0;	//╨╛╤З╨╕╤Б╤В╨╕╤В╤М ╨╜╨╛╨╝╨╡╤А ╤Б╤В╤А╨╛╨║╨╕
 //new !!!
 	if(name!=NULL)lststring[pdbg-1]=BackString(name);
 }
@@ -171,7 +171,7 @@ void AddCodeNullLine(char *name)
 {
 	oline--;
 	AddLine(TRUE);
-	dbgnum[pdbg-1]=0;	//очистить номер строки
+	dbgnum[pdbg-1]=0;	//╨╛╤З╨╕╤Б╤В╨╕╤В╤М ╨╜╨╛╨╝╨╡╤А ╤Б╤В╤А╨╛╨║╨╕
 	if(name!=NULL)lststring[pdbg-1]=BackString(name);
 	oline--;
 }
@@ -257,22 +257,22 @@ void KillLastLine()
 	}
 }
 
-//создание отладочного файла
+//╤Б╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╨╛╤В╨╗╨░╨┤╨╛╤З╨╜╨╛╨│╨╛ ╤Д╨░╨╣╨╗╨░
 void DoTDS()
 {
 int retcode;
 unsigned int i,j;
-//создать файл
+//╤Б╨╛╨╖╨┤╨░╤В╤М ╤Д╨░╨╣╨╗
 	if(lstflag)GeneratLst();
 	if(dbg&1){
-//убрать из списка файлов не используемые
+//╤Г╨▒╤А╨░╤В╤М ╨╕╨╖ ╤Б╨┐╨╕╤Б╨║╨░ ╤Д╨░╨╣╨╗╨╛╨▓ ╨╜╨╡ ╨╕╤Б╨┐╨╛╨╗╤М╨╖╤Г╨╡╨╝╤Л╨╡
 		for(i=0;i<totalmodule;i++){
 			if((startfileinfo+i)->numdline==0){
 				totalmodule--;
 				if(totalmodule!=i){
 					memcpy(&(startfileinfo+i)->filename,
 						&(startfileinfo+totalmodule)->filename,sizeof(FILEINFO));
-//корректировка таблиц строк
+//╨║╨╛╤А╤А╨╡╨║╤В╨╕╤А╨╛╨▓╨║╨░ ╤В╨░╨▒╨╗╨╕╤Ж ╤Б╤В╤А╨╛╨║
 					for(j=0;j<pdbg;j++){
 						if(dbgmod[j]==(unsigned short)totalmodule)dbgmod[j]=(unsigned short)i;
 					}
@@ -280,7 +280,7 @@ unsigned int i,j;
 				}
 			}
 		}
-//создать таблицу корреляций
+//╤Б╨╛╨╖╨┤╨░╤В╤М ╤В╨░╨▒╨╗╨╕╤Ж╤Г ╨║╨╛╤А╤А╨╡╨╗╤П╤Ж╨╕╨╣
 		corinfo=(struct _COR_INFO_ *)MALLOC(sizeof(_COR_INFO_));
 		corinfo->ofs=dbgloc[0];
 		corinfo->startline=0;
@@ -430,7 +430,7 @@ unsigned int i,j,jj,ofs;
 	outdword(startcode); // len
 	sstsrc=outptr;
 //sstSrcModule subsection
-	outword((short)numcorrel);  //cFile - количество SRC-файлов(сегментов)
+	outword((short)numcorrel);  //cFile - ╨║╨╛╨╗╨╕╤З╨╡╤Б╤В╨▓╨╛ SRC-╤Д╨░╨╣╨╗╨╛╨▓(╤Б╨╡╨│╨╝╨╡╨╜╤В╨╛╨▓)
 	outword((short)numcorrel);  // SegCount (see SegCount in sstModule
 	ofs=14*numcorrel+4;
 	for(i=0,jj=0;i<(unsigned int)numcorrel;i++){
@@ -441,7 +441,7 @@ unsigned int i,j,jj,ofs;
 		outdword((corinfo+i)->ofs);
 		outdword((corinfo+i)->end);
 	}
-	for(i=0;i<(unsigned int)numcorrel;i++)outword(segcode); // массив индексов сегментов
+	for(i=0;i<(unsigned int)numcorrel;i++)outword(segcode); // ╨╝╨░╤Б╤Б╨╕╨▓ ╨╕╨╜╨┤╨╡╨║╤Б╨╛╨▓ ╤Б╨╡╨│╨╝╨╡╨╜╤В╨╛╨▓
 	for(i=0;i<(unsigned int)numcorrel;i++){
 		outword(1); 	 // Segm#
 		outdword((corinfo+i)->file+1);// File#
@@ -457,7 +457,7 @@ unsigned int i,j,jj,ofs;
 		for(j=0;j<jj;j++)outword(dbgnum[j+ofs]);
 		outword(0);
 	}
-//таблица глобальных символов
+//╤В╨░╨▒╨╗╨╕╤Ж╨░ ╨│╨╗╨╛╨▒╨░╨╗╤М╨╜╤Л╤Е ╤Б╨╕╨╝╨▓╨╛╨╗╨╛╨▓
 	sstGlobalSym=outptr;
 	for(i=0;i<8;i++)outdword(0);
 //	outdword(0);	//modindex
@@ -523,9 +523,9 @@ CT *ct;
 int corrnum=0,ii;
 unsigned short beg,end;
 	outptr=0;
-//16-бит заголовок
+//16-╨▒╨╕╤В ╨╖╨░╨│╨╛╨╗╨╛╨▓╨╛╨║
 	memset(&d16header,0,sizeof(D16START));
-//таблица глобальных имен
+//╤В╨░╨▒╨╗╨╕╤Ж╨░ ╨│╨╗╨╛╨▒╨░╨╗╤М╨╜╤Л╤Е ╨╕╨╝╨╡╨╜
 	symbols=(_SMB_ *)MALLOC(sizeof(_SMB_)*MAXNUMSYM);
 	memset(symbols,0,sizeof(_SMB_)*MAXNUMSYM);
 	AddSymbolList(treestart);
@@ -541,7 +541,7 @@ unsigned short beg,end;
 	d16header.numcorrel=numcorrel;//totalmodule;	//Correlation
 	d16header.casesensiv=1;
 //	d16header.numtentr=NUMTYPES;
-//только для 128-байтового заголовка
+//╤В╨╛╨╗╤М╨║╨╛ ╨┤╨╗╤П 128-╨▒╨░╨╣╤В╨╛╨▓╨╛╨│╨╛ ╨╖╨░╨│╨╛╨╗╨╛╨▓╨║╨░
 //	d16header.fdebug=1;
 
 	d16header.ucnovn=0x380000;
@@ -561,7 +561,7 @@ unsigned short beg,end;
 //correlation table
 	ct=(CT *)MALLOC(sizeof(CT)*numcorrel);
 	for(i=0;i<totalmodule;i++){
-//имена модулей
+//╨╕╨╝╨╡╨╜╨░ ╨╝╨╛╨┤╤Г╨╗╨╡╨╣
 		AddNameToTable((startfileinfo+i)->filename);
 		strcpy((char *)string3,(startfileinfo+i)->filename);
 		char *str=strrchr((char *)string3,'.');
@@ -573,19 +573,19 @@ unsigned short beg,end;
 		}
 		else str=(char *)string3;
 		AddNameToTable(str);
-//таблица модулей
+//╤В╨░╨▒╨╗╨╕╤Ж╨░ ╨╝╨╛╨┤╤Г╨╗╨╡╨╣
 		(module+i)->name=i*2+2+numsymbols;
 		(module+i)->language=1;
 		(module+i)->memmodel=8;//modelmem==SMALL&&comfile==file_exe?9:8;
 		(module+i)->sourcount=1;//(unsigned short)totalmodule;
 		(module+i)->sourindex=(unsigned short)(i+1);
-//информация об исходных файлах
+//╨╕╨╜╤Д╨╛╤А╨╝╨░╤Ж╨╕╤П ╨╛╨▒ ╨╕╤Б╤Е╨╛╨┤╨╜╤Л╤Е ╤Д╨░╨╣╨╗╨░╤Е
 		(sft+i)->idx=i*2+1+numsymbols;
 		(sft+i)->time=(startfileinfo+i)->time;
-		count=0;	//число кореляций для данного модуля
-		for(ii=0;ii<numcorrel;ii++){//обход таблицы корреляции
-			if((corinfo+ii)->file==(unsigned short)i){	//корр для этого модуля
-				if(count==0){	//первый блок
+		count=0;	//╤З╨╕╤Б╨╗╨╛ ╨║╨╛╤А╨╡╨╗╤П╤Ж╨╕╨╣ ╨┤╨╗╤П ╨┤╨░╨╜╨╜╨╛╨│╨╛ ╨╝╨╛╨┤╤Г╨╗╤П
+		for(ii=0;ii<numcorrel;ii++){//╨╛╨▒╤Е╨╛╨┤ ╤В╨░╨▒╨╗╨╕╤Ж╤Л ╨║╨╛╤А╤А╨╡╨╗╤П╤Ж╨╕╨╕
+			if((corinfo+ii)->file==(unsigned short)i){	//╨║╨╛╤А╤А ╨┤╨╗╤П ╤Н╤В╨╛╨│╨╛ ╨╝╨╛╨┤╤Г╨╗╤П
+				if(count==0){	//╨┐╨╡╤А╨▓╤Л╨╣ ╨▒╨╗╨╛╨║
 					(segment+i)->ofs=beg=(unsigned short)(corinfo+ii)->ofs;
 					(segment+i)->correli=(unsigned short)(corrnum+1);	//correlation index
 					(module+i)->corindex=(unsigned short)(corrnum+1);
@@ -593,13 +593,13 @@ unsigned short beg,end;
 				(ct+corrnum)->beg=(corinfo+ii)->startline+1;
 				(ct+corrnum)->segidx=(unsigned short)(1+i);	//segment idx
 				(ct+corrnum)->filidx=(unsigned short)(i+1);	//file idx
-				(ct+corrnum)->count=(corinfo+ii)->count;	//число линий
+				(ct+corrnum)->count=(corinfo+ii)->count;	//╤З╨╕╤Б╨╗╨╛ ╨╗╨╕╨╜╨╕╨╣
 				end=(unsigned short)(corinfo+ii)->end;
 				corrnum++;
 				count++;
 			}
 		}
-//таблица сегментов
+//╤В╨░╨▒╨╗╨╕╤Ж╨░ ╤Б╨╡╨│╨╝╨╡╨╜╤В╨╛╨▓
 		(segment+i)->idx=(unsigned short)(i+1);	//segment index
 		(segment+i)->size=(unsigned short)(end-beg);//length
 		(segment+i)->correlc=(unsigned short)count;//(unsigned short)totalmodule; //correlation count

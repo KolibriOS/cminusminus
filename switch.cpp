@@ -2,12 +2,12 @@
 
 #include "tok.h"
 
-extern int lastcommand;	//ØÆ·´•§≠®© ÆØ•‡†‚Æ‡ ¢ °´Æ™•
+extern int lastcommand;	//–ø–æ—Å–ª–µ–¥–Ω–∏–π –æ–ø–µ—Ä–∞—Ç–æ—Ä –≤ –±–ª–æ–∫–µ
 
 #define MAXCASE 1024
 
-FSWI *swtables;	//‚†°´®Ê† ®≠‰Æ‡¨†Ê®© Æ° switch
-int numswtable=0;	//Á®·´Æ °´Æ™Æ¢ ¢ Ì‚Æ© ‚†°´®Ê•
+FSWI *swtables;	//—Ç–∞–±–ª–∏—Ü–∞ –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏–π –æ–± switch
+int numswtable=0;	//—á–∏—Å–ª–æ –±–ª–æ–∫–æ–≤ –≤ —ç—Ç–æ–π —Ç–∞–±–ª–∏—Ü–µ
 char mesSWITCH[]="SWITCH";
 char mesCASE[]="CASE";
 int numexpandcase;
@@ -173,7 +173,7 @@ int retcode=TRUE;
 			}
 		}
 	}
-	if(retcode){	//•·´® ≠• ≠†©§•≠Æ ÆË®°Æ™
+	if(retcode){	//–µ—Å–ª–∏ –Ω–µ –Ω–∞–π–¥–µ–Ω–æ –æ—à–∏–±–æ–∫
 		tok=dtok;
 		itok=otok;
 		linenum2=line;
@@ -213,7 +213,7 @@ int numrm;
 int nonum;
 #endif
 	useinline=0;
-	caseinf=(ISW *)MALLOC(sizeof(ISW)*MAXCASE);	//°´Æ™ §´Ô ®≠‰Æ Æ case
+	caseinf=(ISW *)MALLOC(sizeof(ISW)*MAXCASE);	//–±–ª–æ–∫ –¥–ª—è –∏–Ω—Ñ–æ –æ case
 	numexpandcase=0;
 	uptdbr(/*TRUE*/);
 	getoperand();
@@ -292,7 +292,7 @@ qword:
 #endif
 	if(ScanSwitch(&numcase,caseinf,startmod)){
 int i;
-unsigned int sizetab;	//‡†ß¨•‡ ‚†°´®ÊÎ
+unsigned int sizetab;	//—Ä–∞–∑–º–µ—Ä —Ç–∞–±–ª–∏—Ü—ã
 unsigned long min=0xffffffff,max=0;
 unsigned int size0=0,size1;
 int reg0=0,svop=0;
@@ -304,9 +304,9 @@ unsigned oaddESP=addESP;
 				if((am32==FALSE&&tokr==r32)||(am32&&tokr==r16))size0=numcase;
 				else if(tokr==r8)size0=numcase*2;
 				if((tok==tk_beg||tok==tk_reg||tok==tk_reg32)&&tok2==tk_closebracket)
-					reg0=itok.number;	//Ø‡•§ØÆ´†£†•¨Î© ‡•£®·‚‡ ¨•‚Æ§† 0
+					reg0=itok.number;	//–ø—Ä–µ–¥–ø–æ–ª–∞–≥–∞–µ–º—ã–π —Ä–µ–≥–∏—Å—Ç—Ä –º–µ—Ç–æ–¥–∞ 0
 			}
-			for(i=0;i<numcase;i++){	//‡†·Á•‚ ‡†ß¨•‡† ØÆ ¨•‚Æ§„ 0
+			for(i=0;i<numcase;i++){	//—Ä–∞—Å—á–µ—Ç —Ä–∞–∑–º–µ—Ä–∞ –ø–æ –º–µ—Ç–æ–¥—É 0
 				if((caseinf+i)->value>max)max=(caseinf+i)->value;
 				if((caseinf+i)->value<min)min=(caseinf+i)->value;
 				if((long) (caseinf+i)->value>smax)smax=(caseinf+i)->value;
@@ -333,17 +333,17 @@ unsigned oaddESP=addESP;
 				smin=min;
 				max-=min;
 			}
-			sizetab=max+1;	//‡†ß¨•‡ ‚†°´®ÊÎ §´Ô ¨•‚Æ§† 1
+			sizetab=max+1;	//—Ä–∞–∑–º–µ—Ä —Ç–∞–±–ª–∏—Ü—ã –¥–ª—è –º–µ—Ç–æ–¥–∞ 1
 			if(sizetab<0x1000000&&(!(am32==FALSE&&tokr==r32))){
 				if(optimizespeed){
 					if((unsigned int)(sizetab/numcase)<(unsigned int)(am32==FALSE?3:4)){
 						mode=1;
 						if(am32==FALSE)reg=BX;
-					/* •·´® Æ‚≠ÆË•≠®• Á®·´† Ì´•¨•≠‚Æ¢ ¢ ‚†°´®Ê• ™ Á®·´„ case ¨•≠••
-					 3 §´Ô 16-°®‚≠Æ£Æ ‡•¶®¨† ® 4 §´Ô 32-°®‚≠Æ£Æ, ‚Æ °•‡•‚·Ô ¨•‚Æ§ 1 */
+					/* –µ—Å–ª–∏ –æ—Ç–Ω–æ—à–µ–Ω–∏–µ —á–∏—Å–ª–∞ —ç–ª–µ–º–µ–Ω—Ç–æ–≤ –≤ —Ç–∞–±–ª–∏—Ü–µ –∫ —á–∏—Å–ª—É case –º–µ–Ω–µ–µ
+					 3 –¥–ª—è 16-–±–∏—Ç–Ω–æ–≥–æ —Ä–µ–∂–∏–º–∞ –∏ 4 –¥–ª—è 32-–±–∏—Ç–Ω–æ–≥–æ, —Ç–æ –±–µ—Ä–µ—Ç—Å—è –º–µ—Ç–æ–¥ 1 */
 					}
 				}
-				else{	//¢ÎÁ®·´®‚Ï ‡†ß¨•‡ §´Ô ÆØ‚®¨®ß†Ê®® ØÆ ‡†ß¨•‡„
+				else{	//–≤—ã—á–∏—Å–ª–∏—Ç—å —Ä–∞–∑–º–µ—Ä –¥–ª—è –æ–ø—Ç–∏–º–∏–∑–∞—Ü–∏–∏ –ø–æ —Ä–∞–∑–º–µ—Ä—É
 					if(shortjmp)size0+=2;
 					else size0+=(am32==FALSE?(chip<3?5:4):6);
 					size1=sizetab*(am32==FALSE?2:4);
@@ -366,7 +366,7 @@ unsigned oaddESP=addESP;
 					else{
 						if(reg0!=BX)size1+=2;
 					}
-				//¢Î°Æ‡ ¨•‚Æ§† · ¨•≠ÏË®¨ ‡†ß¨•‡Æ¨
+				//–≤—ã–±–æ—Ä –º–µ—Ç–æ–¥–∞ —Å –º–µ–Ω—å—à–∏–º —Ä–∞–∑–º–µ—Ä–æ–º
 					if(size1<=size0){
 						mode=1;
 						size0=size1;
@@ -377,7 +377,7 @@ unsigned oaddESP=addESP;
 			}
 		}
 		if(numcase>9&&(!optimizespeed)){
-// ‡†·Á•‚ ¨•‚Æ§† 2
+// —Ä–∞—Å—á–µ—Ç –º–µ—Ç–æ–¥–∞ 2
 			size2=numcase+numexpandcase;
 			switch(tokr){
 				case r8:
@@ -394,7 +394,7 @@ unsigned oaddESP=addESP;
 					break;
 			}
 			size2+=29;
-			//¢Î°Æ‡ ¨•‚Æ§† · ¨•≠ÏË®¨ ‡†ß¨•‡Æ¨
+			//–≤—ã–±–æ—Ä –º–µ—Ç–æ–¥–∞ —Å –º–µ–Ω—å—à–∏–º —Ä–∞–∑–º–µ—Ä–æ–º
 			if(size2<=size0)mode=2;
 		}
 //		printf("Num CASE %d Metod 0 size=%d. Metod 1 size=%d. Metod 2 size=%d\n",numcase,size0,size1,size2);
@@ -445,9 +445,9 @@ unsigned oaddESP=addESP;
 				}
 			}
 		}
-		nextexpecting2(tk_openbrace);	//Ø‡Æ¢ ≠† Æ‚™‡ ·™Æ°™„
+		nextexpecting2(tk_openbrace);	//–ø—Ä–æ–≤ –Ω–∞ –æ—Ç–∫—Ä —Å–∫–æ–±–∫—É
 		if(numcase){
-			if(mode==1){	//Ø•‡¢Î© ¨•‚Æ§
+			if(mode==1){	//–ø–µ—Ä–≤—ã–π –º–µ—Ç–æ–¥
 				if(min!=0){
 					if(min==1)op(0x48+reg-svop);	//dec reg
 					else if(min==2&&(!optimizespeed)){
@@ -497,7 +497,7 @@ unsigned oaddESP=addESP;
 					op(0x77);
 					op(0);
 				}
-				endsw=outptr;	//†§‡•· ™Æ≠Ê† switch ®´® default
+				endsw=outptr;	//–∞–¥—Ä–µ—Å –∫–æ–Ω—Ü–∞ switch –∏–ª–∏ default
 				if(am32){
 					outword(0x24FF);
 					op(0x85+reg*8);
@@ -510,7 +510,7 @@ unsigned oaddESP=addESP;
 			}
 			else if(mode==0){
 				svop=numcase;
-				for(;numcase>0;){	//¢•‚¢´•≠®•
+				for(;numcase>0;){	//–≤–µ—Ç–≤–ª–µ–Ω–∏–µ
 					numcase--;
 					CmpRegNum(tokr,(caseinf+numcase)->value,reg);
 					if((caseinf+numcase)->type==singlcase){
@@ -538,7 +538,7 @@ unsigned oaddESP=addESP;
 								if(am32)outword(0);
 							}
 							else outword(0x75);
-							endsw=outptr;	//†§‡•· ™Æ≠Ê† switch ®´® default
+							endsw=outptr;	//–∞–¥—Ä–µ—Å –∫–æ–Ω—Ü–∞ switch –∏–ª–∏ default
 						}
 					}
 					else{	//case 1...5
@@ -615,7 +615,7 @@ unsigned oaddESP=addESP;
 									outword(0x72);
 								}
 							}
-							endsw=outptr;	//†§‡•· ™Æ≠Ê† switch ®´® default
+							endsw=outptr;	//–∞–¥—Ä–µ—Å –∫–æ–Ω—Ü–∞ switch –∏–ª–∏ default
 						}
 					}
 				}
@@ -640,7 +640,7 @@ unsigned oaddESP=addESP;
 					op(0x59);	//pop cx
 					if(shortjmp==FALSE)jumploc0();
 					else outword(0xEB);
-					endsw=outptr;	//†§‡•· ™Æ≠Ê† switch ®´® default
+					endsw=outptr;	//–∞–¥—Ä–µ—Å –∫–æ–Ω—Ü–∞ switch –∏–ª–∏ default
 					op(0xBF);	//mov DI,numcase
 					outword(numcase+numexpandcase);
 					outdword(0x014FCF29);	//sub di,cx dec di add di,di
@@ -685,7 +685,7 @@ unsigned oaddESP=addESP;
 					else op(tokr==r16?0xE9:0xEA);
 					if(shortjmp==FALSE)jumploc0();
 					else outword(0xEB);
-					endsw=outptr;	//†§‡•· ™Æ≠Ê† switch ®´® default
+					endsw=outptr;	//–∞–¥—Ä–µ—Å –∫–æ–Ω—Ü–∞ switch –∏–ª–∏ default
 				}
 			}
 		}
@@ -695,7 +695,7 @@ unsigned oaddESP=addESP;
 		changeregstat=BakRegStat();
 		lastcommand=tk_switch;
 		do{
-			if(tok==tk_case||tok==tk_CASE||tok==tk_default){     //•·´® case - ß†ØÆ¨≠®‚Ï ØÆß®Ê®Ó ® ¢•´®Á®≠„
+			if(tok==tk_case||tok==tk_CASE||tok==tk_default){     //–µ—Å–ª–∏ case - –∑–∞–ø–æ–º–Ω–∏—Ç—å –ø–æ–∑–∏—Ü–∏—é –∏ –≤–µ–ª–∏—á–∏–Ω—É
 				RestoreStack();
 				CompareRegStat(changeregstat);
 				switch(lastcommand){
@@ -720,20 +720,20 @@ unsigned oaddESP=addESP;
 						if(ESPloc&&am32&&oaddESP!=addESP)warESP();
 						break;
 				}
-				if(tok==tk_default){	//‚Æ¶• §´Ô default
+				if(tok==tk_default){	//—Ç–æ–∂–µ –¥–ª—è default
 					if(mode==0&&svop){
-						if(numcase==0)jumploc0();	//default ·†¨Î© Ø•‡¢Î©
+						if(numcase==0)jumploc0();	//default —Å–∞–º—ã–π –ø–µ—Ä–≤—ã–π
 						CheckJmpSW(sline,endsw,outptr,shortjmp,mesSWITCH);
 						if(endsw2)CheckJmpSW(sline,endsw2,outptr,shortjmp,mesSWITCH);
 					}
 					if(defaul)preerror("Duplicate 'default'");
 					defaul=outptr;
 					nexttok();
-					expecting(tk_colon);	//Ø‡Æ¢ ≠† : ® Á‚•≠®• ·´•§„ÓÈ tok
+					expecting(tk_colon);	//–ø—Ä–æ–≤ –Ω–∞ : –∏ —á—Ç–µ–Ω–∏–µ —Å–ª–µ–¥—É—é—â tok
 					continue;
 				}
 				if(mode==0){
-					if(numcase==0&&defaul){	//default ·†¨Î© Ø•‡¢Î©
+					if(numcase==0&&defaul){	//default —Å–∞–º—ã–π –ø–µ—Ä–≤—ã–π
 						if(am32==FALSE)*(unsigned short *)&output[defaul-2]=(unsigned short)(outptr-defaul);
 						else *(unsigned long *)&output[defaul-4]=(unsigned long)(outptr-defaul);
 					}
@@ -758,7 +758,7 @@ unsigned oaddESP=addESP;
 #ifdef OPTVARCONST
 				else if(swvar&&nonum==FALSE)Const2Var(&otok,numbervar,numrm);
 #endif
-				expecting(tk_colon);	//Ø‡Æ¢ ≠† : ® Á‚•≠®• ·´•§„ÓÈ tok
+				expecting(tk_colon);	//–ø—Ä–æ–≤ –Ω–∞ : –∏ —á—Ç–µ–Ω–∏–µ —Å–ª–µ–¥—É—é—â tok
 				if(tok==tk_closebrace)numcase--;
 				continue;//goto checkcase;
 			}
@@ -781,7 +781,7 @@ unsigned oaddESP=addESP;
 		}
 		if(defaul&&outptr<defaul){
 			if(mode==0&&svop){
-				if(numcase==0)jumploc0();	//default ·†¨Î© Ø•‡¢Î©
+				if(numcase==0)jumploc0();	//default —Å–∞–º—ã–π –ø–µ—Ä–≤—ã–π
 				CheckJmpSW(sline,endsw,outptr,shortjmp,mesSWITCH);
 				if(endsw2)CheckJmpSW(sline,endsw2,outptr,shortjmp,mesSWITCH);
 			}

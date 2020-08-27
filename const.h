@@ -160,7 +160,7 @@ enum{
 #define	ESI		6
 #define	EDI		7
 
-//���஫� ࠧ��襭�� ॣ���஢
+//конроль разрушения регистров
 #define dEAX 1
 #define dECX 2
 #define dEDX 4
@@ -208,7 +208,7 @@ enum{
 #define	DR6		6
 #define	DR7		7
 
-//��६�����, 㪠��⥫�, ���쭨� 㪠��⥫�,ᥣ����� 㪠��⥫�.
+//переменная, указатель, дальний указатель,сегментный указатель.
 #define	variable	0
 #define	pointer		1
 //#define	farpointer	2
@@ -313,35 +313,35 @@ FIX_CODE_ADD,
 #define file_meos 6
 #define file_bin  7
 
-//⨯� ������� �����
+//типы моделей памяти
 #define	TINY		0
 #define	SMALL		1
 
 
-//䫠��
-#define	f_reloc		1	//���� ����� ����������
-#define	f_typeproc	6	//⨯ �맮�� ��楤���
-#define	f_far		8	//������ ��楤��
-#define	f_extern	0x10	//������ ��楤��, ��६�����
-#define	f_interrupt	0x20	//���뢠���
-#define	f_export	0x40	//��ᯮ���㥬�� ��楤��
-#define f_inline  0x80	//inline ��楤��
-#define f_retproc 0xf00	//������ 䫠�� �� ��楤���
+//флаги
+#define	f_reloc		1	//адрес может измениться
+#define	f_typeproc	6	//тип вызова процедуры
+#define	f_far		8	//дальняя процедура
+#define	f_extern	0x10	//внешняя процедура, переменная
+#define	f_interrupt	0x20	//прерывание
+#define	f_export	0x40	//экспортируемая процедура
+#define f_inline  0x80	//inline процедура
+#define f_retproc 0xf00	//возврат флага из процедуры
 #define f_static  0x1000	//
-#define f_classproc 0x2000	//��楤�� �� �����
-//䫠�� ��楤�� � ��������
+#define f_classproc 0x2000	//процедура из класса
+//флаги процедур в структурах
 #define fs_constructor 0x4000
 #define fs_destructor 0x8000
 
-#define f_useidx 0x10000	//��६����� �ᯮ���� ������ []
+#define f_useidx 0x10000	//переменная использует индекс []
 
-//⨯� ��楤��
+//типы процедур
 #define	tp_pascal	0
 #define	tp_cdecl	2
 #define	tp_stdcall	4
 #define	tp_fastcall	6
 
-//⨯� �맮�� API ��楤��
+//типы вызова API процедур
 #define	API_FAST	1
 #define	API_JMP		2
 
@@ -349,7 +349,7 @@ FIX_CODE_ADD,
 //#define USEFIRST4REG 1
 //#define USEONLY_AX   2
 
-//�㬥��� ᯨ᪠ ��४⨢
+//нумерация списка директив
 enum{
 	d_ctrl,  d_jump, d_command,d_argc, d_resize,
 	d_resmes,d_stack,d_start,	 d_atr,  d_name,

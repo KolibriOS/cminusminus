@@ -23,9 +23,9 @@ struct idrec *treestart=NULL;
 struct idrec *definestart=NULL;
 UNDEFOFF *undefoffstart=NULL;
 DLLLIST *listdll=NULL;
-struct structteg *tegtree=NULL;	//£´Æ°†´Ï≠Î© ·‡®·Æ™ ‚•£Æ¢
-struct structteg *ltegtree=NULL;	//´Æ™†´Ï≠Î© ·‡®·Æ™ ‚•£Æ¢
-//struct idrec *lstructlist=NULL;  //·Ø®·Æ™ ´Æ™†´Ï≠ÎÂ ·‚‡„™‚„‡
+struct structteg *tegtree=NULL;	//–≥–ª–æ–±–∞–ª—å–Ω—ã–π —Å—Ä–∏—Å–æ–∫ —Ç–µ–≥–æ–≤
+struct structteg *ltegtree=NULL;	//–ª–æ–∫–∞–ª—å–Ω—ã–π —Å—Ä–∏—Å–æ–∫ —Ç–µ–≥–æ–≤
+//struct idrec *lstructlist=NULL;  //—Å–ø–∏—Å–æ–∫ –ª–æ–∫–∞–ª—å–Ω—ã—Ö —Å—Ç—Ä—É–∫—Ç—É—Ä
 SINFO strinf={NULL};
 static int notdef=TRUE;
 static char precha;
@@ -33,10 +33,10 @@ int scanalltoks=TRUE;
 
 
 static volatile idrec **DynamicList=NULL;
-static int sizeDL;	//‡†ß¨•‡ ·Ø®·™†
-static volatile int countDP;	//Á®·´Æ §®≠†¨®Á•·™®Â Ø‡ÆÊ•§„‡ ¢ ·Ø®·™•
+static int sizeDL;	//—Ä–∞–∑–º–µ—Ä —Å–ø–∏—Å–∫–∞
+static volatile int countDP;	//—á–∏—Å–ª–æ –¥–∏–Ω–∞–º–∏—á–µ—Å–∫–∏—Ö –ø—Ä–æ—Ü–µ–¥—É—Ä –≤ —Å–ø–∏—Å–∫–µ
 static int findofset=FALSE;
-#define STEPDL 128;	//Ë†£ „¢•´®Á•≠®Ô ‡†ß¨•‡† ·Ø®·™†
+#define STEPDL 128;	//—à–∞–≥ —É–≤–µ–ª–∏—á–µ–Ω–∏—è —Ä–∞–∑–º–µ—Ä–∞ —Å–ø–∏—Å–∫–∞
 ITOK structadr;
 
 
@@ -57,13 +57,13 @@ char mon[12][4]={"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug",
 				 "Sep","Oct","Nov","Dec"};
 
 unsigned char cha2;
-char skipfind=FALSE;	/* Ø‡ÆØ„·™ ØÆ®·™† ¢ £´Æ°†´Ï≠Æ¨ §•‡•¢• ® ·‡•§®
-															  ´Æ™†´Ï≠ÎÂ Ø•‡•¨•≠≠ÎÂ */
-static unsigned char savestring3=FALSE;	//‡†ß‡•Ë®‚Ï ß†Ø®·Ï ¢ °„‰•‡ string3
-static int posstr3;	//„™†ß†‚•´Ï ØÆß®Ê®® ¢ string3
+char skipfind=FALSE;	/* –ø—Ä–æ–ø—É—Å–∫ –ø–æ–∏—Å–∫–∞ –≤ –≥–ª–æ–±–∞–ª—å–Ω–æ–º –¥–µ—Ä–µ–≤–µ –∏ —Å—Ä–µ–¥–∏
+															  –ª–æ–∫–∞–ª—å–Ω—ã—Ö –ø–µ—Ä–µ–º–µ–Ω–Ω—ã—Ö */
+static unsigned char savestring3=FALSE;	//—Ä–∞–∑—Ä–µ—à–∏—Ç—å –∑–∞–ø–∏—Å—å –≤ –±—É—Ñ–µ—Ä string3
+static int posstr3;	//—É–∫–∞–∑–∞—Ç–µ–ª—å –ø–æ–∑–∏—Ü–∏–∏ –≤ string3
 
 unsigned int inptr2;
-unsigned int linenum2=0;	//•·´® ≠• ≠„´Ï, ‚Æ ®§•‚ Æ°‡†ÏÆ‚™†
+unsigned int linenum2=0;	//–µ—Å–ª–∏ –Ω–µ –Ω—É–ª—å, —Ç–æ –∏–¥–µ—Ç –æ–±—Ä–∞—å–æ—Ç–∫–∞
 char displaytokerrors;		/* flag to display errors, 0 for tok2 scan */
 char *bufrm=NULL;
 char *startline=NULL;
@@ -75,8 +75,8 @@ unsigned char bytesize=TRUE;
 COM_MOD *cur_mod=NULL;
 
 void docals(struct idrec *ptr);
-void dostructvar2(int *tok4,ITOK *itok4,struct structteg *tteg,unsigned char *string4);	//‡†ß°Æ‡ ·‚‡„™‚„‡ ≠† Ø•‡•¨•≠≠Î• ® ·‚‡„™‚„‡Î
-void dosizeof(ITOK *itok4);	//ÆØ‡ ß≠†Á•≠®• sizeof
+void dostructvar2(int *tok4,ITOK *itok4,struct structteg *tteg,unsigned char *string4);	//—Ä–∞–∑–±–æ—Ä —Å—Ç—Ä—É–∫—Ç—É—Ä –Ω–∞ –ø–µ—Ä–µ–º–µ–Ω–Ω—ã–µ –∏ —Å—Ç—Ä—É–∫—Ç—É—Ä—ã
+void dosizeof(ITOK *itok4);	//–æ–ø—Ä –∑–Ω–∞—á–µ–Ω–∏–µ sizeof
 void ofsstr(int *tok4,ITOK *itok4);
 int searchlocals(ITOK *itok4,int *tok4,unsigned char *string4);
 unsigned char convert_char();
@@ -278,7 +278,7 @@ int zoom=0;
 	return zoom;
 }
 
-void calcrm(ITOK *itok4,int ttok)//Æ°‡†°Æ‚™† ¢Î‡†¶•≠®Ô ¢ []
+void calcrm(ITOK *itok4,int ttok)//–æ–±—Ä–∞–±–æ—Ç–∫–∞ –≤—ã—Ä–∞–∂–µ–Ω–∏—è –≤ []
 {
 int idx,base,razr=0,zoom,rm=0;
 long numrm=0,cnum,ocnum;
@@ -291,7 +291,7 @@ unsigned int sizevar=1;
 unsigned int prevtok=tk_number,operand=tk_plus;
 int dsword,dsword2;
 	nextchar();
-	whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+	whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 	if(!displaytokerrors){
 		for(int i=1;i!=0;){
 			FastTok(0,&ctok,&cstok);
@@ -326,7 +326,7 @@ int dsword,dsword2;
 	}
 	if(cha=='&'){
 		nextchar();
-		whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+		whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 		sizevar=1;
 		zoom=0;
 	}
@@ -334,7 +334,7 @@ int dsword,dsword2;
 		nextscan=TRUE;
 		if(cha=='#'&&dsword)dsword=1;
 		tokscan(&ctok,&cstok,pstring);
-		whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+		whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 		if(dsword==1)strcpy(dstok.name,cstok.name);
 //		printf("tok=%d num=%d %s\n",ctok,cstok.number,cstok.name);
 loopsw:
@@ -397,7 +397,7 @@ loopsw:
 				if(calcnum(&ctok,&cstok,(char *)pstring,&cnum)==0)goto runblock;
 enumb:
 				flag^=cstok.flag;
-				whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+				whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 				ocnum=cnum;
 				numrm+=cnum;
 				if(cstok.type==tp_opperand||cstok.type==tp_stopper)nextscan=FALSE;
@@ -432,7 +432,7 @@ enumb:
 				break;
 			case tk_postnumber:
 				if(dsword==0||sizevar!=1)goto runblock;
-				if((cstok.post&USED_DIN_VAR)==USED_DIN_VAR){	//§®≠†¨®Á•·™†Ô Ø•‡•¨•≠≠†Ô
+				if((cstok.post&USED_DIN_VAR)==USED_DIN_VAR){	//–¥–∏–Ω–∞–º–∏—á–µ—Å–∫–∞—è –ø–µ—Ä–µ–º–µ–Ω–Ω–∞—è
 					if(dstok.rec!=NULL)goto runblock;
 					dstok.rec=cstok.rec;
 				}
@@ -555,11 +555,11 @@ con1:
 		if(dsword==1)dsword=0;
 		if(nextscan){
 			tokscan(&ctok,&cstok,pstring);
-			whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+			whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 		}
 		while(ctok==tk_minus){
 			if(calcnum(&ctok,&cstok,(char *)pstring,&cnum)==0)goto runblock;
-			whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+			whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 			numrm+=cnum;
 			flag^=cstok.flag;
 			if(cstok.type!=tp_opperand&&cstok.type!=tp_stopper){
@@ -616,7 +616,7 @@ con1:
 			}
 			else cstok.rm=base;
 		}
-		if(base!=-1||rm!=0)cstok.rm|=rm_mod10;	//™Æ‡•™Ê®Ô MOD °„§•‚ ØÆß§≠••, † ·•©Á†· ¨†™·®¨„¨
+		if(base!=-1||rm!=0)cstok.rm|=rm_mod10;	//–∫–æ—Ä–µ–∫—Ü–∏—è MOD –±—É–¥–µ—Ç –ø–æ–∑–¥–Ω–µ–µ, –∞ —Å–µ–π—á–∞—Å –º–∞–∫—Å–∏–º—É–º
 	}
 	dstok.rm=cstok.rm;
 	dstok.flag|=flag;
@@ -997,7 +997,7 @@ COM_MOD *ocurmod=cur_mod;
 	ofsst=BackString(buf);
 	free(buf);
 	buf=NULL;
-	oldinput=input;	//·ÆÂ‡ ≠•™Æ‚Æ‡ Ø•‡•¨•≠Î•
+	oldinput=input;	//—Å–æ—Ö—Ä –Ω–µ–∫–æ—Ç–æ—Ä –ø–µ—Ä–µ–º–µ–Ω—ã–µ
 	oldinptr=inptr2;
 	bcha=cha2;
 	oldendinptr=endinptr;
@@ -1091,7 +1091,7 @@ COM_MOD *ocurmod=cur_mod;
 	else{
 		warningreg(regs[am32][treg]);
 		if((chip==7||chip==8)&&am32==FALSE&&((sizeel>1&&sizeel<6)||sizeel==8||sizeel==9)){
-		//®ß°•¶†‚Ï Æ°‡†È•≠®• ™ Á†·‚≠Æ¨„ ‡•£®·‚‡„
+		//–∏–∑–±–µ–∂–∞—Ç—å –æ–±—Ä–∞—â–µ–Ω–∏–µ –∫ —á–∞—Å—Ç–Ω–æ–º—É —Ä–µ–≥–∏—Å—Ç—Ä—É
 			op(0x31);
 			op(0xC0+treg*9);
 		}
@@ -1217,11 +1217,11 @@ if(debug)puts("start nexttok");
 	linenumber=linenum2;
 	cha=cha2;
 	displaytokerrors=1;
-	tokscan(&tok,&itok,string); //‡†ß°Æ‡ ™Æ¨†≠§Î
+	tokscan(&tok,&itok,string); //—Ä–∞–∑–±–æ—Ä –∫–æ–º–∞–Ω–¥—ã
 //	printf("input=%08X inptr=%08X tok=%d %s\n",input,inptr,tok,itok.name);
 	if(tok==tk_dblcolon&&numblocks){
 		skiplocals=TRUE;
-		tokscan(&tok,&itok,string); //‡†ß°Æ‡ ™Æ¨†≠§Î
+		tokscan(&tok,&itok,string); //—Ä–∞–∑–±–æ—Ä –∫–æ–º–∞–Ω–¥—ã
 	}
 	ScanTok2();
 	if(tok2==tk_dblcolon&&numblocks){
@@ -1330,7 +1330,7 @@ llq:
 
 }
 
-void whitespace() //Ø‡ÆØ„·™ ≠ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+void whitespace() //–ø—Ä–æ–ø—É—Å–∫ –Ω–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 {
 	while(isspace(cha)||cha==255||cha==0){
 		if(cha==13){
@@ -1363,7 +1363,7 @@ unsigned char c;
 		case 'f': return('\f');
 		case 'l': return(10);
 		case 'n': return(13);
-//		case 'p': return('ú');
+//		case 'p': return('–¨');
 		case 'r': return(13);
 		case 't': return('\t');
 		case 'v': return('\v');
@@ -1470,7 +1470,7 @@ int strptr=0;
 		posstr3=0;
 	}
 nextstr:
-	nextchar();	//·‚‡Æ™Æ¢†Ô ™Æ≠·‚†≠‚†
+	nextchar();	//—Å—Ç—Ä–æ–∫–æ–≤–∞—è –∫–æ–Ω—Å—Ç–∞–Ω—Ç–∞
 	while(cha!='\"'&&!endoffile&&strptr<STRLEN-1){
 		string4[strptr++]=convert_char();
 		if((char)cha=='n'&&string4[strptr-1]==13){//have to add char 10 for \n value
@@ -1486,7 +1486,7 @@ nextstr:
 	string4[strptr]=0;
 	*tok4=tk_string;
 //	itok4->number=strptr;
-	itok4->rm=1;	//•·‚Ï Æ‡®£®≠†´ ·‚‡Æ™®
+	itok4->rm=1;	//–µ—Å—Ç—å –æ—Ä–∏–≥–∏–Ω–∞–ª —Å—Ç—Ä–æ–∫–∏
 	if(cha!='\"')expected('\"');
 	while(cha!='\"'&&!endoffile)nextchar(); //scan until closing '\"'
 	nextchar();
@@ -1513,7 +1513,7 @@ nextstr:
 #endif
 
 //	10.08.04 22:20
-	whitespace(); //Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+	whitespace(); //–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 	if(cha=='\"'){
 		if(displaytokerrors)savestring3=TRUE;
 		goto nextstr;
@@ -1540,12 +1540,12 @@ nextstr:
 }
 
 void tokscan(int *tok4,ITOK *itok4,unsigned char *string4)
-// ØÆ®·™ ®§•≠‚®‰®™†‚Æ‡Æ¢, §®‡•™‚®¢ ...
+// –ø–æ–∏—Å–∫ –∏–¥–µ–Ω—Ç–∏—Ñ–∏–∫–∞—Ç–æ—Ä–æ–≤, –¥–∏—Ä–µ–∫—Ç–∏–≤ ...
 {
 int useme;
 unsigned int strptr=0;
 char uppercase=1,next=1;
-//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 #ifdef DEBUGMODE
 if(debug)printf("start tokscan input=%08X inptr=%08X %c%s\n",input,inptr,cha,input+inptr);
 #endif
@@ -1566,18 +1566,18 @@ if(debug)printf("start tokscan input=%08X inptr=%08X %c%s\n",input,inptr,cha,inp
 	itok4->type=tp_ucnovn;
 	itok4->npointr=0;
 	itok4->name[0]=0;
-	whitespace(); //Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+	whitespace(); //–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 //	if(displaytokerrors)printf("%c ",cha);
-	if(isalpha(cha)||(cha=='_')||(cha>=0x80)){	//®§•≠‚®‰®™†‚Æ‡
+	if(isalpha(cha)||(cha=='_')||(cha>=0x80)){	//–∏–¥–µ–Ω—Ç–∏—Ñ–∏–∫–∞—Ç–æ—Ä
 		do{
 			string4[strptr++]=cha;
 			if(islower(cha))uppercase=0;
 			nextchar();
 		}while((strptr<IDLENGTH)&&(CheckChar2()==TRUE));
-		if(strptr>=IDLENGTH){ //§´®≠† °Æ´ÏË• 32
+		if(strptr>=IDLENGTH){ //–¥–ª–∏–Ω–∞ –±–æ–ª—å—à–µ 32
 			if(displaytokerrors)preerror("Maximum length for an identifier exceeded");
-			while(CheckChar2()==TRUE)nextchar();	//§ÆÁ®‚†‚Ï ·´Æ¢Æ
-			strptr=IDLENGTH-1;	//Æ°‡•ß†‚Ï §Æ 32
+			while(CheckChar2()==TRUE)nextchar();	//–¥–æ—á–∏—Ç–∞—Ç—å —Å–ª–æ–≤–æ
+			strptr=IDLENGTH-1;	//–æ–±—Ä–µ–∑–∞—Ç—å –¥–æ 32
 		}
 		if(cha=='~'&&strptr<IDLENGTH-1){
 			string4[strptr++]=cha;
@@ -1612,7 +1612,7 @@ if(debug)printf("start tokscan input=%08X inptr=%08X %c%s\n",input,inptr,cha,inp
 			}
 			return;
 		}
-		if(uppercase){	//¢•‡Â≠®© ‡•£®·‚‡
+		if(uppercase){	//–≤–µ—Ä—Ö–Ω–∏–π —Ä–µ–≥–∏—Å—Ç—Ä
 			if(strptr==1&&string4[0]=='L'&&cha=='"'){
 				itok4->name[0]=0;
 				GetTokString(tok4,itok4,string4,TRUE);
@@ -1620,7 +1620,7 @@ if(debug)printf("start tokscan input=%08X inptr=%08X %c%s\n",input,inptr,cha,inp
 			}
 			*tok4=tk_ID;
 			if(string4[1]=='S'&&strptr>=5&&strptr<=8){
-				for(useme=0;useme<ID2S;useme++){	//Ø‡Æ¢•‡™† ≠† ESBYTE ...
+				for(useme=0;useme<ID2S;useme++){	//–ø—Ä–æ–≤–µ—Ä–∫–∞ –Ω–∞ ESBYTE ...
 					if(strcmp((char *)string4,id2[useme])==0){
 						*tok4=tk_charvar+useme%DATATYPES;
 						itok4->segm=useme/DATATYPES;
@@ -1632,7 +1632,7 @@ if(debug)printf("start tokscan input=%08X inptr=%08X %c%s\n",input,inptr,cha,inp
 			}
 		}
 		else *tok4=tk_id;
-		if(strptr==2){	//§´®≠† 2 ·®¨¢Æ´† check for AX, CX, DX, ...
+		if(strptr==2){	//–¥–ª–∏–Ω–∞ 2 —Å–∏–º–≤–æ–ª–∞ check for AX, CX, DX, ...
 			if((string4[0]&0x5f)=='S'&&(string4[1]&0x5f)=='T'){
 				if(cha=='('){
 					nextchar();
@@ -1801,8 +1801,8 @@ extreg32:
 					return;
 				}
 			}
-			if(searchlocals(itok4,tok4,string4)==FALSE){//ØÆ®·™ ·‡•§® ´Æ™†´Ï≠ÎÂ ¨•‚Æ™
-			//•·´® ≠®Á•£Æ ≠• ≠†©§•≠Æ ØÆ®·™ ¢ §•‡•¢• Ø•‡•¨•≠ÎÂ
+			if(searchlocals(itok4,tok4,string4)==FALSE){//–ø–æ–∏—Å–∫ —Å—Ä–µ–¥–∏ –ª–æ–∫–∞–ª—å–Ω—ã—Ö –º–µ—Ç–æ–∫
+			//–µ—Å–ª–∏ –Ω–∏—á–µ–≥–æ –Ω–µ –Ω–∞–π–¥–µ–Ω–æ –ø–æ–∏—Å–∫ –≤ –¥–µ—Ä–µ–≤–µ –ø–µ—Ä–µ–º–µ–Ω—ã—Ö
 				searchtree(itok4,tok4,string4);
 				if(*tok4==tk_endline){
 					if(scanlexmode!=DEFLEX){
@@ -1826,8 +1826,8 @@ extreg32:
 							itok4->sib=CODE32;
 						}
 					}
-					if(itok4->post==DYNAMIC_POST){	//Ø‡•Æ°‡†ßÆ¢†‚Ï §®≠†¨®Á•·™„Ó ´Æ™†´Ï≠„Ó ¢ ´Æ™†´Ï≠„Ó
-						if(alignword&&*tok4!=tk_charvar&&*tok4!=tk_bytevar){	//¢Î‡Æ¢≠Ô‚Ï ≠† Á•‚≠Î© †§‡•·
+					if(itok4->post==DYNAMIC_POST){	//–ø—Ä–µ–æ–±—Ä–∞–∑–æ–≤–∞—Ç—å –¥–∏–Ω–∞–º–∏—á–µ—Å–∫—É—é –ª–æ–∫–∞–ª—å–Ω—É—é –≤ –ª–æ–∫–∞–ª—å–Ω—É—é
+						if(alignword&&*tok4!=tk_charvar&&*tok4!=tk_bytevar){	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å –Ω–∞ —á–µ—Ç–Ω—ã–π –∞–¥—Ä–µ—Å
 							switch(*tok4){
 								case tk_intvar:
 								case tk_wordvar:
@@ -1922,8 +1922,8 @@ extreg32:
 		}
 yesid:
 		if((*tok4>=tk_bits&&*tok4<=tk_doublevar)||*tok4==tk_pointer){
-			whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
-			if(cha=='[')calcrm(itok4,*tok4);//Æ°‡†°Æ‚™† ¢Î‡†¶•≠®Ô ¢ []
+			whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
+			if(cha=='[')calcrm(itok4,*tok4);//–æ–±—Ä–∞–±–æ—Ç–∫–∞ –≤—ã—Ä–∞–∂–µ–Ω–∏—è –≤ []
 		}
 		if(itok4->rm!=rm_d16&&*tok4!=tk_proc&&*tok4!=tk_undefproc&&
 			*tok4!=tk_apiproc&&*tok4!=tk_declare&&(!(*tok4==tk_pointer&&itok4->type==tk_proc)))
@@ -1932,7 +1932,7 @@ yesid:
 			}
 		next=0;
 	}
-	else if(isdigit(cha)){//Á®·´†
+	else if(isdigit(cha)){//—á–∏—Å–ª–∞
 		inptr--;
 		itok4->lnumber=scannumber(&itok4->rm);
 		*tok4=tk_number;
@@ -1943,7 +1943,7 @@ yesid:
 			GetTokString(tok4,itok4,string4,FALSE);
 			next=0;
 			break;
-		case '\'': //·®¨¢Æ´Ï≠†Ô ™Æ≠·‚†≠‚† ¨Æ¶•‚ ®¨•‚Ï °Æ´•• 1 ·®¨¢Æ´†
+		case '\'': //—Å–∏–º–≤–æ–ª—å–Ω–∞—è –∫–æ–Ω—Å—Ç–∞–Ω—Ç–∞ –º–æ–∂–µ—Ç –∏–º–µ—Ç—å –±–æ–ª–µ–µ 1 —Å–∏–º–≤–æ–ª–∞
 			nextchar();
 			next=0;
 			if(scanlexmode==RESLEX){
@@ -1965,20 +1965,20 @@ yesid:
 		case '-':
 			nextchar();
 			switch(cha){
-				case '=': *tok4=tk_minusequals; break;	//¨®≠„· ‡†¢≠Æ
-				case '-': *tok4=tk_minusminus; break; 	//¨®≠„·-¨®≠„·
-				default: *tok4=tk_minus; next = 0; itok4->type=tp_opperand; break;//¨®≠„·
+				case '=': *tok4=tk_minusequals; break;	//–º–∏–Ω—É—Å —Ä–∞–≤–Ω–æ
+				case '-': *tok4=tk_minusminus; break; 	//–º–∏–Ω—É—Å-–º–∏–Ω—É—Å
+				default: *tok4=tk_minus; next = 0; itok4->type=tp_opperand; break;//–º–∏–Ω—É—Å
 			}
 			break;
 		case '+':
 			nextchar();
 			switch(cha){
-				case '=': *tok4=tk_plusequals; break; //Ø´Ó· ‡†¢≠Æ
-				case '+': *tok4=tk_plusplus; break; 	//Ø´Ó·-Ø´Ó·
+				case '=': *tok4=tk_plusequals; break; //–ø–ª—é—Å —Ä–∞–≤–Ω–æ
+				case '+': *tok4=tk_plusplus; break; 	//–ø–ª—é—Å-–ø–ª—é—Å
 				default: whitespace();	// spaces allowed between
 					if(cha=='-')*tok4=tk_minus;  // optimization of + -
 					else{
-						*tok4=tk_plus; 				 //Ø´Ó·
+						*tok4=tk_plus; 				 //–ø–ª—é—Å
 						next=0;
 					}
 					itok4->type=tp_opperand;
@@ -1989,16 +1989,16 @@ yesid:
 			nextchar();
 			switch(cha){
 				case '=': *tok4=tk_multequals; break;
-				case '-': *tok4=tk_multminus; break;			 //„¨≠Æ¶®‚Ï ¨®≠„·
+				case '-': *tok4=tk_multminus; break;			 //—É–º–Ω–æ–∂–∏—Ç—å –º–∏–Ω—É—Å
 				default:
-					*tok4=tk_mult; 									 //„¨≠Æ¶®‚Ï
+					*tok4=tk_mult; 									 //—É–º–Ω–æ–∂–∏—Ç—å
 					next=0;
 			}
 			itok4->type=tp_opperand;
 			break;
 		case '/': nextchar();
 			switch(cha){
-				case '*': nextchar(); //·Æ¨•≠‚†‡®©
+				case '*': nextchar(); //—Å–æ–º–µ–Ω—Ç–∞—Ä–∏–π
 					useme=1;
 					while(!endoffile&&useme>0){
 						whitespace();
@@ -2031,7 +2031,7 @@ yesid:
 				case '/':
 					do{
 						nextchar();
-					}while(!endoffile&&cha!=13);	//·‚‡Æ™† ™Æ¨•≠‚†‡®Ô
+					}while(!endoffile&&cha!=13);	//—Å—Ç—Ä–æ–∫–∞ –∫–æ–º–µ–Ω—Ç–∞—Ä–∏—è
 					if(endoffile)*tok4=tk_eof;
 					else{
 						if(scanlexmode==DEFLEX)*tok4=tk_endline;
@@ -2046,7 +2046,7 @@ yesid:
 				default:
 					whitespace();
 					if(cha=='-'){
-						*tok4=tk_divminus;	//§•´•≠®•
+						*tok4=tk_divminus;	//–¥–µ–ª–µ–Ω–∏–µ
 						nextchar();
 					}
 					else *tok4=tk_div;
@@ -2058,7 +2058,7 @@ yesid:
 		case '%':
 			nextchar();
 			whitespace();
-			if(cha=='-')*tok4=tk_modminus;	//Æ·‚†‚Æ™ Æ‚ §•´•≠®Ô
+			if(cha=='-')*tok4=tk_modminus;	//–æ—Å—Ç–∞—Ç–æ–∫ –æ—Ç –¥–µ–ª–µ–Ω–∏—è
 			else{
 				*tok4=tk_mod;
 				next=0;
@@ -2129,7 +2129,7 @@ yesid:
 				itok4->type=tp_compare;
 			}
 			else{
-				*tok4=tk_assign;						 //Ø‡®·¢Æ®‚Ï
+				*tok4=tk_assign;						 //–ø—Ä–∏—Å–≤–æ–∏—Ç—å
 				next=0;
 			}
 			break;
@@ -2138,20 +2138,20 @@ yesid:
 			switch(cha){
 				case '>':
 					nextchar();
-					if(cha=='=')*tok4=tk_rrequals; //·§¢®£ ¢Ø‡†¢Æ · Ø‡®·¢Æ•≠®•¨
+					if(cha=='=')*tok4=tk_rrequals; //—Å–¥–≤–∏–≥ –≤–ø—Ä–∞–≤–æ —Å –ø—Ä–∏—Å–≤–æ–µ–Ω–∏–µ–º
 					else{
 						whitespace();
 						if(cha=='-')*tok4 = tk_rrminus;
 						else{
-							*tok4=tk_rr;							//·§¢®£ ¢Ø‡†¢Æ
+							*tok4=tk_rr;							//—Å–¥–≤–∏–≥ –≤–ø—Ä–∞–≤–æ
 							next=0;
 						}
 						itok4->type=tp_opperand;
 					}
 					break;
-				case '<': *tok4=tk_swap; break; 			 //Æ°¨•≠
-				case '=': *tok4=tk_greaterequal; itok4->type=tp_compare; break; //°Æ´ÏË• ®´® ‡†¢≠Æ
-				default: *tok4=tk_greater; next=0; itok4->type=tp_compare; break; //°Æ´ÏË•
+				case '<': *tok4=tk_swap; break; 			 //–æ–±–º–µ–Ω
+				case '=': *tok4=tk_greaterequal; itok4->type=tp_compare; break; //–±–æ–ª—å—à–µ –∏–ª–∏ —Ä–∞–≤–Ω–æ
+				default: *tok4=tk_greater; next=0; itok4->type=tp_compare; break; //–±–æ–ª—å—à–µ
 			}
 			break;
 		case '<':
@@ -2159,20 +2159,20 @@ yesid:
 			switch(cha){
 				case '<':
 					nextchar();
-					if(cha=='=')*tok4=tk_llequals;	 //·§¢®£ ¢´•¢Æ · Ø‡®·¢Æ•≠®•¨
+					if(cha=='=')*tok4=tk_llequals;	 //—Å–¥–≤–∏–≥ –≤–ª–µ–≤–æ —Å –ø—Ä–∏—Å–≤–æ–µ–Ω–∏–µ–º
 					else{
 						whitespace();
 						if(cha=='-')*tok4=tk_llminus;
 						else{
-							*tok4=tk_ll;								 //·§¢®£ ¢´•¢Æ
+							*tok4=tk_ll;								 //—Å–¥–≤–∏–≥ –≤–ª–µ–≤–æ
 							next=0;
 						}
 						itok4->type=tp_opperand;
 					}
 					break;
 				case '>': *tok4=tk_notequal; itok4->type=tp_compare; break;  //!=
-				case '=': *tok4=tk_lessequal; itok4->type=tp_compare; break; //¨•≠ÏË• ®´® ‡†¢≠Æ
-				default: *tok4=tk_less; next=0; itok4->type=tp_compare; break;//¨•≠ÏË•
+				case '=': *tok4=tk_lessequal; itok4->type=tp_compare; break; //–º–µ–Ω—å—à–µ –∏–ª–∏ —Ä–∞–≤–Ω–æ
+				default: *tok4=tk_less; next=0; itok4->type=tp_compare; break;//–º–µ–Ω—å—à–µ
 			}
 			break;
 		case '#':
@@ -2227,7 +2227,7 @@ procofs:
 							idrec *ptr=itok4->rec;
 							itok4->segm=ptr->recsegm=DYNAMIC_USED;
 						}
-						itok4->rm=*tok4=tk_undefofs;	//·¨•È•≠®• •È• ≠• ®ß¢•·‚≠Æ© ¨•‚™®
+						itok4->rm=*tok4=tk_undefofs;	//—Å–º–µ—â–µ–Ω–∏–µ –µ—â–µ –Ω–µ –∏–∑–≤–µ—Å—Ç–Ω–æ–π –º–µ—Ç–∫–∏
 						itok4->number=0;
 //						if(FixUp)itok4->flag|=f_reloc;	//new!!! 27.06.05 22:25
 					}
@@ -2275,7 +2275,7 @@ structofs:
 					}
 					else{
 undefofs:
-						itok4->rm=*tok4=tk_undefofs;	//·¨•È•≠®• •È• ≠• ®ß¢•·‚≠Æ© ¨•‚™®
+						itok4->rm=*tok4=tk_undefofs;	//—Å–º–µ—â–µ–Ω–∏–µ –µ—â–µ –Ω–µ –∏–∑–≤–µ—Å—Ç–Ω–æ–π –º–µ—Ç–∫–∏
 						itok4->number=0;
 						if(FixUp)itok4->flag|=f_reloc;	//new!!!
 					}
@@ -2326,7 +2326,7 @@ localrec *ptr;
 						}
 					}
 					else{
-						itok4->rm=*tok4=tk_undefofs;	//·¨•È•≠®• •È• ≠• ®ß¢•·‚≠Æ© ¨•‚™®
+						itok4->rm=*tok4=tk_undefofs;	//—Å–º–µ—â–µ–Ω–∏–µ –µ—â–µ –Ω–µ –∏–∑–≤–µ—Å—Ç–Ω–æ–π –º–µ—Ç–∫–∏
 						itok4->number=0;
 						strcpy((char *)string4,itok4->name);
 					}
@@ -2449,7 +2449,7 @@ char *buf=NULL;
 		if(cha!=')'){
 			inptr--;
 			oline=linenumber;
-			for(i=inptr,ns=1;ns>0;i++){	//ØÆ®·™ Ø†‡†¨•‚‡Æ¢
+			for(i=inptr,ns=1;ns>0;i++){	//–ø–æ–∏—Å–∫ –ø–∞—Ä–∞–º–µ—Ç—Ä–æ–≤
 				switch(input[i]){
 					case '(': ns++; break;
 					case ')': ns--; break;
@@ -2588,7 +2588,7 @@ COM_MOD *fmod;
 }
 
 int searchtree2(idrec *fptr,ITOK *itok4,int *tok4,unsigned char *string4)
-//ØÆ®·™ ¢ §•‡•¢• Ø•‡•¨•≠ÎÂ
+//–ø–æ–∏—Å–∫ –≤ –¥–µ—Ä–µ–≤–µ –ø–µ—Ä–µ–º–µ–Ω—ã—Ö
 {
 struct idrec *ptr;
 int cmpresult;
@@ -2641,7 +2641,7 @@ int cmpresult;
 						itok4->segm=0;
 						if(ptr->recpost==DYNAMIC_POST){
 							ptr->recpost=itok4->post=1;
-							if(alignword){	//¢Î‡Æ¢≠Ô‚Ï ≠† Á•‚≠Î© †§‡•·
+							if(alignword){	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å –Ω–∞ —á–µ—Ç–Ω—ã–π –∞–¥—Ä–µ—Å
 								if(postsize%2==1)postsize++;
 							}
 							itok4->number=ptr->recnumber=postsize;
@@ -2670,10 +2670,10 @@ int cmpresult;
 								case tk_apiproc:
 								case tk_declare:
 								case tk_undefproc:
-									strcpy(itok4->name,ptr->recid);	//®¨Ô ≠„¶≠Æ §´Ô undefine
+									strcpy(itok4->name,ptr->recid);	//–∏–º—è –Ω—É–∂–Ω–æ –¥–ª—è undefine
 									break;
 								default:
-									strncpy(itok4->name,(char *)string4,IDLENGTH-1);	//®¨Ô ≠„¶≠Æ §´Ô undefine
+									strncpy(itok4->name,(char *)string4,IDLENGTH-1);	//–∏–º—è –Ω—É–∂–Ω–æ –¥–ª—è undefine
 									break;
 							}
 							return TRUE;
@@ -2682,7 +2682,7 @@ int cmpresult;
 				}
 			}
 			else string4[0]=0;
-			strcpy(itok4->name,ptr->recid);	//®¨Ô ≠„¶≠Æ §´Ô undefine
+			strcpy(itok4->name,ptr->recid);	//–∏–º—è –Ω—É–∂–Ω–æ –¥–ª—è undefine
 			if(displaytokerrors)ptr->count++;
 			break;
 		}
@@ -3128,7 +3128,7 @@ char buf[128];
 
 				structadr.sib=THIS_REG;
 				structadr.rm=AX;
-				structadr.size=addofs;	// ???? 19.08.04 12:54 ≠®£§• ≠• ®·ØÆ´Ïß„•‚·Ô
+				structadr.size=addofs;	// ???? 19.08.04 12:54 –Ω–∏–≥–¥–µ –Ω–µ –∏—Å–ø–æ–ª—å–∑—É–µ—Ç—Å—è
 				CallDestr(bazael->rec);
 				addESP-=am32==FALSE?2:4;
 				op(0x58);
@@ -3292,7 +3292,7 @@ void CopyTok(int *tok4,ITOK *itok4,idrec *ptr)
 }
 
 int searchlocals(ITOK *itok4,int *tok4,unsigned char *string4)
-//ØÆ®·™ ´Æ™†´Ï≠ÎÂ Ø•‡•¨•≠ÎÂ ·¢Ôß†≠Æ£Æ ·Ø®·™†
+//–ø–æ–∏—Å–∫ –ª–æ–∫–∞–ª—å–Ω—ã—Ö –ø–µ—Ä–µ–º–µ–Ω—ã—Ö —Å–≤—è–∑–∞–Ω–æ–≥–æ —Å–ø–∏—Å–∫–∞
 {
 	if(skiplocals){
 		skiplocals=FALSE;
@@ -3472,7 +3472,7 @@ locvar:
 	return FALSE;
 }
 
-void dostructvar2(int *tok4,ITOK *itok4,struct structteg *tteg,unsigned char *string4)	//‡†ß°Æ‡ ·‚‡„™‚„‡ ≠† Ø•‡•¨•≠≠Î• ® ·‚‡„™‚„‡Î
+void dostructvar2(int *tok4,ITOK *itok4,struct structteg *tteg,unsigned char *string4)	//—Ä–∞–∑–±–æ—Ä —Å—Ç—Ä—É–∫—Ç—É—Ä –Ω–∞ –ø–µ—Ä–µ–º–µ–Ω–Ω—ã–µ –∏ —Å—Ç—Ä—É–∫—Ç—É—Ä—ã
 {
 struct elementteg *bazael;
 int numel=0;
@@ -3486,9 +3486,9 @@ int i;
 structteg *subteg=NULL;
 	structadr=*itok4;
 //	bazael=tteg->baza;
-	whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+	whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 	cstring=(char *)MALLOC(STRLEN);
-	if(cha=='['){	//[	≠Æ¨•‡ ·‚‡„™‚„‡Î
+	if(cha=='['){	//[	–Ω–æ–º–µ—Ä —Å—Ç—Ä—É–∫—Ç—É—Ä—ã
 		usenumstruct=TRUE;
 		nextchar();
 		sopenb=inptr;
@@ -3498,7 +3498,7 @@ structteg *subteg=NULL;
 			free(bufrm);
 			bufrm=NULL;
 		}
-		if(i==tk_number){	//Á®·´Æ¢Æ©
+		if(i==tk_number){	//—á–∏—Å–ª–æ–≤–æ–π
 			ITOK dstok;
 			memcpy(&dstok,itok4,sizeof(ITOK));
 			calcnum(&i,&cstok,cstring,&cnum);
@@ -3536,7 +3536,7 @@ notnum:
 			strinf.size=tteg->size;
 		}
 		itok4->flag|=f_useidx;
-		whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+		whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 	}
 	if(cha=='.'){
 		int fdestr=FALSE;
@@ -3618,7 +3618,7 @@ notnum:
 					compressoffset(&structadr);
 					if(tteg->size==0)structadr.sib=THIS_ZEROSIZE;	//14.11.05 13:51
 				}
-/*				if(strcmp(bazael->name,tteg->name)==0&&itok4->rec){	//¢ÎßÆ¢ ™Æ≠·‚‡„™‚Æ‡†
+/*				if(strcmp(bazael->name,tteg->name)==0&&itok4->rec){	//–≤—ã–∑–æ–≤ –∫–æ–Ω—Å—Ç—Ä—É–∫—Ç–æ—Ä–∞
 					ptr=itok4->rec;
 //					printf("constructor %08X\n",ptr);
 				}*/
@@ -3657,7 +3657,7 @@ notnum:
 					itok4->post=FALSE;
 				}
 				else{
-					itok4->sib=(am32==FALSE?rm_d16:rm_d32);	//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+					itok4->sib=(am32==FALSE?rm_d16:rm_d32);	//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 					itok4->segm=DS;
 				}
 //				itok4->post=0;
@@ -3730,7 +3730,7 @@ notbit:
 			itok4->flag=f_useidx;
 		}
 		else{
-			itok4->rm=(am32==FALSE?rm_d16:rm_d32);	//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+			itok4->rm=(am32==FALSE?rm_d16:rm_d32);	//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 			if(itok4->segm==USEDSTR&&itok4->sib>=CODE16)itok4->sib++;
 			itok4->segm=DS;
 			itok4->flag=FixUp|f_useidx;
@@ -3744,12 +3744,12 @@ notbit:
 	free(cstring);
 }
 
-void dosizeof(ITOK *itok4)	//ÆØ‡ ß≠†Á•≠®• sizeof
+void dosizeof(ITOK *itok4)	//–æ–ø—Ä –∑–Ω–∞—á–µ–Ω–∏–µ sizeof
 {
 struct structteg *tteg;
 int i,brase=FALSE;
 ITOK cstok;
-	whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+	whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 	itok4->number=0;
 	if(cha=='('){
 		nextchar();
@@ -3850,7 +3850,7 @@ ITOK cstok;
 				break;
 		}
 	}
-	whitespace();//Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
+	whitespace();//–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
 	if(brase){
 		if(cha!=')'&&displaytokerrors)expected(')');
 		nextchar();
@@ -3933,7 +3933,7 @@ cont1: ;
 	else{
 		itok4->post=poststr;
 		if(strinf.bufstr==NULL){
-			itok4->rm=(am32==FALSE?rm_d16:rm_d32);	//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+			itok4->rm=(am32==FALSE?rm_d16:rm_d32);	//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 			if(itok4->post!=0)*tok4=tk_postnumber;
 			else *tok4=tk_number;
 		}
@@ -3970,23 +3970,23 @@ cont2: ;
 	cha=ocha;
 }
 
-void AddUndefOff(int segm,char *ostring)	//ß†‰®™·®‡Æ¢†‚Ï Æ°‡†È•≠®• ™ •È• ≠• Æ°ÍÔ¢´•≠Î¨ ®¨•≠†¨
-/*segm - ·•£¨•≠‚ Æ‚™„§† ®§•‚ Æ°‡†È•≠®•
- 0 - ·•£¨•≠‚ ™Æ§†
- 1 - ·•£¨•≠‚ §†≠≠ÎÂ
- 2 - ·•£¨•≠‚ ™Æ§†, ≠Æ °•ß ß†≠•·•≠®Ô ¢ ‚†°´®Ê„ Ø•‡•¨•È•≠®©
- 3 - ·•£¨•≠‚ §†≠≠ÎÂ, ≠Æ °•ß ß†≠•·•≠®Ô ¢ ‚†°´®Ê„ Ø•‡•¨•È•≠®©
+void AddUndefOff(int segm,char *ostring)	//–∑–∞—Ñ–∏–∫—Å–∏—Ä–æ–≤–∞—Ç—å –æ–±—Ä–∞—â–µ–Ω–∏–µ –∫ –µ—â–µ –Ω–µ –æ–±—ä—è–≤–ª–µ–Ω—ã–º –∏–º–µ–Ω–∞–º
+/*segm - —Å–µ–≥–º–µ–Ω—Ç –æ—Ç–∫—É–¥–∞ –∏–¥–µ—Ç –æ–±—Ä–∞—â–µ–Ω–∏–µ
+ 0 - —Å–µ–≥–º–µ–Ω—Ç –∫–æ–¥–∞
+ 1 - —Å–µ–≥–º–µ–Ω—Ç –¥–∞–Ω–Ω—ã—Ö
+ 2 - —Å–µ–≥–º–µ–Ω—Ç –∫–æ–¥–∞, –Ω–æ –±–µ–∑ –∑–∞–Ω–µ—Å–µ–Ω–∏—è –≤ —Ç–∞–±–ª–∏—Ü—É –ø–µ—Ä–µ–º–µ—â–µ–Ω–∏–π
+ 3 - —Å–µ–≥–º–µ–Ω—Ç –¥–∞–Ω–Ω—ã—Ö, –Ω–æ –±–µ–∑ –∑–∞–Ω–µ—Å–µ–Ω–∏—è –≤ —Ç–∞–±–ª–∏—Ü—É –ø–µ—Ä–µ–º–µ—â–µ–Ω–∏–π
 */
 {
 UNDEFOFF *curptr;
-	if(undefoffstart==NULL){	//•·´® •È• ≠• °Î´Æ ≠•®ß¢ ¨•‚Æ™
+	if(undefoffstart==NULL){	//–µ—Å–ª–∏ –µ—â–µ –Ω–µ –±—ã–ª–æ –Ω–µ–∏–∑–≤ –º–µ—Ç–æ–∫
 		undefoffstart=(UNDEFOFF *)MALLOC(sizeof(UNDEFOFF));
 		memset(undefoffstart,0,sizeof(UNDEFOFF));
 		strcpy(undefoffstart->name,ostring);
 	}
 	for(curptr=undefoffstart;;curptr=curptr->next){
-		if(strcmp(curptr->name,ostring)==0){	//‡†≠•• „¶• Æ°‡†È†´®·Ï ™ ≠•©
-			//‚†°´®Ê† Æ°‡†È•≠®© ™ undef
+		if(strcmp(curptr->name,ostring)==0){	//—Ä–∞–Ω–µ–µ —É–∂–µ –æ–±—Ä–∞—â–∞–ª–∏—Å—å –∫ –Ω–µ–π
+			//—Ç–∞–±–ª–∏—Ü–∞ –æ–±—Ä–∞—â–µ–Ω–∏–π –∫ undef
 			if(curptr->pos==NULL)curptr->pos=(IOFS *)MALLOC(sizeof(IOFS)*(curptr->num+1));
 			else curptr->pos=(IOFS *)REALLOC(curptr->pos,sizeof(IOFS)*(curptr->num+1));
 			(curptr->pos+curptr->num)->ofs=segm==0?outptr:outptrdata;
@@ -3996,9 +3996,9 @@ UNDEFOFF *curptr;
 			curptr->num++;
 			return;
 		}
-		if(curptr->next==NULL)break;	//™Æ≠•Ê ·Ø®·™†
+		if(curptr->next==NULL)break;	//–∫–æ–Ω–µ—Ü —Å–ø–∏—Å–∫–∞
 	}
-	curptr=curptr->next=(UNDEFOFF *)MALLOC(sizeof(UNDEFOFF));	//≠Æ¢†Ô undef
+	curptr=curptr->next=(UNDEFOFF *)MALLOC(sizeof(UNDEFOFF));	//–Ω–æ–≤–∞—è undef
 	memset(curptr,0,sizeof(UNDEFOFF));
 	strcpy(curptr->name,ostring);
 	curptr->num=1;
@@ -4013,9 +4013,9 @@ int CheckUseAsUndef(unsigned char *name)
 {
 UNDEFOFF *curptr;
 int count=0;
-	if(undefoffstart==NULL)return 0;	//≠• °Î´Æ Æ°‡†È•≠®© ™ undef
+	if(undefoffstart==NULL)return 0;	//–Ω–µ –±—ã–ª–æ –æ–±—Ä–∞—â–µ–Ω–∏–π –∫ undef
 	for(curptr=undefoffstart;;curptr=curptr->next){
-		if(strcmp(curptr->name,(char *)name)==0){	//≠†Ë´®
+		if(strcmp(curptr->name,(char *)name)==0){	//–Ω–∞—à–ª–∏
 			count=curptr->num;
 			break;
 		}
@@ -4024,29 +4024,29 @@ int count=0;
 	return count;
 }
 
-int FindOff(unsigned char *name,int base)	//ØÆ®·™ ··Î´Æ™ ≠† ‚•™„È•• ®¨Ô
+int FindOff(unsigned char *name,int base)	//–ø–æ–∏—Å–∫ —Å—Å—ã–ª–æ–∫ –Ω–∞ —Ç–µ–∫—É—â–µ–µ –∏–º—è
 {
 /*-----------------13.08.00 23:48-------------------
- Ø‡Æ·¨Æ‚‡•‚Ï Ø‡ÆÊ•§„‡„ Ø‡® ¢¢Æ§• ‡†ß§•´•≠®Ô §†≠≠ÎÂ ® ™Æ§†
+ –ø—Ä–æ—Å–º–æ—Ç—Ä–µ—Ç—å –ø—Ä–æ—Ü–µ–¥—É—Ä—É –ø—Ä–∏ –≤–≤–æ–¥–µ —Ä–∞–∑–¥–µ–ª–µ–Ω–∏—è –¥–∞–Ω–Ω—ã—Ö –∏ –∫–æ–¥–∞
 	--------------------------------------------------*/
 UNDEFOFF *curptr,*prev;
 unsigned char segm;
 unsigned int ofs,valofs;
 int count=0;
-	if(undefoffstart==NULL)return 0;	//≠• °Î´Æ Æ°‡†È•≠®© ™ undef
+	if(undefoffstart==NULL)return 0;	//–Ω–µ –±—ã–ª–æ –æ–±—Ä–∞—â–µ–Ω–∏–π –∫ undef
 	for(curptr=undefoffstart;;curptr=curptr->next){
-		if(strcmp(curptr->name,(char *)name)==0){	//≠†Ë´®
+		if(strcmp(curptr->name,(char *)name)==0){	//–Ω–∞—à–ª–∏
 			for(int i=0;i<curptr->num;i++){
 				ofs=(curptr->pos+i)->ofs;
 				segm=(curptr->pos+i)->dataseg;
-				if(base==DS&&dynamic_flag){	//°Î´Æ Æ°‡†È•≠®• ™ §®≠†¨®Á•·™®¨ ®≠®Ê. Ø•‡•¨•≠≠Î¨
+				if(base==DS&&dynamic_flag){	//–±—ã–ª–æ –æ–±—Ä–∞—â–µ–Ω–∏–µ –∫ –¥–∏–Ω–∞–º–∏—á–µ—Å–∫–∏–º –∏–Ω–∏—Ü. –ø–µ—Ä–µ–º–µ–Ω–Ω—ã–º
 					CheckPosts();
 					(postbuf+posts)->type=(unsigned short)(am32==0?DIN_VAR:DIN_VAR32);
 					(postbuf+posts)->num=(int)itok.rec;
 					(postbuf+posts)->loc=ofs;
 				}
 				else{
-					if((segm&1)==0||modelmem==TINY){	//¢ ·•£¨•≠‚• ™Æ§†
+					if((segm&1)==0||modelmem==TINY){	//–≤ —Å–µ–≥–º–µ–Ω—Ç–µ –∫–æ–¥–∞
 						if(base!=VARPOST){
 //							if(am32==FALSE)valofs=*(unsigned short *)&output[ofs];
 //							else valofs=*(unsigned long *)&output[ofs];
@@ -4102,12 +4102,12 @@ int count=0;
 	return count;
 }
 
-int FindUseName(char *name)	//ØÆ®·™ ··Î´Æ™ ≠† ‚•™„È•• ®¨Ô
+int FindUseName(char *name)	//–ø–æ–∏—Å–∫ —Å—Å—ã–ª–æ–∫ –Ω–∞ —Ç–µ–∫—É—â–µ–µ –∏–º—è
 {
 UNDEFOFF *curptr;
 	if(undefoffstart){
 		for(curptr=undefoffstart;;curptr=curptr->next){
-			if(strcmp(curptr->name,(char *)name)==0){	//≠†Ë´®
+			if(strcmp(curptr->name,(char *)name)==0){	//–Ω–∞—à–ª–∏
 				return curptr->num;
 			}
 			if(curptr->next==NULL)break;
@@ -4176,7 +4176,7 @@ unsigned char c;
 }
 
 /*-----------------05.01.00 22:56-------------------
- ê†°Æ‚† ·Æ ·‚‡„™‚„‡†¨®
+ –†–∞–±–æ—Ç–∞ —Å–æ —Å—Ç—Ä—É–∫—Ç—É—Ä–∞–º–∏
 	--------------------------------------------------*/
 
 int GetVarSize(int var)
@@ -4255,7 +4255,7 @@ elementteg *bazael=searcht->baza;
 	return FALSE;
 }
 
-struct structteg *CreatTeg(int Global,int useunion,int noname)	//·Æß§†‚Ï ≠Æ¢Î© ‚•£
+struct structteg *CreatTeg(int Global,int useunion,int noname)	//—Å–æ–∑–¥–∞—Ç—å –Ω–æ–≤—ã–π —Ç–µ–≥
 {
 struct structteg *newteg,*tteg;
 struct elementteg *bazael;
@@ -4436,10 +4436,10 @@ int unionsize=0;
 	//				break;
 				}
 			default:
-				skipfind=LOCAL;	//ß†Ø‡•‚®‚Ï ØÆ®·™ ¢ £´Æ°†´Ï≠Æ¨ ® ´Æ™†´Ï≠Æ¨ ·Ø®·™•
+				skipfind=LOCAL;	//–∑–∞–ø—Ä–µ—Ç–∏—Ç—å –ø–æ–∏—Å–∫ –≤ –≥–ª–æ–±–∞–ª—å–Ω–æ–º –∏ –ª–æ–∫–∞–ª—å–Ω–æ–º —Å–ø–∏—Å–∫–µ
 				utestInitVar=TRUE;
-				if((i=testInitVar())==FALSE||i==2){	//ÆØ‡•§•´•≠®• Ø‡ÆÊ•§„‡Î ØÆ™† ≠• Æ°‡†°†‚Î¢†•¨
-					skipfind=FALSE;	//‡†ß‡•Ë®‚Ï ØÆ®·™
+				if((i=testInitVar())==FALSE||i==2){	//–æ–ø—Ä–µ–¥–µ–ª–µ–Ω–∏–µ –ø—Ä–æ—Ü–µ–¥—É—Ä—ã –ø–æ–∫–∞ –Ω–µ –æ–±—Ä–∞–±–∞—Ç—ã–≤–∞–µ–º
+					skipfind=FALSE;	//—Ä–∞–∑—Ä–µ—à–∏—Ç—å –ø–æ–∏—Å–∫
 					FindEndLex();
 					datatype_expected();
 					nexttok();
@@ -4459,7 +4459,7 @@ int unionsize=0;
 					if(itok.npointr)orm=am32==FALSE?tk_word:tk_dword;
 					npointr=0;
 					nexttok();
-					while(tok==tk_mult){	//„™†ß†‚•´Ï ≠† Ø‡ÆÊ•§„‡„
+					while(tok==tk_mult){	//—É–∫–∞–∑–∞—Ç–µ–ª—å –Ω–∞ –ø—Ä–æ—Ü–µ–¥—É—Ä—É
 						npointr++;
 						nexttok();
 					}
@@ -4471,7 +4471,7 @@ int unionsize=0;
 locvar:
 			do{
 				tsize=size;
-				skipfind=LOCAL;	//ß†Ø‡•‚®‚Ï ØÆ®·™ ¢ £´Æ°†´Ï≠Æ¨ ® ´Æ™†´Ï≠Æ¨ ·Ø®·™•
+				skipfind=LOCAL;	//–∑–∞–ø—Ä–µ—Ç–∏—Ç—å –ø–æ–∏—Å–∫ –≤ –≥–ª–æ–±–∞–ª—å–Ω–æ–º –∏ –ª–æ–∫–∞–ª—å–Ω–æ–º —Å–ø–∏—Å–∫–µ
 				nexttok();
 				if(tok==tk_colon){
 					numt=getsizebit(size);
@@ -4484,7 +4484,7 @@ dproc2:
 				else bazael=(struct elementteg *)REALLOC(bazael,sizeof(struct elementteg)*(numel+1));
 				if(tok!=tk_ID&&tok!=tk_id){
 					utestInitVar=TRUE;
-					if(testInitVar()==FALSE){	//ÆØ‡•§•´•≠®• Ø‡ÆÊ•§„‡Î ØÆ™† ≠• Æ°‡†°†‚Î¢†•¨
+					if(testInitVar()==FALSE){	//–æ–ø—Ä–µ–¥–µ–ª–µ–Ω–∏–µ –ø—Ä–æ—Ü–µ–¥—É—Ä—ã –ø–æ–∫–∞ –Ω–µ –æ–±—Ä–∞–±–∞—Ç—ã–≤–∞–µ–º
 						idalreadydefined();
 					}
 					else{
@@ -4496,7 +4496,7 @@ dproc2:
 							if(itok.npointr)orm=am32==FALSE?tk_word:tk_dword;
 							npointr=0;
 							nexttok();
-							while(tok==tk_mult){	//„™†ß†‚•´Ï ≠† Ø‡ÆÊ•§„‡„
+							while(tok==tk_mult){	//—É–∫–∞–∑–∞—Ç–µ–ª—å –Ω–∞ –ø—Ä–æ—Ü–µ–¥—É—Ä—É
 								npointr++;
 								nexttok();
 							}
@@ -4516,7 +4516,7 @@ dproc2:
 						if(npointr){
 							idrec *nrec;
 							nrec=(bazael+numel)->rec=(idrec *)MALLOC(sizeof(idrec));
-							strcpy(nrec->recid,(bazael+numel)->name);//·™ÆØ®‡ ≠†ß¢†≠®•
+							strcpy(nrec->recid,(bazael+numel)->name);//—Å–∫–æ–ø–∏—Ä –Ω–∞–∑–≤–∞–Ω–∏–µ
 							nrec->newid=NULL;
 							nrec->npointr=(unsigned short)npointr;
 							nrec->flag=oflag;
@@ -4541,7 +4541,7 @@ dproc2:
 					}
 					strcpy((bazael+numel)->name,itok.name/*(char *)string*/);
 					if(tok2==tk_openbracket&&utestInitVar==FALSE){
-						if(tok==tk_id)oflag|=(comfile==file_w32?tp_stdcall:tp_pascal);	//‚®Ø Ø‡ÆÊ ØÆ „¨Æ´Á†≠®Ó
+						if(tok==tk_id)oflag|=(comfile==file_w32?tp_stdcall:tp_pascal);	//—Ç–∏–ø –ø—Ä–æ—Ü –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 						else oflag=tp_fastcall;
 					}
 //					printf("tok=%d %s\n",tok,itok.name);
@@ -4568,13 +4568,13 @@ dproc:
 								npointr=0;
 							}
 						}
-						skipfind=FALSE;	//‡†ß‡•Ë®‚Ï ØÆ®·™
+						skipfind=FALSE;	//—Ä–∞–∑—Ä–µ—à–∏—Ç—å –ø–æ–∏—Å–∫
 						expecting(tk_openbracket);
 						if((oflag&f_typeproc)==tp_fastcall)declareparamreg();
 						else declareparamstack();
 						skipfind=LOCAL;
 						nrec=(bazael+numel)->rec=(idrec *)MALLOC(sizeof(idrec));
-						strcpy(nrec->recid,(bazael+numel)->name);//·™ÆØ®‡ ≠†ß¢†≠®•
+						strcpy(nrec->recid,(bazael+numel)->name);//—Å–∫–æ–ø–∏—Ä –Ω–∞–∑–≤–∞–Ω–∏–µ
 						nrec->newid=NULL;
 //						printf("name=%s param=%s\n",nrec->recid,param);
 						if(param[0]!=0)nrec->newid=BackString((char *)param);
@@ -4640,7 +4640,7 @@ endelteg:
 						if((oflag&f_static)){
 							idrec *nrec;
 							nrec=(bazael+numel)->rec=(idrec *)MALLOC(sizeof(idrec));
-							strcpy(nrec->recid,(bazael+numel)->name);//·™ÆØ®‡ ≠†ß¢†≠®•
+							strcpy(nrec->recid,(bazael+numel)->name);//—Å–∫–æ–ø–∏—Ä –Ω–∞–∑–≤–∞–Ω–∏–µ
 							nrec->line=linenumber;
 							nrec->file=currentfileinfo;
 							nrec->count=0;
@@ -4666,11 +4666,11 @@ endelteg:
 								nrec->type=tp_ucnovn;
 							}
 							if(tok==tk_assign){
-								skipfind=FALSE;	//‡†ß‡•Ë®‚Ï ØÆ®·™
+								skipfind=FALSE;	//—Ä–∞–∑—Ä–µ—à–∏—Ç—å –ø–æ–∏—Å–∫
 								nrec->recpost=0;
 								if(localtok==tk_struct){
-									if(alignword)alignersize+=AlignCD(DS,2);	//¢Î‡Æ¢≠Ô‚Ï
-									nrec->recnumber=outptrdata;	//†§‡•· ≠†Á†´† ·‚‡„™‚„‡Î
+									if(alignword)alignersize+=AlignCD(DS,2);	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å
+									nrec->recnumber=outptrdata;	//–∞–¥—Ä–µ—Å –Ω–∞—á–∞–ª–∞ —Å—Ç—Ä—É–∫—Ç—É—Ä—ã
 									i=initstructvar(tteg,numt);
 									if(numt==0){
 										numt=i/tteg->size;
@@ -4700,7 +4700,7 @@ endelteg:
 										break;
 									}
 								}
-								if(alignword){	//¢Î‡Æ¢≠Ô‚Ï ≠† Á•‚≠Î© †§‡•·
+								if(alignword){	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å –Ω–∞ —á–µ—Ç–Ω—ã–π –∞–¥—Ä–µ—Å
 									if(postsize%2==1)postsize++;
 									if(tsize==4&&postsize%4!=0)postsize+=2;
 								}
@@ -4720,7 +4720,7 @@ endelteg:
 				}
 				newteg->size=ssize+unionsize;
 			}while(tok==tk_camma);
-			skipfind=FALSE;	//‡†ß‡•Ë®‚Ï ØÆ®·™
+			skipfind=FALSE;	//—Ä–∞–∑—Ä–µ—à–∏—Ç—å –ø–æ–∏—Å–∫
 			seminext();
 		}
 	};//while(tok!=tk_closebrace&&tok!=tk_eof);
@@ -4753,7 +4753,7 @@ idrec *nrec;
 			strcpy((bazael+numel)->name,itok.name);
 			strcat((bazael+numel)->name,"~");
 			itok.rec=nrec=(bazael+numel)->rec=(idrec *)MALLOC(sizeof(idrec));
-			strcpy(nrec->recid,itok.name);//·™ÆØ®‡ ≠†ß¢†≠®•
+			strcpy(nrec->recid,itok.name);//—Å–∫–æ–ø–∏—Ä –Ω–∞–∑–≤–∞–Ω–∏–µ
 			nrec->newid=NULL;
 			itok.npointr=nrec->npointr=0;
 			itok.rm=nrec->recrm=tk_void;
@@ -4806,7 +4806,7 @@ idrec *nrec;
 	return newteg;
 }
 
-struct structteg * FindTeg(int Global,char *name)	//≠†©‚® ‚•£
+struct structteg * FindTeg(int Global,char *name)	//–Ω–∞–π—Ç–∏ —Ç–µ–≥
 {
 struct structteg *tteg;
 int i;
@@ -4861,7 +4861,7 @@ unsigned int loop=0;
 
 void FillTeg(unsigned long long val,unsigned int numel,struct structteg *tteg)
 /*-----------------03.10.99 00:20-------------------
- ß†ØÆ´≠®‚Ï ·‚‡„™‚„‡„ Æ§®≠†™Æ¢Î¨® ¢•´®Á®≠†¨®
+ –∑–∞–ø–æ–ª–Ω–∏—Ç—å —Å—Ç—Ä—É–∫—Ç—É—Ä—É –æ–¥–∏–Ω–∞–∫–æ–≤—ã–º–∏ –≤–µ–ª–∏—á–∏–Ω–∞–º–∏
  --------------------------------------------------*/
 {
 struct elementteg *elem=tteg->baza;
@@ -4898,15 +4898,15 @@ unsigned int startstruct;
 
 unsigned int Fill2Teg(unsigned int numel,struct structteg *tteg)
 /*-----------------03.10.99 00:20-------------------
- ß†ØÆ´≠®‚Ï ·‚‡„™‚„‡„ ¢•´®Á®≠†¨®
+ –∑–∞–ø–æ–ª–Ω–∏—Ç—å —Å—Ç—Ä—É–∫—Ç—É—Ä—É –≤–µ–ª–∏—á–∏–Ω–∞–º–∏
  --------------------------------------------------*/
 {
 unsigned long long hold;
 struct elementteg *elem=tteg->baza;
-unsigned int tnumel=0;	//≠Æ¨•‡ •´•¨•≠‚† Æ§≠Æ£Æ ‚®Ø†
-unsigned int ttype=0;	//≠Æ¨•‡ Ì´•¨•≠‚† ·‚‡„™‚„‡Î
-unsigned int nums=0;	//≠Æ¨•‡ ™ÆØ®® ·‚‡„™‚„‡Î
-unsigned int loop=0;	//ß†ØÆ´≠•≠Î© ‡†ß¨•‡
+unsigned int tnumel=0;	//–Ω–æ–º–µ—Ä –µ–ª–µ–º–µ–Ω—Ç–∞ –æ–¥–Ω–æ–≥–æ —Ç–∏–ø–∞
+unsigned int ttype=0;	//–Ω–æ–º–µ—Ä —ç–ª–µ–º–µ–Ω—Ç–∞ —Å—Ç—Ä—É–∫—Ç—É—Ä—ã
+unsigned int nums=0;	//–Ω–æ–º–µ—Ä –∫–æ–ø–∏–∏ —Å—Ç—Ä—É–∫—Ç—É—Ä—ã
+unsigned int loop=0;	//–∑–∞–ø–æ–ª–Ω–µ–Ω—ã–π —Ä–∞–∑–º–µ—Ä
 int type=tokens;
 int bitofs=0;
 unsigned int startstruct=outptrdata;
@@ -5060,25 +5060,25 @@ unsigned int initstructvar(structteg *tteg,int numel)
 {
 unsigned int loop=0;
 	nexttok();
-	switch(tok){	//ß†ØÆ´≠®‚Ï ¢•´®Á®≠†¨®
+	switch(tok){	//–∑–∞–ø–æ–ª–Ω–∏—Ç—å –≤–µ–ª–∏—á–∏–Ω–∞–º–∏
 		case tk_minus:
 		case tk_number:
 			if(numel==0)ZeroMassiv();
 			FillTeg(doconstqwordmath(),numel,tteg);
 			loop=numel*tteg->size;
 			break;
-		case tk_from:	//·Á®‚†‚Ï ‰†©´ · §†≠≠Î¨®
+		case tk_from:	//—Å—á–∏—Ç–∞—Ç—å —Ñ–∞–π–ª —Å –¥–∞–Ω–Ω—ã–º–∏
 			nexttok();
 			loop=dofrom();
 			for(;loop<tteg->size*numel;loop++)opd(aligner);
 			nexttok();
 			break;
-		case tk_extract:	//·Á®‚†‚Ï ‰‡†£¨•≠‚ ‰†©´† · §†≠≠Î¨®
+		case tk_extract:	//—Å—á–∏—Ç–∞—Ç—å —Ñ—Ä–∞–≥–º–µ–Ω—Ç —Ñ–∞–π–ª–∞ —Å –¥–∞–Ω–Ω—ã–º–∏
 			nexttok();
 			loop=doextract();
 			for(;loop<tteg->size*numel;loop++)opd(aligner);
 			break;
-		case tk_openbrace:	//¨†··®¢ §†≠≠ÎÂ
+		case tk_openbrace:	//–º–∞—Å—Å–∏–≤ –¥–∞–Ω–Ω—ã—Ö
 			nexttok();
 			loop=Fill2Teg(numel,tteg);
 			for(;loop<tteg->size*numel;loop++)opd(aligner);
@@ -5095,7 +5095,7 @@ unsigned int loop=0;
 	return loop;
 }
 
-void InitStruct2(unsigned int flag,structteg *tteg)	//®≠®Ê®†´®ß®‡Æ¢†‚Ï £´Æ°†´Ï≠„Ó ·‚‡„™‚„‡„
+void InitStruct2(unsigned int flag,structteg *tteg)	//–∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞—Ç—å –≥–ª–æ–±–∞–ª—å–Ω—É—é —Å—Ç—Ä—É–∫—Ç—É—Ä—É
 {
 struct idrec *newrec=NULL,*ptr;
 int numel,count;
@@ -5106,22 +5106,22 @@ unsigned int loop;
 //		printf("3 tok=%d %s\n",tok,itok.name);
 		switch(tok){
 			case tk_id:
-			case tk_ID:	//®≠®Ê®†´®ß®‡Æ¢†‚Ï ·‚‡„™‚„‡„
-//¢Î§•´®‚Ï Ø†¨Ô‚Ï ØÆ§ ≠Æ¢„Ó ·‚‡„™‚
+			case tk_ID:	//–∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞—Ç—å —Å—Ç—Ä—É–∫—Ç—É—Ä—É
+//–≤—ã–¥–µ–ª–∏—Ç—å –ø–∞–º—è—Ç—å –ø–æ–¥ –Ω–æ–≤—É—é —Å—Ç—Ä—É–∫—Ç
 				newrec=(struct idrec *)MALLOC(sizeof(struct idrec));
 
 //				if(strcmp(itok.name,"ccchrg")==0)printf("rec=%08X teg=%08X size=%X %s\n",newrec,tteg,sizeof(idrec),itok.name);
 
-				ptr=((flag&f_static)==0?treestart:staticlist);	//≠†Á†´Æ §•‡•¢†
-				if(ptr==NULL)((flag&f_static)==0?treestart:staticlist)=newrec;//≠†Á†´Æ §•‡•¢†
-				else{	//ØÆ®·™ ·‚‡Æ™® ¢ §•‡•¢•
+				ptr=((flag&f_static)==0?treestart:staticlist);	//–Ω–∞—á–∞–ª–æ –¥–µ—Ä–µ–≤–∞
+				if(ptr==NULL)((flag&f_static)==0?treestart:staticlist)=newrec;//–Ω–∞—á–∞–ª–æ –¥–µ—Ä–µ–≤–∞
+				else{	//–ø–æ–∏—Å–∫ —Å—Ç—Ä–æ–∫–∏ –≤ –¥–µ—Ä–µ–≤–µ
 					while(((numel=strcmp(ptr->recid,itok.name))<0&&ptr->left!=NULL)||(numel>0&&ptr->right!=NULL)){
 						ptr=(numel<0?ptr->left:ptr->right);
 					}
-					(numel<0?ptr->left:ptr->right)=newrec;	//·‚‡Æ™† ¨•≠ÏË•
+					(numel<0?ptr->left:ptr->right)=newrec;	//—Å—Ç—Ä–æ–∫–∞ –º–µ–Ω—å—à–µ
 				}
 				newrec->recsib=0;
-				strcpy(newrec->recid,itok.name);//·™ÆØ®‡ ≠†ß¢†≠®•
+				strcpy(newrec->recid,itok.name);//—Å–∫–æ–ø–∏—Ä –Ω–∞–∑–≤–∞–Ω–∏–µ
 				newrec->newid=(char *)tteg;
 				newrec->left=NULL;
 				newrec->right=NULL;
@@ -5135,7 +5135,7 @@ unsigned int loop;
 				nexttok();
 				if(tok==tk_openblock){//[
 					nexttok();
-					if(tok!=tk_closeblock)numel=doconstlongmath();	//Á®·´Æ Ì´•¨•≠‚Æ¢
+					if(tok!=tk_closeblock)numel=doconstlongmath();	//—á–∏—Å–ª–æ —ç–ª–µ–º–µ–Ω—Ç–æ–≤
 					else numel=0;
 					expecting(tk_closeblock);//]
 				}
@@ -5146,14 +5146,14 @@ unsigned int loop;
 					if(useStartup==TRUE&&tok!=tk_assign&&numel!=0){
 						if(SaveStruct(numel*tteg->size,newrec)==TRUE)break;
 					}
-					if(alignword&&(!dynamic_flag))alignersize+=AlignCD(DS,2);	//¢Î‡Æ¢≠Ô‚Ï
+					if(alignword&&(!dynamic_flag))alignersize+=AlignCD(DS,2);	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å
 //					NotPostUnion();
 					itok.rec=newrec;
 					if((count=FindOff((unsigned char *)newrec->recid,DS))==0){
 						if(dynamic_flag)dynamic=DYNAMIC_VAR;
 					}
 					else if(dynamic_flag)dynamic=USED_DIN_VAR;
-					newrec->recnumber=(dynamic==0?outptrdata:0);	//†§‡•· ≠†Á†´† ·‚‡„™‚„‡Î
+					newrec->recnumber=(dynamic==0?outptrdata:0);	//–∞–¥—Ä–µ—Å –Ω–∞—á–∞–ª–∞ —Å—Ç—Ä—É–∫—Ç—É—Ä—ã
 					newrec->recpost=dynamic;
 					if(notpost==TRUE&&tok!=tk_assign){
 						if(numel==0)ZeroMassiv();
@@ -5184,7 +5184,7 @@ unsigned int loop;
 						break;
 					}
 					if(CheckUseAsUndef((unsigned char *)newrec->recid)==0&&dynamic_flag)dynamic=TRUE;
-					switch(tok){	//≠•®≠®Ê®†´®ß®‡Æ¢†≠≠Î•
+					switch(tok){	//–Ω–µ–∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞–Ω–Ω—ã–µ
 						default: expected(';');
 						case tk_semicolon: done=1;//	;
 						case tk_camma:	 //, post global type
@@ -5198,7 +5198,7 @@ unsigned int loop;
 							newrec->recpost=dynamic+1;
 							loop=numel*tteg->size;
 							if((flag&f_extern)==0&&dynamic==0){
-								if(alignword){	//¢Î‡Æ¢≠Ô‚Ï ≠† Á•‚≠Î© †§‡•·
+								if(alignword){	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å –Ω–∞ —á–µ—Ç–Ω—ã–π –∞–¥—Ä–µ—Å
 									if(postsize%2==1)postsize++;
 								}
 								newrec->recnumber=postsize;
@@ -5207,7 +5207,7 @@ unsigned int loop;
 							count=FindOff((unsigned char *)newrec->recid,VARPOST);
 							if((flag&f_extern)==0&&dynamic==0)
 									/*-----------------10.09.02 23:21-------------------
-									 Ì‚Æ‚ ¢ÎßÆ¢ §Æ´¶•≠ °Î‚Ï ØÆ·´• FindOff
+									 —ç—Ç–æ—Ç –≤—ã–∑–æ–≤ –¥–æ–ª–∂–µ–Ω –±—ã—Ç—å –ø–æ—Å–ª–µ FindOff
 										--------------------------------------------------*/
 									AddPostData(loop);
 							nexttok();
@@ -5237,7 +5237,7 @@ unsigned int loop;
 	dopoststrings();
 }
 
-void InitStruct()	//®≠®Ê®†´®ß®‡Æ¢†‚Ï £´Æ°†´Ï≠„Ó ·‚‡„™‚„‡„
+void InitStruct()	//–∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞—Ç—å –≥–ª–æ–±–∞–ª—å–Ω—É—é —Å—Ç—Ä—É–∫—Ç—É—Ä—É
 {
 struct structteg *tteg;
 unsigned int flag;
@@ -5261,7 +5261,7 @@ unsigned int flag;
 	tteg=FindTeg(TRUE);
 	if(tteg==NULL){
 		if(tok==tk_openbrace||tok2==tk_openbrace||tok==tk_colon||tok2==tk_colon)
-				tteg=CreatTeg(TRUE);	//≠†©‚® ®´® ·Æß§†‚Ï ‚•£
+				tteg=CreatTeg(TRUE);	//–Ω–∞–π—Ç–∏ –∏–ª–∏ —Å–æ–∑–¥–∞—Ç—å —Ç–µ–≥
 		else{
 			while(tok!=tk_semicolon&&tok!=tk_eof)nexttok();
 			tegnotfound();
@@ -5275,12 +5275,12 @@ unsigned int flag;
 	InitStruct2(flag,tteg);
 }
 
-unsigned long LocalStruct2(int flag,int *localline,int binptr,char bcha,structteg *tteg)	//®≠®Ê®†´®ß®‡Æ¢†‚Ï ´Æ™†´Ï≠„Ó ·‚‡„™‚„‡„
+unsigned long LocalStruct2(int flag,int *localline,int binptr,char bcha,structteg *tteg)	//–∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞—Ç—å –ª–æ–∫–∞–ª—å–Ω—É—é —Å—Ç—Ä—É–∫—Ç—É—Ä—É
 {
 int numel,first=FALSE;
 struct localrec *newrec;
 unsigned long size=0;
-	skipfind=TRUE;	//ß†Ø‡•‚®‚Ï ®·™†‚Ï ¢ £´Æ°†´Ï≠Æ¨ §•‡•¢•
+	skipfind=TRUE;	//–∑–∞–ø—Ä–µ—Ç–∏—Ç—å –∏—Å–∫–∞—Ç—å –≤ –≥–ª–æ–±–∞–ª—å–Ω–æ–º –¥–µ—Ä–µ–≤–µ
 	do{
 		if(first!=FALSE){
 			binptr=inptr2;
@@ -5289,7 +5289,7 @@ unsigned long size=0;
 		}
 		first=TRUE;
 		if(tok!=tk_ID&&tok!=tk_id)idalreadydefined();
-		else{	//®≠®Ê®†´®ß®‡Æ¢†‚Ï ·‚‡„™‚„‡„
+		else{	//–∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞—Ç—å —Å—Ç—Ä—É–∫—Ç—É—Ä—É
 			numel=1;
 			newrec=addlocalvar((char *)string,tk_structvar,localsize);
 			newrec->rec.newid=(char *)tteg;
@@ -5299,7 +5299,7 @@ unsigned long size=0;
 			if(tok==tk_openblock){//[
 				skipfind=FALSE;
 				nexttok();
-				numel=doconstlongmath();	//Á®·´Æ Ì´•¨•≠‚Æ¢
+				numel=doconstlongmath();	//—á–∏—Å–ª–æ —ç–ª–µ–º–µ–Ω—Ç–æ–≤
 				skipfind=TRUE;
 				expecting(tk_closeblock);//]
 			}
@@ -5322,7 +5322,7 @@ unsigned long size=0;
 				}
 				else{
 					newrec->rec.recpost=TRUE;
-					if(alignword){	//¢Î‡Æ¢≠Ô‚Ï ≠† Á•‚≠Î© †§‡•·
+					if(alignword){	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å –Ω–∞ —á–µ—Ç–Ω—ã–π –∞–¥—Ä–µ—Å
 						if(postsize%2==1)postsize++;
 					}
 					newrec->rec.recnumber=postsize;
@@ -5343,14 +5343,14 @@ unsigned long size=0;
 		}
 		localsize+=size;
 	}while(tok==tk_camma);
-	skipfind=FALSE;	//ß†Ø‡•‚®‚Ï ®·™†‚Ï ¢ £´Æ°†´Ï≠Æ¨ §•‡•¢•
+	skipfind=FALSE;	//–∑–∞–ø—Ä–µ—Ç–∏—Ç—å –∏—Å–∫–∞—Ç—å –≤ –≥–ª–æ–±–∞–ª—å–Ω–æ–º –¥–µ—Ä–µ–≤–µ
 //	localsize+=size;
 	itok.name[0]=0;
 	seminext();
 	return size;
 }
 
-unsigned long LocalStruct(int flag,int *localline)	//®≠®Ê®†´®ß®‡Æ¢†‚Ï ´Æ™†´Ï≠„Ó ·‚‡„™‚„‡„
+unsigned long LocalStruct(int flag,int *localline)	//–∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞—Ç—å –ª–æ–∫–∞–ª—å–Ω—É—é —Å—Ç—Ä—É–∫—Ç—É—Ä—É
 {
 struct structteg *tteg;
 int binptr;
@@ -5358,14 +5358,14 @@ char bcha;
 structteg *osearchteg;
 	osearchteg=searchteg;
 	searchteg=NULL;
-	skipfind=TRUE;	//ß†Ø‡•‚®‚Ï ®·™†‚Ï ¢ £´Æ°†´Ï≠Æ¨ §•‡•¢•
+	skipfind=TRUE;	//–∑–∞–ø—Ä–µ—Ç–∏—Ç—å –∏—Å–∫–∞—Ç—å –≤ –≥–ª–æ–±–∞–ª—å–Ω–æ–º –¥–µ—Ä–µ–≤–µ
 	if(tok==tk_struct)nexttok();
 	binptr=inptr2;
 	bcha=cha2;
 	if((tteg=FindTeg(FALSE))==NULL&&(tteg=FindTeg(TRUE))==NULL){
 		skipfind=FALSE;
 		if(tok==tk_openbrace||tok2==tk_openbrace){
-			tteg=CreatTeg(FALSE);	//≠†©‚® ®´® ·Æß§†‚Ï ‚•£
+			tteg=CreatTeg(FALSE);	//–Ω–∞–π—Ç–∏ –∏–ª–∏ —Å–æ–∑–¥–∞—Ç—å —Ç–µ–≥
 		}
 		else{
 			while(tok!=tk_semicolon&&tok!=tk_eof)nexttok();
@@ -5429,7 +5429,7 @@ struct idrec *ptrs;
 				}
 				else{
 					itok.segm=DS;
-					itok.rm=(am32==FALSE?rm_d16:rm_d32);	//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+					itok.rm=(am32==FALSE?rm_d16:rm_d32);	//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 					itok.post=ptrs->recpost;
 				}
 				itok.sib=(am32==FALSE?CODE16:CODE32);
@@ -5460,8 +5460,8 @@ struct idrec *ptrs;
 		}
 	}
 	adr=itok.number;
-	numel=itok.rm;	//Á®·´Æ ·‚‡„™‚„‡
-	usenumstr=itok.post;	//°Î´Æ „™†ß†≠®• ≠Æ¨•‡† ·‚‡„™‚„‡Î
+	numel=itok.rm;	//—á–∏—Å–ª–æ —Å—Ç—Ä—É–∫—Ç—É—Ä
+	usenumstr=itok.post;	//–±—ã–ª–æ —É–∫–∞–∑–∞–Ω–∏–µ –Ω–æ–º–µ—Ä–∞ —Å—Ç—Ä—É–∫—Ç—É—Ä—ã
 	if(itok.type==tp_classvar){
 		tteg=(structteg *)itok.rec;
 		poststr=0;
@@ -5481,7 +5481,7 @@ struct idrec *ptrs;
 	nexttok();
 	if(tok==tk_assign){
 		getoperand();
-int starts=0;	//·¨•È•≠®• ß†ØÆ´≠•≠®Ô ¢ ·‚‡„™‚„‡•
+int starts=0;	//—Å–º–µ—â–µ–Ω–∏–µ –∑–∞–ø–æ–ª–Ω–µ–Ω–∏—è –≤ —Å—Ç—Ä—É–∫—Ç—É—Ä–µ
 		if(tok==tk_int||tok==tk_word){
 			sized=2;
 			getoperand();
@@ -5569,7 +5569,7 @@ convr:
 					}
 				}
 				if(usenumstr!=FALSE){
-//					num/=ptrs->recrm;	//„™†ß†≠ ≠Æ¨•‡ ·‚‡„™‚„‡Î - ß≠†Á®‚ ≠• ¢·•
+//					num/=ptrs->recrm;	//—É–∫–∞–∑–∞–Ω –Ω–æ–º–µ—Ä —Å—Ç—Ä—É–∫—Ç—É—Ä—ã - –∑–Ω–∞—á–∏—Ç –Ω–µ –≤—Å–µ
 					num=tteg->size;
 					if(strinf.bufstr==NULL)starts=num*numel;
 				}
@@ -5589,7 +5589,7 @@ convr:
 					if(itok.number<256)sized=1;
 				}
 				if(usenumstr!=FALSE){
-//					num/=ptrs->recrm;	//„™†ß†≠ ≠Æ¨•‡ ·‚‡„™‚„‡Î - ß≠†Á®‚ ≠• ¢·•
+//					num/=ptrs->recrm;	//—É–∫–∞–∑–∞–Ω –Ω–æ–º–µ—Ä —Å—Ç—Ä—É–∫—Ç—É—Ä—ã - –∑–Ω–∞—á–∏—Ç –Ω–µ –≤—Å–µ
 					num=tteg->size;
 					if(strinf.bufstr==NULL)starts=num*numel;
 				}
@@ -5675,7 +5675,7 @@ fillstr:
 					}
 					itok.post=poststr;
 					itok.segm=DS;
-					itok.rm=(am32==FALSE?rm_d16:rm_d32);	//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+					itok.rm=(am32==FALSE?rm_d16:rm_d32);	//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 					itok.rec=NULL;//ptrs;
 					if(rstr.bufstr==NULL){
 						if(itok.post!=0)tok=tk_postnumber;
@@ -5770,8 +5770,8 @@ int flagstr2;
 //	adr=itok.number;
 
 				localstr2=FALSE;
-				numel2=itok.rm;	//Á®·´Æ ·‚‡„™‚„‡
-				usenumstr2=itok.post;	//°Î´Æ „™†ß†≠®• ≠Æ¨•‡† ·‚‡„™‚„‡Î
+				numel2=itok.rm;	//—á–∏—Å–ª–æ —Å—Ç—Ä—É–∫—Ç—É—Ä
+				usenumstr2=itok.post;	//–±—ã–ª–æ —É–∫–∞–∑–∞–Ω–∏–µ –Ω–æ–º–µ—Ä–∞ —Å—Ç—Ä—É–∫—Ç—É—Ä—ã
 				if(itok.type==tp_classvar){
 					tteg2=(structteg *)itok.rec;
 					poststr2=0;
@@ -5788,13 +5788,13 @@ struct idrec *ptrs;
 				num2=itok.size;
 //				ptrs2=itok.rec;
 //				tteg2=(structteg *)ptrs2->newid;
-//				numel2=itok.rm;	//Á®·´Æ ·‚‡„™‚„‡
+//				numel2=itok.rm;	//—á–∏—Å–ª–æ —Å—Ç—Ä—É–∫—Ç—É—Ä
 //				num2=tteg2->size;
 				if(usenumstr2!=FALSE){
 					num2=tteg->size;
 					if(strinf.bufstr==NULL)starts=num2*numel2;
 				}
-//				if(itok.post==FALSE)num2*=ptrs2->recrm;	//≠• „™†ß†≠ ≠Æ¨•‡ ·‚‡„™‚„‡Î - ß≠†Á®‚ ¢·•
+//				if(itok.post==FALSE)num2*=ptrs2->recrm;	//–Ω–µ —É–∫–∞–∑–∞–Ω –Ω–æ–º–µ—Ä —Å—Ç—Ä—É–∫—Ç—É—Ä—ã - –∑–Ω–∞—á–∏—Ç –≤—Å–µ
 //				else if(strinf.bufstr==NULL)starts=num2*numel2;
 				if(strinf.bufstr==NULL)itok.number+=starts;
 				itok.sib=(am32==FALSE?CODE16:CODE32);
@@ -5827,7 +5827,7 @@ struct idrec *ptrs;
 				}
 				else{
 					itok.post=poststr2;
-					itok.rm=(am32==FALSE?rm_d16:rm_d32);	//22.11.04 09:22//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+					itok.rm=(am32==FALSE?rm_d16:rm_d32);	//22.11.04 09:22//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 					if(strinf.bufstr==NULL){
 						if(itok.post==TRUE)tok=tk_postnumber;
 						else tok=tk_number;
@@ -5849,7 +5849,7 @@ struct idrec *ptrs;
 				ClearReg(SI);
 				num=tteg->size;
 				starts=0;
-				if(usenumstr==FALSE)num*=tteg->size;	//ptrs->recrm;	//≠• „™†ß†≠ ≠Æ¨•‡ ·‚‡„™‚„‡Î - ß≠†Á®‚ ¢·•
+				if(usenumstr==FALSE)num*=tteg->size;	//ptrs->recrm;	//–Ω–µ —É–∫–∞–∑–∞–Ω –Ω–æ–º–µ—Ä —Å—Ç—Ä—É–∫—Ç—É—Ä—ã - –∑–Ω–∞—á–∏—Ç –≤—Å–µ
 				else if(rstr.bufstr==NULL)starts=num*numel;
 				itok.number=adr;//ptrs->recnumber;
 				if(rstr.bufstr==NULL)itok.number+=starts;
@@ -5874,7 +5874,7 @@ struct idrec *ptrs;
 				else{
 					itok.post=poststr;//ptrs->recpost;
 					itok.segm=DS;
-					itok.rm=(am32==FALSE?rm_d16:rm_d32);	//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+					itok.rm=(am32==FALSE?rm_d16:rm_d32);	//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 					if(rstr.bufstr==NULL){
 						if(itok.post==TRUE)tok=tk_postnumber;
 						else tok=tk_number;
@@ -5950,12 +5950,12 @@ int SaveStruct(int size,idrec *newrec)
 {
 int i=0;
 	if((startStartup+size)<endStartup){
-		if(alignword){	//¢Î‡Æ¢≠Ô‚Ï ≠† Á•‚≠Î© †§‡•·
+		if(alignword){	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å –Ω–∞ —á–µ—Ç–Ω—ã–π –∞–¥—Ä–µ—Å
 			if(startStartup%2==1)i=1;
 		}
 		if((startStartup+size+i)<=endStartup){
 			startStartup+=i;
-			newrec->recnumber=startStartup;	//†§‡•· ≠†Á†´† ·‚‡„™‚„‡Î
+			newrec->recnumber=startStartup;	//–∞–¥—Ä–µ—Å –Ω–∞—á–∞–ª–∞ —Å—Ç—Ä—É–∫—Ç—É—Ä—ã
 			newrec->recpost=FALSE;
 			startStartup+=size;
 			return TRUE;
@@ -5978,8 +5978,8 @@ int useme;
 int next=1;
 	*tok4=tokens;
 	itok4->type=tp_ucnovn;
-	whitespace(); //Ø‡ÆØ„·™ ≠•ß≠†Á†È®Â ·®¨¢Æ´Æ¢
-	if(isalpha(cha)||(cha=='_')||cha>=0x80){	//®§•≠‚®‰®™†‚Æ‡
+	whitespace(); //–ø—Ä–æ–ø—É—Å–∫ –Ω–µ–∑–Ω–∞—á–∞—â–∏—Ö —Å–∏–º–≤–æ–ª–æ–≤
+	if(isalpha(cha)||(cha=='_')||cha>=0x80){	//–∏–¥–µ–Ω—Ç–∏—Ñ–∏–∫–∞—Ç–æ—Ä
 		if(mode==1){
 			int i=0;
 			do{
@@ -5989,11 +5989,11 @@ int next=1;
 			if(i==IDLENGTH)i--;
 			itok4->name[i]=0;
 		}
-		while(CheckChar2()==TRUE)nextchar();	//§ÆÁ®‚†‚Ï ·´Æ¢Æ
+		while(CheckChar2()==TRUE)nextchar();	//–¥–æ—á–∏—Ç–∞—Ç—å —Å–ª–æ–≤–æ
 		*tok4=tk_id;
 		return;
 	}
-	if(isdigit(cha)){//Á®·´†
+	if(isdigit(cha)){//—á–∏—Å–ª–∞
 		if(mode==1){
 			inptr--;
 			itok4->lnumber=scannumber(&itok4->rm);
@@ -6008,14 +6008,14 @@ int next=1;
 	}
 	else switch(cha){
 		case '\"':
-			nextchar();	//·‚‡Æ™Æ¢†Ô ™Æ≠·‚†≠‚†
+			nextchar();	//—Å—Ç—Ä–æ–∫–æ–≤–∞—è –∫–æ–Ω—Å—Ç–∞–Ω—Ç–∞
 			while(cha!='\"'&&!endoffile){
 				convert_char();
 				nextchar();
 			}
 			*tok4=tk_string;
 			break;
-		case '\'': //·®¨¢Æ´Ï≠†Ô ™Æ≠·‚†≠‚† ¨Æ¶•‚ ®¨•‚Ï °Æ´•• 1 ·®¨¢Æ´†
+		case '\'': //—Å–∏–º–≤–æ–ª—å–Ω–∞—è –∫–æ–Ω—Å—Ç–∞–Ω—Ç–∞ –º–æ–∂–µ—Ç –∏–º–µ—Ç—å –±–æ–ª–µ–µ 1 —Å–∏–º–≤–æ–ª–∞
 			nextchar();
 			while(cha!='\''&&!endoffile){  // special character
 				convert_char();
@@ -6024,7 +6024,7 @@ int next=1;
 			break;
 		case '/': nextchar();
 			switch(cha){
-				case '*': nextchar(); //·Æ¨•≠‚†‡®©
+				case '*': nextchar(); //—Å–æ–º–µ–Ω—Ç–∞—Ä–∏–π
 					useme=1;
 					if(mode==2)itok4->number=inptr-2;
 					while(!endoffile&&useme>0){
@@ -6049,7 +6049,7 @@ int next=1;
 					if(mode==2)itok4->number=inptr-2;
 					do{
 						nextchar();
-					}while(!endoffile&&cha!=13);	//·‚‡Æ™† ™Æ¨•≠‚†‡®Ô
+					}while(!endoffile&&cha!=13);	//—Å—Ç—Ä–æ–∫–∞ –∫–æ–º–µ–Ω—Ç–∞—Ä–∏—è
 					if(endoffile)*tok4=tk_eof;
 					if(mode==2)*tok4=tk_comment1;
 					else FastTok(mode,tok4,itok4);
@@ -6103,7 +6103,7 @@ int next=1;
 				itok4->type=tp_compare;
 			}
 			else{
-				*tok4=tk_assign;						 //Ø‡®·¢Æ®‚Ï
+				*tok4=tk_assign;						 //–ø—Ä–∏—Å–≤–æ–∏—Ç—å
 				next=0;
 			}
 			break;
@@ -6112,16 +6112,16 @@ int next=1;
 			switch(cha){
 				case '>':
 					nextchar();
-					if(cha=='=')*tok4=tk_rrequals; //·§¢®£ ¢Ø‡†¢Æ · Ø‡®·¢Æ•≠®•¨
+					if(cha=='=')*tok4=tk_rrequals; //—Å–¥–≤–∏–≥ –≤–ø—Ä–∞–≤–æ —Å –ø—Ä–∏—Å–≤–æ–µ–Ω–∏–µ–º
 					else{
-						*tok4=tk_rr;							//·§¢®£ ¢Ø‡†¢Æ
+						*tok4=tk_rr;							//—Å–¥–≤–∏–≥ –≤–ø—Ä–∞–≤–æ
 						next=0;
 						itok4->type=tp_opperand;
 					}
 					break;
-				case '<': *tok4=tk_swap; break; 			 //Æ°¨•≠
-				case '=': *tok4=tk_greaterequal; itok4->type=tp_compare; break; //°Æ´ÏË• ®´® ‡†¢≠Æ
-				default: *tok4=tk_greater; next=0; itok4->type=tp_compare; break; //°Æ´ÏË•
+				case '<': *tok4=tk_swap; break; 			 //–æ–±–º–µ–Ω
+				case '=': *tok4=tk_greaterequal; itok4->type=tp_compare; break; //–±–æ–ª—å—à–µ –∏–ª–∏ —Ä–∞–≤–Ω–æ
+				default: *tok4=tk_greater; next=0; itok4->type=tp_compare; break; //–±–æ–ª—å—à–µ
 			}
 			break;
 		case '<':
@@ -6129,16 +6129,16 @@ int next=1;
 			switch(cha){
 				case '<':
 					nextchar();
-					if(cha=='=')*tok4=tk_llequals;	 //·§¢®£ ¢´•¢Æ · Ø‡®·¢Æ•≠®•¨
+					if(cha=='=')*tok4=tk_llequals;	 //—Å–¥–≤–∏–≥ –≤–ª–µ–≤–æ —Å –ø—Ä–∏—Å–≤–æ–µ–Ω–∏–µ–º
 					else{
-						*tok4=tk_ll;								 //·§¢®£ ¢´•¢Æ
+						*tok4=tk_ll;								 //—Å–¥–≤–∏–≥ –≤–ª–µ–≤–æ
 						next=0;
 						itok4->type=tp_opperand;
 					}
 					break;
 				case '>': *tok4=tk_notequal; itok4->type=tp_compare; break;  //!=
-				case '=': *tok4=tk_lessequal; itok4->type=tp_compare; break; //¨•≠ÏË• ®´® ‡†¢≠Æ
-				default: *tok4=tk_less; next=0; itok4->type=tp_compare; break;//¨•≠ÏË•
+				case '=': *tok4=tk_lessequal; itok4->type=tp_compare; break; //–º–µ–Ω—å—à–µ –∏–ª–∏ —Ä–∞–≤–Ω–æ
+				default: *tok4=tk_less; next=0; itok4->type=tp_compare; break;//–º–µ–Ω—å—à–µ
 			}
 			break;
 	}
@@ -6146,7 +6146,7 @@ int next=1;
 }
 
 void FindDirectiv()
-//„·™Æ‡•≠≠Î© ØÆ®·™ §®‡•™‚®¢Î
+//—É—Å–∫–æ—Ä–µ–Ω–Ω—ã–π –ø–æ–∏—Å–∫ –¥–∏—Ä–µ–∫—Ç–∏–≤—ã
 {
 	inptr=inptr2;
 	cha=cha2;
@@ -6306,7 +6306,7 @@ int number,tok,rm;
 			itok4->sib=rm|rm_mod10;
 			itok4->flag&=~f_reloc;
 		}
-		else if(*tok4!=tk_proc&&*tok4!=tk_declare/*&&(itok4->flag&f_static)==0 Ì‰‰•™‚ §Æ°†¢´•≠®Ô ‡•£‡®·‚‡†*/){
+		else if(*tok4!=tk_proc&&*tok4!=tk_declare/*&&(itok4->flag&f_static)==0 —ç—Ñ—Ñ–µ–∫—Ç –¥–æ–±–∞–≤–ª–µ–Ω–∏—è —Ä–µ–≥—Ä–∏—Å—Ç—Ä–∞*/){
 			itok4->rm=rm_mod10|rm;
 			itok4->flag&=~f_reloc;
 		}

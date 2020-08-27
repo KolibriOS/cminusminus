@@ -69,9 +69,9 @@
 
 typedef struct _COFF_HEADER_
 {
-	short cpu;    //��� ⨯ CPU - �ᥣ�� 0x14C
-	short numobj;	//�᫮ �室�� � ⠡���� ��ꥪ⮢
-	long date_time;	//��� ����䨪�樨 �����஬
+	short cpu;    //мин тип CPU - всегда 0x14C
+	short numobj;	//число входов в таблицу объектов
+	long date_time;	//дата модификации линкером
 	long pCOFF;
 	long COFFsize;
   short SizeOfOptionalHeader;

@@ -28,7 +28,7 @@ char mesFOR[]="FOR";
 char mesRETURN[]="RETURN";
 int tok,tok2; /* token holders current, next */
 unsigned char string[STRLEN],string2[STRLEN+20],
-  string3[STRLEN];	//·Æ§•‡¶®‚ ≠• Ø‡•Æ°‡†ßÆ¢†≠≠„Ó ·‚‡Æ™„
+  string3[STRLEN];	//—Å–æ–¥–µ—Ä–∂–∏—Ç –Ω–µ –ø—Ä–µ–æ–±—Ä–∞–∑–æ–≤–∞–Ω–Ω—É—é —Å—Ç—Ä–æ–∫—É
 unsigned int posts=0; 		 /* number of post entrys */
 postinfo *postbuf;
 unsigned int maxposts=MAXPOSTS;
@@ -36,8 +36,8 @@ unsigned int secondcallnum=1;  /* # of different second calls and labels */
 unsigned int externnum=0;
 unsigned long postsize=0;			 /* total size of all post vars */
 unsigned int poststrptr=0;	/* post string index in output */
-unsigned int outptrsize=MAXDATA;	//‡†ß¨•‡ ¢ÎÂÆ§≠Æ£Æ °„‰•‡† §´Ô ™Æ§†
-unsigned int outdatasize=MAXDATA;	//‡†ß¨•‡ ¢ÎÂÆ§≠Æ£Æ °„‰•‡† §´Ô §†≠≠ÎÂ
+unsigned int outptrsize=MAXDATA;	//—Ä–∞–∑–º–µ—Ä –≤—ã—Ö–æ–¥–Ω–æ–≥–æ –±—É—Ñ–µ—Ä–∞ –¥–ª—è –∫–æ–¥–∞
+unsigned int outdatasize=MAXDATA;	//—Ä–∞–∑–º–µ—Ä –≤—ã—Ö–æ–¥–Ω–æ–≥–æ –±—É—Ñ–µ—Ä–∞ –¥–ª—è –¥–∞–Ω–Ω—ã—Ö
 long runfilesize;
 int error=0;		 /* current error number holder */
 unsigned char dos1=0,dos2=0;		/* DOS version required for program execution */
@@ -48,8 +48,8 @@ unsigned int procedure_start=0; /* address of start of procedure */
 unsigned int current_proc_type;	 /* current procedure type */
 int returntype; 				 /* return type, (void, byte, word, ...) */
 unsigned char warning;
-/*+++++++++++++++++++++++ ì·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó +++++++++++++++++++++++*/
-unsigned char am32 = FALSE; 		      // ‡•¶®¨ 32 °®‚≠Æ© †§‡•·†Ê®®
+/*+++++++++++++++++++++++ –£—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é +++++++++++++++++++++++*/
+unsigned char am32 = FALSE; 		      // —Ä–µ–∂–∏–º 32 –±–∏—Ç–Ω–æ–π –∞–¥—Ä–µ—Å–∞—Ü–∏–∏
 unsigned char comfile = file_com; 		// output file format
 unsigned char optimizespeed = 1;			// optimize for size or speed flag
 unsigned char alignword = 1;					// flag whether or not to align words
@@ -58,8 +58,8 @@ unsigned char header = 1; 						// output SPHINX C-- Ver1 Ver2 header
 unsigned char chip = 0; 							// CPU optimization (286,386,486,...)
 unsigned char killctrlc = 0;					// add disable CTRL-C code in header
 unsigned int	stacksize = 2048; 			// stack size (2048 default)
-unsigned char splitdata=FALSE;	      //Æ‚§•´®‚Ï §†≠≠Î• Æ‚ ™Æ§†
-unsigned char AlignCycle=FALSE;       //¢Î‡†¢≠®¢†‚Ï ≠†Á†´† Ê®™´Æ¢
+unsigned char splitdata=FALSE;	      //–æ—Ç–¥–µ–ª–∏—Ç—å –¥–∞–Ω–Ω—ã–µ –æ—Ç –∫–æ–¥–∞
+unsigned char AlignCycle=FALSE;       //–≤—ã—Ä–∞–≤–Ω–∏–≤–∞—Ç—å –Ω–∞—á–∞–ª–∞ —Ü–∏–∫–ª–æ–≤
 /*+++++++++++++++++++ end of flexable compiler options ++++++++++++++++++++*/
 unsigned char notdoneprestuff = TRUE; // flag if initial stuff has been entered
 unsigned int datasize=0,alignersize=0;	/* size of data and other */
@@ -67,7 +67,7 @@ unsigned int outptr=0x100,outptrdata=0x100; 			/* ptr to output */
 unsigned char *output;
 unsigned char *outputdata=NULL;
 unsigned int linenumber=0;
-unsigned char dynamic_flag=0;	//‰´†£ Æ°‡†°Æ‚™® §®≠†¨®Á•·™®Â Ì´•¨•≠‚Æ¢
+unsigned char dynamic_flag=0;	//—Ñ–ª–∞–≥ –æ–±—Ä–∞–±–æ—Ç–∫–∏ –¥–∏–Ω–∞–º–∏—á–µ—Å–∫–∏—Ö —ç–ª–µ–º–µ–Ω—Ç–æ–≤
 
 unsigned char *input; 	 /* dynamic input buffer */
 unsigned int endinptr;		 /* end index of input array */
@@ -75,53 +75,53 @@ unsigned int inptr; 		 /* index in input buffer */
 unsigned char cha;		 /* pipe byte for token production */
 char endoffile; 		 /* end of input file flag */
 unsigned char insertmode=FALSE;
-unsigned int numblocks=0;	//≠Æ¨•‡ ¢´Æ¶•≠≠Æ£Æ °´Æ™†
-treelocalrec *tlr=NULL;	//Ê•ØÆÁ™† ´Æ™†´Ï≠ÎÂ °´Æ™Æ¢
-treelocalrec *btlr=NULL;	//Ê•ØÆÁ™† ®·ØÆ´ÏßÆ¢†≠ÎÂ ´Æ™†´Ï≠ÎÂ °´Æ™Æ¢
+unsigned int numblocks=0;	//–Ω–æ–º–µ—Ä –≤–ª–æ–∂–µ–Ω–Ω–æ–≥–æ –±–ª–æ–∫–∞
+treelocalrec *tlr=NULL;	//—Ü–µ–ø–æ—á–∫–∞ –ª–æ–∫–∞–ª—å–Ω—ã—Ö –±–ª–æ–∫–æ–≤
+treelocalrec *btlr=NULL;	//—Ü–µ–ø–æ—á–∫–∞ –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω—ã—Ö –ª–æ–∫–∞–ª—å–Ω—ã—Ö –±–ª–æ–∫–æ–≤
 RETLIST *listreturn=NULL;
 unsigned int numreturn=0;
 idrec *staticlist;
-unsigned char stat_reg[8];	//‚†°´®Ê† ß†≠Ô‚Æ·‚® ‡•£®·‚‡Æ¢
+unsigned char stat_reg[8];	//—Ç–∞–±–ª–∏—Ü–∞ –∑–∞–Ω—è—Ç–æ—Å—Ç–∏ —Ä–µ–≥–∏—Å—Ç—Ä–æ–≤
 
-int sizestack=0;	//‡†ß¨•‡ ≠• ™Æ¨Ø•≠·®‡Æ¢†≠≠ÎÂ Ø†‡†¨•‚‡Æ¢ ‰„≠™Ê®©
+int sizestack=0;	//—Ä–∞–∑–º–µ—Ä –Ω–µ –∫–æ–º–ø–µ–Ω—Å–∏—Ä–æ–≤–∞–Ω–Ω—ã—Ö –ø–∞—Ä–∞–º–µ—Ç—Ä–æ–≤ —Ñ—É–Ω–∫—Ü–∏–π
 unsigned char addstack=TRUE;
 
 extern char shorterr[];
 extern unsigned long long li[];
 
 /*-----------------01.05.98 19:22-------------------
- §ÆØÆ´≠®‚•´Ï≠Î• Ø•‡•¨•≠≠Î• §´Ô ‡•†´®ß†Ê®® BREAK CONTINUE
+ –¥–æ–ø–æ–ª–Ω–∏—Ç–µ–ª—å–Ω—ã–µ –ø–µ—Ä–µ–º–µ–Ω–Ω—ã–µ –¥–ª—è —Ä–µ–∞–ª–∏–∑–∞—Ü–∏–∏ BREAK CONTINUE
 --------------------------------------------------*/
-#define MAXIN 100	//¨†™·®¨†´Ï≠†Ô ¢´Æ¶•≠Æ·‚Ï Ê®™´Æ¢
-unsigned int numbr=0;	//·Á•‚Á®™ Æ°È•£Æ Á®·´† Ê®™´Æ¢ LOOP DO-WHILE...
-unsigned int listbr[MAXIN];	//‚†°´®Ê† ≠Æ¨•‡Æ¢ Ê®™´Æ¢
-unsigned int usebr[MAXIN];	//®·ØÆ´ÏßÆ¢†≠Æ break
-unsigned int useco[MAXIN];	//®·ØÆ´ÏßÆ¢†≠Æ continue
-unsigned int curbr=0,curco=0;	//‚•™„È†Ô¢´Æ¶•≠Æ·‚Ï Ê®™´Æ¢
+#define MAXIN 100	//–º–∞–∫—Å–∏–º–∞–ª—å–Ω–∞—è –≤–ª–æ–∂–µ–Ω–æ—Å—Ç—å —Ü–∏–∫–ª–æ–≤
+unsigned int numbr=0;	//—Å—á–µ—Ç—á–∏–∫ –æ–±—â–µ–≥–æ —á–∏—Å–ª–∞ —Ü–∏–∫–ª–æ–≤ LOOP DO-WHILE...
+unsigned int listbr[MAXIN];	//—Ç–∞–±–ª–∏—Ü–∞ –Ω–æ–º–µ—Ä–æ–≤ —Ü–∏–∫–ª–æ–≤
+unsigned int usebr[MAXIN];	//–∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–æ break
+unsigned int useco[MAXIN];	//–∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–æ continue
+unsigned int curbr=0,curco=0;	//—Ç–µ–∫—É—â–∞—è–≤–ª–æ–∂–µ–Ω–æ—Å—Ç—å —Ü–∏–∫–ª–æ–≤
 unsigned int startStartup=0x100;
 unsigned int endStartup=0;
 unsigned char useStartup=FALSE;
 unsigned char notpost=FALSE;
 int retproc;
-int lastcommand;	//ØÆ·´•§≠®© ÆØ•‡†‚Æ‡ ¢ °´Æ™•
-unsigned char FastCallApi=TRUE;	//‡†ß‡•Ë®‚Ï °Î·‚‡Î© ¢ÎßÆ¢ API Ø‡ÆÊ•§„‡
-unsigned char FixUp=FALSE;	//Ñ•´†‚Ï ´® ‚†°´®Ê„ Ø•‡•¨•È•≠®©
+int lastcommand;	//–ø–æ—Å–ª–µ–¥–Ω–∏–π –æ–ø–µ—Ä–∞—Ç–æ—Ä –≤ –±–ª–æ–∫–µ
+unsigned char FastCallApi=TRUE;	//—Ä–∞–∑—Ä–µ—à–∏—Ç—å –±—ã—Å—Ç—Ä—ã–π –≤—ã–∑–æ–≤ API –ø—Ä–æ—Ü–µ–¥—É—Ä
+unsigned char FixUp=FALSE;	//–î–µ–ª–∞—Ç—å –ª–∏ —Ç–∞–±–ª–∏—Ü—É –ø–µ—Ä–µ–º–µ—â–µ–Ω–∏–π
 unsigned char AlignProc=FALSE;
-//------- ‡†°Æ‚† · union ---------------------------------------------
-char param[256];	//°„‰•‡ §´Ô Ø†‡†¨•‚‡Æ¢ Ø‡ÆÊ•§„‡Î
-char *BackTextBlock;	//°„‰•‡ §´Ô Ø•‡•≠•·•≠≠Æ£Æ ‚•™·‚†
+//------- —Ä–∞–±–æ—Ç–∞ —Å union ---------------------------------------------
+char param[256];	//–±—É—Ñ–µ—Ä –¥–ª—è –ø–∞—Ä–∞–º–µ—Ç—Ä–æ–≤ –ø—Ä–æ—Ü–µ–¥—É—Ä—ã
+char *BackTextBlock;	//–±—É—Ñ–µ—Ä –¥–ª—è –ø–µ—Ä–µ–Ω–µ—Å–µ–Ω–Ω–æ–≥–æ —Ç–µ–∫—Å—Ç–∞
 int SizeBackBuf=0,MaxSizeBackBuf;
 struct FILEINFO *startfileinfo=NULL;
 unsigned int totalmodule=0;
 unsigned int currentfileinfo;
-unsigned char setzeroflag;	//ÆØ•‡†Ê®Ô ¨•≠Ô•‚ zero flag
+unsigned char setzeroflag;	//–æ–ø–µ—Ä–∞—Ü–∏—è –º–µ–Ω—è–µ—Ç zero flag
 unsigned char notunreach=FALSE;
 unsigned int initBP=0;
 int inlineflag=0;  // flag for disabling entry and exit codes production
 unsigned char fstatic=FALSE;
 
-unsigned long addESP=0;	//§Æ°†¢™† ·‚•™†
-unsigned char blockproc=FALSE;	//®§•‚‡†ß°Æ‡™† °´Æ™† ‰„≠™Ê®®
+unsigned long addESP=0;	//–¥–æ–±–∞–≤–∫–∞ —Å—Ç–µ–∫–∞
+unsigned char blockproc=FALSE;	//–∏–¥–µ—Ç—Ä–∞–∑–±–æ—Ä–∫–∞ –±–ª–æ–∫–∞ —Ñ—É–Ω–∫—Ü–∏–∏
 
 unsigned int   updatelocalvar(char *str,int tok,unsigned int num);
 void setuprm();
@@ -151,7 +151,7 @@ void declareextern();
 unsigned long dounion(int,int);
 void RunBackText();
 int FindDublString(int segm,unsigned int len,int term);
-void *liststring=NULL;	//Ê•ØÆÁ™† ®≠‰Æ‡¨†Ê®Æ≠≠ÎÂ °´Æ™Æ¢ Æ ·‚‡Æ™†Â
+void *liststring=NULL;	//—Ü–µ–ø–æ—á–∫–∞ –∏–Ω—Ñ–æ—Ä–º–∞—Ü–∏–æ–Ω–Ω—ã—Ö –±–ª–æ–∫–æ–≤ –æ —Å—Ç—Ä–æ–∫–∞—Ö
 void GetNameLabel(int type,int num);
 void CheckPosts();
 SAVEPAR *SRparam(int save,SAVEPAR *par);	//save or restore global param compiler
@@ -190,8 +190,8 @@ int hold;
 		if(firstflag==2||(firstflag==0&&(i+1)==numfindpath))break;
 	}
 	if(hold==-2){
-		unableopenfile(filename); //·ÆÆ°È•≠®• Æ ÆË®°™•
-		exit(e_cannotopeninput);	//ß†¢•‡Ë®‚Ï ‡†°Æ‚„ •·´® ≠• ·¨Æ£´® ß†£‡„ß®‚Ï ‰†©´
+		unableopenfile(filename); //—Å–æ–æ–±—â–µ–Ω–∏–µ –æ –æ—à–∏–±–∫–µ
+		exit(e_cannotopeninput);	//–∑–∞–≤–µ—Ä—à–∏—Ç—å —Ä–∞–±–æ—Ç—É –µ—Å–ª–∏ –Ω–µ —Å–º–æ–≥–ª–∏ –∑–∞–≥—Ä—É–∑–∏—Ç—å —Ñ–∞–π–ª
 	}
 	return hold;
 }
@@ -208,10 +208,10 @@ int hold;
 	endinput=startline+endinptr;
 	warning=gwarning;
 	nextchar();
-	cha2=cha; //·®¨¢Æ´ ®ß °„‰•‡†
-	inptr2=inptr;	//ß†ØÆ¨≠ „™†ß†‚•´Ï ≠† ·´•§ ·®¨¢Æ´
-	linenum2=1;   //≠Æ¨•‡ ·‚‡Æ™®
-	{	//Ø‡Æ¢•‡™† ≠† ‰†©´ ‡•·„‡·Æ¢ ® •£Æ Æ°‡†°Æ‚™†
+	cha2=cha; //—Å–∏–º–≤–æ–ª –∏–∑ –±—É—Ñ–µ—Ä–∞
+	inptr2=inptr;	//–∑–∞–ø–æ–º–Ω —É–∫–∞–∑–∞—Ç–µ–ª—å –Ω–∞ —Å–ª–µ–¥ —Å–∏–º–≤–æ–ª
+	linenum2=1;   //–Ω–æ–º–µ—Ä —Å—Ç—Ä–æ–∫–∏
+	{	//–ø—Ä–æ–≤–µ—Ä–∫–∞ –Ω–∞ —Ñ–∞–π–ª —Ä–µ—Å—É—Ä—Å–æ–≤ –∏ –µ–≥–æ –æ–±—Ä–∞–±–æ—Ç–∫–∞
 		char *a;
 		if((a=strrchr(filename,'.'))!=NULL){
 			if(stricmp(a,".rc")==0){
@@ -221,11 +221,11 @@ int hold;
 			}
 		}
 	}
-	nexttok();    //ÆØ‡ ‚®Ø Ø•‡¢Æ£Æ ® ¢‚Æ‡Æ£Æ ‚Æ™•≠†
+	nexttok();    //–æ–ø—Ä —Ç–∏–ø –ø–µ—Ä–≤–æ–≥–æ –∏ –≤—Ç–æ—Ä–æ–≥–æ —Ç–æ–∫–µ–Ω–∞
 
-	while(tok!=tk_eof){	//Ê®™´ ØÆ™† ≠• ™Æ≠Á®‚·Ô ‰†©´
+	while(tok!=tk_eof){	//—Ü–∏–∫–ª –ø–æ–∫–∞ –Ω–µ –∫–æ–Ω—á–∏—Ç—Å—è —Ñ–∞–π–ª
 		while(tok==tk_question){
-			directive();//Æ°‡†°Æ‚™† §®‡•™‚®¢
+			directive();//–æ–±—Ä–∞–±–æ—Ç–∫–∞ –¥–∏—Ä–µ–∫—Ç–∏–≤
 			if(tok==tk_semicolon)nexttok();
 		}
 		usedirectiv=FALSE;
@@ -265,11 +265,11 @@ int hold;
 				break;
 			case tk_struct: InitStruct(); break;
 			case tk_interrupt: interruptproc(); break;
-			case tk_at: insertcode(); break;	//¢·‚†¢™† ‡•£®·‚‡Æ¢Æ© Ø‡ÆÊ•§„‡Î
+			case tk_at: insertcode(); break;	//–≤—Å—Ç–∞–≤–∫–∞ —Ä–µ–≥–∏—Å—Ç—Ä–æ–≤–æ–π –ø—Ä–æ—Ü–µ–¥—É—Ä—ã
 			case tk_colon:
 				nexttok();
 				dynamic_flag=2;
-				break;// ÆØ‡ §®≠†¨®Á•·™Æ©  Ø‡ÆÊ•§„‡Î
+				break;// –æ–ø—Ä –¥–∏–Ω–∞–º–∏—á–µ—Å–∫–æ–π  –ø—Ä–æ—Ü–µ–¥—É—Ä—ã
 			case tk_inline:
 				if(testInitVar()){
 					preerror("Bad header dynamic function");
@@ -336,7 +336,7 @@ int hold;
 
 /* ------------------- output procedures start ------------------- */
 int CheckCodeSize()
-//Ø‡Æ¢•‡™† ‡†ß¨•‡† °„‰•‡† §´Ô ™Æ§†
+//–ø—Ä–æ–≤–µ—Ä–∫–∞ —Ä–∞–∑–º–µ—Ä–∞ –±—É—Ñ–µ—Ä–∞ –¥–ª—è –∫–æ–¥–∞
 {
 	if(!am32){
 		maxoutputerror();
@@ -349,7 +349,7 @@ int CheckCodeSize()
 }
 
 int CheckDataSize()
-//Ø‡Æ¢•‡™† ‡†ß¨•‡† °„‰•‡† §´Ô ™Æ§†
+//–ø—Ä–æ–≤–µ—Ä–∫–∞ —Ä–∞–∑–º–µ—Ä–∞ –±—É—Ñ–µ—Ä–∞ –¥–ª—è –∫–æ–¥–∞
 {
 	if(!am32){
 		maxoutputerror();
@@ -399,7 +399,7 @@ long GetBitMask(int ofs,int size)
 void opb(unsigned long num,unsigned int ofs,unsigned int size)
 {
 int s;
-//Ø‡Æ¢•‡®‚Ï ¢ÎÂÆ§ ß† £‡†≠®ÊÎ °´Æ™† Ø†¨Ô‚®
+//–ø—Ä–æ–≤–µ—Ä–∏—Ç—å –≤—ã—Ö–æ–¥ –∑–∞ –≥—Ä–∞–Ω–∏—Ü—ã –±–ª–æ–∫–∞ –ø–∞–º—è—Ç–∏
 	s=(ofs+size+7)/8;
 	if(splitdata==FALSE){
 		if((outptr+s+8)>=outptrsize&&CheckCodeSize()==FALSE)return;
@@ -798,9 +798,9 @@ localrec *ptr;
 			if(FixUp)ptr->rec.flag=f_reloc;
 			break;
 		case tk_undefproc:
-			ptr=addlocalvar(itok.name,tk_number,outptr,TRUE);//§Æ°†¢®‚Ï ¢ ´Æ™†´Ï≠Î© ·Ø®·Æ™
+			ptr=addlocalvar(itok.name,tk_number,outptr,TRUE);//–¥–æ–±–∞–≤–∏—Ç—å –≤ –ª–æ–∫–∞–ª—å–Ω—ã–π —Å–ø–∏—Å–æ–∫
 			if(FixUp)ptr->rec.flag=f_reloc;
-			updatecall((unsigned int)itok.number,outptr,procedure_start);//Æ°‡†°Æ‚†‚Ï ‡†≠≠®• Æ°‡†È•≠®Ô
+			updatecall((unsigned int)itok.number,outptr,procedure_start);//–æ–±—Ä–∞–±–æ—Ç–∞—Ç—å —Ä–∞–Ω–Ω–∏–µ –æ–±—Ä–∞—â–µ–Ω–∏—è
 			break;
 		default:
 			preerror("error declaretion local label");
@@ -837,9 +837,9 @@ char fname[IDLENGTH];
 		if(CidOrID()==tk_ID){//local label that has been used, but not placed
 			localrec *ptr=addlocalvar(itok.name,tk_number,outptr,TRUE);
 			if(FixUp)ptr->rec.flag=f_reloc;
-			updatecall((unsigned int)itok.number,outptr,procedure_start);//Æ°‡†°Æ‚†‚Ï ‡†≠≠®• Æ°‡†È•≠®Ô
+			updatecall((unsigned int)itok.number,outptr,procedure_start);//–æ–±—Ä–∞–±–æ—Ç–∞—Ç—å —Ä–∞–Ω–Ω–∏–µ –æ–±—Ä–∞—â–µ–Ω–∏—è
 		}
-		else{	//£´Æ°†´Ï≠†Ô ¨•‚™†
+		else{	//–≥–ª–æ–±–∞–ª—å–Ω–∞—è –º–µ—Ç–∫–∞
 			tok=tk_proc;
 			itok.number=outptr;
 			string[0]=0;
@@ -851,7 +851,7 @@ char fname[IDLENGTH];
 	}
 	if(tok2==tk_openbracket){
 		strcpy(fname,itok.name);
-		if(tok==tk_declare){	//·¨•≠®‚Ï ·‚†‚„· Ø‡ÆÊ•§„‡Î · Æ°ÍÔ¢´•≠Æ© ≠† ≠•®ß¢•·‚≠„Ó
+		if(tok==tk_declare){	//—Å–º–µ–Ω–∏—Ç—å —Å—Ç–∞—Ç—É—Å –ø—Ä–æ—Ü–µ–¥—É—Ä—ã —Å –æ–±—ä—è–≤–ª–µ–Ω–æ–π –Ω–∞ –Ω–µ–∏–∑–≤–µ—Å—Ç–Ω—É—é
 			tok=tk_undefproc;
 			updatetree();
 			if(itok.flag&f_classproc)AddUndefClassProc();
@@ -865,7 +865,7 @@ char fname[IDLENGTH];
 		int sizestack=-1;
 		if(tok==tk_apiproc){
 			apiproc=TRUE;
-			sizestack=itok.size;	//‡†ß¨•‡ ·‚•™† ØÆ§ Ø†‡†¨•‚‡Î
+			sizestack=itok.size;	//—Ä–∞–∑–º–µ—Ä —Å—Ç–µ–∫–∞ –ø–æ–¥ –ø–∞—Ä–∞–º–µ—Ç—Ä—ã
 		}
 #ifdef OPTVARCONST
 		if(tproc&f_useidx)ClearLVIC();
@@ -1109,7 +1109,7 @@ int regs;
 			snum=0;
 			addESP=oaddESP;
 		}
-		if(dynamicindex<NOT_DYNAMIC){	//§®≠†¨®Á•·™†Ô Ø‡ÆÊ•§„‡†
+		if(dynamicindex<NOT_DYNAMIC){	//–¥–∏–Ω–∞–º–∏—á–µ—Å–∫–∞—è –ø—Ä–æ—Ü–µ–¥—É—Ä–∞
 			addacall(cloc,(unsigned char)(am32!=FALSE?CALL_32:CALL_NEAR));
 			if(jumpsend)jumploc0();
 			else{
@@ -1194,7 +1194,7 @@ int cnum;
 	return(tk_long);
 }
 
-int typesize(int vartype) // ¢Æß¢‡†È†•‚ ‡†ß¨•‡ ¢ °†©‚†Â ™Æ§† ¢Æß¢‡†‚†
+int typesize(int vartype) // –≤–æ–∑–≤—Ä–∞—â–∞–µ—Ç —Ä–∞–∑–º–µ—Ä –≤ –±–∞–π—Ç–∞—Ö –∫–æ–¥–∞ –≤–æ–∑–≤—Ä–∞—Ç–∞
 {
 	switch(vartype){
 		case tk_char:
@@ -1486,7 +1486,7 @@ int i,reg,reg1;
 					lnumber=cstok2->lnumber>>32;
 					for(i=0;i<2;i++){
 						op66(r32);
-					//Ø‡Æ¢•‡™† ≠† ¢Æß¨Æ¶≠Æ·‚Ï °Æ´•• ™Æ‡Æ‚™Æ£Æ ™Æ§†
+					//–ø—Ä–æ–≤–µ—Ä–∫–∞ –Ω–∞ –≤–æ–∑–º–æ–∂–Ω–æ—Å—Ç—å –±–æ–ª–µ–µ –∫–æ—Ä–æ—Ç–∫–æ–≥–æ –∫–æ–¥–∞
 						if((cstok2->flag&f_reloc)==0&&ctok2!=tk_postnumber&&ctok2!=tk_undefofs&&
 							short_ok(lnumber,TRUE)){
 							if(!lnumber){
@@ -1547,7 +1547,7 @@ int i,reg,reg1;
 				case tk_postnumber:
 				case tk_undefofs:
 					op66(typet);
-					//Ø‡Æ¢•‡™† ≠† ¢Æß¨Æ¶≠Æ·‚Ï °Æ´•• ™Æ‡Æ‚™Æ£Æ ™Æ§†
+					//–ø—Ä–æ–≤–µ—Ä–∫–∞ –Ω–∞ –≤–æ–∑–º–æ–∂–Ω–æ—Å—Ç—å –±–æ–ª–µ–µ –∫–æ—Ä–æ—Ç–∫–æ–≥–æ –∫–æ–¥–∞
 					if((cstok2->flag&f_reloc)==0&&ctok2!=tk_postnumber&&ctok2!=tk_undefofs&&
 							short_ok(cstok2->number,ctok==tk_reg?FALSE:TRUE)){
 						op(0x83);	//cmp reg,
@@ -1584,7 +1584,7 @@ int i,reg,reg1;
 					for(i=0;i<2;i++){
 						op66(r32);
 						outseg(cstok,2);
-					//Ø‡Æ¢•‡™† ≠† ¢Æß¨Æ¶≠Æ·‚Ï °Æ´•• ™Æ‡Æ‚™Æ£Æ ™Æ§†
+					//–ø—Ä–æ–≤–µ—Ä–∫–∞ –Ω–∞ –≤–æ–∑–º–æ–∂–Ω–æ—Å—Ç—å –±–æ–ª–µ–µ –∫–æ—Ä–æ—Ç–∫–æ–≥–æ –∫–æ–¥–∞
 						if((cstok2->flag&f_reloc)==0&&ctok2!=tk_postnumber&&ctok2!=tk_undefofs&&
 								short_ok(lnumber,1)){
 							op(0x83);
@@ -1674,7 +1674,7 @@ int i,reg,reg1;
 					CheckAllMassiv(cbuf,typet,cstr,cstok);
 					op66(typet);
 					outseg(cstok,2);
-					//Ø‡Æ¢•‡™† ≠† ¢Æß¨Æ¶≠Æ·‚Ï °Æ´•• ™Æ‡Æ‚™Æ£Æ ™Æ§†
+					//–ø—Ä–æ–≤–µ—Ä–∫–∞ –Ω–∞ –≤–æ–∑–º–æ–∂–Ω–æ—Å—Ç—å –±–æ–ª–µ–µ –∫–æ—Ä–æ—Ç–∫–æ–≥–æ –∫–æ–¥–∞
 					if((cstok2->flag&f_reloc)==0&&ctok2!=tk_postnumber&&ctok2!=tk_undefofs&&
 							short_ok(cstok2->number,typet/2-1)){
 						op(0x83);
@@ -2581,7 +2581,7 @@ mac1:
 			break;
 	}
 	CheckMinusNum();
-	if(itok2.type!=tp_compare&&tok2!=tk_closebracket){	//·´Æ¶≠Î© ÆØ•‡†≠§
+	if(itok2.type!=tp_compare&&tok2!=tk_closebracket){	//—Å–ª–æ–∂–Ω—ã–π –æ–ø–µ—Ä–∞–Ω–¥
 		if(ofsstr){
 			int retreg;
 			razr=getrazr(vartype);
@@ -2595,7 +2595,7 @@ mac1:
 				goto nn1;
 			}
 		}
-		comparetok=0;//®·ØÆ´Ïß„•‚·Ô ¢‡•¨•≠≠Æ ≠• ØÆ·¨Î·´„
+		comparetok=0;//–∏—Å–ø–æ–ª—å–∑—É–µ—Ç—Å—è –≤—Ä–µ–º–µ–Ω–Ω–æ –Ω–µ –ø–æ—Å–º—ã—Å–ª—É
 		ittok=tok;
 		htok=itok;
 		ibuf=NULL;
@@ -2781,7 +2781,7 @@ mac1:
 			}
 			itok.number=0;
 		}
-		if(tok==tk_beg||tok==tk_reg||tok==tk_reg32)itok.rm=vartype;	//‚®Ø ·Æ§•‡¶®¨Æ£Æ ¢ reg32
+		if(tok==tk_beg||tok==tk_reg||tok==tk_reg32)itok.rm=vartype;	//—Ç–∏–ø —Å–æ–¥–µ—Ä–∂–∏–º–æ–≥–æ –≤ reg32
 		ittok=tok;
 		htok=itok;
 		ibuf=bufrm;
@@ -2811,7 +2811,7 @@ nn1:
 				razr++;
 		}
 	}
-	if(tok!=tk_closebracket){	//·‡†¢≠•≠®•
+	if(tok!=tk_closebracket){	//—Å—Ä–∞–≤–Ω–µ–Ω–∏–µ
 		ofsstr2=GetLecsem(tk_closebracket);
 		comparetok=CheckCompareTok(preg);
 		if(tok>=tk_char&&tok<=tk_double){
@@ -2955,7 +2955,7 @@ nn1:
 					case tk_beg:
 					case tk_reg:
 					case tk_reg32:
-						itok.rm=type2;	//‚®Ø ·Æ§•‡¶®¨Æ£Æ ¢ reg32
+						itok.rm=type2;	//—Ç–∏–ø —Å–æ–¥–µ—Ä–∂–∏–º–æ–≥–æ –≤ reg32
 						if((ittok==tk_reg32||ittok==tk_reg||ittok==tk_beg)&&
 								htok.number==itok.number)preerror("Comparison two identical registers");
 						break;
@@ -3183,7 +3183,7 @@ int rcompr;
 int useor=FALSE;
 REGISTERSTAT *bakregstat=NULL,*changeregstat=NULL;
 	if(am32)j=2;
-	icomp=(ICOMP *)MALLOC(sizeof(ICOMP)*MAXIF);	//°´Æ™ §´Ô ®≠‰Æ Æ ·‡†¢≠•≠®ÔÂ
+	icomp=(ICOMP *)MALLOC(sizeof(ICOMP)*MAXIF);	//–±–ª–æ–∫ –¥–ª—è –∏–Ω—Ñ–æ –æ —Å—Ä–∞–≤–Ω–µ–Ω–∏—è—Ö
 	i=0;
 
 	do{
@@ -3385,7 +3385,7 @@ merge_if:
 					else{
 						int otok2=tok2;
 						gotodo();
-						if(output[ooutptr]==0xEB){	//°Î´ ™Æ‡Æ‚™®© Ø•‡•ÂÆ§
+						if(output[ooutptr]==0xEB){	//–±—ã–ª –∫–æ—Ä–æ—Ç–∫–∏–π –ø–µ—Ä–µ—Ö–æ–¥
 							outptr=ooutptr-2;
 							op(output[outptr]^1);
 							op(output[ooutptr+1]+2);
@@ -3405,7 +3405,7 @@ merge_if:
 				else{	// useor
 					if(tok==tk_goto)gotodo();
 					else GOTOdo();
-					if(output[ooutptr]==0xEB){	//°Î´ ™Æ‡Æ‚™®© Ø•‡•ÂÆ§
+					if(output[ooutptr]==0xEB){	//–±—ã–ª –∫–æ—Ä–æ—Ç–∫–∏–π –ø–µ—Ä–µ—Ö–æ–¥
 						output[ooutptr-1]-=(am32==TRUE?3:1);
 					}
 				}
@@ -3545,8 +3545,8 @@ LVIC comconst;
 #endif
 //	i=CheckStopBlock();
 	/*-----------------19.08.99 22:35-------------------
-	 ì°®‡†‚Ï else ¨Æ¶≠Æ ‚Æ´Ï™Æ ØÆ·´• Ø•‡¢Æ£Æ if
-	 èÆ·´• else if ¢ ·´•§„ÓÈ®© else „°®‡†‚Ï ≠•´ÏßÔ
+	 –£–±–∏—Ä–∞—Ç—å else –º–æ–∂–Ω–æ —Ç–æ–ª—å–∫–æ –ø–æ—Å–ª–µ –ø–µ—Ä–≤–æ–≥–æ if
+	 –ü–æ—Å–ª–µ else if –≤ —Å–ª–µ–¥—É—é—â–∏–π else —É–±–∏—Ä–∞—Ç—å –Ω–µ–ª—å–∑—è
 		--------------------------------------------------*/
 	if(icomp!=NULL){
 		elseline=linenumber;
@@ -3559,7 +3559,7 @@ unsigned int oline=linenumber;
 		if(tok==tk_else||tok==tk_ELSE){
 			if(dbg)AddLine();
 			j=(am32==FALSE?3:5);
-			if(tok2==tk_goto||tok2==tk_break||tok2==tk_continue||//ØÆ£´Æ‚®‚Ï ®Â
+			if(tok2==tk_goto||tok2==tk_break||tok2==tk_continue||//–ø–æ–≥–ª–æ—Ç–∏—Ç—å –∏—Ö
 					tok2==tk_RETURN||tok2==tk_return||tok2==tk_GOTO||tok2==tk_BREAK||tok2==tk_CONTINUE){
 				nexttok();
 				switch(tok){
@@ -3574,7 +3574,7 @@ unsigned int oline=linenumber;
 							otok=tk_return;
 							break;
 						}
-						tok=otok;	//≠•¢Æß¨Æ¶≠Æ ÆØ‚®¨®ß®‡Æ¢†‚Ï
+						tok=otok;	//–Ω–µ–≤–æ–∑–º–æ–∂–Ω–æ –æ–ø—Ç–∏–º–∏–∑–∏—Ä–æ–≤–∞—Ç—å
 						inptr2=oinptr;
 						cha2=ocha;
 						linenumber=oline;
@@ -3722,7 +3722,7 @@ int rcompr;
 int useor=FALSE;
 REGISTERSTAT *bakregstat=NULL,*changeregstat=NULL;
 	if(am32!=FALSE)j=2;
-	icomp=(ICOMP *)MALLOC(sizeof(ICOMP)*MAXIF);	//°´Æ™ §´Ô ®≠‰Æ Æ ·‡†¢≠•≠®ÔÂ
+	icomp=(ICOMP *)MALLOC(sizeof(ICOMP)*MAXIF);	//–±–ª–æ–∫ –¥–ª—è –∏–Ω—Ñ–æ –æ —Å—Ä–∞–≤–Ω–µ–Ω–∏—è—Ö
 	ifline=linenumber;
 	do{
 #ifdef OPTVARCONST
@@ -4242,7 +4242,7 @@ unsigned int oaddESP=addESP;
 				break;
 			}
 		}
-		nexttok();	//≠•Æ°ÂÆ§®¨Æ §´Ô ®ß°•¶†≠®Ô Ø‡•§„Ø‡•¶§•≠®Ô Æ ≠•®≠®Ê®†´®ß®‡Æ¢†≠≠Æ© Ø•‡•¨•≠≠Æ©
+		nexttok();	//–Ω–µ–æ–±—Ö–æ–¥–∏–º–æ –¥–ª—è –∏–∑–±–µ–∂–∞–Ω–∏—è –ø—Ä–µ–¥—É–ø—Ä–µ–∂–¥–µ–Ω–∏—è –æ –Ω–µ–∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞–Ω–Ω–æ–π –ø–µ—Ä–µ–º–µ–Ω–Ω–æ–π
 		cha=cha2;
 		inptr=inptr2;
 		SkipParam();
@@ -4338,7 +4338,7 @@ unsigned int oaddESP=addESP;
 #ifdef OPTVARCONST
 	ClearLVIC();
 #endif
-	icomp=(ICOMP *)MALLOC(sizeof(ICOMP)*MAXIF);	//°´Æ™ §´Ô ®≠‰Æ Æ ·‡†¢≠•≠®ÔÂ
+	icomp=(ICOMP *)MALLOC(sizeof(ICOMP)*MAXIF);	//–±–ª–æ–∫ –¥–ª—è –∏–Ω—Ñ–æ –æ —Å—Ä–∞–≤–Ω–µ–Ω–∏—è—Ö
 //	oitok2=itok2;
 
 	ostring=BackString((char *)string);
@@ -4464,7 +4464,7 @@ unsigned int oaddESP=addESP;
 	SetContinueLabel();
 	if(dbg)AddLine();
 	if(tok!=tk_while)preerror("'while' expected following 'do'");
-	icomp=(ICOMP *)MALLOC(sizeof(ICOMP)*MAXIF);	//°´Æ™ §´Ô ®≠‰Æ Æ ·‡†¢≠•≠®ÔÂ
+	icomp=(ICOMP *)MALLOC(sizeof(ICOMP)*MAXIF);	//–±–ª–æ–∫ –¥–ª—è –∏–Ω—Ñ–æ –æ —Å—Ä–∞–≤–Ω–µ–Ω–∏—è—Ö
 	do{
 #ifdef OPTVARCONST
 		if((rcompr=constructcompare(2,startloc,NULL))==voidcompr||rcompr==zerocompr)i=1;
@@ -4543,9 +4543,9 @@ REGISTERSTAT *bakregstat=NULL,*changeregstat=NULL;
 	nexttok();
 	i=inptr2;
 	bcha=cha2;
-	expecting(tk_openbracket);	//Ø‡Æ¢ ≠† Æ‚™‡ ·™Æ°™„
-	if(tok!=tk_semicolon){	//Öëíú èêÖÑÇÄêàíÖãúçõÖ ìëíÄçéÇäà
-		for(;;){	//ß†Ø®·†‚Ï ®Â ¢ °„‰•‡
+	expecting(tk_openbracket);	//–ø—Ä–æ–≤ –Ω–∞ –æ—Ç–∫—Ä —Å–∫–æ–±–∫—É
+	if(tok!=tk_semicolon){	//–ï–°–¢–¨ –ü–†–ï–î–í–ê–†–ò–¢–ï–õ–¨–ù–´–ï –£–°–¢–ê–ù–û–í–ö–ò
+		for(;;){	//–∑–∞–ø–∏—Å–∞—Ç—å –∏—Ö –≤ –±—É—Ñ–µ—Ä
 			AddBackBuf(i,bcha);
 			if(tok==tk_semicolon)break;
 			if(tok!=tk_camma){
@@ -4566,7 +4566,7 @@ REGISTERSTAT *bakregstat=NULL,*changeregstat=NULL;
 		}
 		CharToBackBuf('}');
 		CharToBackBuf(0);
-		RunBackText();	//¢ÎØÆ´≠®‚Ï •£Æ
+		RunBackText();	//–≤—ã–ø–æ–ª–Ω–∏—Ç—å –µ–≥–æ
 	}
 	clearregstat();
 #ifdef OPTVARCONST
@@ -4576,17 +4576,17 @@ REGISTERSTAT *bakregstat=NULL,*changeregstat=NULL;
 	i=inptr2;
 	nexttok();
 	if(AlignCycle)AlignCD(CS,aligncycle);
-	conloc=outptr;	//ß†ØÆ¨≠®‚Ï ‚ÆÁ™„ ≠†Á†´† Ê®™´†
+	conloc=outptr;	//–∑–∞–ø–æ–º–Ω–∏—Ç—å —Ç–æ—á–∫—É –Ω–∞—á–∞–ª–∞ —Ü–∏–∫–ª–∞
 
-	if(tok!=tk_semicolon){	//•·´® •·‚Ï „·´Æ¢®•
-		if(tok!=tk_openbracket){	//•·´® „·´Æ¢®• ≠†Á®≠†•‚·Ô ≠• · (
-			CharToBackBuf('(');	//§Æ°†¢®‚Ï ••
-			COMPARE=TRUE;	//® ‰´†£ „·‚†≠Æ¢®‚Ï
+	if(tok!=tk_semicolon){	//–µ—Å–ª–∏ –µ—Å—Ç—å —É—Å–ª–æ–≤–∏–µ
+		if(tok!=tk_openbracket){	//–µ—Å–ª–∏ —É—Å–ª–æ–≤–∏–µ –Ω–∞—á–∏–Ω–∞–µ—Ç—Å—è –Ω–µ —Å (
+			CharToBackBuf('(');	//–¥–æ–±–∞–≤–∏—Ç—å –µ–µ
+			COMPARE=TRUE;	//–∏ —Ñ–ª–∞–≥ —É—Å—Ç–∞–Ω–æ–≤–∏—Ç—å
 		}
-		AddBackBuf(i,bcha);	//ß†ØÆ¨≠®‚Ï „·´Æ¢®•
+		AddBackBuf(i,bcha);	//–∑–∞–ø–æ–º–Ω–∏—Ç—å —É—Å–ª–æ–≤–∏–µ
 		if(tok!=tk_semicolon)expected(';');
 		SizeBackBuf--;
-		if(COMPARE)CharToBackBuf(')');	//•·´® ≠†§Æ, ß†™‡Î‚Ï ·™Æ°™„
+		if(COMPARE)CharToBackBuf(')');	//–µ—Å–ª–∏ –Ω–∞–¥–æ, –∑–∞–∫—Ä—ã—Ç—å —Å–∫–æ–±–∫—É
 		CharToBackBuf(0);
 		int oendinptr=endinptr;
 		endinptr=SizeBackBuf-1;//strlen(BackTextBlock);
@@ -4623,7 +4623,7 @@ REGISTERSTAT *bakregstat=NULL,*changeregstat=NULL;
 		nexttok();
 	}
 
-	if(tok!=tk_closebracket){	//•·‚Ï ¨Æ§®‰®™†Ê®Ô
+	if(tok!=tk_closebracket){	//–µ—Å—Ç—å –º–æ–¥–∏—Ñ–∏–∫–∞—Ü–∏—è
 		modif=TRUE;
 		while(tok!=tk_closebracket){
 			AddBackBuf(i,bcha);
@@ -4700,7 +4700,7 @@ REGISTERSTAT *bakregstat=NULL,*changeregstat=NULL;
 
 	if(COMPARE==FALSE||(COMPARE&&(icomp+numcomp)->use_cxz!=zerocompr)){
 		if(COMPARE&&(icomp+numcomp)->use_cxz==voidcompr)warcompeqconst();
-		jumploc(conloc);//JMP ≠† ≠†Á†´Æ Ê®™´†
+		jumploc(conloc);//JMP –Ω–∞ –Ω–∞—á–∞–ª–æ —Ü–∏–∫–ª–∞
 	}
 
 	if(COMPARE){
@@ -4781,10 +4781,10 @@ l2:
 
 void uptdbr(/*int usesw*/)
 {
-	listbr[curbr]=numbr;	//≠Æ¨•‡ Ì‚Æ£Æ Ê®™´†
+	listbr[curbr]=numbr;	//–Ω–æ–º–µ—Ä —ç—Ç–æ–≥–æ —Ü–∏–∫–ª–∞
 	usebr[curbr]=0;
-	curbr++;	//Á®·´Æ ¢´Æ¶•≠®©
-	numbr++;	//¢·•£Æ Ê®™´Æ¢
+	curbr++;	//—á–∏—Å–ª–æ –≤–ª–æ–∂–µ–Ω–∏–π
+	numbr++;	//–≤—Å–µ–≥–æ —Ü–∏–∫–ª–æ–≤
 //	if(!usesw){
 		useco[curco]=0;
 		curco++;
@@ -4875,7 +4875,7 @@ unsigned int oaddESP=addESP;
 				}
 			}
 		}
-		nexttok();	//‚Æ Á‚Æ „¨•≠ÏË†•‚·Ô
+		nexttok();	//—Ç–æ —á—Ç–æ —É–º–µ–Ω—å—à–∞–µ—Ç—Å—è
 	}
 	expecting(tk_closebracket);
 	startloc2=outptr;
@@ -4912,7 +4912,7 @@ unsigned int oaddESP=addESP;
 			} /* JNZ 'delta' */
 		}
 	}
-	else jumploc(startloc);//JMP ≠† ≠†Á†´Æ Ê®™´†
+	else jumploc(startloc);//JMP –Ω–∞ –Ω–∞—á–∞–ª–æ —Ü–∏–∫–ª–∞
 	if(typeb!=tk_loop){
 		looptok=outptr-startloc2;
 		if(typeb==tk_LOOPNZ){
@@ -4976,7 +4976,7 @@ long loop=0;
 int term;
 	do{
 		term=itok.flag;
-		for(int i=0;i<itok.number;i++){	//¢¢•·‚® ·‚‡Æ™„
+		for(int i=0;i<itok.number;i++){	//–≤–≤–µ—Å—Ç–∏ —Å—Ç—Ä–æ–∫—É
 			opd(string[i]);
 			loop++;
 		}
@@ -5008,7 +5008,7 @@ char name[IDLENGTH];
 	if(dbg&2)AddDataLine((tok==tk_string&&typev!=pointer?(char)3:(char)ssize));
 loopsw:
 	htok=tok;
-	switch(tok){	//ß†ØÆ´≠®‚Ï ¢•´®Á®≠†¨®
+	switch(tok){	//–∑–∞–ø–æ–ª–Ω–∏—Ç—å –≤–µ–ª–∏—á–∏–Ω–∞–º–∏
 		case tk_apioffset: AddApiToPost(itok.number); nexttok(); break;
 		case tk_postnumber:
 			(itok.flag&f_extern)==0?setwordpost(&itok):setwordext(&itok.number);
@@ -5050,13 +5050,13 @@ cn1:
 			else{
 				loop=AddVarString();
 				if(elements!=0){
-					for(;loop<ssize*elements;loop++){//§ÆØÆ´≠®‚Ï 0 •·´® ™Æ‡Æ‚™†Ô
+					for(;loop<ssize*elements;loop++){//–¥–æ–ø–æ–ª–Ω–∏—Ç—å 0 –µ—Å–ª–∏ –∫–æ—Ä–æ—Ç–∫–∞—è
 						opd(aligner);
 					}
 				}
 			}
 			break;
-		case tk_from:	//·Á®‚†‚Ï ‰†©´ · §†≠≠Î¨®
+		case tk_from:	//—Å—á–∏—Ç–∞—Ç—å —Ñ–∞–π–ª —Å –¥–∞–Ω–Ω—ã–º–∏
 			nexttok();
 			loop=dofrom();
 			if(elements!=0){
@@ -5064,14 +5064,14 @@ cn1:
 			}
 			nexttok();
 			break;
-		case tk_extract:	//·Á®‚†‚Ï ‰‡†£¨•≠‚ ‰†©´† · §†≠≠Î¨®
+		case tk_extract:	//—Å—á–∏—Ç–∞—Ç—å —Ñ—Ä–∞–≥–º–µ–Ω—Ç —Ñ–∞–π–ª–∞ —Å –¥–∞–Ω–Ω—ã–º–∏
 			nexttok();
 			loop=doextract();
 			if(elements!=0){
 				for(;loop<ssize*elements;loop++)opd(aligner);
 			}
 			break;
-		case tk_openbrace:	//¨†··®¢ §†≠≠ÎÂ
+		case tk_openbrace:	//–º–∞—Å—Å–∏–≤ –¥–∞–Ω–Ω—ã—Ö
 			nexttok();
 			while(tok!=tk_closebrace){
 				htok=tok;
@@ -5177,12 +5177,12 @@ void globalvar()	 /* both initialized and unitialized combined */
 long size,loop,i,elements,ssize;
 char done=0,typev;
 char var_name[IDLENGTH];
-int type=itok.rm,typebak;	//‚®Ø Ø•‡•¨•≠≠Æ©
+int type=itok.rm,typebak;	//—Ç–∏–ø –ø–µ—Ä–µ–º–µ–Ω–Ω–æ–π
 unsigned int flag,fflag=itok.flag,dynamic;
 unsigned int npointr=itok.npointr;
 int count;
 idrec *varrec;
-	size=typesize(type);	//‡†ß¨•‡ Ø•‡•¨•≠≠Æ©
+	size=typesize(type);	//—Ä–∞–∑–º–µ—Ä –ø–µ—Ä–µ–º–µ–Ω–Ω–æ–π
 	if(FixUp)fflag|=f_reloc;
 	typebak=type;
 	while(tok!=tk_eof&&done==0){
@@ -5196,13 +5196,13 @@ idrec *varrec;
 			flag|=f_far;
 			nexttok();
 		}
-		while(tok==tk_mult){	//„™†ß†‚•´Ï
+		while(tok==tk_mult){	//—É–∫–∞–∑–∞—Ç–µ–ª—å
 			npointr++;
 			nexttok();
 		}
 		if(tok==tk_openbracket){
 			nexttok();
-			while(tok==tk_mult){	//„™†ß†‚•´Ï ≠† Ø‡ÆÊ•§„‡„
+			while(tok==tk_mult){	//—É–∫–∞–∑–∞—Ç–µ–ª—å –Ω–∞ –ø—Ä–æ—Ü–µ–¥—É—Ä—É
 				nnpointr++;
 				nexttok();
 			}
@@ -5222,12 +5222,12 @@ idrec *varrec;
 					declare_procedure(flag,type,nnpointr);
 					break;
 				}
-				strcpy(var_name,itok.name);	//®¨Ô Ø•‡•¨•≠≠Æ©
+				strcpy(var_name,itok.name);	//–∏–º—è –ø–µ—Ä–µ–º–µ–Ω–Ω–æ–π
 				elements=1;
 				nexttok();
 				if(tok==tk_openblock){	//[
 					nexttok();
-					if(tok==tk_closeblock){//≠•®ß¢•·‚≠Æ• Á®·´Æ Ì´•¨•≠‚Æ¢
+					if(tok==tk_closeblock){//–Ω–µ–∏–∑–≤–µ—Å—Ç–Ω–æ–µ —á–∏—Å–ª–æ —ç–ª–µ–º–µ–Ω—Ç–æ–≤
 						elements=0;
 						nexttok();
 					}
@@ -5238,7 +5238,7 @@ idrec *varrec;
 							nexttok();
 						}
 						else{
-							elements=doconstlongmath();	//Á®·´Æ Ì´•¨•≠‚Æ¢
+							elements=doconstlongmath();	//—á–∏—Å–ª–æ —ç–ª–µ–º–µ–Ω—Ç–æ–≤
 							expecting(tk_closeblock);
 						}
 					}
@@ -5248,13 +5248,13 @@ idrec *varrec;
 					break;
 				}
 				dynamic=FALSE;
-				if(tok==tk_assign||(notpost==TRUE&&dynamic_flag==0)){	//= ®≠®Ê®†´®ß®‡Æ¢†≠†Ô Ø•‡•¨•≠≠†Ô
+				if(tok==tk_assign||(notpost==TRUE&&dynamic_flag==0)){	//= –∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞–Ω–∞—è –ø–µ—Ä–µ–º–µ–Ω–Ω–∞—è
 					if((flag&f_extern))preerror("extern variable do not initialize at declare");
 					i=tok;
 					itok.type=tp_gvar;// 11.07.05 21:56 tp_ucnovn;
 					SetNewTok(type,typev);
 					if(useStartup==TRUE&&i!=tk_assign&&SaveStartUp(size*elements,var_name)!=FALSE){
-						if(elements==0)ZeroMassiv();	//ÆË®°™†
+						if(elements==0)ZeroMassiv();	//–æ—à–∏–±–∫–∞
 						tok=i;
 						break;
 					}
@@ -5300,7 +5300,7 @@ idrec *varrec;
 						break;
 					}
 					if(CheckUseAsUndef((unsigned char *)var_name)==0&&dynamic_flag)dynamic=TRUE;
-					switch(tok){	//≠•®≠®Ê®†´®ß®‡Æ¢†≠≠Î•
+					switch(tok){	//–Ω–µ–∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞–Ω–Ω—ã–µ
 						default: expected(';');
 						case tk_semicolon: done=1;//	;
 						case tk_camma:	 //, post global type
@@ -5312,7 +5312,7 @@ idrec *varrec;
 									break;
 								}
 							}
-							if((flag&f_extern)==0&&alignword&&dynamic==0){	//¢Î‡Æ¢≠Ô‚Ï ≠† Á•‚≠Î© †§‡•·
+							if((flag&f_extern)==0&&alignword&&dynamic==0){	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å –Ω–∞ —á–µ—Ç–Ω—ã–π –∞–¥—Ä–µ—Å
 								if(ssize==2){
 									if(postsize%2==1)postsize++;
 								}
@@ -5378,7 +5378,7 @@ int SaveStartUp(int size,char *var_name)
 {
 int i=0;
 	if((startStartup+size)<=endStartup){
-		if(alignword){	//¢Î‡Æ¢≠Ô‚Ï ≠† Á•‚≠Î© †§‡•·
+		if(alignword){	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å –Ω–∞ —á–µ—Ç–Ω—ã–π –∞–¥—Ä–µ—Å
 			if(size==2){
 				if(startStartup%2==1)i=1;
 			}
@@ -5400,7 +5400,7 @@ int i=0;
 	return FALSE;
 }
 
-/* ======= ·‚†‡‚ ß†£Æ´Æ¢™† Ø‡ÆÊ•§„‡Î ======== */
+/* ======= —Å—Ç–∞—Ä—Ç –∑–∞–≥–æ–ª–æ–≤–∫–∞ –ø—Ä–æ—Ü–µ–¥—É—Ä—ã ======== */
 
 void setuprm()
 {
@@ -5412,7 +5412,7 @@ void eaxToFloat(int reg=AX)
 {
 int next=1;
 	CheckMinusNum();
-	if(itok2.type==tp_opperand){	//·Æ·‚†¢≠Æ•
+	if(itok2.type==tp_opperand){	//—Å–æ—Å—Ç–∞–≤–Ω–æ–µ
 		doeaxfloatmath(tk_reg32,reg);
 		next=0;
 	}
@@ -5731,7 +5731,7 @@ unsigned int oregidx;
 	if(itok.segm<NOT_DYNAMIC)itok.segm=DYNAMIC_SET;
 	setuprm();
 //	printf("rm=%d %s\n",itok.rm,itok.name);
-	if(defflag){	//‡†≠•• „¶• °Î´® ¢ÎßÆ¢Î
+	if(defflag){	//—Ä–∞–Ω–µ–µ —É–∂–µ –±—ã–ª–∏ –≤—ã–∑–æ–≤—ã
 //		updatecall(updatetree(),(unsigned int)itok.number,0);
 		regs=itok.post;
 		if(updatecall(updatetree(),(unsigned int)itok.number,0)==-1&&
@@ -5745,7 +5745,7 @@ unsigned int oregidx;
 			updatetree();
 		}
  	}
-	else{	//®≠†Á• §Æ°†¢®‚Ï ¢ §•‡•¢Æ
+	else{	//–∏–Ω–∞—á–µ –¥–æ–±–∞–≤–∏—Ç—å –≤ –¥–µ—Ä–µ–≤–æ
 		string[0]=0;
 		itok.type=tp_ucnovn;
 		addtotree(itok.name);
@@ -5845,7 +5845,7 @@ unsigned int oregidx;
 #ifdef OPTVARCONST
 	ClearLVIC();
 #endif
-//	numblocks++;	//≠† Ì‚Æ¨ ¨•·‚• §´Ô ‡†≠•£Æ ÆØ‡•§•´•≠®Ô ::var
+//	numblocks++;	//–Ω–∞ —ç—Ç–æ–º –º–µ—Å—Ç–µ –¥–ª—è —Ä–∞–Ω–µ–≥–æ –æ–ø—Ä–µ–¥–µ–ª–µ–Ω–∏—è ::var
 	expecting(tk_openbrace);
 	declarelocals(1,inlineflag);
 	retproc=FALSE;
@@ -5904,7 +5904,7 @@ struct idrec *rec;
 unsigned int oparamsize;
 unsigned int olocalsize;
 unsigned char oinsertmode;
-unsigned int onumblocks;	//≠Æ¨•‡ ¢´Æ¶•≠≠Æ£Æ °´Æ™†
+unsigned int onumblocks;	//–Ω–æ–º–µ—Ä –≤–ª–æ–∂–µ–Ω–Ω–æ–≥–æ –±–ª–æ–∫–∞
 unsigned int osizestack;
 RETLIST *olistreturn;
 unsigned int onumreturn;
@@ -5916,7 +5916,7 @@ unsigned int oaddESP=addESP;
 	osavr=psavereg;
 	psavereg=(SAVEREG*)MALLOC(sizeof(SAVEREG));
 	oinsertmode=insertmode;
-	insertmode=TRUE;	//‰´†£ ‡•¶®¨† ¢·‚†¢™®
+	insertmode=TRUE;	//—Ñ–ª–∞–≥ —Ä–µ–∂–∏–º–∞ –≤—Å—Ç–∞–≤–∫–∏
 	oinline=useinline;
 	ooptimizespeed=optimizespeed;
 	current_proc_type=itok.flag;
@@ -5937,7 +5937,7 @@ unsigned int oaddESP=addESP;
 	onumreturn=numreturn;
 	paramsize=0;
 	localsize=0;
-	numblocks=0;	//≠Æ¨•‡ ¢´Æ¶•≠≠Æ£Æ °´Æ™†
+	numblocks=0;	//–Ω–æ–º–µ—Ä –≤–ª–æ–∂–µ–Ω–Ω–æ–≥–æ –±–ª–æ–∫–∞
 	listreturn=NULL;
 	numreturn=0;
 	inlineflag=0;
@@ -6099,12 +6099,12 @@ void declareparamstack() /* declare procedure parameters */
 int i=0,num=1;
 unsigned char j=0;
 /*
- 1 - Æ°ÍÔ¢´•≠ ‚®Ø
- 2 - °Î´† ß†ØÔ‚†Ô
- 3 - °Î´† ‚ÆÁ™† · ß†ØÔ‚Æ©
+ 1 - –æ–±—ä—è–≤–ª–µ–Ω —Ç–∏–ø
+ 2 - –±—ã–ª–∞ –∑–∞–ø—è—Ç–∞—è
+ 3 - –±—ã–ª–∞ —Ç–æ—á–∫–∞ —Å –∑–∞–ø—è—Ç–æ–π
  4 -
- 5 - °Î´ ®§•≠‚®‰®™†‚Æ‡
- 6 - ‚®Ø void
+ 5 - –±—ã–ª –∏–¥–µ–Ω—Ç–∏—Ñ–∏–∫–∞—Ç–æ—Ä
+ 6 - —Ç–∏–ø void
  */
 int typevar=tk_multipoint;
 structteg *tteg=NULL;
@@ -6269,7 +6269,7 @@ structteg *tteg=NULL,*nteg;
 					numpointr++;
 					param[i++]='*';
 				}
-				if(tok==tk_id||tok==tk_ID){	//Ø‡Æ¢•‡®‚Ï ≠† ‚®ØÎ ÆØ‡•§•´•≠≠Î• Á•‡•ß define
+				if(tok==tk_id||tok==tk_ID){	//–ø—Ä–æ–≤–µ—Ä–∏—Ç—å –Ω–∞ —Ç–∏–ø—ã –æ–ø—Ä–µ–¥–µ–ª–µ–Ω–Ω—ã–µ —á–µ—Ä–µ–∑ define
 					skipfind=FALSE;
 					int otok=tok;
 					searchtree(&ptok,&otok,string);
@@ -6398,7 +6398,7 @@ void CharToBackBuf(char c)
 }
 
 void  AddBackBuf(int oinptr,char ocha)
-//·Æß§†‚Ï ´®·‚®≠£ ≠†Á†´Ï≠Æ© ®≠®Ê®†´®ß†Ê®® ´Æ·†´Ï≠ÎÂ Ø•‡•¨•≠≠ÎÂ
+//—Å–æ–∑–¥–∞—Ç—å –ª–∏—Å—Ç–∏–Ω–≥ –Ω–∞—á–∞–ª—å–Ω–æ–π –∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∞—Ü–∏–∏ –ª–æ—Å–∞–ª—å–Ω—ã—Ö –ø–µ—Ä–µ–º–µ–Ω–Ω—ã—Ö
 {
 int numblock=0;
 unsigned char save;
@@ -6432,7 +6432,7 @@ endp:
 				inptr2=inptr;
 				cha2=cha;
 				return;
-			case '/':	//Æ‚·´•§®‚Ï ™Æ¨¨•≠‚†‡®®
+			case '/':	//–æ—Ç—Å–ª–µ–¥–∏—Ç—å –∫–æ–º–º–µ–Ω—Ç–∞—Ä–∏–∏
 				nextchar();
 				if(cha=='*'){
 					do{
@@ -6485,7 +6485,7 @@ char *ostartline;
 char *ostring,*obufrm;
 COM_MOD *ocurmod;
 	ostring=BackString((char *)string);
-	oldinput=input;	//·ÆÂ‡ ≠•™Æ‚Æ‡ Ø•‡•¨•≠Î•
+	oldinput=input;	//—Å–æ—Ö—Ä –Ω–µ–∫–æ—Ç–æ—Ä –ø–µ—Ä–µ–º–µ–Ω—ã–µ
 	oldinptr=inptr2;
 	ostructadr=structadr;
 	bcha=cha2;
@@ -6547,7 +6547,7 @@ char *ostring,*obufrm;
 int retcode=FALSE;
 //	if(bufrm)puts(bufrm);
 	ostring=BackString((char *)string);
-	oldinput=input;	//·ÆÂ‡ ≠•™Æ‚Æ‡ Ø•‡•¨•≠Î•
+	oldinput=input;	//—Å–æ—Ö—Ä –Ω–µ–∫–æ—Ç–æ—Ä –ø–µ—Ä–µ–º–µ–Ω—ã–µ
 	oldinptr=inptr2;
 	ostructadr=structadr;
 	bcha=cha2;
@@ -6723,11 +6723,11 @@ locstruct:
 								numpointr=0;
 								if(SizeBackBuf){
 									BackTextBlock[SizeBackBuf]=0;
-									for(type=numinit-1,numpointr=0;type>=0;type--){//ÆØ‡ Á®·´Æ ®≠®Ê. Ø•‡•¨•≠≠ÎÂ ¢ ™Æ≠Ê•
+									for(type=numinit-1,numpointr=0;type>=0;type--){//–æ–ø—Ä —á–∏—Å–ª–æ –∏–Ω–∏—Ü. –ø–µ—Ä–µ–º–µ–Ω–Ω—ã—Ö –≤ –∫–æ–Ω—Ü–µ
 										if((lilv+type)->size<=0)break;
 										numpointr+=(lilv+type)->size;
 									}
-									type++;	//Á®·´Æ Æ·‚†¢Ë®Â·Ô Ø•‡•¨•≠≠ÎÂ
+									type++;	//—á–∏—Å–ª–æ –æ—Å—Ç–∞–≤—à–∏—Ö—Å—è –ø–µ—Ä–µ–º–µ–Ω–Ω—ã—Ö
 									ssize=type;
 								}
 								size=localsize;
@@ -6750,7 +6750,7 @@ locstruct:
 									flag=1;
 								}
 								if(SizeBackBuf){
-									if(lilv->size>0){	//•·‚Ï ®≠®Ê Ø•‡•¨•≠≠Î• ¢ ≠†Á†´•
+									if(lilv->size>0){	//–µ—Å—Ç—å –∏–Ω–∏—Ü –ø–µ—Ä–µ–º–µ–Ω–Ω—ã–µ –≤ –Ω–∞—á–∞–ª–µ
 										for(loop=0;loop<numinit;loop++){
 //										printf("size%d=%d %s\n",loop,(lilv+loop)->size,BackTextBlock);
 											if((lilv+loop)->size<=0)break;
@@ -6851,7 +6851,7 @@ locstruct:
 			do{
 				binptr=inptr2;
 				bcha=cha2;
-				skipfind=TRUE;	//ß†Ø‡•‚®‚Ï ®·™†‚Ï ¢ £´Æ°†´Ï≠Æ¨ §•‡•¢•
+				skipfind=TRUE;	//–∑–∞–ø—Ä–µ—Ç–∏—Ç—å –∏—Å–∫–∞—Ç—å –≤ –≥–ª–æ–±–∞–ª—å–Ω–æ–º –¥–µ—Ä–µ–≤–µ
 				nexttok();
 				if(tok==tk_static){
 					flag|=f_static;
@@ -6876,7 +6876,7 @@ locstruct:
 					localrec *lrec=addlocalvar(itok.name,slocaltok,(flag&f_static)==0?localsize:postsize);
 					loop=ssize;
 					if(numpointr)loop=am32==TRUE?4:2;
-					skipfind=FALSE;	//‡†ß‡•Ë®‚Ï ØÆ®·™ ¢ £´Æ°†´Ï≠Æ¨ §•‡•¢•
+					skipfind=FALSE;	//—Ä–∞–∑—Ä–µ—à–∏—Ç—å –ø–æ–∏—Å–∫ –≤ –≥–ª–æ–±–∞–ª—å–Ω–æ–º –¥–µ—Ä–µ–≤–µ
 					if(tok2==tk_openblock){//[
 						nexttok();
 						nexttok();
@@ -7021,7 +7021,7 @@ lab1:
 	}
 
 	for(;;i++){
-		if(input[i]==';'||input[i]==',')return TRUE;	//Æ°ÍÔ¢´•≠®• Ø‡ÆÊ•§„‡Î
+		if(input[i]==';'||input[i]==',')return TRUE;	//–æ–±—ä—è–≤–ª–µ–Ω–∏–µ –ø—Ä–æ—Ü–µ–¥—É—Ä—ã
 		if(input[i]>' ')break;
 		if(i>=endinptr){
 			unexpectedeof();
@@ -7073,7 +7073,7 @@ idrec *rec;
 		itok.sib=am32==FALSE?rm_d16:rm_d32;
 		i=2;
 		if(am32||(oflag&f_far))i=4;
-		if(tok==tk_assign||(notpost==TRUE&&dynamic_flag==0)){	//= ®≠®Ê®†´®ß®‡Æ¢†≠†Ô Ø•‡•¨•≠≠†Ô
+		if(tok==tk_assign||(notpost==TRUE&&dynamic_flag==0)){	//= –∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∏—Ä–æ–≤–∞–Ω–∞—è –ø–µ—Ä–µ–º–µ–Ω–Ω–∞—è
 			if((oflag&f_extern))preerror("extern variable do not initialize at declare");
 			if(alignword&&(!dynamic_flag))alignersize+=AlignCD(DS,i);
 			FindOff((unsigned char *)pname,DS);
@@ -7264,7 +7264,7 @@ paraminfo *pi;
 	pi->ofspar=inptr2;
 	pi->type[0]=0;
 	linep=linenumber;
-	for(i=inptr2,ns=1;ns>0;i++){	//ØÆ®·™ ™Æ≠Ê† Ø†‡†¨•‚‡Æ¢
+	for(i=inptr2,ns=1;ns>0;i++){	//–ø–æ–∏—Å–∫ –∫–æ–Ω—Ü–∞ –ø–∞—Ä–∞–º–µ—Ç—Ä–æ–≤
 		switch(input[i]){
 			case '(': ns++; break;
 			case ')': ns--; break;
@@ -7292,7 +7292,7 @@ paraminfo *pi;
 			break;
 		}
 	}
-	for(j=0,ns=0;param[j]!=0;j++,ns++){//Ø•‡•¢•‡≠„‚Ï ß†§•™´†‡®‡„•¨Î• Ø†‡†¨•‚‡Î
+	for(j=0,ns=0;param[j]!=0;j++,ns++){//–ø–µ—Ä–µ–≤–µ—Ä–Ω—É—Ç—å –∑–∞–¥–µ–∫–ª–∞—Ä–∏—Ä—É–µ–º—ã–µ –ø–∞—Ä–∞–º–µ—Ç—Ä—ã
 		lastofs=0;
 		ochar=c=param[j];
 		(pi+ns)->type[0]=c;
@@ -7367,7 +7367,7 @@ paraminfo *pi;
 	bufpar[lastofs++]=')';
 	*(short *)&bufpar[lastofs++]=';';
 	free(pi);
-	oldinput=input;	//·ÆÂ‡ ≠•™Æ‚Æ‡ Ø•‡•¨•≠Î•
+	oldinput=input;	//—Å–æ—Ö—Ä –Ω–µ–∫–æ—Ç–æ—Ä –ø–µ—Ä–µ–º–µ–Ω—ã–µ
 //	puts((char *)(input+inptr));
 //	printf("cur_mod=%08X input=%08X\n",cur_mod,input);
 	ns=inptr2;
@@ -7429,8 +7429,8 @@ int vartype;
 int stackpar=0;
 int i;
 int jj=0;
-char *bparam;	//°„‰•‡ §´Ô §•™´†‡®‡„•¨ÎÂ Ø†‡†¨•‚‡Æ¢
-int ip=-1;	//≠Æ¨•‡ Ø†‡†¨•‚‡†
+char *bparam;	//–±—É—Ñ–µ—Ä –¥–ª—è –¥–µ–∫–ª–∞—Ä–∏—Ä—É–µ–º—ã—Ö –ø–∞—Ä–∞–º–µ—Ç—Ä–æ–≤
+int ip=-1;	//–Ω–æ–º–µ—Ä –ø–∞—Ä–∞–º–µ—Ç—Ä–∞
 char *ofsstr=NULL;
 int useAX=FALSE;
 int retreg=AX;
@@ -7498,7 +7498,7 @@ struct idrec *ptrs;
 					else outword(addpoststring());  // MOV AX,imm16
 					op(0x50);
 					useAX=TRUE;
-					ClearReg(EAX);	//≠†§Æ §Æ°†¢®‚Ï ÆØ‚®¨®ß†Ê®Ó ‡•£®·‚‡Æ¢ † ØÆ™† ‚†™
+					ClearReg(EAX);	//–Ω–∞–¥–æ –¥–æ–±–∞–≤–∏—Ç—å –æ–ø—Ç–∏–º–∏–∑–∞—Ü–∏—é —Ä–µ–≥–∏—Å—Ç—Ä–æ–≤ –∞ –ø–æ–∫–∞ —Ç–∞–∫
 				}			/* PUSH AX */
 				else{
 					op(0x68);  /* PUSH imm16 */
@@ -7543,7 +7543,7 @@ struct idrec *ptrs;
 						}
 					}
 				}
-				if(tok==tk_minus&&tok2==tk_number&&vartype!=tk_float){	//Ø‡Æ¢•‡™† Æ‚‡®Ê†‚•´Ï≠Æ£Æ Á®·´†
+				if(tok==tk_minus&&tok2==tk_number&&vartype!=tk_float){	//–ø—Ä–æ–≤–µ—Ä–∫–∞ –æ—Ç—Ä–∏—Ü–∞—Ç–µ–ª—å–Ω–æ–≥–æ —á–∏—Å–ª–∞
 					nexttok();
 					itok.lnumber=-itok.lnumber;
 				}
@@ -7567,7 +7567,7 @@ struct idrec *ptrs;
 //						printf("reg=%d\n",retr);
 				}
 				razr=r32;
-				if(itok2.type==tp_opperand||tok==tk_minus){	//·Æ·‚†¢≠Æ•
+				if(itok2.type==tp_opperand||tok==tk_minus){	//—Å–æ—Å—Ç–∞–≤–Ω–æ–µ
 					switch(vartype){
 						case tk_struct:
 							i=structsize/((am32+1)*2);
@@ -7692,7 +7692,7 @@ blokl:
 nopush:
 					stackpar+=2;
 				}
-				else{	//Æ§®≠ÆÁ≠Æ•
+				else{	//–æ–¥–∏–Ω–æ—á–Ω–æ–µ
 //					next=1;
 //					printf("vartype=%d\n",vartype);
 					if(vartype==tk_struct){
@@ -7716,7 +7716,7 @@ nopush:
 								}
 								else{
 									itok.segm=DS;
-									itok.rm=(am32==FALSE?rm_d16:rm_d32);	//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+									itok.rm=(am32==FALSE?rm_d16:rm_d32);	//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 									itok.post=ptrs->recpost;
 									if(i>1&&am32){
 										outseg(&itok,1);
@@ -7756,7 +7756,7 @@ nopush:
 								}
 								break;
 							case tk_undefofs:
-								itok.rm=(am32==FALSE?rm_d16:rm_d32);	//„·‚†≠Æ¢™® ØÆ „¨Æ´Á†≠®Ó
+								itok.rm=(am32==FALSE?rm_d16:rm_d32);	//—É—Å—Ç–∞–Ω–æ–≤–∫–∏ –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 							case tk_postnumber:
 								if(i>1&&am32){
 									if(tok!=tk_undefofs)outseg(&itok,1);
@@ -8310,10 +8310,10 @@ SAVEPAR *SRparam(int save,SAVEPAR *par)	//save or restore global param compiler
 		par->oam32= 		     am32;
 		par->oalignword=    alignword;
 		par->oAlignCycle=   AlignCycle;
-		par->oidasm=        idasm;	//†··
+		par->oidasm=        idasm;	//–∞—Å—Å
 		par->ooptnumber=    optnumber;
 		par->odivexpand=    divexpand;
-		par->ooptstr=	     optstr;	//ÆØ
+		par->ooptstr=	     optstr;	//–æ–ø
 		par->ochip=         chip;
 		par->oaligncycle=   aligncycle;
 		par->ouselea=       uselea;
@@ -8329,10 +8329,10 @@ SAVEPAR *SRparam(int save,SAVEPAR *par)	//save or restore global param compiler
 		am32= 		    par->oam32;
 		alignword=    par->oalignword;
 		AlignCycle=   par->oAlignCycle;
-		idasm=        par->oidasm;	//†··
+		idasm=        par->oidasm;	//–∞—Å—Å
 		optnumber=    par->ooptnumber;
 		divexpand=    par->odivexpand;
-		optstr=	     par->ooptstr;	//ÆØ
+		optstr=	     par->ooptstr;	//–æ–ø
 		chip=         par->ochip;
 		aligncycle=   par->oaligncycle;
 		uselea    =   par->ouselea;
@@ -8388,7 +8388,7 @@ _PROCINFO_ *pinfo;
 	if(dtok==tk_id||dtok==tk_ID){
 		param[0]=0;
 		if(tok2!=tk_closebracket&&(otok.flag&f_typeproc)==tp_fastcall){
-			nexttok();	//Ø†‡†¨•‚‡Î ‡•£®·‚‡Æ¢Æ© Ø‡ÆÊ•§„‡Î
+			nexttok();	//–ø–∞—Ä–∞–º–µ—Ç—Ä—ã —Ä–µ–≥–∏—Å—Ç—Ä–æ–≤–æ–π –ø—Ä–æ—Ü–µ–¥—É—Ä—ã
 			declareparamreg();
 			free(bstring);
 			bstring=BackString((char *)param);
@@ -8534,8 +8534,8 @@ int snum=0;
 int updatecall(unsigned int which,unsigned int where,unsigned int top)
 /* update output with newly defined location, but only for addresses after
 	 and including top. return the number of addresses updated.
-  which - †§‡•· Ø‡ÆÊ•§„‡Î
-  where - ‚•™„È®© †§‡•·*/
+  which - –∞–¥—Ä–µ—Å –ø—Ä–æ—Ü–µ–¥—É—Ä—ã
+  where - —Ç–µ–∫—É—â–∏–π –∞–¥—Ä–µ—Å*/
 {
 unsigned int count=0;
 long hold;
@@ -8842,7 +8842,7 @@ void *nextstr=liststring,*prevstr=NULL;
 	ins.len=len;
 	ins.next=NULL;
 	ins.type=term;
-/*	if(splitdata){	//‡†ß§•´•≠Î• §†≠Î• ® ™Æ§
+/*	if(splitdata){	//—Ä–∞–∑–¥–µ–ª–µ–Ω—ã–µ –¥–∞–Ω—ã–µ –∏ –∫–æ–¥
 		ins.plase=0;
 		ins.ofs=outptrdata;
 	}
@@ -8863,10 +8863,10 @@ int i,j;
 				c=*instr;
 				if(c!=*outstr)break;
 			}
-			if(i==0){	//≠†©§•≠† ·‚‡Æ™†
+			if(i==0){	//–Ω–∞–π–¥–µ–Ω–∞ —Å—Ç—Ä–æ–∫–∞
 				if(!optstr)return -1;
 				warningstring();
-				if(outs.plase==0){	//„¶• ¢ ‰†©´•
+				if(outs.plase==0){	//—É–∂–µ –≤ —Ñ–∞–π–ª–µ
 					AddReloc(DS);
 					return outs.ofs+j;
 				}
@@ -9092,20 +9092,20 @@ SAVEPAR *par;
 //	printf("tok=%d %08X\n",tok,cur_mod);
 }
 
-idrec *addtotree(char *keystring)//§Æ°†¢®‚Ï ·‚‡Æ™„ ¢ §•‡•¢Æ
+idrec *addtotree(char *keystring)//–¥–æ–±–∞–≤–∏—Ç—å —Å—Ç—Ä–æ–∫—É –≤ –¥–µ—Ä–µ–≤–æ
 {
 struct idrec *ptr,*newptr;
 int cmpresult;
-//¢Î§•´®‚Ï Ø†¨Ô‚Ï ØÆ§ ≠Æ¢„Ó Ø‡ÆÊ
+//–≤—ã–¥–µ–ª–∏—Ç—å –ø–∞–º—è—Ç—å –ø–æ–¥ –Ω–æ–≤—É—é –ø—Ä–æ—Ü
 	newptr=(struct idrec *)MALLOC(sizeof(struct idrec));
-	ptr=(itok.flag&f_static)!=0?staticlist:treestart;	//≠†Á†´Æ §•‡•¢†
-	if(ptr==NULL)((itok.flag&f_static)!=0?staticlist:treestart)=newptr;//≠†Á†´Æ §•‡•¢†
-	else{	//ØÆ®·™ ·‚‡Æ™® ¢ §•‡•¢•
+	ptr=(itok.flag&f_static)!=0?staticlist:treestart;	//–Ω–∞—á–∞–ª–æ –¥–µ—Ä–µ–≤–∞
+	if(ptr==NULL)((itok.flag&f_static)!=0?staticlist:treestart)=newptr;//–Ω–∞—á–∞–ª–æ –¥–µ—Ä–µ–≤–∞
+	else{	//–ø–æ–∏—Å–∫ —Å—Ç—Ä–æ–∫–∏ –≤ –¥–µ—Ä–µ–≤–µ
 		while(((cmpresult=strcmp(ptr->recid,keystring))<0&&ptr->left!=NULL)||
        (cmpresult>0&&ptr->right!=NULL))ptr=(cmpresult<0?ptr->left:ptr->right);
 		(cmpresult<0?ptr->left:ptr->right)=newptr;
 	}
-	strcpy(newptr->recid,keystring);//·™ÆØ®‡ ≠†ß¢†≠®•
+	strcpy(newptr->recid,keystring);//—Å–∫–æ–ø–∏—Ä –Ω–∞–∑–≤–∞–Ω–∏–µ
 	newptr->newid=NULL;
 	if(string[0]!=0)newptr->newid=BackString((char *)string);
 	newptr->rectok=tok;
@@ -9287,7 +9287,7 @@ char holdstr[32+IDLENGTH];
 }
 
 /* ================ input procedures start ================= */
-int loadinputfile(char *inpfile)	//·Á®‚Î¢†≠®• ‰†©´† ¢ Ø†¨Ô‚Ï
+int loadinputfile(char *inpfile)	//—Å—á–∏—Ç—ã–≤–∞–Ω–∏–µ —Ñ–∞–π–ª–∞ –≤ –ø–∞–º—è—Ç—å
 {
 unsigned long size;
 int filehandle;
@@ -9306,7 +9306,7 @@ int filehandle;
 		totalmodule=1;
 		currentfileinfo=0;
 	}
-	else{	//ØÆ®·™ •¨•≠® ‰†©´† ¢ ·Ø®·™• Æ°‡†°Æ‚†≠≠ÎÂ
+	else{	//–ø–æ–∏—Å–∫ –µ–º–µ–Ω–∏ —Ñ–∞–π–ª–∞ –≤ —Å–ø–∏—Å–∫–µ –æ–±—Ä–∞–±–æ—Ç–∞–Ω–Ω—ã—Ö
 		for(currentfileinfo=0;currentfileinfo<totalmodule;currentfileinfo++){
 			if(stricmp(inpfile,(startfileinfo+currentfileinfo)->filename)==0)break;
 		}
@@ -9668,7 +9668,7 @@ nn1:
 		if(paramsize||localsize)i--;
 		if(insertmode||((!optimizespeed)&&paramsize&&
 				(current_proc_type&f_typeproc)!=tp_cdecl)||psavereg->size>i){
-			if(numblocks>1){	//ß†¨•≠®‚Ï return ≠† goto
+			if(numblocks>1){	//–∑–∞–º–µ–Ω–∏—Ç—å return –Ω–∞ goto
 				AddRetList(outptr+1,line,typer);
 				retproc=TRUE;
 				return;
@@ -9726,10 +9726,10 @@ void leaveproc()
 DLLLIST *FindDLL()
 {
 DLLLIST *newdll;
-	if(listdll!=NULL){	//·Ø®·Æ™ DLL ≠• Ø„·‚
+	if(listdll!=NULL){	//—Å–ø–∏—Å–æ–∫ DLL –Ω–µ –ø—É—Å—Ç
 		for(newdll=listdll;stricmp(newdll->name,(char *)string)!=0;newdll=newdll->next){
-			if(newdll->next==NULL){	//ØÆ·´•§≠ÔÔ ¢ ·Ø®·™•
-				newdll->next=(DLLLIST *)MALLOC(sizeof(DLLLIST));//·Æß§†‚Ï ≠Æ¢„Ó
+			if(newdll->next==NULL){	//–ø–æ—Å–ª–µ–¥–Ω—è—è –≤ —Å–ø–∏—Å–∫–µ
+				newdll->next=(DLLLIST *)MALLOC(sizeof(DLLLIST));//—Å–æ–∑–¥–∞—Ç—å –Ω–æ–≤—É—é
 				newdll=newdll->next;
 				newdll->next=NULL;
 				newdll->num=0;
@@ -9758,7 +9758,7 @@ int next;
 		if(tok!=tk_string)stringexpected();
 		DLLLIST *newdll;
 		newdll=FindDLL();
-		nextexpecting2(tk_openbrace);	//Æ‚™‡Î‚®• ·Ø®·™† Ø‡ÆÊ•§„‡
+		nextexpecting2(tk_openbrace);	//–æ—Ç–∫—Ä—ã—Ç–∏–µ —Å–ø–∏—Å–∫–∞ –ø—Ä–æ—Ü–µ–¥—É—Ä
 		APIPROC *listapi=newdll->list;
 		returntype=tk_declare;
 		do{
@@ -9800,7 +9800,7 @@ int next;
 					itok.post=dEBX|dEDI|dESI;	//05.09.04 01:36
 					strcpy((char *)string,param);
 					itok.type=tp_ucnovn;
-					if(newdll->num==0)listapi=(APIPROC *)MALLOC(sizeof(APIPROC));	//Ø•‡¢†Ô ¢ ·Ø®·™•
+					if(newdll->num==0)listapi=(APIPROC *)MALLOC(sizeof(APIPROC));	//–ø–µ—Ä–≤–∞—è –≤ —Å–ø–∏—Å–∫–µ
 					else listapi=(APIPROC *)REALLOC(listapi,sizeof(APIPROC)*(newdll->num+1));
 					(listapi+newdll->num)->recapi=addtotree(itok.name);
 					if(tok2==tk_openbracket){
@@ -9878,7 +9878,7 @@ unsigned int npointr=0;
 		else if(tok==tk_id){
 			if(CheckDef())continue;
 			if(tok2==tk_dblcolon)goto classdecl;
-			if(tproc==0)tproc=(comfile==file_w32?tp_stdcall:tp_pascal);	//‚®Ø Ø‡ÆÊ ØÆ „¨Æ´Á†≠®Ó
+			if(tproc==0)tproc=(comfile==file_w32?tp_stdcall:tp_pascal);	//—Ç–∏–ø –ø—Ä–æ—Ü –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 			else tproc=(tproc-tk_pascal)*2;
 			break;
 		}
@@ -9892,7 +9892,7 @@ classdecl:
 				doclassproc(tproc);
 				return 2;
 			}
-			if(tproc==0)tproc=tp_fastcall;	//‚®Ø Ø‡ÆÊ ØÆ „¨Æ´Á†≠®Ó
+			if(tproc==0)tproc=tp_fastcall;	//—Ç–∏–ø –ø—Ä–æ—Ü –ø–æ —É–º–æ–ª—á–∞–Ω–∏—é
 			else tproc=(tproc-tk_pascal)*2;
 			break;
 		}
@@ -9966,9 +9966,9 @@ classdecl:
 	return TRUE;
 /*-----------------23.12.01 02:11-------------------
  rerurn:
- FALSE - •·´® ÆØ‡•§•´•≠®•, ¢·‚†¢™† Ø‡ÆÊ•§„‡Î
- TRUE  - Ø•‡•¨•≠≠†Ô ®´® Æ°ÍÔ¢´•≠®• Ø‡ÆÊ•§„‡Î
- 2 - ÆË®°™† ®´® Æ°‡†°Æ‚†≠Æ - ≠®™†™®Â §•©·‚¢®© ≠• Ø‡•§Ø‡®≠®¨†‚Ï.
+ FALSE - –µ—Å–ª–∏ –æ–ø—Ä–µ–¥–µ–ª–µ–Ω–∏–µ, –≤—Å—Ç–∞–≤–∫–∞ –ø—Ä–æ—Ü–µ–¥—É—Ä—ã
+ TRUE  - –ø–µ—Ä–µ–º–µ–Ω–Ω–∞—è –∏–ª–∏ –æ–±—ä—è–≤–ª–µ–Ω–∏–µ –ø—Ä–æ—Ü–µ–¥—É—Ä—ã
+ 2 - –æ—à–∏–±–∫–∞ –∏–ª–∏ –æ–±—Ä–∞–±–æ—Ç–∞–Ω–æ - –Ω–∏–∫–∞–∫–∏—Ö –¥–µ–π—Å—Ç–≤–∏–π –Ω–µ –ø—Ä–µ–¥–ø—Ä–∏–Ω–∏–º–∞—Ç—å.
 	--------------------------------------------------*/
 }
 
@@ -9992,7 +9992,7 @@ elementteg *bazael;
 structteg *newteg;
 int ssize,count;
 idrec *newrec,*ptr;
-	if(alignword){	//¢Î‡Æ¢≠Ô‚Ï ≠† Á•‚≠Î© †§‡•·
+	if(alignword){	//–≤—ã—Ä–æ–≤–Ω—è—Ç—å –Ω–∞ —á–µ—Ç–Ω—ã–π –∞–¥—Ä–µ—Å
 		if(am32==0){
 			if(postsize%2==1)postsize++;
 		}
@@ -10012,7 +10012,7 @@ idrec *newrec,*ptr;
 			case tk_intvar:
 			case tk_doublevar:
 			case tk_qwordvar:
-				ssize=GetVarSize((bazael+i)->tok);	//‡†ß¨•‡ Ø•‡•¨•≠≠Æ©
+				ssize=GetVarSize((bazael+i)->tok);	//—Ä–∞–∑–º–µ—Ä –ø–µ—Ä–µ–º–µ–Ω–Ω–æ–π
 				itok.type=tp_ucnovn;
 				tok=(bazael+i)->tok;
 				count=FindOff((unsigned char *)(bazael+i)->name,VARPOST);
@@ -10031,16 +10031,16 @@ idrec *newrec,*ptr;
 				strcpy(itok.name,(bazael+i)->name);
 				newteg=(structteg *)(bazael+i)->nteg;
 				newrec=(struct idrec *)MALLOC(sizeof(struct idrec));
-				ptr=((tteg->flag&f_static)==0?treestart:staticlist);	//≠†Á†´Æ §•‡•¢†
-				if(ptr==NULL)((tteg->flag&f_static)==0?treestart:staticlist)=newrec;//≠†Á†´Æ §•‡•¢†
-				else{	//ØÆ®·™ ·‚‡Æ™® ¢ §•‡•¢•
+				ptr=((tteg->flag&f_static)==0?treestart:staticlist);	//–Ω–∞—á–∞–ª–æ –¥–µ—Ä–µ–≤–∞
+				if(ptr==NULL)((tteg->flag&f_static)==0?treestart:staticlist)=newrec;//–Ω–∞—á–∞–ª–æ –¥–µ—Ä–µ–≤–∞
+				else{	//–ø–æ–∏—Å–∫ —Å—Ç—Ä–æ–∫–∏ –≤ –¥–µ—Ä–µ–≤–µ
 					while(((ssize=strcmp(ptr->recid,itok.name))<0&&ptr->left!=NULL)||(ssize>0&&ptr->right!=NULL)){
 						ptr=(ssize<0?ptr->left:ptr->right);
 					}
-					(ssize<0?ptr->left:ptr->right)=newrec;	//·‚‡Æ™† ¨•≠ÏË•
+					(ssize<0?ptr->left:ptr->right)=newrec;	//—Å—Ç—Ä–æ–∫–∞ –º–µ–Ω—å—à–µ
 				}
 				newrec->recsib=0;
-				strcpy(newrec->recid,itok.name);//·™ÆØ®‡ ≠†ß¢†≠®•
+				strcpy(newrec->recid,itok.name);//—Å–∫–æ–ø–∏—Ä –Ω–∞–∑–≤–∞–Ω–∏–µ
 				newrec->newid=(char *)newteg;
 				newrec->left=NULL;
 				newrec->right=NULL;

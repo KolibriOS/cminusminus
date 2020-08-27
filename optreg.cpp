@@ -256,7 +256,7 @@ void GenRegToReg(int regd,int regs,int razr)
 
 int CheckIDZReg(char *name,int reg,int razr)
 /*
- name - †§‡•· ·‚‡Æ™®
+ name - –∞–¥—Ä–µ—Å —Å—Ç—Ä–æ–∫–∏
  */
 {
 int nr;
@@ -310,7 +310,7 @@ REGEQVAR *cur;
 
 void IDZToReg(char *name,int reg,int razr)
 /*
- name - †§‡•· ·‚‡Æ™®
+ name - –∞–¥—Ä–µ—Å —Å—Ç—Ä–æ–∫–∏
  */
 {
 int nr;
@@ -491,8 +491,8 @@ int oscanlexmode;
 
 void IDXToReg(char *name,int size,int reg)
 /*
- name - †§‡•· ≠†Á†´†
- size - ‡†ß¨•‡≠Æ·‚Ï
+ name - –∞–¥—Ä–µ—Å –Ω–∞—á–∞–ª–∞
+ size - —Ä–∞–∑–º–µ—Ä–Ω–æ—Å—Ç—å
  */
 {
 int nr;
@@ -535,8 +535,8 @@ int maxlen=SIZEIDREG;
 
 int CheckIDXReg(char *name,int size,int reg)
 /*
- name - †§‡•· ≠†Á†´†
- size - ‡†ß¨•‡≠Æ·‚Ï
+ name - –∞–¥—Ä–µ—Å –Ω–∞—á–∞–ª–∞
+ size - —Ä–∞–∑–º–µ—Ä–Ω–æ—Å—Ç—å
  */
 {
 int nr;
@@ -631,8 +631,8 @@ noreg:
 
 void KillVar(char *name)
 /*-----------------22.04.03 15:51-------------------
- ØÆ®·™ Ø•‡•¨•≠≠Æ© ¢ ‡•£®·‚‡†Â ® •·´® ≠†©§•≠†, ‚Æ
- „°‡†‚Ï ®≠®Ê®†´®ß†Ê®Ó ‡•£®·‚‡†
+ –ø–æ–∏—Å–∫ –ø–µ—Ä–µ–º–µ–Ω–Ω–æ–π –≤ —Ä–µ–≥–∏—Å—Ç—Ä–∞—Ö –∏ –µ—Å–ª–∏ –Ω–∞–π–¥–µ–Ω–∞, —Ç–æ
+ —É–±—Ä–∞—Ç—å –∏–Ω–∏—Ü–∏–∞–ª–∏–∑–∞—Ü–∏—é —Ä–µ–≥–∏—Å—Ç—Ä–∞
 --------------------------------------------------*/
 {
 char *pstr,*nam;
@@ -688,7 +688,7 @@ REGEQVAR *cur,*prev;
 }
 
 /*-----------------16.06.05 23:45-------------------
- á†¨•≠† Ø•‡•¨•≠≠ÎÂ ™Æ≠·‚†≠‚†¨®
+ –ó–∞–º–µ–Ω–∞ –ø–µ—Ä–µ–º–µ–Ω–Ω—ã—Ö –∫–æ–Ω—Å—Ç–∞–Ω—Ç–∞–º–∏
 	--------------------------------------------------*/
 #ifdef OPTVARCONST
 
@@ -1018,8 +1018,8 @@ int numinreg=FALSE;
 			if(freevic==-1&&(listvic+i)->rec==NULL)freevic=i;
 		}
 		if(isdigit((regstat+reg)->id[0])){
-			if(getnumber((regstat+reg)->id,&num,&typenum)){	//Ê®‰‡† ¢ ‡•£®·‚‡•
-				if(i!=cursizevic)ConstToReg((listvic+i)->lnumber,reg,razr);	//≠Æ¢„Ó ¢ ‡•£®·‚‡
+			if(getnumber((regstat+reg)->id,&num,&typenum)){	//—Ü–∏—Ñ—Ä–∞ –≤ —Ä–µ–≥–∏—Å—Ç—Ä–µ
+				if(i!=cursizevic)ConstToReg((listvic+i)->lnumber,reg,razr);	//–Ω–æ–≤—É—é –≤ —Ä–µ–≥–∏—Å—Ç—Ä
 				else{
 					if(freevic==-1){
 						cursizevic+=MAXSIZEVIC;
@@ -1028,7 +1028,7 @@ int numinreg=FALSE;
 					}
 					else i=freevic;
 				}
-				(listvic+i)->rec=itok4->rec;	//Ê®‰‡„ ¢ Ø•‡•¨•≠≠„Ó
+				(listvic+i)->rec=itok4->rec;	//—Ü–∏—Ñ—Ä—É –≤ –ø–µ—Ä–µ–º–µ–Ω–Ω—É—é
 				(listvic+i)->contype=typenum;
 				(listvic+i)->lnumber=num;
 				switch(itok4->type){
@@ -1053,10 +1053,10 @@ int numinreg=FALSE;
 					typenum);*/
 			}
 		}
-		else{	//≠•‚ Ê®‰‡Î ¢ ‡•£®·‚‡•
-			if(i!=cursizevic){	//Ê®‰‡† ¢ Ø•‡•¨•≠≠Æ©
-				ConstToReg((listvic+i)->lnumber,reg,razr);	//‚•Ø•‡Ï ¢ ‡•£®·‚‡•
-				(listvic+i)->rec=NULL;	//† ¢Ø•‡•¨•≠≠Æ© „¶• ≠•‚
+		else{	//–Ω–µ—Ç —Ü–∏—Ñ—Ä—ã –≤ —Ä–µ–≥–∏—Å—Ç—Ä–µ
+			if(i!=cursizevic){	//—Ü–∏—Ñ—Ä–∞ –≤ –ø–µ—Ä–µ–º–µ–Ω–Ω–æ–π
+				ConstToReg((listvic+i)->lnumber,reg,razr);	//—Ç–µ–ø–µ—Ä—å –≤ —Ä–µ–≥–∏—Å—Ç—Ä–µ
+				(listvic+i)->rec=NULL;	//–∞ –≤–ø–µ—Ä–µ–º–µ–Ω–Ω–æ–π —É–∂–µ –Ω–µ—Ç
 			}
 		}
 	}

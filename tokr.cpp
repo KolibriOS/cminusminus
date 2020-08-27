@@ -90,7 +90,7 @@ int faradd=0;
 		goto sw_asm;
 	}
 	if(tok==tk_ID||tok==tk_id||tok==tk_undefproc){
-		if(tok2==tk_colon){	//¨•‚™†
+		if(tok2==tk_colon){	//–º–µ—Ç–∫–∞
 			if(tok==tk_undefproc)doanyundefproc();
 			else doid((char)(tok==tk_ID?1:0),tk_void);
 			return;
@@ -259,7 +259,7 @@ sw_asm:
 								updatetree();
 							}
 							int flag=itok.flag;
-							if(itok.segm<NOT_DYNAMIC){	//§®≠†¨®Á•·™†Ô Ø‡ÆÊ•§„‡†
+							if(itok.segm<NOT_DYNAMIC){	//–¥–∏–Ω–∞–º–∏—á–µ—Å–∫–∞—è –ø—Ä–æ—Ü–µ–¥—É—Ä–∞
 								addacall(itok.number,(unsigned char)(am32!=FALSE?CALL_32:CALL_NEAR));
 								callloc0();
 							}
@@ -672,7 +672,7 @@ noint:
 										razr=r32;
 									case tk_reg:
 										op66(razr);
-										if(short_ok(itok.number,TRUE))i=2;	//™Æ‡Æ‚™†Ô ‰Æ‡¨†
+										if(short_ok(itok.number,TRUE))i=2;	//–∫–æ—Ä–æ—Ç–∫–∞—è —Ñ–æ—Ä–º–∞
 										op(0x69+i);
 										op(0xc0+(unsigned int)hnumber+(unsigned int)hnumber*8);
 										if(i==2)op(itok.number);
@@ -732,7 +732,7 @@ imul1:
 							case tk_reg:
 								op66(razr);
 								if(htok!=htok2)reg32regexpected(2);
-								if(short_ok(itok.number,TRUE))i=2;	//™Æ‡Æ‚™†Ô ‰Æ‡¨†
+								if(short_ok(itok.number,TRUE))i=2;	//–∫–æ—Ä–æ—Ç–∫–∞—è —Ñ–æ—Ä–º–∞
 								op(0x69+i);
 								op(0xc0+(unsigned int)hstok.number+(unsigned int)hnumber*8);
 								if(i==2)op(itok.number);
@@ -756,7 +756,7 @@ imul2:
 								if(htok!=tk_reg&&(htok2==tk_intvar||htok2==tk_wordvar))regexpected(1);
 								CheckAllMassiv(hbuf,2,&hstr,&hstok);
 								op66(razr);
-								if(short_ok(itok.number,TRUE))i=2;	//™Æ‡Æ‚™†Ô ‰Æ‡¨†
+								if(short_ok(itok.number,TRUE))i=2;	//–∫–æ—Ä–æ—Ç–∫–∞—è —Ñ–æ—Ä–º–∞
 								outseg(&hstok,2);
 								op(0x69+i);
 								op(hstok.rm+hnumber*8);
@@ -880,7 +880,7 @@ invlgp:
 						outword(0x010F);
 						op((am32==FALSE?rm_d16:rm_d32)+0x38);
 						(itok.flag&f_extern)==0?setwordpost(&itok):setwordext(&itok.number);
-						if(am32==FALSE)outword(itok.number);	//°Î´Æ 0
+						if(am32==FALSE)outword(itok.number);	//–±—ã–ª–æ 0
 						outdword(itok.number);
 						break;
 
@@ -1845,20 +1845,20 @@ nointx:
 			case a_fildq:	//FILDQ
 				FpuType6(0xDF,0x28);
 				break;
-			case a_fldenv:	//FLDENV ÅÖá êÄáåÖêçéëíà
+			case a_fldenv:	//FLDENV –ë–ï–ó –†–ê–ó–ú–ï–†–ù–û–°–¢–ò
 				FpuType6(0xD9,0x20);
 				break;
-			case a_frstor:	//FRSTOR ÅÖá êÄáåÖêçéëíà
+			case a_frstor:	//FRSTOR –ë–ï–ó –†–ê–ó–ú–ï–†–ù–û–°–¢–ò
 				FpuType6(0xDD,0x20);
 				break;
-			case a_fsave:	//FSAVE ÅÖá êÄáåÖêçéëíà
+			case a_fsave:	//FSAVE –ë–ï–ó –†–ê–ó–ú–ï–†–ù–û–°–¢–ò
 				fwait();
-			case a_fnsave:	//FNSAVE ÅÖá êÄáåÖêçéëíà
+			case a_fnsave:	//FNSAVE –ë–ï–ó –†–ê–ó–ú–ï–†–ù–û–°–¢–ò
 				FpuType6(0xDD,0x30);
 				break;
-			case a_fstenv:	//FSTENV ÅÖá êÄáåÖêçéëíà
+			case a_fstenv:	//FSTENV –ë–ï–ó –†–ê–ó–ú–ï–†–ù–û–°–¢–ò
 				fwait();
-			case a_fnstenv:	//FNSTENV ÅÖá êÄáåÖêçéëíà
+			case a_fnstenv:	//FNSTENV –ë–ï–ó –†–ê–ó–ú–ï–†–ù–û–°–¢–ò
 				FpuType6(0xD9,0x30);
 				break;
 
@@ -3131,29 +3131,29 @@ unsigned char next=1;
 			if(itok.segm!=NOT_DYNAMIC){
 				idrec *ptr=itok.rec;
 				itok.segm=ptr->recsegm=DYNAMIC_USED;
-				itok.rm=tok=tk_undefofs;	//·¨•È•≠®• •È• ≠• ®ß¢•·‚≠Æ© ¨•‚™®
+				itok.rm=tok=tk_undefofs;	//—Å–º–µ—â–µ–Ω–∏–µ –µ—â–µ –Ω–µ –∏–∑–≤–µ—Å—Ç–Ω–æ–π –º–µ—Ç–∫–∏
 				goto undefproc;
 			}
-			jumploc(itok.number);	//≠† Ø‡ÆÊ•§„‡Î ÆØ‡ ‡†≠•••
+			jumploc(itok.number);	//–Ω–∞ –ø—Ä–æ—Ü–µ–¥—É—Ä—ã –æ–ø—Ä —Ä–∞–Ω–µ–µ–µ
 			break;
 		case tk_number:
 			asmparam=FALSE;
-			jumploc(doconstlongmath());//≠† ™Æ≠™‡•‚≠Î© †§‡•·
+			jumploc(doconstlongmath());//–Ω–∞ –∫–æ–Ω–∫—Ä–µ—Ç–Ω—ã–π –∞–¥—Ä–µ—Å
 			next=0;
 			break;
 		case tk_ID:
-			addlocaljump(CALL_SHORT); //¢Æß¨Æ¶≠„Ó ´Æ™†´Ï≠„Ó ¨•‚™„
+			addlocaljump(CALL_SHORT); //–≤–æ–∑–º–æ–∂–Ω—É—é –ª–æ–∫–∞–ª—å–Ω—É—é –º–µ—Ç–∫—É
 			outword(0x00EB); 	// JMP SHORT
 			break;
 		case tk_id:
-			tobedefined(CALL_SHORT,tk_void);//¢Æß¨Æ¶≠Æ Æ°ÏÔ¢´•≠„Ó ¨•‚™„
+			tobedefined(CALL_SHORT,tk_void);//–≤–æ–∑–º–æ–∂–Ω–æ –æ–±—å—è–≤–ª–µ–Ω—É—é –º–µ—Ç–∫—É
 			outword(0x00EB);	// JMP SHORT
 			break;
 		case tk_declare:
 			tok=tk_undefproc;
 			updatetree();
 		case tk_locallabel:
-		case tk_undefproc:		//≠•Æ°ÍÔ¢´•≠„Ó Ø‡ÆÊ
+		case tk_undefproc:		//–Ω–µ–æ–±—ä—è–≤–ª–µ–Ω—É—é –ø—Ä–æ—Ü
 undefproc:
 			addacall((unsigned int)itok.number,(unsigned char)((itok.flag&f_extern)!=0?CALL_EXT:CALL_SHORT));
 			outword(0x00EB);	// JMP SHORT
@@ -3200,7 +3200,7 @@ unsigned int i=0;
 			if(itok.segm!=NOT_DYNAMIC){
 				idrec *ptr=itok.rec;
 				itok.segm=ptr->recsegm=DYNAMIC_USED;
-				itok.rm=tok=tk_undefofs;	//·¨•È•≠®• •È• ≠• ®ß¢•·‚≠Æ© ¨•‚™®
+				itok.rm=tok=tk_undefofs;	//—Å–º–µ—â–µ–Ω–∏–µ –µ—â–µ –Ω–µ –∏–∑–≤–µ—Å—Ç–Ω–æ–π –º–µ—Ç–∫–∏
 		 		if(faradd==0){
 					addacall((unsigned int)itok.number,(unsigned char)((itok.flag&f_extern)!=0?CALL_EXT:(am32==FALSE?JMP_NEAR:JMP_32)));
 					jumploc0();
@@ -3661,7 +3661,7 @@ unsigned long numlong;
 				else outdword(numlong-2);
 				next=0;
 				break;
-			case tk_undefofs:	// ???? 32 °®‚≠Î© ‡•¶®¨
+			case tk_undefofs:	// ???? 32 –±–∏—Ç–Ω—ã–π —Ä–µ–∂–∏–º
 				op(0xF); op(nearcode);
 				AddUndefOff(2,itok.name);
 				outword(-(int)(outptr-2));
@@ -5261,7 +5261,7 @@ unsigned long num;
 						op(128+64+hstok.number);
 					}
 					(itok.flag&f_extern)==0?setwordpost(&itok):setwordext(&itok.number);
-					outword(itok.number);	//°Î´Æ 0
+					outword(itok.number);	//–±—ã–ª–æ 0
 					break;
 				case tk_dwordvar:
 				case tk_longvar:

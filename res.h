@@ -27,13 +27,13 @@
 #define NUMMENUPOPUP 8
 
 struct RES{
-	int type;	//тип ресурсв
-	char *tname;	//имя типа
-	int id;   //его id
-	char *name;	//имя ресурса
-	unsigned short lang;	//язык
-	unsigned char *res;	//указатель на таблицу ресурса
-	unsigned int size;	//размер таблицы
+	int type;	//╤В╨╕╨┐ ╤А╨╡╤Б╤Г╤А╤Б╨▓
+	char *tname;	//╨╕╨╝╤П ╤В╨╕╨┐╨░
+	int id;   //╨╡╨│╨╛ id
+	char *name;	//╨╕╨╝╤П ╤А╨╡╤Б╤Г╤А╤Б╨░
+	unsigned short lang;	//╤П╨╖╤Л╨║
+	unsigned char *res;	//╤Г╨║╨░╨╖╨░╤В╨╡╨╗╤М ╨╜╨░ ╤В╨░╨▒╨╗╨╕╤Ж╤Г ╤А╨╡╤Б╤Г╤А╤Б╨░
+	unsigned int size;	//╤А╨░╨╖╨╝╨╡╤А ╤В╨░╨▒╨╗╨╕╤Ж╤Л
 };
 
 #define DRESNUM 100
@@ -155,7 +155,7 @@ union NameOrdinal
 };
 
 
-struct _DBH_	//структура диалога
+struct _DBH_	//╤Б╤В╤А╤Г╨║╤В╤Г╤А╨░ ╨┤╨╕╨░╨╗╨╛╨│╨░
 {
 	unsigned long lStyle;
 	unsigned long lExtendedStyle;
@@ -171,7 +171,7 @@ struct _DBH_	//структура диалога
 	char *FontName;
 };
 
-struct _CD_	//контрольные данные диалога
+struct _CD_	//╨║╨╛╨╜╤В╤А╨╛╨╗╤М╨╜╤Л╨╡ ╨┤╨░╨╜╨╜╤Л╨╡ ╨┤╨╕╨░╨╗╨╛╨│╨░
 {
 	unsigned long lStyle;
 	unsigned long lExtendedStyle;
