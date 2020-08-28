@@ -1,5 +1,6 @@
 #define _ERRORS_
 #include "tok.h"
+#include "misc.h"
 
 void warningprint(char *str, int line, int file);
 WARNACT wact[WARNCOUNT] = {warningprint, 1, warningprint, 1, warningprint, 1,
@@ -66,7 +67,7 @@ void preerror3(char *str, unsigned int line,
     exit(e_toomanyerrors);
 }
 
-void internalerror(char *str) // serious internal compiler error message
+void internalerror(const char *str) // serious internal compiler error message
 {
   char buf[200];
   sprintf(buf, "*** SERIOUS COMPILER INTERNAL ERROR ***\n>%s", str);
@@ -496,7 +497,7 @@ void warningreg(char *str2) {
   }
 }
 
-void warningjmp(char *str2, int line, int file) {
+void warningjmp(const char *str2, int line, int file) {
   char buf[50];
   if (wact[2].usewarn) {
     sprintf(buf, "Short operator '%s' may be used", str2);
@@ -604,7 +605,7 @@ void warpragmapackpop() {
                    currentfileinfo);
 }
 
-void missingpar(char *name) {
+void missingpar(const char *name) {
   char buf[120];
   if (wact[14].usewarn) {
     sprintf(buf, "Missing parameter in function %s", name);
@@ -879,7 +880,7 @@ void GetRangeUsed(char *buf, localinfo *ptr) {
 
 void mapfun(int line) {
   treelocalrec *ftlr;
-  struct localrec *ptr;
+  localrec *ptr;
   int i, fheader;
   char buf[32];
   if (hmap == NULL)

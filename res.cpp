@@ -1,15 +1,16 @@
 #define _RES_
 
-#include "tok.h"
+#include <unistd.h>
+#include <sys/stat.h>
 #include <fcntl.h> /* O_ constant definitions */
-#include <io.h>
-#pragma option -w-pin
 #ifdef __CONSOLE__
 #include <windows.h>
 #else
 #include <wchar.h>
 //#include <mbctype.h>
 #endif
+#include "tok.h"
+#include "misc.h"
 #include "res.h"
 
 RES *listres;   //таблица ресурсов
@@ -53,7 +54,7 @@ void AddType(unsigned short type, char *tname = NULL) {
   }
   for (unsigned int i = 0; i < numtyperes; i++) {
     if (type == (tuse + i)->id) {
-      if (type == 0 && stricmp(tname, (tuse + i)->tname) != 0)
+      if (type == 0 && strcasecmp(tname, (tuse + i)->tname) != 0)
         continue;
       (tuse + i)->count++;
       return;
@@ -368,7 +369,7 @@ void FreeOrdinal(unsigned char *name) {
 
 unsigned short GetFlag(_STRINGS_ *type, int num) {
   for (int i = 0; i < num; i++) {
-    if (stricmp(itok.name, (type + i)->id) == 0) {
+    if (strcasecmp(itok.name, (type + i)->id) == 0) {
       return (type + i)->val;
     }
   }
@@ -518,7 +519,7 @@ void domenu(unsigned int exts) {
             curposbuf = Align(curposbuf, 4);
           }
           free(name);
-        } else if (stricmp(itok.name, "SEPARATOR") == 0) {
+        } else if (strcasecmp(itok.name, "SEPARATOR") == 0) {
           if (exts) {
             *(unsigned long *)&resbuf[curposbuf] = 0x800;
             curposbuf += 16;
@@ -700,7 +701,7 @@ void GetBlockInfo() {
     startpos = curposbuf;
     CheckResBuf(6);
     curposbuf += 6;
-    if (stricmp("BLOCK", itok.name) == 0) {
+    if (strcasecmp("BLOCK", itok.name) == 0) {
       nexttok();
       if (tok != tk_string)
         stringexpected();
@@ -712,7 +713,7 @@ void GetBlockInfo() {
         GetBlockInfo();
       else
         badformat("VERSIONINFO");
-    } else if (stricmp("VALUE", itok.name) == 0) {
+    } else if (strcasecmp("VALUE", itok.name) == 0) {
       nexttok();
       if (tok != tk_string)
         stringexpected();
@@ -1092,7 +1093,7 @@ void GetFileName(char *name) {
   while (tok != tk_string && tok != tk_endline && tok != tk_eof) {
     int i;
     for (i = 0; i < 7; i++) {
-      if (stricmp(itok.name, typemem[i].id) == 0)
+      if (strcasecmp(itok.name, typemem[i].id) == 0)
         break;
     }
     if (i == 7) {
@@ -1419,7 +1420,7 @@ void SortRes() {
         (tuse + j)->tname = buf.tname;
       }
       if ((tuse + i)->id == (tuse + j)->id) {
-        if (stricmp((tuse + i)->tname, (tuse + j)->tname) > 0) {
+        if (strcasecmp((tuse + i)->tname, (tuse + j)->tname) > 0) {
           buf.count = (tuse + i)->count;
           buf.tname = (tuse + i)->tname;
           (tuse + i)->count = (tuse + j)->count;

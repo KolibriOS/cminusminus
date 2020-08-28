@@ -1,5 +1,5 @@
 #include "tok.h"
-#include <io.h>
+#include "misc.h"
 
 #define _DEBUG_
 
@@ -8,7 +8,7 @@
 #define MAXLSTSTR 128 //максимальный размер строки листинга
 
 void AddNameToTable(char *name);
-void AddSymbolList(struct idrec *ptr);
+void AddSymbolList(idrec *ptr);
 int CreateDosDebug();
 int CreateW32Debug();
 void GeneratLst();
@@ -332,7 +332,7 @@ void AddNameToTable(char *name) {
   } while (c != 0);
 }
 
-void AddSymbolList(struct idrec *ptr) {
+void AddSymbolList(idrec *ptr) {
   if (ptr != NULL) {
     AddSymbolList(ptr->right);
     if ((ptr->rectok == tk_proc && ptr->recsegm >= NOT_DYNAMIC) ||
@@ -377,7 +377,7 @@ void AddNameToPul(char *name) {
   lastofspul += ++i;
 }
 
-void AddGlobalName(struct idrec *ptr) {
+void AddGlobalName(idrec *ptr) {
   if (ptr != NULL) {
     AddGlobalName(ptr->right);
     if ((ptr->rectok == tk_proc && ptr->recsegm >= NOT_DYNAMIC) ||

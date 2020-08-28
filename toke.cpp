@@ -1,9 +1,11 @@
 #define _TOKE_
 
+#include <sys/stat.h>
 #include <fcntl.h> /* O_ constant definitions */
 #include <unistd.h>
 
 #include "tok.h"
+#include "misc.h"
 
 unsigned char gotoendif = FALSE;
 unsigned char atex = FALSE;
@@ -17,7 +19,7 @@ unsigned int postnumflag; //флаг последнего идентификат
 int calcnumber = FALSE;
 
 char mesmain[] = "main";
-char *macroname[] = {"inp",      "inportb", "inport",   "inportd", "outp",
+const char *macroname[] = {"inp",      "inportb", "inport",   "inportd", "outp",
                      "outportb", "outport", "outportd", "sqrt",    "cos",
                      "sin",      "atan2",   "tan",      "log",     "log10",
                      "exp",      "atan",    "fabs",     NULL};
@@ -1109,12 +1111,12 @@ int FindProcLib(int type) {
   return -1;
 }
 
-void addconsttotree(char *keystring, long long constvalue, int type)
+void addconsttotree(const char *keystring, long long constvalue, int type)
 //вставить константу в дерево
 {
-  struct idrec *ptr, *newptr;
+  idrec *ptr, *newptr;
   int cmpresult;
-  newptr = (struct idrec *)MALLOC(sizeof(struct idrec)); //новый блок константы
+  newptr = (idrec *)MALLOC(sizeof(idrec)); //новый блок константы
   ptr = definestart;
   if (ptr == NULL)
     definestart = newptr;
@@ -1167,10 +1169,10 @@ void addconsttotree(char *keystring, long long constvalue, int type)
 
 void addtodefine(char *keystring) //добавить строку в дерево define
 {
-  struct idrec *ptr, *newptr, *left = NULL, *right = NULL;
+  idrec *ptr, *newptr, *left = NULL, *right = NULL;
   int cmpresult;
   //выделить память под новую проц
-  newptr = (struct idrec *)MALLOC(sizeof(struct idrec));
+  newptr = (idrec *)MALLOC(sizeof(idrec));
   ptr = definestart; //начало дерева
   if (ptr == NULL)
     definestart = newptr;
@@ -1657,7 +1659,7 @@ void directive() {
         } else {
           switch (tok) {
           case tk_structvar:
-            struct idrec *ptrs, *ptrsnew;
+            idrec *ptrs, *ptrsnew;
             ptrs = itok.rec;
             addtodefine(holdid);
             ptrsnew = itok.rec;
@@ -1767,11 +1769,11 @@ void directive() {
     if ((int)i != -1) {
       char *a;
       if ((a = strrchr((char *)string3, '.')) != NULL) {
-        if (stricmp(a, ".obj") == 0) {
+        if (strcasecmp(a, ".obj") == 0) {
           AddNameObj((char *)string3, i, 0);
           break;
         }
-        if (stricmp(a, ".lib") == 0) {
+        if (strcasecmp(a, ".lib") == 0) {
           AddNameObj((char *)string3, i, 1);
           break;
         }
@@ -1788,12 +1790,12 @@ void directive() {
         jumptomain = CALL_NONE;
         header = 0;
       }
-    } else if (stricmp(itok.name, "NONE") == 0) {
+    } else if (strcasecmp(itok.name, "NONE") == 0) {
       jumptomain = CALL_NONE;
       header = 0;
-    } else if (stricmp(itok.name, "SHORT") == 0)
+    } else if (strcasecmp(itok.name, "SHORT") == 0)
       jumptomain = CALL_SHORT;
-    else if (stricmp(itok.name, "NEAR") == 0)
+    else if (strcasecmp(itok.name, "NEAR") == 0)
       jumptomain = CALL_NEAR;
     else
       preerror(ujo);
@@ -2819,7 +2821,7 @@ endp:
 }
 
 void KillVarOfTree(idrec **treestart) {
-  struct idrec *ptr, *leftptr, *rightptr, *prev;
+  idrec *ptr, *leftptr, *rightptr, *prev;
   int cmpresult, ocmpresult = 0;
   ptr = *treestart; //поиск
   while (ptr != NULL && (cmpresult = strcmp(ptr->recid, itok.name)) != 0) {
@@ -2858,7 +2860,7 @@ void KillVarOfTree(idrec **treestart) {
       else
         *treestart = leftptr; //удален корень с одной левой веткой
     } else {                  //если есть оба ребенка
-      struct idrec *ostptr, *ptrf;
+      idrec *ostptr, *ptrf;
       if (ocmpresult < 0) {   //если мы дите слева
         prev->left = leftptr; //передать левого ребенка
         ostptr = rightptr;    //правого к поиску места

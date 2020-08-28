@@ -5,11 +5,6 @@
 #include "tok.h"
 #include "misc.h"
 
-#ifndef O_BINARY
-#define O_BINARY 0
-#define O_TEXT 0
-#endif
-
 static char **_Argv; //!!! simplest way to make your own variable
 
 unsigned char compilerstr[] = "SPHINX C-- 0.239";

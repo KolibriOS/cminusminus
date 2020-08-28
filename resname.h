@@ -1,6 +1,6 @@
 /* Этот файл сгенерирован программой 'FASTLIST.EXE' */
 
-unsgined short ofsres[26] = {0x0000, 0x003B,  // a b
+unsigned short ofsres[26] = {0x0000, 0x003B,  // a b
                     0x004C, 0x009B,  // c d
                     0x00BE, 0x00D8,  // e f
                     0x00E0, 0xFFFF,  // g h

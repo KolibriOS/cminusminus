@@ -1,8 +1,10 @@
 #define _TOKC_
 
-#include "tok.h"
+#include <sys/stat.h>
 #include <fcntl.h> /* O_ constant definitions */
 #include <unistd.h>
+#include "tok.h"
+#include "misc.h"
 
 #if !defined(__WIN32__)
 void GetFileTime(int fd, struct ftime *buf);
@@ -107,7 +109,7 @@ unsigned char AlignProc = FALSE;
 char param[256];     //буфер для параметров процедуры
 char *BackTextBlock; //буфер для перенесенного текста
 int SizeBackBuf = 0, MaxSizeBackBuf;
-struct FILEINFO *startfileinfo = NULL;
+FILEINFO *startfileinfo = NULL;
 unsigned int totalmodule = 0;
 unsigned int currentfileinfo;
 unsigned char setzeroflag; //операция меняет zero flag
@@ -214,7 +216,7 @@ void compilefile(char *filename, int firstflag) {
   { //проверка на файл ресурсов и его обработка
     char *a;
     if ((a = strrchr(filename, '.')) != NULL) {
-      if (stricmp(a, ".rc") == 0) {
+      if (strcasecmp(a, ".rc") == 0) {
         input_res();
         free(input);
         return;
@@ -6342,13 +6344,13 @@ int CheckUses() {
   int bracket = FALSE;
   memset((SAVEREG *)psavereg, 0, sizeof(SAVEREG));
   if (tok == tk_openbracket) {
-    if (stricmp(itok2.name, "uses") == 0) {
+    if (strcasecmp(itok2.name, "uses") == 0) {
       bracket = TRUE;
       nexttok();
     } else
       return 0;
   }
-  if (stricmp(itok.name, "uses") == 0) {
+  if (strcasecmp(itok.name, "uses") == 0) {
     nexttok();
     while (tok == tk_reg32 || tok == tk_reg || tok == tk_beg) {
       i = r32;
@@ -6605,10 +6607,10 @@ void setproc(int defflag) {
 
 void insertproc(/*int sizepar*/) {
   unsigned char oinline, ooptimizespeed;
-  struct treelocalrec *otlr;
-  struct structteg *olteglist;
-  // struct idrec     *olstructlist;
-  struct idrec *rec;
+  treelocalrec *otlr;
+  structteg *olteglist;
+  // idrec     *olstructlist;
+  idrec *rec;
   unsigned int oparamsize;
   unsigned int olocalsize;
   unsigned char oinsertmode;
@@ -6933,7 +6935,7 @@ void declareparamstack() /* declare procedure parameters */
 void CorrectParamVar() {
   unsigned int addnum;
   int fspin;
-  struct localrec *ptr;
+  localrec *ptr;
   if (paramsize == 0)
     return;
   if (insertmode)
@@ -7114,8 +7116,8 @@ void declareparams() /* declare procedure parameters */
           // idrec *newrec,*trec;
           lsize = Align(tteg->size, (am32 + 1) * 2);
           i += sprintf(&param[i], "T%u", lsize);
-          //					newrec=(struct idrec
-          //*)MALLOC(sizeof(struct idrec));
+          //					newrec=(idrec
+          //*)MALLOC(sizeof(idrec));
           // if(lstructlist==NULL)lstructlist=newrec;
           // else{ 						trec=lstructlist; 						while(trec->left!=NULL)trec=trec->left;
           //						trec->left=newrec;
@@ -7853,7 +7855,7 @@ lab1:
 
 void IsUses(idrec *rec) {
   int i;
-  if (tok == tk_openbracket && stricmp(itok2.name, "uses") == 0) {
+  if (tok == tk_openbracket && strcasecmp(itok2.name, "uses") == 0) {
     nexttok();
     i = 0;
     nexttok();
@@ -8276,7 +8278,7 @@ int doparams() /* do stack procedure parameter pushing */
   unsigned char oinline = useinline;
   useinline = 0;
   int structsize;
-  struct idrec *ptrs;
+  idrec *ptrs;
   addstack = FALSE;
   if (am32 != FALSE)
     jj = 2;
@@ -10118,10 +10120,10 @@ void insert_dynamic(int insert) {
 
 idrec *addtotree(char *keystring) //добавить строку в дерево
 {
-  struct idrec *ptr, *newptr;
+  idrec *ptr, *newptr;
   int cmpresult;
   //выделить память под новую проц
-  newptr = (struct idrec *)MALLOC(sizeof(struct idrec));
+  newptr = (idrec *)MALLOC(sizeof(idrec));
   ptr = (itok.flag & f_static) != 0 ? staticlist : treestart; //начало дерева
   if (ptr == NULL)
     ((itok.flag & f_static) != 0 ? staticlist : treestart) =
@@ -10158,7 +10160,7 @@ idrec *addtotree(char *keystring) //добавить строку в дерев�
 
 long updatetree() // returns the old number value
 {
-  struct idrec *ptr;
+  idrec *ptr;
   long hold;
   ptr = itok.rec;
   if (ptr == 0)
@@ -10182,7 +10184,7 @@ long updatetree() // returns the old number value
 /* --------------- local variable handling starts here ----------------- */
 
 unsigned int updatelocalvar(char *str, int tok4, unsigned int num) {
-  struct localrec *ptr;
+  localrec *ptr;
   unsigned int retvalue;
   treelocalrec *ntlr = tlr;
   while (ntlr && ntlr->level > 1)
@@ -10211,7 +10213,7 @@ localrec *addlocalvar(char *str, int tok4, unsigned int num, int addmain) {
     uptr = ntlr->lrec;
   } else
     uptr = tlr->lrec;
-  newptr = (struct localrec *)MALLOC(sizeof(struct localrec));
+  newptr = (localrec *)MALLOC(sizeof(localrec));
 
   if (uptr == NULL) {
     if (addmain)
@@ -10289,7 +10291,7 @@ jump labels. */
           }
           */
   treelocalrec *ftlr, *ftlr1;
-  struct localrec *ptr, *ptr1;
+  localrec *ptr, *ptr1;
   for (ftlr = btlr; ftlr != NULL;) {
     ftlr1 = ftlr;
     for (ptr = ftlr->lrec; ptr != NULL;) {
@@ -10343,13 +10345,13 @@ int loadinputfile(char *inpfile) //считывание файла в памят
     return (-1);
   }
   if (totalmodule == 0) {
-    startfileinfo = (struct FILEINFO *)MALLOC(sizeof(FILEINFO));
+    startfileinfo = (FILEINFO *)MALLOC(sizeof(FILEINFO));
     totalmodule = 1;
     currentfileinfo = 0;
   } else { //поиск емени файла в списке обработанных
     for (currentfileinfo = 0; currentfileinfo < totalmodule;
          currentfileinfo++) {
-      if (stricmp(inpfile, (startfileinfo + currentfileinfo)->filename) == 0)
+      if (strcasecmp(inpfile, (startfileinfo + currentfileinfo)->filename) == 0)
         break;
     }
     if (currentfileinfo != totalmodule) {
@@ -10358,7 +10360,7 @@ int loadinputfile(char *inpfile) //считывание файла в памят
       goto cont_load;
     }
     totalmodule++;
-    startfileinfo = (struct FILEINFO *)REALLOC(
+    startfileinfo = (FILEINFO *)REALLOC(
         startfileinfo, sizeof(FILEINFO) * (totalmodule));
   }
   (startfileinfo + currentfileinfo)->stlist = NULL;
@@ -10815,7 +10817,7 @@ void leaveproc() {
 DLLLIST *FindDLL() {
   DLLLIST *newdll;
   if (listdll != NULL) { //список DLL не пуст
-    for (newdll = listdll; stricmp(newdll->name, (char *)string) != 0;
+    for (newdll = listdll; strcasecmp(newdll->name, (char *)string) != 0;
          newdll = newdll->next) {
       if (newdll->next == NULL) { //последняя в списке
         newdll->next = (DLLLIST *)MALLOC(sizeof(DLLLIST)); //создать новую
@@ -11155,7 +11157,7 @@ void unpackteg(structteg *tteg) {
     case tk_structvar:
       strcpy(itok.name, (bazael + i)->name);
       newteg = (structteg *)(bazael + i)->nteg;
-      newrec = (struct idrec *)MALLOC(sizeof(struct idrec));
+      newrec = (idrec *)MALLOC(sizeof(idrec));
       ptr = ((tteg->flag & f_static) == 0 ? treestart
                                           : staticlist); //начало дерева
       if (ptr == NULL)
@@ -11405,7 +11407,7 @@ void startblock() {
   treelocalrec *nrec;
   numblocks++;
   //	printf("start block %d\n",numblocks);
-  nrec = (treelocalrec *)MALLOC(sizeof treelocalrec);
+  nrec = (treelocalrec *)MALLOC(sizeof(treelocalrec));
   nrec->level = numblocks;
   nrec->lrec = NULL;
   nrec->addesp = addESP;

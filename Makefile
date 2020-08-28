@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -fpermissive -Wno-write-strings
 LDFLAGS =
 
 OBJ = main.o toka.o tokb.o tokc.o toke.o tokr.o \

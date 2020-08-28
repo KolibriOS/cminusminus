@@ -2,7 +2,7 @@
 
 void obj_outrecord(int recordtype, unsigned int recordlength,
                    unsigned char *data);
-void outeachPUBDEF(struct idrec *ptr);
+void outeachPUBDEF(idrec *ptr);
 void obj_outLEDATA(unsigned int segm, unsigned int offset,
                    unsigned int recordlength, unsigned char *data);
 
@@ -332,7 +332,7 @@ void obj_outrecord(int recordtype, unsigned int recordlength,
   fwrite(&checksum, 1, 1, hout);
 }
 
-void outeachPUBDEF(struct idrec *ptr) {
+void outeachPUBDEF(idrec *ptr) {
   unsigned int i;
   if (ptr != NULL) {
     outeachPUBDEF(ptr->right);

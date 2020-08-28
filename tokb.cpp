@@ -88,38 +88,38 @@ unsigned long long li[] = {0x1,
                            0x20000000,
                            0x40000000,
                            0x80000000,
-                           0x100000000I64,
-                           0x200000000I64,
-                           0x400000000I64,
-                           0x800000000I64,
-                           0x1000000000I64,
-                           0x2000000000I64,
-                           0x4000000000I64,
-                           0x8000000000I64,
-                           0x10000000000I64,
-                           0x20000000000I64,
-                           0x40000000000I64,
-                           0x80000000000I64,
-                           0x100000000000I64,
-                           0x200000000000I64,
-                           0x400000000000I64,
-                           0x800000000000I64,
-                           0x1000000000000I64,
-                           0x2000000000000I64,
-                           0x4000000000000I64,
-                           0x8000000000000I64,
-                           0x10000000000000I64,
-                           0x20000000000000I64,
-                           0x40000000000000I64,
-                           0x80000000000000I64,
-                           0x100000000000000I64,
-                           0x200000000000000I64,
-                           0x400000000000000I64,
-                           0x800000000000000I64,
-                           0x1000000000000000I64,
-                           0x2000000000000000I64,
-                           0x4000000000000000I64,
-                           0x8000000000000000I64};
+                           0x100000000LL,
+                           0x200000000LL,
+                           0x400000000LL,
+                           0x800000000LL,
+                           0x1000000000LL,
+                           0x2000000000LL,
+                           0x4000000000LL,
+                           0x8000000000LL,
+                           0x10000000000LL,
+                           0x20000000000LL,
+                           0x40000000000LL,
+                           0x80000000000LL,
+                           0x100000000000LL,
+                           0x200000000000LL,
+                           0x400000000000LL,
+                           0x800000000000LL,
+                           0x1000000000000LL,
+                           0x2000000000000LL,
+                           0x4000000000000LL,
+                           0x8000000000000LL,
+                           0x10000000000000LL,
+                           0x20000000000000LL,
+                           0x40000000000000LL,
+                           0x80000000000000LL,
+                           0x100000000000000LL,
+                           0x200000000000000LL,
+                           0x400000000000000LL,
+                           0x800000000000000LL,
+                           0x1000000000000000LL,
+                           0x2000000000000000LL,
+                           0x4000000000000000LL,
+                           0x8000000000000000LL};
 
 unsigned long leanum[24] = {3,   5,    9,    15,  25,   27,   45,   81,
                             75,  125,  135,  225, 243,  405,  729,  375,
@@ -9607,7 +9607,7 @@ int CheckMinusNum() {
     if (itok.rm == tk_float)
       itok.number |= 0x80000000;
     else if (itok.rm == tk_double)
-      itok.lnumber |= 0x8000000000000000I64;
+      itok.lnumber |= 0x8000000000000000LL;
     else
       itok.lnumber = -itok.lnumber;
     return TRUE;
@@ -10932,7 +10932,7 @@ int doqwordvar(int terminater) // 64 bit memory variable
             }
             break;
           }
-          if (itok.lnumber == 0xFFFFFFFFFFFFFFFFI64) {
+          if (itok.lnumber == 0xFFFFFFFFFFFFFFFFLL) {
             CheckAllMassiv(wbuf, 8, &wstr, &wtok);
             for (i = 0; i < 2; i++) {
               op66(r32);
@@ -13424,7 +13424,7 @@ void CallExternProc(char *name) {
   ITOK itok4;
   int tok4 = tk_id;
   char string4[256];
-  struct idrec *ptrs;
+  idrec *ptrs;
   memset(&itok4, 0, sizeof(ITOK));
   strcpy(string4, name);
   searchtree(&itok4, &tok4, (unsigned char *)string4);

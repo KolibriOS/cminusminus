@@ -1,7 +1,7 @@
 #define _TOKA_
-
-#include "tok.h"
 #include <unistd.h>
+#include <string.h>
+#include <sys/stat.h>
 
 #ifdef __CONSOLE__
 #include <windows.h>
@@ -9,9 +9,11 @@
 #include <wchar.h>
 #endif
 
+#include "tok.h"
 #include "dirlist.h"
 #include "id.h"
 #include "resname.h"
+#include "misc.h"
 
 idrec *treestart = NULL;
 idrec *definestart = NULL;
@@ -71,7 +73,7 @@ unsigned char bytesize = TRUE;
 
 COM_MOD *cur_mod = NULL;
 
-void docals(struct idrec *ptr);
+void docals(idrec *ptr);
 void dostructvar2(
     int *tok4, ITOK *itok4, structteg *tteg,
     unsigned char *string4); //разбор структур на переменные и структуры
@@ -123,32 +125,9 @@ void CheckConvertString(char *string4) {
 #endif
 
 void DateToStr(char *buf) {
-//#ifdef _WC_
-#ifndef __CONSOLE__
-  unsigned short coinfo[20];
-  union REGS regs;
-  regs.x.eax = 0x3800;
-  regs.x.edx = FP_OFF(coinfo);
-  intdos(&regs, &regs);
-  switch (coinfo[0]) {
-  case 0:
-    sprintf(buf, "%s %2d %d", mon[timeptr.tm_mon], timeptr.tm_mday,
-            timeptr.tm_year + 1900);
-    break;
-  case 2:
-    sprintf(buf, "%d %s %2d", timeptr.tm_year + 1900, mon[timeptr.tm_mon],
-            timeptr.tm_mday);
-    break;
-  default:
-    sprintf(buf, "%2d %s %d", timeptr.tm_mday, mon[timeptr.tm_mon],
-            timeptr.tm_year + 1900);
-    break;
-  }
-#else
   //	GetDateFormat(LOCALE_SYSTEM_DEFAULT,DATE_SHORTDATE|LOCALE_NOUSEROVERRIDE,NULL,NULL,buf,80);
   sprintf(buf, "%2d %s %d", timeptr.tm_mday, mon[timeptr.tm_mon],
           timeptr.tm_year + 1900);
-#endif
 }
 
 void compressoffset(ITOK *thetok) {
@@ -1779,13 +1758,13 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
              cur_mod == NULL ? 0 : cur_mod->next);
 #endif
     if (scanlexmode == RESLEX) {
-      if (stricmp((char *)string4, "not") == 0)
+      if (strcasecmp((char *)string4, "not") == 0)
         *tok4 = tk_not;
-      else if (stricmp((char *)string4, "or") == 0)
+      else if (strcasecmp((char *)string4, "or") == 0)
         *tok4 = tk_or;
-      else if (stricmp((char *)string4, "xor") == 0)
+      else if (strcasecmp((char *)string4, "xor") == 0)
         *tok4 = tk_xor;
-      else if (stricmp((char *)string4, "and") == 0)
+      else if (strcasecmp((char *)string4, "and") == 0)
         *tok4 = tk_and;
       else {
         if (uppercase)
@@ -1844,7 +1823,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
         for (useme = 0; useme < 8; useme++) {
           int i;
           if (asmparam)
-            i = stricmp((char *)string4, regs[0][useme]);
+            i = strcasecmp((char *)string4, regs[0][useme]);
           else
             i = strcmp((char *)string4, regs[0][useme]);
           if (i == 0) {
@@ -1858,7 +1837,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
             return;
           }
           if (asmparam)
-            i = stricmp((char *)string4, begs[useme]);
+            i = strcasecmp((char *)string4, begs[useme]);
           else
             i = strcmp((char *)string4, begs[useme]);
           if (i == 0) {
@@ -1905,7 +1884,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
       for (useme = 0; useme < 8; useme++) {
         int i;
         if (asmparam)
-          i = stricmp((char *)&string4[1], regs[0][useme]);
+          i = strcasecmp((char *)&string4[1], regs[0][useme]);
         else
           i = strcmp((char *)&string4[1], regs[0][useme]);
         if (i == 0) {
@@ -2076,7 +2055,6 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
         goto extreg32;
     }
     switch (*tok4) {
-      int len;
     case tk_dataptr:
       *tok4 = tk_number;
       itok4->number = outptrdata;
@@ -2103,7 +2081,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
       itok4->number = strlen((char *)string4);
       break;
     case tk_structvar:
-      struct idrec *ptrs;
+      idrec *ptrs;
       ptrs = itok4->rec;
       //				puts(itok4->name);
       dostructvar2(tok4, itok4, (structteg *)ptrs->newid, string4);
@@ -2686,7 +2664,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
         for (useme = 0; useme < 8; useme++) {
           int i;
           if (asmparam)
-            i = strnicmp((char *)input + inptr + 2, regs[0][useme], 2);
+            i = strncasecmp((char *)input + inptr + 2, regs[0][useme], 2);
           else
             i = strncmp((char *)input + inptr + 2, regs[0][useme], 2);
           if (i == 0) {
@@ -2966,7 +2944,7 @@ void SetNewStr(char *name) {
 int searchtree2(idrec *fptr, ITOK *itok4, int *tok4, unsigned char *string4)
 //поиск в дереве переменых
 {
-  struct idrec *ptr;
+  idrec *ptr;
   int cmpresult;
   for (ptr = fptr; ptr != NULL;) {
     if ((cmpresult = strcmp(ptr->recid, (char *)string4)) == 0) {
@@ -3122,7 +3100,7 @@ void AddDynamicList(idrec *ptr) {
   countDP++;
 }
 
-void docals(struct idrec *ptr)
+void docals(idrec *ptr)
 /* extract any procedures required from interal library and insert any
          dynamic procedures that have been called.*/
 {
@@ -3131,7 +3109,7 @@ void docals(struct idrec *ptr)
     tok = ptr->rectok;
     if (sdp_mode == FALSE && (ptr->flag & f_export) != 0 && tok == tk_proc) {
       if (lexport == NULL) {
-        lexport = (struct listexport *)MALLOC(sizeof(struct listexport));
+        lexport = (listexport *)MALLOC(sizeof(listexport));
         lexport->address = ptr->recnumber;
         strcpy(lexport->name, ptr->recid);
         numexport = 1;
@@ -3142,12 +3120,12 @@ void docals(struct idrec *ptr)
             break;
         }
         if (cmpname != 0) {
-          lexport = (struct listexport *)REALLOC(
-              lexport, sizeof(struct listexport) * (numexport + 1));
+          lexport = (listexport *)REALLOC(
+              lexport, sizeof(listexport) * (numexport + 1));
           if (cmpname < 0) {
             for (int j = numexport; j > i; j--) {
               memcpy(&(lexport + j)->address, &(lexport + j - 1)->address,
-                     sizeof(struct listexport));
+                     sizeof(listexport));
             }
           }
           numexport++;
@@ -3587,7 +3565,7 @@ int AskUseDestr(structteg *searcht) {
 }
 
 void AutoDestructor() {
-  struct localrec *ptrs;
+  localrec *ptrs;
   int calldestruct = FALSE;
   int zerosize = FALSE;
   treelocalrec *ftlr;
@@ -3716,7 +3694,7 @@ int searchlocals(ITOK *itok4, int *tok4, unsigned char *string4)
   if (skipfind == LOCAL)
     return FALSE;
   treelocalrec *ftlr;
-  struct localrec *ptr;
+  localrec *ptr;
   for (ftlr = tlr; ftlr != NULL; ftlr = ftlr->next) {
     for (ptr = ftlr->lrec; ptr != NULL; ptr = ptr->rec.next) {
       //			puts(ptr->rec.recid);
@@ -5959,7 +5937,7 @@ LocalStruct2(int flag, int *localline, int binptr, char bcha,
              structteg *tteg) //инициализировать локальную структуру
 {
   int numel, first = FALSE;
-  struct localrec *newrec;
+  localrec *newrec;
   unsigned long size = 0;
   skipfind = TRUE; //запретить искать в глобальном дереве
   do {
@@ -7064,7 +7042,7 @@ unsigned long long scannumber(int *rm) {
       *rm = tk_byte;
     else if (number < 65536)
       *rm = tk_word;
-    else if (number < 0x100000000I64)
+    else if (number < 0x100000000LL)
       *rm = tk_dword;
     else
       *rm = tk_qword;

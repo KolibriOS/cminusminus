@@ -9,7 +9,7 @@
 #define SIZESTUB 96
 #define STRVERS 0x20 //смещение текста с номером версии
 
-char stub[] = {0x4D, 0x5A, 0x50, 0x00, 0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x0F,
+unsigned char stub[] = {0x4D, 0x5A, 0x50, 0x00, 0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x0F,
                0x00, 0xFF, 0xFF, 0x00, 0x00, 0xB8, 0x00, 0x00, 0x00, 0x00, 0x00,
                0x00, 0x00, 0x40, 0x00, 0x1A, 0x00, 0x00, 0x00, 0x00, 0x00,
 
@@ -22,7 +22,7 @@ char stub[] = {0x4D, 0x5A, 0x50, 0x00, 0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x0F,
                0x32, 0x20, 0x6F, 0x6E, 0x6C, 0x79, 0x21, 0x0D, 0x0A, 0x24};
 
 #define SIZESTUB2 12
-char stub2[] = {0x4D, 0x5A, 0x53, 0x50, 0x48, 0x49,
+unsigned char stub2[] = {0x4D, 0x5A, 0x53, 0x50, 0x48, 0x49,
                 0x4E, 0x58, 0x20, 0x43, 0x2D, 0x2D};
 unsigned int numdll, numapi;
 unsigned char FixUpTable =
@@ -34,7 +34,7 @@ unsigned long vsizeheader = 0x1000; //виртуальный размер заг
 unsigned long FILEALIGN = 0; // 512;	// выравнивание секций в файле
 int filingzerope;
 
-struct listexport *lexport = NULL;
+listexport *lexport = NULL;
 static unsigned long sizestub;
 static unsigned long numrs = 1;
 
@@ -656,7 +656,7 @@ void ImportName(char *name) {
     OBJECT_ENTRY obj;
   };
   unsigned long temp;
-  unsigned long export;    //секция с експортом
+  unsigned long exportdir;    //секция с експортом
   unsigned long numobj;    //число объектов
   unsigned long posdll;    //позиция секции в файле
   unsigned long nameadr;   //таблица адресов имен
@@ -696,7 +696,7 @@ void ImportName(char *name) {
     fclose(infile);
     return;
   }
-  if ((export = pe.exportRVA) == 0) {
+  if ((exportdir = pe.exportRVA) == 0) {
     fprintf(stderr, "No export directory on %s.\n", name);
     fclose(infile);
     return;
@@ -706,7 +706,7 @@ void ImportName(char *name) {
   while (numobj != 0) {
     if (fread(&obj, sizeof(OBJECT_ENTRY), 1, infile) != 1)
       goto errread;
-    if ((obj.sectionRVA + Align(obj.psize, temp)) > export)
+    if ((obj.sectionRVA + Align(obj.psize, temp)) > exportdir)
       break;
     numobj--;
   }
@@ -715,7 +715,7 @@ void ImportName(char *name) {
     fclose(infile);
     return;
   }
-  posdll = obj.pOffset + export - obj.sectionRVA;
+  posdll = obj.pOffset + exportdir - obj.sectionRVA;
   fseek(infile, posdll + 24, SEEK_SET);
   if (fread(&numobj, 4, 1, infile) != 1)
     goto errread;
@@ -724,14 +724,14 @@ void ImportName(char *name) {
     goto errread;
   if (fread(&ordinallist, 4, 1, infile) != 1)
     goto errread;
-  nameadr -= export;
-  ordinallist -= export;
+  nameadr -= exportdir;
+  ordinallist -= exportdir;
   fseek(infile, posdll + 12, SEEK_SET);
   if (fread(&startname, 4, 1, infile) != 1)
     goto errread;
   if (fread(&ordinalbase, 4, 1, infile) != 1)
     goto errread;
-  fseek(infile, posdll + startname - export, SEEK_SET);
+  fseek(infile, posdll + startname - exportdir, SEEK_SET);
   j = 0;
   do {
     if (fread(&string[j], 1, 1, infile) != 1)
@@ -744,7 +744,7 @@ void ImportName(char *name) {
     fseek(infile, posdll + nameadr, SEEK_SET);
     if (fread(&startname, 4, 1, infile) != 1)
       goto errread;
-    fseek(infile, posdll + startname - export, SEEK_SET);
+    fseek(infile, posdll + startname - exportdir, SEEK_SET);
     itok.size = -1;
     j = 0;
     unsigned char c;

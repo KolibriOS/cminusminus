@@ -1,6 +1,7 @@
 #define _REGOPT_
 
 #include "tok.h"
+#include "misc.h"
 
 unsigned char optinitreg = TRUE;
 int OptNameIDX(char *name, char *nam, int size);
@@ -785,8 +786,9 @@ void CompareLVIC(BLVIC *bak) {
     return;
   for (int i = 0; i < bak->sizevic; i++) {
     if ((bak->listvic + i)->rec != NULL) {
+	  int j;
       bvic = bak->listvic + i;
-      for (int j = 0; j < cursizevic; j++) {
+      for (j = 0; j < cursizevic; j++) {
         if ((listvic + j)->rec == bvic->rec) {
           if ((listvic + j)->lnumber != bvic->lnumber)
             bvic->rec = NULL;
@@ -953,7 +955,7 @@ int UpdVarConst(ITOK *itok4, long long num, int typenum, int operand) {
         if ((listvic + i)->contype == tk_float)
           (listvic + i)->number |= 0x80000000;
         else if ((listvic + i)->contype == tk_double)
-          (listvic + i)->lnumber |= 0x8000000000000000I64;
+          (listvic + i)->lnumber |= 0x8000000000000000LL;
         else
           (listvic + i)->lnumber = -(listvic + i)->lnumber;
         return TRUE;

@@ -79,7 +79,7 @@ extern unsigned char
     wconsole; //признак генерации консольного приложения windows
 extern unsigned long ImageBase;
 extern int numexport;
-extern struct listexport *lexport;
+extern listexport *lexport;
 extern unsigned char optstr; //оптимизация строковых констант
 extern unsigned char crif;  // check reply include file
 extern unsigned char idasm; //ассемблерные инструкции считать идентификаторами
@@ -210,7 +210,7 @@ extern DLLLIST *listdll;
 extern char skipfind;
 extern structteg *tegtree; //глобальный срисок тегов
 extern structteg *ltegtree; //локальный срисок тегов
-// extern struct idrec *lstructlist; //список локальных структур
+// extern idrec *lstructlist; //список локальных структур
 extern idrec *definestart;
 extern SINFO strinf;
 extern char *startline, *endinput;
@@ -476,7 +476,7 @@ int procdo(int expectedreturn);
 int updatecall(unsigned int which, unsigned int where, unsigned int top);
 void AddBackBuf(int, char);
 void CharToBackBuf(char c);
-void missingpar(char *name = "");
+void missingpar(const char *name = "");
 int CheckCodeSize();
 void CheckPosts();
 int doanyundefproc(int jumpsend = FALSE);
@@ -539,7 +539,7 @@ long doconstfloatmath();
 void dwordvalexpected();
 void idalreadydefined();
 void illegalfloat();
-void internalerror(char *str); // serious internal compiler error message
+void internalerror(const char *str); // serious internal compiler error message
 void maxoutputerror();
 void maxwordpostserror();
 void nextseminext();
@@ -623,7 +623,7 @@ int Push(ITOK *wtok = NULL);
         --------------------------------------------------*/
 void warningstring();
 void warningexpand();
-void warningjmp(char *str2, int line = linenumber, int file = currentfileinfo);
+void warningjmp(const char *str2, int line = linenumber, int file = currentfileinfo);
 void warningreg(char *str2);
 void preerror3(
     char *str, unsigned int line,
