@@ -43,14 +43,13 @@ void FindEndLex() {
     nexttok();
 }
 
-void preerror(
-    char *str) /* error on currentline with line number and file name */
+/* error on currentline with line number and file name */
+void preerror(char const *str)
 {
   preerror3(str, linenumber);
 }
 
-void preerror3(
-    char *str, unsigned int line,
+void preerror3(char *str, unsigned int line,
     unsigned int file) // error message at a different than current line
 {
   if (error < maxerrors) {

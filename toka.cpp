@@ -1,4 +1,3 @@
-#include <dos.h>
 #define _TOKA_
 
 #include "tok.h"
@@ -3122,8 +3121,6 @@ void AddDynamicList(idrec *ptr) {
   DynamicList[countDP] = ptr;
   countDP++;
 }
-
-#include <conio.h>
 
 void docals(struct idrec *ptr)
 /* extract any procedures required from interal library and insert any

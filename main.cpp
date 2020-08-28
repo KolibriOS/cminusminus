@@ -1,7 +1,14 @@
 #define _MAIN_
-#include "tok.h"
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include "tok.h"
+#include "misc.h"
+
+#ifndef O_BINARY
+#define O_BINARY 0
+#define O_TEXT 0
+#endif
 
 static char **_Argv; //!!! simplest way to make your own variable
 
@@ -59,7 +66,7 @@ unsigned char ESPloc = FALSE;
 int startupfile = -1;
 int alignproc = 8, aligncycle = 8;
 
-char *usage[] = {
+char const *usage[] = {
     "USAGE: C-- [options] [FILE_NAME.INI] [SOURCE_FILE_NAME]", "",
     "                       C-- COMPILER OPTIONS", "",
     "                           OPTIMIZATION",
@@ -132,7 +139,7 @@ char *usage[] = {
     //" /SCD        split code and date",
     NULL};
 
-char *dir[] = {
+char const *dir[] = {
     "ME",   "WORDS", "SYM",  "LAI",
 
     "OBJ",  "SOBJ",  "J0",   "J1",   "J2",   "C",   "R",   "P",   "X",
@@ -260,7 +267,7 @@ char *bufstr = NULL;   //буфер для строк из процедур
 int sbufstr = SIZEBUF; //начальный размер этого буфера
 
 void compile();
-void PrintInfo(char **str);
+void PrintInfo(char const **str);
 void LoadIni(char *name);
 // void CheckNumStr();
 void ListId(int num, unsigned char *list, short *ofs);
@@ -426,7 +433,7 @@ void compile() {
   if (undefoffstart != NULL) { //выдать список неизвестных ссылок
     UNDEFOFF *curptr = undefoffstart;
     for (;;) {
-      char holdstr[80];
+      char holdstr[84];
       UNDEFOFF *ocurptr;
       linenumber = curptr->pos->line;
       sprintf(holdstr, "\'%s\' offset undefined", curptr->name);
@@ -627,7 +634,7 @@ void printmemsizes() {
   }
 }
 
-void PrintInfo(char **str) {
+void PrintInfo(char const **str) {
   numstr = 1;
   for (int i = 0; str[i] != NULL; i++) {
     puts(str[i]);
@@ -1198,7 +1205,7 @@ void SetLST(unsigned char neg) {
   }
 }
 
-void print8item(char *str) {
+void print8item(char const *str) {
   //	CheckNumStr();
   for (int j = 0; j < 8; j++)
     printf(str, j);
@@ -1531,11 +1538,7 @@ void startsymbiosys(char *symfile) {
     ErrOpenFile(symfile);
     exit(e_symbioerror);
   }
-#ifdef _UNIX_
-  if ((filesize = getfilelen(filehandle)) != -1L) {
-#else
   if ((filesize = filelength(filehandle)) != -1L) {
-#endif
     if (filesize + outptr < MAXDATA) {
       size = filesize;
       if ((unsigned int)read(filehandle, output + outptr, size) != size) {
@@ -1564,7 +1567,7 @@ void BadCommandLine(char *str) {
   exit(e_unknowncommandline);
 }
 
-void warnunused(struct idrec *ptr) {
+void warnunused(idrec *ptr) {
   // static count=0;
   if (ptr != NULL) {
     if (ptr->count == 0 && startupfile != ptr->file) {
@@ -1805,7 +1808,7 @@ void setdindata(idrec *ptr, int i) {
   input = (unsigned char *)ptr->sbuf;
   inptr2 = 1;
   ostartline = startline;
-  startline = input;
+  startline = (char*)input;
   cha2 = input[0];
   linenum2 = ptr->line;
   currentfileinfo = ptr->file;

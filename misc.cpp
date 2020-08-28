@@ -1,15 +1,13 @@
 #include <sys/stat.h>
-
 #include "tok.h"
 
-long getfilelen(int fd) {
+long filelength(int fd) {
   struct stat sb;
   if (fstat(fd, &sb) != 0)
     return -1;
   return sb.st_size;
 }
 
-#ifndef CL
 void strupr(char *string) {
   char ch;
   while ((ch = *string)) {
@@ -18,4 +16,3 @@ void strupr(char *string) {
     string++;
   }
 }
-#endif

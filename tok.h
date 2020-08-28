@@ -58,13 +58,6 @@
 #endif
 #endif
 
-#ifdef _UNIX_
-long getfilelen(int fd);
-#ifndef O_BINARY
-#define O_BINARY 0
-#endif
-#endif
-
 extern unsigned char FixUpTable; //запретить создание таблици Fix UP for Windows
 extern unsigned char WinMonoBlock;
 extern unsigned int currentfileinfo;
@@ -215,7 +208,7 @@ extern char *bufrm;
 extern UNDEFOFF *undefoffstart;
 extern DLLLIST *listdll;
 extern char skipfind;
-extern structteg *tegtree;  //глобальный срисок тегов
+extern structteg *tegtree; //глобальный срисок тегов
 extern structteg *ltegtree; //локальный срисок тегов
 // extern struct idrec *lstructlist; //список локальных структур
 extern idrec *definestart;
@@ -379,7 +372,8 @@ void DateToStr(char *buf);
 int CalcRm16(int base, int idx);
 int CheckDef();
 void SetNewStr(char *name);
-structteg *CreatTeg(int Global, int useunion = FALSE, int noname = FALSE);
+structteg *CreatTeg(int Global, int useunion = FALSE,
+                           int noname = FALSE);
 void InitStruct2(unsigned int flag, structteg *tteg);
 unsigned long LocalStruct2(int flag, int *localline, int binptr, char bcha,
                            structteg *tteg);
@@ -569,7 +563,7 @@ void tobigpost();
 void expected(char ch);
 int expecting(int want);
 void outprocedure(unsigned char *array, unsigned int length);
-void preerror(char *str); // error on currentline with line number and file name
+void preerror(char const *str); // error on currentline with line number and file name
 void thisundefined(char *str, int next = TRUE);
 void addconsttotree(char *keystring, long long constvalue, int type = tk_dword);
 void directive();
