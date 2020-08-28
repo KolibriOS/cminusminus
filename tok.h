@@ -565,7 +565,7 @@ int expecting(int want);
 void outprocedure(unsigned char *array, unsigned int length);
 void preerror(char const *str); // error on currentline with line number and file name
 void thisundefined(char *str, int next = TRUE);
-void addconsttotree(char *keystring, long long constvalue, int type = tk_dword);
+void addconsttotree(const char *keystring, long long constvalue, int type = tk_dword);
 void directive();
 void doenum();
 void doprestuff(); // do initial code things, like resize mem, jump to main...

@@ -267,7 +267,7 @@ void LoadIni(char *name);
 // void CheckNumStr();
 void ListId(int num, unsigned char *list, short *ofs);
 void printmemsizes();
-void print8item(char *str);
+void print8item(const char *str);
 void doposts(void);
 void GetMemExeDat();
 void AddJmpApi();
