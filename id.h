@@ -1,6 +1,6 @@
 /* Этот файл сгенерирован программой 'FASTLIST.EXE' */
 
-short idofs[53] = {0xFFFF, 0x0000, // A B
+unsigned short idofs[53] = {0xFFFF, 0x0000, // A B
                    0x0009, 0xFFFF, // C D
                    0x0026, 0x0037, // E F
                    0x0044, 0xFFFF, // G H

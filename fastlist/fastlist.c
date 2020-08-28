@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
   unsigned char *ii, *jj;
   InitList(Mnemonics, 0);
   OpenFile("asmnemon.h");
-  fputs("short ofsmnem[26]={\n", out);
+  fputs("unsigned short ofsmnem[26]={\n", out);
   for (i = 0;; i++) {
     if (table[i + 1] != -1)
       lastlit = i + 1;
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 
   InitList(dirlist, 1);
   OpenFile("dirlist.h");
-  fputs("short ofsdir[27]={\n", out);
+  fputs("unsigned short ofsdir[27]={\n", out);
   for (i = 0;; i++) {
     if (table[i + 1] != -1)
       lastlit = i + 1;
@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
 
   InitList(ID, 2);
   OpenFile("id.h");
-  fputs("short idofs[53]={\n", out);
+  fputs("unsigned short idofs[53]={\n", out);
   for (i = 0;; i++) {
     if (table[i] != -1)
       lastlit = i;
@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
 
   InitList(res_name, 3);
   OpenFile("resname.h");
-  fputs("short ofsres[26]={\n", out);
+  fputs("unsigned short ofsres[26]={\n", out);
   for (i = 0;; i++) {
     if (table[i] != -1)
       lastlit = i;

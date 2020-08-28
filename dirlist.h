@@ -1,6 +1,6 @@
 /* Этот файл сгенерирован программой 'FASTLIST.EXE' */
 
-short ofsdir[27] = {0x0000, 0x000F, // D a
+unsigned short ofsdir[27] = {0x0000, 0x000F, // D a
                     0xFFFF, 0x0045, // b c
                     0x0072, 0x0090, // d e
                     0x00A5, 0xFFFF, // f g

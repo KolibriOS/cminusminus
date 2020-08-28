@@ -1,4 +1,4 @@
-char *Mnemonics[] = {
+const char *Mnemonics[] = {
     // FIRST OF ALL THE COMMANDS WITH A P-FLAG. THIS"LL MAKE THINGS EASIER FOR
     // COMPARISON IN THE PARSE ENGINE
     // P1=0-7

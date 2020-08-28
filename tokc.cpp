@@ -9585,11 +9585,7 @@ unsigned int dofrom() // returns number of bytes read from FROM file
     unableopenfile((char *)string3);
     return (0);
   }
-#ifdef _UNIX_
-  if ((filesize = getfilelen(filehandle)) == -1L) {
-#else
   if ((filesize = filelength(filehandle)) == -1L) {
-#endif
     preerror("Unable to determine FROM file size");
     close(filehandle);
     return (0);
@@ -9630,11 +9626,7 @@ unsigned int doextract() // returns number of bytes EXTRACTed
     return (0);
   }
   sizetoread = doconstlongmath();
-#ifdef _UNIX_
-  if ((filesize = getfilelen(filehandle)) == -1L) {
-#else
   if ((filesize = filelength(filehandle)) == -1L) {
-#endif
     preerror("Unable to determine EXTRACT file size");
     close(filehandle);
     return (0);
@@ -10345,11 +10337,7 @@ int loadinputfile(char *inpfile) //считывание файла в памят
   int filehandle;
   if ((filehandle = open(inpfile, O_BINARY | O_RDONLY)) == -1)
     return -2;
-#ifdef _UNIX_
-  if ((size = getfilelen(filehandle)) == 0) {
-#else
   if ((size = filelength(filehandle)) == 0) {
-#endif
     badinfile(inpfile);
     close(filehandle);
     return (-1);

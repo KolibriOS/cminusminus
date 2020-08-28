@@ -13,13 +13,13 @@
 #include "id.h"
 #include "resname.h"
 
-struct idrec *treestart = NULL;
-struct idrec *definestart = NULL;
+idrec *treestart = NULL;
+idrec *definestart = NULL;
 UNDEFOFF *undefoffstart = NULL;
 DLLLIST *listdll = NULL;
-struct structteg *tegtree = NULL; //глобальный срисок тегов
-struct structteg *ltegtree = NULL; //локальный срисок тегов
-// struct idrec *lstructlist=NULL;  //список локальных структур
+structteg *tegtree = NULL; //глобальный срисок тегов
+structteg *ltegtree = NULL; //локальный срисок тегов
+// idrec *lstructlist=NULL;  //список локальных структур
 SINFO strinf = {NULL};
 static int notdef = TRUE;
 static char precha;
@@ -73,7 +73,7 @@ COM_MOD *cur_mod = NULL;
 
 void docals(struct idrec *ptr);
 void dostructvar2(
-    int *tok4, ITOK *itok4, struct structteg *tteg,
+    int *tok4, ITOK *itok4, structteg *tteg,
     unsigned char *string4); //разбор структур на переменные и структуры
 void dosizeof(ITOK *itok4); //опр значение sizeof
 void ofsstr(int *tok4, ITOK *itok4);
@@ -2135,7 +2135,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
       }
     case tk_id:
       if (findofset == FALSE) {
-        struct structteg *tteg;
+        structteg *tteg;
         //					if(displaytokerrors)printf("find teg
         //%s cha=%02X\n",itok4->name,cha);
         if (((tteg = FindTeg(FALSE, itok4->name)) != NULL ||
@@ -2567,7 +2567,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
       case tk_id:
       case tk_ID:
       structofs:
-        struct structteg *tteg;
+        structteg *tteg;
         if (((tteg = FindTeg(FALSE, itok4->name)) != NULL ||
              (tteg = FindTeg(TRUE, itok4->name)) != NULL) /*&&cha=='.'*/) {
           dostructvar2(tok4, itok4, tteg, string4);
@@ -3380,7 +3380,7 @@ elementteg *FindOneDestr(structteg *searcht) {
 
 void Destructor(idrec *ptrs) {
   char name[IDLENGTH];
-  struct elementteg *bazael;
+  elementteg *bazael;
   int addofs;
   structteg *tteg;
   tteg = (structteg *)ptrs->newid;
@@ -3432,7 +3432,7 @@ void donew() {
   structteg *tteg;
   elementteg *bazael;
   int addofs = 0;
-  struct idrec *ptr;
+  idrec *ptr;
   nexttok();
   if ((tteg = FindTeg(FALSE)) == NULL && (tteg = FindTeg(TRUE)) == NULL) {
     tegnotfound();
@@ -3620,7 +3620,7 @@ void AutoDestructor() {
 
 elementteg *FindClassEl(structteg *searcht, unsigned char *string4, int *addofs,
                         structteg *subteg) {
-  struct elementteg *bazael = searcht->baza;
+  elementteg *bazael = searcht->baza;
   int numclass = 0;
   void **listclass;
   // 11.08.04 22:54
@@ -3803,7 +3803,7 @@ int searchlocals(ITOK *itok4, int *tok4, unsigned char *string4)
     }
   }
   if (searchteg) {
-    struct elementteg *bazael;
+    elementteg *bazael;
     int addofs = 0;
     structteg *subteg = NULL;
     if (cha == ':' && cha2 == ':') {
@@ -3910,10 +3910,10 @@ int searchlocals(ITOK *itok4, int *tok4, unsigned char *string4)
 }
 
 void dostructvar2(
-    int *tok4, ITOK *itok4, struct structteg *tteg,
+    int *tok4, ITOK *itok4, structteg *tteg,
     unsigned char *string4) //разбор структур на переменные и структуры
 {
-  struct elementteg *bazael;
+  elementteg *bazael;
   int numel = 0;
   int usenumstruct = FALSE;
   int sopenb;
@@ -4207,7 +4207,7 @@ void dostructvar2(
 
 void dosizeof(ITOK *itok4) //опр значение sizeof
 {
-  struct structteg *tteg;
+  structteg *tteg;
   int i, brase = FALSE;
   ITOK cstok;
   whitespace(); //пропуск незначащих символов
@@ -4323,7 +4323,7 @@ void dosizeof(ITOK *itok4) //опр значение sizeof
 }
 
 void ofsstr(int *tok4, ITOK *itok4) {
-  struct structteg *tteg;
+  structteg *tteg;
   int newreg = (idxregs[4] == 255 ? idxregs[0] : idxregs[4]); // 14.06.06 20:06
   int poststr;
   int flagstr;
@@ -4332,7 +4332,7 @@ void ofsstr(int *tok4, ITOK *itok4) {
     poststr = 0;
     flagstr = f_useidx;
   } else {
-    struct idrec *ptrs;
+    idrec *ptrs;
     ptrs = itok4->rec;
     tteg = (structteg *)ptrs->newid;
     poststr = ptrs->recpost;
@@ -4740,7 +4740,7 @@ int GetFirstDestr(structteg *searcht) {
 }
 
 void AddTegToTree(structteg *newteg, int Global) {
-  struct structteg *tteg;
+  structteg *tteg;
   int i;
   tteg = (Global == TRUE ? tegtree : ltegtree);
   if (tteg == NULL)
@@ -4769,16 +4769,16 @@ int IsClass(structteg *searcht) {
   return FALSE;
 }
 
-struct structteg *CreatTeg(int Global, int useunion,
+structteg *CreatTeg(int Global, int useunion,
                            int noname) //создать новый тег
 {
-  struct structteg *newteg, *tteg;
-  struct elementteg *bazael;
+  structteg *newteg, *tteg;
+  elementteg *bazael;
   int ssize = 0, numel = 0, localtok, size, numt, nameid = FALSE, tsize;
   int bitofs = 0, bitsize = 0, i, type;
   int isdestr = FALSE, isbase = 0;
   int unionsize = 0;
-  newteg = (struct structteg *)MALLOC(sizeof(struct structteg));
+  newteg = (structteg *)MALLOC(sizeof(structteg));
   newteg->left = newteg->right = NULL;
   newteg->baza = NULL;
   newteg->flag = useunion;
@@ -4797,10 +4797,10 @@ struct structteg *CreatTeg(int Global, int useunion,
       else {
         size = tteg->size;
         if (numel == 0)
-          bazael = (struct elementteg *)MALLOC(sizeof(struct elementteg));
+          bazael = (elementteg *)MALLOC(sizeof(elementteg));
         else
-          bazael = (struct elementteg *)REALLOC(
-              bazael, sizeof(struct elementteg) * (numel + 1));
+          bazael = (elementteg *)REALLOC(
+              bazael, sizeof(elementteg) * (numel + 1));
         for (i = 0; i < numel; i++) {
           if (strcmp((bazael + i)->name, itok.name) == 0) {
             sprintf((char *)string, "Dublicate base class '%s'", itok.name);
@@ -4902,15 +4902,15 @@ struct structteg *CreatTeg(int Global, int useunion,
       if ((tteg = CreatTeg(Global, TRUE, i)) != NULL) {
         if (tok == tk_semicolon) {
           if (numel == 0)
-            bazael = (struct elementteg *)MALLOC(sizeof(struct elementteg) *
+            bazael = (elementteg *)MALLOC(sizeof(elementteg) *
                                                  tteg->numoper);
           else
-            bazael = (struct elementteg *)REALLOC(
-                bazael, sizeof(struct elementteg) * (numel + tteg->numoper));
+            bazael = (elementteg *)REALLOC(
+                bazael, sizeof(elementteg) * (numel + tteg->numoper));
           for (i = 0; i < tteg->numoper; i++)
             (tteg->baza + i)->ofs += ssize;
           memcpy((elementteg *)(bazael + numel), tteg->baza,
-                 sizeof(struct elementteg) * tteg->numoper);
+                 sizeof(elementteg) * tteg->numoper);
           tsize = tteg->size;
           if (useunion == FALSE)
             ssize += tsize;
@@ -4951,15 +4951,15 @@ struct structteg *CreatTeg(int Global, int useunion,
             goto dproc2;
           } else {
             if (numel == 0)
-              bazael = (struct elementteg *)MALLOC(sizeof(struct elementteg) *
+              bazael = (elementteg *)MALLOC(sizeof(elementteg) *
                                                    tteg->numoper);
             else
-              bazael = (struct elementteg *)REALLOC(
-                  bazael, sizeof(struct elementteg) * (numel + tteg->numoper));
+              bazael = (elementteg *)REALLOC(
+                  bazael, sizeof(elementteg) * (numel + tteg->numoper));
             for (i = 0; i < tteg->numoper; i++)
               (tteg->baza + i)->ofs += ssize;
             memcpy((elementteg *)(bazael + numel), tteg->baza,
-                   sizeof(struct elementteg) * tteg->numoper);
+                   sizeof(elementteg) * tteg->numoper);
             tsize = tteg->size;
             if (useunion == FALSE)
               ssize += tsize;
@@ -5058,10 +5058,10 @@ struct structteg *CreatTeg(int Global, int useunion,
         }
       dproc2:
         if (numel == 0)
-          bazael = (struct elementteg *)MALLOC(sizeof(struct elementteg));
+          bazael = (elementteg *)MALLOC(sizeof(elementteg));
         else
-          bazael = (struct elementteg *)REALLOC(
-              bazael, sizeof(struct elementteg) * (numel + 1));
+          bazael = (elementteg *)REALLOC(
+              bazael, sizeof(elementteg) * (numel + 1));
         if (tok != tk_ID && tok != tk_id) {
           utestInitVar = TRUE;
           if (testInitVar() ==
@@ -5366,7 +5366,7 @@ struct structteg *CreatTeg(int Global, int useunion,
         oflag = tp_fastcall;
       else
         oflag = (comfile == file_w32 ? tp_stdcall : tp_pascal);
-      bazael = (struct elementteg *)REALLOC(bazael, sizeof(struct elementteg) *
+      bazael = (elementteg *)REALLOC(bazael, sizeof(elementteg) *
                                                         (numel + 1));
       strcpy((bazael + numel)->name, itok.name);
       strcat((bazael + numel)->name, "~");
@@ -5424,9 +5424,9 @@ struct structteg *CreatTeg(int Global, int useunion,
   return newteg;
 }
 
-struct structteg *FindTeg(int Global, char *name) //найти тег
+structteg *FindTeg(int Global, char *name) //найти тег
 {
-  struct structteg *tteg;
+  structteg *tteg;
   int i;
   char *tn;
   if ((tn = strchr(name, '@')) != NULL)
@@ -5478,12 +5478,12 @@ unsigned int SaveVal(unsigned long long val, int type) {
   return loop;
 }
 
-void FillTeg(unsigned long long val, unsigned int numel, struct structteg *tteg)
+void FillTeg(unsigned long long val, unsigned int numel, structteg *tteg)
 /*-----------------03.10.99 00:20-------------------
  заполнить структуру одинаковыми величинами
  --------------------------------------------------*/
 {
-  struct elementteg *elem = tteg->baza;
+  elementteg *elem = tteg->baza;
   int bitofs = 0;
   unsigned int startstruct;
   if (dbg & 2)
@@ -5507,7 +5507,7 @@ void FillTeg(unsigned long long val, unsigned int numel, struct structteg *tteg)
         for (unsigned int i = 0; i < (elem + c)->numel; i++) {
           if (type == tk_struct || type == tk_baseclass) {
             FillTeg(val, (elem + c)->numel,
-                    (struct structteg *)(elem + c)->nteg);
+                    (structteg *)(elem + c)->nteg);
             break;
           }
           SaveVal(val, type);
@@ -5519,13 +5519,13 @@ void FillTeg(unsigned long long val, unsigned int numel, struct structteg *tteg)
     CorrectOfsBit(bitofs);
 }
 
-unsigned int Fill2Teg(unsigned int numel, struct structteg *tteg)
+unsigned int Fill2Teg(unsigned int numel, structteg *tteg)
 /*-----------------03.10.99 00:20-------------------
  заполнить структуру величинами
  --------------------------------------------------*/
 {
   unsigned long long hold;
-  struct elementteg *elem = tteg->baza;
+  elementteg *elem = tteg->baza;
   unsigned int tnumel = 0; //номер елемента одного типа
   unsigned int ttype = 0;  //номер элемента структуры
   unsigned int nums = 0;   //номер копии структуры
@@ -5560,7 +5560,7 @@ unsigned int Fill2Teg(unsigned int numel, struct structteg *tteg)
     if (type == tk_struct || type == tk_baseclass) {
       tnumel = (elem + ttype)->numel;
       loop += Fill2Teg((elem + ttype)->numel,
-                       (struct structteg *)(elem + ttype)->nteg);
+                       (structteg *)(elem + ttype)->nteg);
       if (tok == tk_closebrace)
         break;
       continue;
@@ -5743,7 +5743,7 @@ unsigned int initstructvar(structteg *tteg, int numel) {
 void InitStruct2(unsigned int flag,
                  structteg *tteg) //инициализировать глобальную структуру
 {
-  struct idrec *newrec = NULL, *ptr;
+  idrec *newrec = NULL, *ptr;
   int numel, count;
   char done = 0, dynamic;
   unsigned int loop;
@@ -5754,7 +5754,7 @@ void InitStruct2(unsigned int flag,
     case tk_id:
     case tk_ID: //инициализировать структуру
                 //выделить память под новую структ
-      newrec = (struct idrec *)MALLOC(sizeof(struct idrec));
+      newrec = (idrec *)MALLOC(sizeof(idrec));
 
       //				if(strcmp(itok.name,"ccchrg")==0)printf("rec=%08X
       // teg=%08X size=%X %s\n",newrec,tteg,sizeof(idrec),itok.name);
@@ -5915,7 +5915,7 @@ void InitStruct2(unsigned int flag,
 
 void InitStruct() //инициализировать глобальную структуру
 {
-  struct structteg *tteg;
+  structteg *tteg;
   unsigned int flag;
   // if(debug)puts("start init struct");
   flag = itok.flag;
@@ -6035,7 +6035,7 @@ LocalStruct2(int flag, int *localline, int binptr, char bcha,
 unsigned long LocalStruct(int flag,
                           int *localline) //инициализировать локальную структуру
 {
-  struct structteg *tteg;
+  structteg *tteg;
   int binptr;
   char bcha;
   structteg *osearchteg;
@@ -6076,7 +6076,7 @@ unsigned long LocalStruct(int flag,
 }
 
 void dostruct() {
-  struct structteg *tteg;
+  structteg *tteg;
   int numel;
   int usenumstr;
   SINFO rstr;
@@ -6088,7 +6088,7 @@ void dostruct() {
   int localstr = FALSE;
   int poststr;
   int flagstr;
-  struct idrec *ptrs;
+  idrec *ptrs;
   if (tok2 == tk_assign) {
     switch (ScanTok3()) {
     case tk_proc:
@@ -6459,7 +6459,7 @@ void dostruct() {
       nexttok();
       break;
     case tk_structvar:
-      struct structteg *tteg2;
+      structteg *tteg2;
       int numel2;
       int usenumstr2;
       unsigned int num2;
@@ -6476,7 +6476,7 @@ void dostruct() {
         poststr2 = 0;
         flagstr2 = f_useidx;
       } else {
-        struct idrec *ptrs;
+        idrec *ptrs;
         ptrs = itok.rec;
         tteg2 = (structteg *)ptrs->newid;
         if (ptrs->recpost == LOCAL)
@@ -7073,7 +7073,7 @@ unsigned long long scannumber(int *rm) {
 }
 
 void tag_massiv(int *tok4, ITOK *itok4, unsigned char *string4) {
-  struct structteg *tteg;
+  structteg *tteg;
   int number, tok, rm;
   tok = *tok4;
   number = itok4->number;
