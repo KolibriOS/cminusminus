@@ -187,14 +187,14 @@ extern int tok, tok2;
 
 #if !defined(_TOKR_)
 extern char useasm;
-extern short ofsmnem[];
+extern unsigned short ofsmnem[];
 extern unsigned char asmMnem[];
 extern char asmparam;
 #endif
 
 #if !defined(_TOKA_)
 extern unsigned char id[];
-extern short idofs[];
+extern unsigned short idofs[];
 extern char id2[ID2S][9];
 extern char regs[2][8][4];
 extern char begs[8][3];
@@ -350,7 +350,7 @@ unsigned long
 LocalStruct(int flag, int *localline); //инициализировать локальную структуру
 structteg *FindTeg(int Global, char *name = itok.name); //найти тег
 void dostruct();
-int FastSearch(unsigned char *list, short *ofs, int type, char *str);
+int FastSearch(unsigned char *list, unsigned short *ofs, int type, char *str);
 void FindDirectiv();
 unsigned long long scannumber(int *rm);
 void FastTok(int mode, int *tok4 = &tok, ITOK *itok4 = &itok);
@@ -563,8 +563,8 @@ void tobigpost();
 void expected(char ch);
 int expecting(int want);
 void outprocedure(unsigned char *array, unsigned int length);
-void preerror(char const *str); // error on currentline with line number and file name
-void thisundefined(char *str, int next = TRUE);
+void preerror(const char *str); // error on currentline with line number and file name
+void thisundefined(const char *str, int next = TRUE);
 void addconsttotree(const char *keystring, long long constvalue, int type = tk_dword);
 void directive();
 void doenum();
@@ -626,7 +626,7 @@ void warningexpand();
 void warningjmp(const char *str2, int line = linenumber, int file = currentfileinfo);
 void warningreg(char *str2);
 void preerror3(
-    char *str, unsigned int line,
+    const char *str, unsigned int line,
     unsigned int file =
         currentfileinfo); // error message at a different than current line
 void unableopenfile(char *name);
@@ -678,7 +678,7 @@ void warcompeqconst();
 void warpointerstruct();
 void warESP();
 void waralreadinitvar(char *name, unsigned int num);
-void warningprint(char *str, unsigned int line, unsigned int file);
+void warningprint(const char *str, unsigned int line, unsigned int file);
 void notexternfun();
 
 void AddDataLine(char ssize /*,char typev*/);

@@ -38,7 +38,7 @@ void cwpointr(ITOK *wtok, char *&wbuf, SINFO *wstr, int *otok, int npointr,
               int ureg);
 int CheckAddOnly();
 void optnumadd64(unsigned long long num, int r1, int r2, int vop);
-void CallExternProc(char *name);
+void CallExternProc(const char *name);
 void getinto_reg(int gtok, ITOK *gstok, char *&gbuf, SINFO *gstr, int razr,
                  int reg);
 void intinstack(int addop);
@@ -9434,9 +9434,9 @@ void setwordpost(ITOK *stok) /* for post word num setting */
     //%s\n",stok->rec->rectok,stok->rec->recid);
     //printf("rec=%08X\n",stok->rec);
     if (stok->rec->rectok == tk_structvar && stok->rec->recsib == tp_gvar) {
-      (postbuf + posts)->num = (int)stok->rec; // 02.09.05 17:11 ->right;
+      (postbuf + posts)->num = (int)(size_t)stok->rec; // 02.09.05 17:11 ->right;
     } else
-      (postbuf + posts)->num = (int)stok->rec;
+      (postbuf + posts)->num = (int)(size_t)stok->rec;
   } else if (stok->post >= CODE_SIZE && stok->post <= STACK_SIZE32)
     (postbuf + posts)->type = stok->post;
   else
@@ -13420,7 +13420,7 @@ void getintoreg64(int reg) {
     nexttok();
 }
 
-void CallExternProc(char *name) {
+void CallExternProc(const char *name) {
   ITOK itok4;
   int tok4 = tk_id;
   char string4[256];

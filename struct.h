@@ -497,6 +497,6 @@ typedef struct _LILV_ {
 } LILV;
 
 typedef struct _WARNACT_ {
-  void (*fwarn)(char *str, unsigned int line, unsigned int file);
+  void (*fwarn)(const char *str, unsigned int line, unsigned int file);
   unsigned char usewarn;
 } WARNACT;

@@ -797,7 +797,7 @@ void ImportName(char *name) {
 void CreatStub(char *name) {
   sizestub = SIZESTUB;
   hout = CreateOutPut(outext, "wb");
-  sprintf(&stub[STRVERS], "%s%s", compilerstr, __DATE__);
+  sprintf((char*)&stub[STRVERS], "%s%s", compilerstr, __DATE__);
   if (name == NULL) {
   stdstub:
     if (fwrite(stub, SIZESTUB, 1, hout) != 1) {
@@ -1040,8 +1040,8 @@ int MakeCoff() {
   lastoffset = sizehead + sizeof(COFF_HEADER);
   //	if(header){
   strcpy((objentry + curobj)->name, ".version");
-  sprintf(&stub[STRVERS], "%s%s", compilerstr, __DATE__);
-  (objentry + curobj)->psize = strlen(&stub[STRVERS]) + 1;
+  sprintf((char*)&stub[STRVERS], "%s%s", compilerstr, __DATE__);
+  (objentry + curobj)->psize = strlen((char*)&stub[STRVERS]) + 1;
   (objentry + curobj)->pOffset = lastoffset;
   (objentry + curobj)->flags = 0x100A00;
   headernum = curobj;

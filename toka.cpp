@@ -46,8 +46,8 @@ char id2[ID2S][9] = {
     "GSWORD",  "GSLONG",  "GSDWORD",  "GSFLOAT", "GSQWORD", "GSDOUBLE",
 };
 
-char regs[2][8][4] = {"AX",  "CX",  "DX",  "BX",  "SP",  "BP",  "SI",  "DI",
-                      "EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI"};
+char regs[2][8][4] = {{"AX",  "CX",  "DX",  "BX",  "SP",  "BP",  "SI",  "DI"},
+					{"EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI"}};
 char begs[8][3] = {"AL", "CL", "DL", "BL", "AH", "CH", "DH", "BH"};
 char segs[6][3] = {"ES", "CS", "SS", "DS", "FS", "GS"};
 
@@ -65,7 +65,7 @@ unsigned int inptr2;
 unsigned int linenum2 = 0; //если не нуль, то идет обраьотка
 char displaytokerrors; /* flag to display errors, 0 for tok2 scan */
 char *bufrm = NULL;
-char *startline = NULL;
+unsigned char *startline = NULL;
 char *endinput = NULL;
 unsigned char skiplocals = FALSE;
 int scanlexmode = STDLEX;
@@ -2935,7 +2935,7 @@ void SetNewStr(char *name) {
   cur_mod = fmod;
   //	if(debug)printf("new curmod %08X prev cur_mod=%08X old input %08X
   //%s\n",cur_mod,cur_mod->next,input,name);
-  input = name;
+  input = (unsigned char*)name;
   inptr = 1;
   cha = input[0];
   endinptr = strlen(name) + 1;
@@ -2981,7 +2981,7 @@ int searchtree2(idrec *fptr, ITOK *itok4, int *tok4, unsigned char *string4)
           NewMod(itok4->size);
           notdef = FALSE;
           cur_mod->declareparamdef = ptr->newid;
-          input = ptr->sbuf;
+          input = (unsigned char*)ptr->sbuf;
           inptr = 1;
           cha = input[0];
           endinptr = strlen((char *)input);
@@ -3319,7 +3319,7 @@ void CallDestr(idrec *ptr) {
   if (itok.segm == DYNAMIC)
     AddDynamicList(ptr);
   tok2 = tk_openbracket;
-  input = "();";
+  input = (unsigned char*)"();";
   inptr2 = 1;
   cha2 = '(';
   endinptr = 3;
@@ -3391,7 +3391,7 @@ void RunNew(int size) {
   otok = tok;
   otok2 = tok2;
   oinput = input;
-  input = buf;
+  input = (unsigned char*)buf;
   inptr2 = 1;
   cha2 = '_';
   tok = tk_openbrace;
@@ -3532,7 +3532,7 @@ void dodelete() {
         op(0x58);
       }
     }
-    input = "__delete((E)AX);}";
+    input = (unsigned char*)"__delete((E)AX);}";
     inptr2 = 1;
     cha2 = '_';
     endinptr = strlen((char *)input);
@@ -4501,7 +4501,7 @@ int FindOff(unsigned char *name, int base) //поиск ссылок на тек
           CheckPosts();
           (postbuf + posts)->type =
               (unsigned short)(am32 == 0 ? DIN_VAR : DIN_VAR32);
-          (postbuf + posts)->num = (int)itok.rec;
+          (postbuf + posts)->num = (int)(size_t)itok.rec;
           (postbuf + posts)->loc = ofs;
         } else {
           if ((segm & 1) == 0 || modelmem == TINY) { //в сегменте кода
@@ -4601,7 +4601,7 @@ int GetDirective(char *str) {
   return i;
 }
 
-int FastSearch(unsigned char *list, short *ofs, int type, char *str) {
+int FastSearch(unsigned char *list, unsigned short *ofs, int type, char *str) {
   if ((strlen(str) - 1) > 0) {
     short offs = -1;
     unsigned char c;
@@ -5369,7 +5369,7 @@ structteg *CreatTeg(int Global, int useunion,
       itok.number = nrec->recnumber = secondcallnum++;
       (bazael + numel)->numel = 1;
       numel++;
-      input = buf;
+      input = (unsigned char*)buf;
       inptr2 = 1;
       cha2 = '(';
       endinptr = strlen(buf);

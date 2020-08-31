@@ -390,7 +390,7 @@ int getnumber(char *buf, unsigned long *num, int *typenum) {
   oinptr = inptr;
   oinput = input;
   oendinptr = endinptr;
-  input = buf;
+  input = (unsigned char*)buf;
   inptr = 0;
   endinptr = 256;
   *num = scannumber(typenum == NULL ? &temp2 : typenum);

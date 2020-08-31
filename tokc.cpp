@@ -206,7 +206,7 @@ void compilefile(char *filename, int firstflag) {
     startupfile = currentfileinfo;
   inptr = 0;
   endoffile = 0;
-  startline = input;
+  startline = (char*)input;
   endinput = startline + endinptr;
   warning = gwarning;
   nextchar();
@@ -7267,7 +7267,7 @@ void RunBackText() {
   tok = tk_openbrace;
   SizeBackBuf = 0;
   ostartline = startline;
-  startline = input;
+  startline = (char*)input;
   endinptr = strlen((char *)input);
   endinput = startline + endinptr;
 
@@ -7325,7 +7325,7 @@ int PushLocInit(int ofs) {
   ostartline = startline;
   cha2 = input[inptr2++];
   endinptr = strlen((char *)input);
-  startline = input + ofs;
+  startline = (char*)input + ofs;
   endinput = startline + endinptr;
   nexttok();
   wtok = itok;
@@ -9767,9 +9767,9 @@ void outseg(ITOK *outtok, unsigned int locadd) {
       //%s\n",outtok->rec->rectok,outtok->rec->right,outtok->rec->recsib,outtok->rec->recid);
       if (outtok->rec->rectok == tk_structvar &&
           outtok->rec->recsib == tp_gvar) {
-        (postbuf + posts)->num = (int)outtok->rec; // 02.09.05 17:10 ->right;
+        (postbuf + posts)->num = (int)(size_t)outtok->rec; // 02.09.05 17:10 ->right;
       } else
-        (postbuf + posts)->num = (int)outtok->rec;
+        (postbuf + posts)->num = (int)(size_t)outtok->rec;
     }
     //		else if((outtok->flag&f_dataseg))(postbuf+posts)->type=(unsigned
     // short)(am32==0?DATABLOCK_VAR:DATABLOCK_VAR32);
@@ -10043,7 +10043,7 @@ void insert_dynamic(int insert) {
   pinfo = ptr->pinfo;
   input = (unsigned char *)pinfo->buf;
   inptr2 = 1;
-  startline = input;
+  startline = (char*)input;
   cha2 = input[0];
   endinptr = strlen((char *)input);
   endinput = startline + endinptr;

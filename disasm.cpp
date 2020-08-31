@@ -514,6 +514,33 @@ unsigned int sibv;   /* flag for getting sib byte   */
 unsigned int opsize; /* just like it says ...       */
 unsigned int addrsize;
 
+/*------------------------------------------------------------------------*/
+void uprintf(const char *s, ...) {
+  va_list argptr;
+  va_start(argptr, s);
+  vsprintf(ubufp, s, argptr);
+  va_end(argptr);
+  while (*ubufp)
+    ubufp++;
+}
+
+void uputchar(char c) {
+  if (c == '\t') {
+    if (done_space)
+      uputchar(' ');
+    else {
+      done_space = 1;
+      do {
+        *ubufp++ = ' ';
+      } while ((ubufp - ubuf) % 8);
+    }
+  } else
+    *ubufp++ = c;
+  *ubufp = 0;
+}
+
+/*------------------------------------------------------------------------*/
+
 void printbyte(unsigned char c) {
   if (c < 10)
     uprintf("%u", (unsigned char)c);
@@ -581,31 +608,6 @@ int sib() {
   if (sibv == -1)
     sibv = getbyte();
   return sibv;
-}
-
-/*------------------------------------------------------------------------*/
-void uprintf(char *s, ...) {
-  va_list argptr;
-  va_start(argptr, s);
-  vsprintf(ubufp, s, argptr);
-  va_end(argptr);
-  while (*ubufp)
-    ubufp++;
-}
-
-void uputchar(char c) {
-  if (c == '\t') {
-    if (done_space)
-      uputchar(' ');
-    else {
-      done_space = 1;
-      do {
-        *ubufp++ = ' ';
-      } while ((ubufp - ubuf) % 8);
-    }
-  } else
-    *ubufp++ = c;
-  *ubufp = 0;
 }
 
 /*------------------------------------------------------------------------*/

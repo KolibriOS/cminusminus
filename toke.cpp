@@ -2298,7 +2298,7 @@ void directive() {
       // tok=%d\n",ptr,input,tok);
       inptr2 = inptr;
       cha2 = cha;
-      while (ptr == input)
+      while (ptr == (char*)input)
         nexttok();
       next = 0;
       break;

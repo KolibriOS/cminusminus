@@ -44,28 +44,28 @@ struct _STRINGS_ {
   short val;
 };
 
-_STRINGS_ typemem[7] = {"MOVEABLE",    0x0010, "FIXED",      ~0x0010,
-                        "PURE",        0x0020, "IMPURE",     ~0x0020,
-                        "PRELOAD",     0x0040, "LOADONCALL", ~0x0040,
-                        "DISCARDABLE", 0x1000};
+_STRINGS_ typemem[7] = {{"MOVEABLE",    0x0010}, {"FIXED",      ~0x0010},
+	{"PURE",        0x0020}, {"IMPURE",     ~0x0020},
+	{"PRELOAD",     0x0040}, {"LOADONCALL", ~0x0040},
+	{"DISCARDABLE", 0x1000}};
 
-_STRINGS_ typeclass[6] = {"BUTTON",  0x80, "EDIT",      0x81, "STATIC",   0x82,
-                          "LISTBOX", 0x83, "SCROLLBAR", 0x84, "COMBOBOX", 0x85};
+_STRINGS_ typeclass[6] = {{"BUTTON",  0x80}, {"EDIT",      0x81}, {"STATIC",   0x82},
+	{"LISTBOX", 0x83}, {"SCROLLBAR", 0x84}, {"COMBOBOX", 0x85}};
 
 _STRINGS_ typemenu[NUMMENUPOPUP] = {
-    "GREYED",    0x0001, "INACTIVE", 0x0002, "BITMAP",       0x0004,
-    "OWNERDRAW", 0x0100, "CHECKED",  0x0008, "MENUBARBREAK", 0x0020,
-    "MENUBREAK", 0x0040, "HELP",     0x4000};
+	{"GREYED",    0x0001}, {"INACTIVE", 0x0002}, {"BITMAP",       0x0004},
+	{"OWNERDRAW", 0x0100}, {"CHECKED",  0x0008}, {"MENUBARBREAK", 0x0020},
+	{"MENUBREAK", 0x0040}, {"HELP",     0x4000}};
 
-_STRINGS_ typeacceler[5] = {"VIRTKEY", 0x01,      "NOINVERT", 0x02,  "SHIFT",
-                            0x04,      "CONTROL", 0x08,       "ALT", 0x10};
+_STRINGS_ typeacceler[5] = {
+	{"VIRTKEY", 0x01}, {"NOINVERT", 0x02},  {"SHIFT", 0x04},
+	{"CONTROL", 0x08}, {"ALT", 0x10}};
 
 enum { v_fv = 1, v_pv, v_ffm, v_ff, v_fo, v_ft, v_fs };
 
-_STRINGS_ typeversion[7] = {"FILEVERSION",   v_fv,  "PRODUCTVERSION", v_pv,
-                            "FILEFLAGSMASK", v_ffm, "FILEFLAGS",      v_ff,
-                            "FILEOS",        v_fo,  "FILETYPE",       v_ft,
-                            "FILESUBTYPE",   v_fs};
+_STRINGS_ typeversion[7] = {{"FILEVERSION",   v_fv},  {"PRODUCTVERSION", v_pv},
+	{"FILEFLAGSMASK", v_ffm}, {"FILEFLAGS",      v_ff}, {"FILEOS",        v_fo},
+	{"FILETYPE",       v_ft}, {"FILESUBTYPE",   v_fs}};
 
 enum {
   rc_accelerators,

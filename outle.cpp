@@ -24,7 +24,7 @@ int MakeBin32() {
 unsigned int EntryParamStr() {
   ITOK btok;
   int bb = tk_id;
-  unsigned char *buf = "__bufcomstr";
+  unsigned char *buf = (unsigned char*)"__bufcomstr";
   btok.number = 0;
   searchtree(&btok, &bb, buf);
   if (bb == tk_id)

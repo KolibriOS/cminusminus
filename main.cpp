@@ -265,7 +265,7 @@ void compile();
 void PrintInfo(char const **str);
 void LoadIni(char *name);
 // void CheckNumStr();
-void ListId(int num, unsigned char *list, short *ofs);
+void ListId(int num, unsigned char *list, unsigned short *ofs);
 void printmemsizes();
 void print8item(const char *str);
 void doposts(void);
@@ -1353,7 +1353,7 @@ void GetMemExeDat() {
     outputdata = (unsigned char *)MALLOC((size_t)MAXDATA);
 }
 
-void ListId(int numfirstchar, unsigned char *list, short *ofs) {
+void ListId(int numfirstchar, unsigned char *list, unsigned short *ofs) {
   char buf[40];
   for (int i = 0; i < numfirstchar; i++) {
     if ((short)ofs[i] != -1) {

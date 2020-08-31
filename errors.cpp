@@ -2,16 +2,16 @@
 #include "tok.h"
 #include "misc.h"
 
-void warningprint(char *str, int line, int file);
-WARNACT wact[WARNCOUNT] = {warningprint, 1, warningprint, 1, warningprint, 1,
-                           warningprint, 1, warningprint, 1, warningprint, 1,
-                           warningprint, 1, warningprint, 1, warningprint, 1,
-                           warningprint, 1, warningprint, 1, warningprint, 1,
-                           warningprint, 1, warningprint, 1, warningprint, 1};
+void warningprint(const char *str, int line, int file);
+WARNACT wact[WARNCOUNT] = {{warningprint, 1}, {warningprint, 1}, {warningprint, 1},
+	{warningprint, 1}, {warningprint, 1}, {warningprint, 1},
+	{warningprint, 1}, {warningprint, 1}, {warningprint, 1},
+	{warningprint, 1}, {warningprint, 1}, {warningprint, 1},
+	{warningprint, 1}, {warningprint, 1}, {warningprint, 1}};
 
 int maxerrors = 16; // number of errors to stop at
 
-void warningprint(char *str, int line, int file);
+void warningprint(const char *str, int line, int file);
 unsigned char mapfile = FALSE;
 FILE *hmap = NULL;
 
@@ -45,12 +45,12 @@ void FindEndLex() {
 }
 
 /* error on currentline with line number and file name */
-void preerror(char const *str)
+void preerror(const char *str)
 {
   preerror3(str, linenumber);
 }
 
-void preerror3(char *str, unsigned int line,
+void preerror3(const char *str, unsigned int line,
     unsigned int file) // error message at a different than current line
 {
   if (error < maxerrors) {
@@ -58,11 +58,11 @@ void preerror3(char *str, unsigned int line,
     sprintf((char *)string3, "%s(%d)#%d> %s.\n",
             startfileinfo == NULL ? "" : (startfileinfo + file)->filename, line,
             error, str);
-    printf((char *)string3);
+    printf("%s", (char *)string3);
     if (errfile.file == NULL)
       errfile.file = fopen(errfile.name, "w+t");
     if (errfile.file != NULL)
-      fprintf(errfile.file, (char *)string3);
+      fprintf(errfile.file, "%s", (char *)string3);
   } else
     exit(e_toomanyerrors);
 }
@@ -173,7 +173,7 @@ void unableopenfile(char *name) {
 
 void shortjumptoolarge() { preerror(shorterr); }
 
-void thisundefined(char *str, int next) {
+void thisundefined(const char *str, int next) {
   char holdstr[80];
   sprintf(holdstr, "'%s' undefined", str);
   preerror(holdstr);
@@ -522,7 +522,7 @@ void warningretsign() {
     wact[5].fwarn("Signed value returned", linenumber, currentfileinfo);
 }
 
-void warningprint(char *str, unsigned int line, unsigned int file) {
+void warningprint(const char *str, unsigned int line, unsigned int file) {
   if (warning == TRUE) {
     if (wartype.name != NULL && wartype.file == stdout) {
       if ((wartype.file = fopen(wartype.name, "w+t")) == NULL)
@@ -722,7 +722,6 @@ char *GetRetType(int type, int flag) {
 }
 
 char *GetTypeProc(int flag) {
-  char *retcode;
   char *t;
   string2[0] = 0;
   if (flag & f_interrupt)
@@ -905,7 +904,7 @@ void mapfun(int line) {
             startfileinfo == NULL
                 ? ""
                 : (startfileinfo + currentfileinfo)->filename);
-    fprintf(hmap, "\noffset=0x%X(%d)\tsize=0x%X(%d)", itok.number, itok.number,
+    fprintf(hmap, "\noffset=0x%lX(%ld)\tsize=0x%X(%d)", itok.number, itok.number,
             itok.size, itok.size);
   }
   fheader = 0;
