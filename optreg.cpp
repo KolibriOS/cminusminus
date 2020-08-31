@@ -1085,7 +1085,6 @@ int SwapVarRegConst(int reg, ITOK *itok4, int razr) {
   unsigned long num;
   int typenum;
   int nr;
-  int numinreg = FALSE;
   nr = convertrazr(&reg, razr);
   if (replasevar && itok4->rec && (itok4->flag & f_useidx) == 0 &&
       optinitreg != FALSE && razr <= r32 && (regstat + reg)->type == t_id &&

@@ -419,7 +419,7 @@ void r_Stringtable() {
 }
 
 void CreatStrTabRes() {
-  unsigned int i, num, j;
+  unsigned int i, j;
   int idnum = 0;
   int usesec;
   for (i = 0; i < 65536;) {

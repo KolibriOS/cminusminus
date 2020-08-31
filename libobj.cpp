@@ -52,8 +52,6 @@ int GetOffSec(int seg) {
 }
 
 void AddNameObj(char *name, int typefind, int type) {
-  int len;
-  len = strlen(name);
   if (!numobj)
     listobj = (LISTINCLFILE *)MALLOC(sizeof(LISTINCLFILE));
   else
