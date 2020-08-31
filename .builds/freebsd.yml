@@ -16,9 +16,6 @@ tasks:
         cd build
         cmake ..
         gmake
-    - install: |
-        cd cminusminus
-        gmake install
     - test: |
-        cd cminusminus
-        ./c--
+        cd cminusminus/build
+        ./c-- /?

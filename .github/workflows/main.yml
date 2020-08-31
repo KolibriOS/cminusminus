@@ -17,10 +17,27 @@ jobs:
             - name: Create Build Environment
               run: cmake -E make_directory ${{runner.workspace}}/build
 
-            - name: Configure CMake
+            - name: Configure CMake (Windows)
+              if: matrix.os == 'windows-latest'
+              working-directory: ${{runner.workspace}}/build
+              run: cmake $env:GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$env:BUILD_TYPE
+
+            - name: Configure CMake (UNIX)
+              if: matrix.os != 'windows-latest'
               working-directory: ${{runner.workspace}}/build
               run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
-            - name: Build
+            - name: Build (Windows)
+              if: matrix.os == 'windows-latest'
+              working-directory: ${{runner.workspace}}/build
+              run: cmake --build . --config $env:BUILD_TYPE
+
+            - name: Build (UNIX)
+              if: matrix.os != 'windows-latest'
               working-directory: ${{runner.workspace}}/build
               run: cmake --build . --config $BUILD_TYPE
+
+            - name: Test (UNIX)
+              if: matrix.os != 'windows-latest'
+              working-directory: ${{runner.workspace}}/build
+              run: ./c-- /?
