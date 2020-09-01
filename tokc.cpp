@@ -2,7 +2,12 @@
 
 #include <sys/stat.h>
 #include <fcntl.h> /* O_ constant definitions */
+#ifndef _MSC_VER
 #include <unistd.h>
+#else
+#include <io.h>
+#endif
+
 #include "tok.h"
 #include "misc.h"
 
@@ -2627,7 +2632,7 @@ int constructcompare(int invertflag, unsigned int startloc)
   case tk_dollar:
     nexttok();
   case tk_idasm:
-    if (strcmpi(itok.name, "test") == 0) {
+    if (cmm_strcmpi(itok.name, "test") == 0) {
       if (iTest(1) == FALSE)
         InvOperComp();
       ittok = 0x75;
@@ -9587,7 +9592,7 @@ unsigned int dofrom() // returns number of bytes read from FROM file
     unableopenfile((char *)string3);
     return (0);
   }
-  if ((filesize = filelength(filehandle)) == -1L) {
+  if ((filesize = cmm_filelength(filehandle)) == -1L) {
     preerror("Unable to determine FROM file size");
     close(filehandle);
     return (0);
@@ -9628,7 +9633,7 @@ unsigned int doextract() // returns number of bytes EXTRACTed
     return (0);
   }
   sizetoread = doconstlongmath();
-  if ((filesize = filelength(filehandle)) == -1L) {
+  if ((filesize = cmm_filelength(filehandle)) == -1L) {
     preerror("Unable to determine EXTRACT file size");
     close(filehandle);
     return (0);
@@ -10339,7 +10344,7 @@ int loadinputfile(char *inpfile) //считывание файла в памят
   int filehandle;
   if ((filehandle = open(inpfile, O_BINARY | O_RDONLY)) == -1)
     return -2;
-  if ((size = filelength(filehandle)) == 0) {
+  if ((size = cmm_filelength(filehandle)) == 0) {
     badinfile(inpfile);
     close(filehandle);
     return (-1);

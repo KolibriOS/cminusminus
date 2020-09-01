@@ -485,7 +485,7 @@ void LoadObj() {
             break;
         }
         lns = (LISTNAMESYMBOL *)(listnamesymbol + ii);
-        idrec *rec = lns->rec;
+        //idrec *rec = lns->rec;
         switch ((trel + j)->Type) {
         case IMAGE_REL_I386_DIR32:
           *(long *)&buf[(trel + j)->VirtualAddress] += lns->adr;

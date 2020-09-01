@@ -97,7 +97,7 @@ void doasm(int nexta) {
         doid((char)(tok == tk_ID ? 1 : 0), tk_void);
       return;
     }
-    strupr((char *)string);
+    cmm_strupr((char *)string);
     htok = FastSearch((unsigned char *)asmMnem, ofsmnem, 0, (char *)string);
   sw_asm:
     asmparam = TRUE;
@@ -260,7 +260,6 @@ void doasm(int nexta) {
             itok.segm = DYNAMIC_USED;
             updatetree();
           }
-          int flag = itok.flag;
           if (itok.segm < NOT_DYNAMIC) { //динамическая процедура
             addacall(itok.number,
                      (unsigned char)(am32 != FALSE ? CALL_32 : CALL_NEAR));

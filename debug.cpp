@@ -590,7 +590,7 @@ int CreateDosDebug() {
     char *str = strrchr((char *)string3, '.');
     if (str != 0) {
       str[0] = 0;
-      str = strrchr((char *)string3, '\\');
+      str = strrchr((char *)string3, PATH_SEP_C);
       if (str == NULL)
         str = (char *)string3;
       else

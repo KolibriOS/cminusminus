@@ -2,7 +2,11 @@
 
 #include <sys/stat.h>
 #include <fcntl.h> /* O_ constant definitions */
+#ifndef _MSC_VER
 #include <unistd.h>
+#else
+#include <io.h>
+#endif
 
 #include "tok.h"
 #include "misc.h"
@@ -1828,7 +1832,7 @@ void directive() {
       printf("%s", string);
       break;
     case tk_number:
-      printf("\n%u", itok.number);
+      printf("\n%lu", itok.number);
       break;
     default:
       preerror("unsupported token for #print");
@@ -1840,7 +1844,7 @@ void directive() {
   case d_prnex:
     nexttok();
     if (tok == tk_number)
-      printf("%X", itok.number);
+      printf("%lX", itok.number);
     else
       numexpected();
     break;

@@ -180,7 +180,7 @@ struct Fixup_Record_Table {
 struct Rel_Addr_Type {
   unsigned char Repeat_Offset : 1;
   unsigned char Target_OFFSET_Absent : 1;
-  unsigned char Rel_Addr_Type : 4;
+  unsigned char Type : 4;
 };
 
 enum // LE_Relocation_Address_Type_ENUM
@@ -199,7 +199,7 @@ struct Reloc_Type {
   unsigned char Target_Offset_32 : 1;
   unsigned char Reserv2 : 1;
   unsigned char ADDITIVE_Type : 1;
-  unsigned char Reloc_Type : 2;
+  unsigned char Type : 2;
 };
 
 enum // LE_Relocation_Type_ENUM

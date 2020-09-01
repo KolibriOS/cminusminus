@@ -1,7 +1,12 @@
 #define _TOKA_
-#include <unistd.h>
+
 #include <string.h>
 #include <sys/stat.h>
+#ifndef _MSC_VER
+#include <unistd.h>
+#else
+#include <io.h>
+#endif
 
 #ifdef __CONSOLE__
 #include <windows.h>
@@ -65,7 +70,7 @@ unsigned int inptr2;
 unsigned int linenum2 = 0; //если не нуль, то идет обраьотка
 char displaytokerrors; /* flag to display errors, 0 for tok2 scan */
 char *bufrm = NULL;
-unsigned char *startline = NULL;
+char *startline = NULL;
 char *endinput = NULL;
 unsigned char skiplocals = FALSE;
 int scanlexmode = STDLEX;
@@ -1444,7 +1449,7 @@ void whitespace() //пропуск нзначащих символов
     if (cha == 13) {
       linenumber++;
       if ((dbg & 2) && displaytokerrors && notdef)
-        startline = input + inptr + 1;
+        startline = (char*)input + inptr + 1;
       if (scanlexmode == RESLEX || scanlexmode == DEFLEX ||
           scanlexmode == ASMLEX)
         break;
@@ -1464,7 +1469,7 @@ unsigned char convert_char()
     if (cha == 13) {
       linenumber++;
       if ((dbg & 2) && displaytokerrors && notdef)
-        startline = input + inptr + 1;
+        startline = (char*)input + inptr + 1;
     }
     return (cha);
   }
@@ -6668,7 +6673,7 @@ int SaveStruct(int size, idrec *newrec) {
 int CheckAsmName(char *name) {
   char buf[IDLENGTH];
   strcpy(buf, name);
-  strupr(buf);
+  cmm_strupr(buf);
   return FastSearch((unsigned char *)asmMnem, ofsmnem, 0, buf);
 }
 
@@ -7138,7 +7143,7 @@ int RegToRM(int number, int tok4) {
 int CheckResName(char *name) {
   char buf[IDLENGTH];
   strcpy(buf, name);
-  strlwr(buf);
+  cmm_strlwr(buf);
   return FastSearch((unsigned char *)resMnem, ofsres, 3, buf);
 }
 

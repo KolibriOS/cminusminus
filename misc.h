@@ -3,7 +3,20 @@
 #define O_TEXT 0
 #endif
 
-long filelength(int fd);
-void strupr(char *string);
-void strlwr(char *string);
-int strcmpi(char *s1, char *s2);
+#ifdef _MSC_VER
+#define strncasecmp _strnicmp
+#define strcasecmp _stricmp
+#endif
+
+#ifdef _MSC_VER
+#define PATH_SEP_C '\\'
+#define PATH_SEP "\\"
+#else
+#define PATH_SEP_C '/'
+#define PATH_SEP "/"
+#endif
+
+long cmm_filelength(int fd);
+void cmm_strupr(char *string);
+void cmm_strlwr(char *string);
+int cmm_strcmpi(char *s1, char *s2);

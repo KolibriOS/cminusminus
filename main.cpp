@@ -1,7 +1,11 @@
 #define _MAIN_
 #include <sys/stat.h>
 #include <fcntl.h>
+#ifndef _MSC_VER
 #include <unistd.h>
+#else
+#include <io.h>
+#endif
 #include "tok.h"
 #include "misc.h"
 
@@ -315,7 +319,7 @@ int main(int argc, char *argv[]) {
     outputdata = output;
     postbuf = (postinfo *)MALLOC(MAXPOSTS * sizeof(postinfo));
     strcpy((char *)string, argv[0]);
-    rawext = strrchr((char *)string, '\\');
+    rawext = strrchr((char *)string, PATH_SEP_C);
     if (rawext != NULL) {
       rawext[0] = 0;
       IncludePath((char *)string);
@@ -701,7 +705,7 @@ int SelectComand(char *pptr, int *count) {
     neg = TRUE;
     pptr[i - 1] = 0;
   }
-  strupr(pptr);
+  cmm_strupr(pptr);
   for (i = 0; dir[i] != NULL; i++) {
     if (strcmp(dir[i], pptr) == 0) {
       if ((i <= c_endinfo) && count == 0) {
@@ -1212,7 +1216,7 @@ void LoadIni(char *name) {
   char m1[256];
   if ((inih = fopen(name, "rb")) == NULL) {
     if (strcmp(name, "c--.ini") == 0) {
-      sprintf(m1, "%s\\%s", findpath[0], name);
+      sprintf(m1, "%s" PATH_SEP "%s", findpath[0], name);
       if ((inih = fopen(m1, "rb")) == NULL)
         return;
     } else
@@ -1263,13 +1267,13 @@ void *REALLOC(void *block, unsigned long size) {
 void IncludePath(char *buf) {
   if (numfindpath < MAXNUMPATH - 1) {
     int len = strlen(buf);
-    if (buf[len - 1] == '\\')
+    if (buf[len - 1] == PATH_SEP_C)
       buf[len - 1] = 0;
     else
       len++;
     char *a = (char *)MALLOC(len + 1);
     strcpy(a, buf);
-    strcat(a, "\\");
+    strcat(a, PATH_SEP);
     findpath[numfindpath] = a;
     numfindpath++;
     findpath[numfindpath] = "";
@@ -1533,7 +1537,7 @@ void startsymbiosys(char *symfile) {
     ErrOpenFile(symfile);
     exit(e_symbioerror);
   }
-  if ((filesize = filelength(filehandle)) != -1L) {
+  if ((filesize = cmm_filelength(filehandle)) != -1L) {
     if (filesize + outptr < MAXDATA) {
       size = filesize;
       if ((unsigned int)read(filehandle, output + outptr, size) != size) {

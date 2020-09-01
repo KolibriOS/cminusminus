@@ -153,7 +153,7 @@ void jumperror(unsigned int line, char *type) {
   char smalltype[IDLENGTH];
   char buf[80];
   strcpy(smalltype, type);
-  strlwr(smalltype);
+  cmm_strlwr(smalltype);
   sprintf(buf, "'%s' jump distance too large, use '%s'", type, smalltype);
   preerror3(buf, line);
 }

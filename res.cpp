@@ -1,8 +1,12 @@
 #define _RES_
 
-#include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h> /* O_ constant definitions */
+#ifndef _MSC_VER
+#include <unistd.h>
+#else
+#include <io.h>
+#endif
 #ifdef __CONSOLE__
 #include <windows.h>
 #else
@@ -152,7 +156,7 @@ void input_res() {
     case tk_id:
     case tk_ID:
       strcpy(idname, itok.name);
-      strupr(idname);
+      cmm_strupr(idname);
       nexttok();
       break;
     case tk_rescommand:
@@ -1120,7 +1124,7 @@ unsigned char *LoadFileBin(char *name) {
     badinfile(name);
     return NULL;
   }
-  if ((curposbuf = filelength(inico)) == 0) {
+  if ((curposbuf = cmm_filelength(inico)) == 0) {
     badinfile(name);
     close(inico);
     return NULL;

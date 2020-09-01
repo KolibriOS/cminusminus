@@ -14,4 +14,7 @@ endif()
 if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
 	set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fpermissive -Wno-write-strings")
 endif()
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
+	add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+endif()
 
