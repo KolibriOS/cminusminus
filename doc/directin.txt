@@ -1,0 +1,143 @@
+?ifdef/?ifndef
+----------------
+
+    Earlier instruction ?ifdef worked on presence of a constant irrespective
+of values of its value, and constant ?ifndef worked on absence constants in
+the compiled file. Now ?indef works only on constant the having TRUE value,
+and ?ifndef works as on absence constants in the compiled file, and on a
+constant important FALSE.
+
+    For the instructions ?ifdef/?ifndef the constants codesize and speed are
+reserved, which accept value TRUE or FALSE depending on a mode optimization.
+It will be useful to creation of more floppy libraries.
+
+    There is a possibility of check of a type CPU for which the compilation
+is carried on. Acceptablis variants of syntax:
+
+?ifdef cpu > 1 	 // if the program is compiled for CPU above 80186
+?ifndef cpu >= 2 // ------- // ------------- it is no more or equally 80286
+?ifdef cpu == 3 // ------- // ------------- is equal 80386
+?ifdef cpu!= 0 // ------- // ------------- is not equal 8086
+?ifdef cpu < 3 // ------- // ------------- it is worse 80386
+?ifdef cpu <= 2 // ------- // ------------- it is worse or is equal 80286
+    This instruction will allow you to write one procedure for various types
+CPU.
+
+?initallvar
+------------
+
+    By the instruction ?initallvar TRUE the mode is included at which by all
+to the unassigned variables the zero value and they will be assigned will
+settle down in that place where were declared. I.e. practically the
+unassigned variables will disappear. It can be, useful at, writing of drivers
+and resident programs.
+
+    The FALSE parameter of this instruction disconnects this mode.
+
+?usestartup
+-------------
+
+    The instruction ?usestartup permits to the compiler to use spots of the
+code initial initialization (startup) program for the consequent placement in
+them of the unassigned variables. It can be, useful to obtaining, The more
+compact code as usual programs, and in particular resident.
+
+?startusevar
+--------------
+
+    By the instruction ?startusevar it is possible to specify the initial
+address with which the compiler will arrange memory for the unassigned
+variables. For example by receiving the instruction ?startusevar 0x53 the
+compiler will have the unassigned variables since 0x53 addresses. It can be
+useful to obtaining the more compact code as for resident, and for usual
+programs.
+
+?atexit
+--------
+
+    The instruction ?atexit adds in startup of the program the code of
+support of the procedure ATEXIT, reserves a place for storage 16 addresses of
+procedures and changes the code procedures ABORT and EXIT.
+
+    The ATEXIT procedure registers the procedure which address is transferred
+to it in quality of the parameter, as the procedure of completion of the
+program. This procedure will be is called at the moment of completion of the
+program by procedures ABORT or EXIT or by the instruction RET from main.
+
+    In total it is possible to register up to 16 procedures. The procedures
+are called in the order a converse to the order of their registration.
+
+The instruction ?startuptomain
+--------------------------------
+
+    Under this instruction the compiler in the beginning of the file makes
+jmp on a beginning main() procedures. Before the beginning of compilation of
+this procedure the compiler will begin compilation startup of the code and
+only then the compilation of the procedure will be continued Main(). Thus
+startup the code will appear not in the beginning of the file, as it occurs
+usually, and in a body of the main() procedure. It will be, useful at,
+compilations of resident programs (TSR).
+
+    The instruction ?startuptomain works only at compilation of com-files.
+
+The instruction ?undef
+-----------------------
+
+    This instruction destroys constants declared by the instruction ?define.
+It is possible to apply to change during compilation of value any Constants.
+
+Alignment of data and code.
+-----------------------------
+
+    In C-- there is an instruction ?align, which makes single alignment of
+data on the even address. Now, if to this instruction to add the number,
+alignment will be made on the address to multiple this number. For example
+instruction ?align 4 will add a data segment up to addresses multiple 4. At
+alignment the bytes of which value will be inserted are defined by the
+instruction ?aligner, by default this value is equal to zero. The instruction
+?align makes alignment only in a data segment. In those memory models, in
+which data segment and code coincide this instruction it is possible to apply
+and for alignments of a beginning of procedures.
+
+    The instruction ?aligncode [value] makes alignment in a segment of the
+code on the address to multiple value, by default on the even address. value
+of byte fillings in this instruction is number 0x90 - code of the instruction
+NOP. The value of byte of filling for this instruction cannot be changed.
+This instruction can be applied and inside the executed code. For example, if
+you want to receive the fast code on 486 processor, it is recommended to make
+alignment of a beginning of procedures and cycles on the address multiple 16.
+
+?pragma
+--------
+
+    The instruction #pragma in turn has the instructions.
+
+    The instruction option allows to include in your code of an option of the
+command line the compiler. Some options can not be used in this instruction;
+others should be located right at the beginning of a source code. An example:
+
+  #pragma option w32c
+
+    This instruction declares to the compiler, that it is necessary to create
+cantilever the 32-bit file under windows.
+
+    By the instruction startup it is possible to specify the function, which
+will be executed before by start of the 'main' procedure. This instruction
+has such format:
+
+#pragma startup procname
+
+    Amount of time, which is possible to apply this instruction in one
+program is not limited, but really it is possible to use some thousands of
+time.
+
+    The instruction line outputs on the screen number of current string and
+name of the file. Contents of string, taking place after a word, in addition
+can is output 'line'. An example:
+
+# pragma line information
+
+    By meeting this instruction, the compiler will output on the screen a
+line number and name file. The message right from a word 'line' also will be
+output, if it is.
+

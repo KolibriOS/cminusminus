@@ -1,0 +1,160 @@
+Parameters of the command line of the C-- compiler.
+-----------------------------------------------------
+
+    Format of the command line of call of the C-- compiler:
+
+C-- [Parameters] [NAME source FILE] [NAME INI FILE]
+
+    It is possible to set a name of a source file without the extension. The
+compiler searches for the file with by the extension c--, cmm, c.
+
+    The parameters are allocated in prior character '/' or '-'. To invert the
+function of an option it is possible in completing character '-'.
+
+The list of supported parameters:
+
+/0       To use only commands 8086/8088 processors (is installed on
+            to default at compilation of 16-bit programs).
+/1       To use commands 80186 processors.
+/2       To use commands and optimization for 80286 processors.
+/3       To use commands and optimization for 80386 processors.
+            (is installed by default for 32-bit programs).
+/4       To use commands and optimization for 80486 processors.
+/5       To use commands and optimization for Pentium of the processor.
+/6       To use commands and optimization for Pentium MMX of the processor.
+/7       To use commands and optimization for Pentium Pro of the processor.
+/8       To use commands and optimization for Pentium II processors.
+/9       To use commands and optimization for Pentium III processors
+	 (is not realized yet because of absence of the information).
+/A       Alignment of data on the even address
+	 by default true, supports inversion
+/AC      Alignment of the address of a beginning cycle
+	 by default is disconnected, supports inversion
+	 it is meaningful only on processors Pentium+
+/AL=##   to place value of byte of filling at alignment of data
+	 by default 0.
+/AP      Alignment of the address of a beginning of procedures.
+	 By default is disconnected, supports inversion
+	 It is meaningful only on processors pentium and better
+/ARGC    To insert the block of analysis of the command line
+	 By default is disconnected, supports inversion
+/AT      To insert the block of support ATEXIT of the procedure
+	 By default is disconnected, supports inversion
+/C       To insert the block of ignoring CTRL <C>
+	 By default is disconnected, supports inversion
+	 It is meaningful only under DOS programs
+/CRI     To check included files on repeated loading
+	 By default is included, supports inversion
+/CPA     Clearing post-area of data
+/D32     To create EXE the file (32 bit codes for DOS)
+	 By default COM
+/D=<idname> to define the identifier for conditional compilation
+	 By default is not present
+/DBG     To generate the debug information
+	 By default is not present
+/DE      Temporary extension of a digit capacity after multiplying
+	 By default is disconnected, supports inversion
+/DLL     To create DLL for Windows32
+	 By default COM
+/ENV     Saving the address of variable environment
+/EXE     To create EXE the file for DOS (model SMALL)
+	 By default COM
+/HELP /H /? Help, this information
+/IA      The names of the assembly instructions are identifiers
+	 By default is disconnected, supports inversion
+/IND=<name> import of names from the name file.
+/IP=<path> to set path of search of included files
+	 By default is not present
+/IV      To initialize all variable
+	 By default is disconnected, supports inversion
+/J0      To not make initial jump on main()
+	 By default is disconnected, supports inversion
+	 In COM-files jmp on main does not create. In others the block is not
+         created of initial initialization of the program, and the handle is
+	 transferred at once on main.
+/J1      To make short jump on main ()
+	 By default is not present
+	 It is meaningful only in COM-files
+/J2      To make jump on main ()
+	 By default yes, supports inversion
+	 It is meaningful only in COM-files
+/LAI     List of the supported assembly instructions
+/LST     To create assembly listing
+/ME      To show my address and name
+/MER=**  to place maximum number of errors
+	 By default 16
+/MIF=<file> to define a name of the main compiled file
+/NS      To prohibit to connect stub of files
+	 By default is not present, supports inversion
+/NW=**   sample disconnecting of warnings
+/OBJ     To create OBJ the file
+	 Only 16 bit codes.
+	 By default COM
+/OC      To optimize on the size of the code
+	 By default is not present, supports inversion
+/ON      Optimization of numbers
+	 By default is not present, supports inversion
+/OS      Optimization on speed of execution
+	 By default yes, supports inversion
+/OST     Optimization of string identifiers
+	 By default is disconnected, supports inversion
+/P       To insert the block of disassembly of the command line
+	 By default is not present, supports inversion
+/R       To insert the block the reducing size of availablis memory.
+	 By default yes, supports inversion
+	 It is meaningful only in DOS-files
+/S=***** to set the size of the stack
+	 By default 2048
+/SA=**** initial offset of the address of start of the program
+	 It is meaningful only in COM-files, by default 0x100
+/SOBJ    To create conducted OBJ the file
+	 By default COM
+/STM     To transfer the block startup of the code to the main procedure
+	 By default is not present, supports inversion
+	 It is meaningful only in COM-files
+/SUV=**** the initial address not initialised variables, at
+         use by them of startup of the code.
+	 It is meaningful only in COM-files, by default /SA is equal
+/SYM     Deckhouse for COM of the file
+	 By default COM
+/SYS     To create (SYS) device driver
+	 By default COM
+/TEXE    To create EXE the file for DOS (model TINY)
+	 By default COM
+/UST     To use startup the code for a variable.
+	 It is meaningful only in COM-files
+	 By default is not present, supports inversion
+/W       To permit warnings
+	 By default is not present, supports inversion
+/W32     To create EXE the file for Windows32 GUI
+	 By default COM
+/W32C    To create EXE the file for Windows32 console
+	 By default COM
+/WBSS    To place the not initialized data in separate section.
+	 By default for /w32 it is authorized, for others it is forbidden.
+	 Supports inversion
+/WF=<file> set the output of warnings in the file.
+	 By default is not present
+/WFA     To use fast calls API of procedures
+	 By default yes, supports inversion
+	 Only for windows
+/WFU     To create the table of movings (for Windows32)
+	 By default is not present, supports inversion
+	 Only under windows
+	 For DLL is installed in yes
+/WIB=***** to set the image base address
+	 By default 0x400000
+/WMB     create the Windows-file with the uniform block
+	 By default yes, supports inversion
+	 Only under windows
+	 For DLL is installed in is not present
+/WORDS   To produce the list of reserved identifiers
+/WS=name specifies a name of the file used in quality stub under windows.
+/X       To prohibit to insert into the SPHINXC code - a signature
+	 By default it is authorized, supports inversion
+	 Is disconnected if is J0
+
+The note: the expression "supports inversion" means, that for the given
+option it is possible to use and opposite value with the help of character
+'-' ambassador options.
+

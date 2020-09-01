@@ -1,0 +1,338 @@
+Optimization of numerical expressions.
+----------------------------------------
+
+    At inclusion in the command line of an option /ON or in the file C--.INI
+of a line ON, the compiler will analyze operations above numbers and where it
+probably to reduce number of operations. For example:
+
+Line before optimization³ After optimization
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+  AX = var + 7 - 3;     ³ AX = var + 4;
+  AX = var * 2 * 5;     ³ AX = var * 10;
+  AX = var * 2 / 4;     ³ AX = var / 2;
+  AX = var * 10 / 2;    ³ AX = var * 5;
+  AX = var / 2 / 3;     ³ AX = var / 6;
+  AX = var / 4 * 8;     ³ AX = var * 2;
+  AX = var / 16 * 16;   ³ AX = var;
+
+    Negative consequences:
+The application of this optimization can have and negative consequences. For
+example, If you need to align a value on boundary of the paragraph, you write
+line:
+
+    var = var / 16 * 16;
+
+But after optimization will be
+
+    Var = var;
+
+I.e. the alignment will not be made. It can be avoided, if to divide this
+expression on two:
+
+    var = var / 16;
+    var = var * 16;
+
+Then the optimization will not be made. But for obtaining more compact the
+code it will be better to write down so:
+
+    AX = var;
+    AX = AX / 16;
+    AX = AX * 16;
+    var = AX;
+
+The temporary extension of a digit capacity of a variable.
+-------------------------------------------------------------
+
+    As is known, after multiplying there can be an overflow, the digit
+capacity of result can exceed a digit capacity of source operands and there
+will be a dist®rtion of result. Partially to decide this problem to you will
+help option of the /DE command line or string DE in the file C--.INI. After
+the command multiplyings the compiler will look through the rest of line and
+if will detect, that the extension of a digit capacity can be claimed (to
+claim extended digit capacity the operations of division and calculation of
+the rest), can the measures till it to saving will be accepted. For example:
+
+    a = b*c + d/e; // support of the extension of a digit capacity here will be included
+    a = b*c + d*e; // here support of the extension of a digit capacity will not be.
+
+    However application of this option can have and negative consequences. I
+shall show it on an example:
+
+Let there is an expression
+    a = b * c / d;
+
+If values of variables b = 0xC000, c = 0x1000, d = 0x10, after start Such
+program will hang up with the message that there was an overflow at division.
+
+Alternate handler of the command line.
+----------------------------------------
+
+    Difference of this handler of the command line from parsecommandline
+consists in that at call PARAMSTR(0); you receive the address of string in
+with which the path and name of the started program is indicated. The
+following calls by this the procedures with the increased parameter will
+return addresses of words command lines. And the procedure call PARAMCOUNT
+will return to you number of words in to the command line plus one.
+
+    The alternate handler of the command line is included by the instruction
+?argc TRUE or from the command line of the compiler by a key /argc or line
+argc in file C--.INI.
+
+
+Junction of identical string constants.
+-----------------------------------------
+
+If this mode of optimization will be set, the compiler will remember all
+string constants and at detection identical into the code of the file will
+not be inserted repeated string the constant, and will be made the reference
+to first, detected earlier string constant. In optimization participate only
+indeterminate string constants. I.e. if the array or structure will be
+initialized by string, that such string will not participate during
+initialization, so this the string can be changed during operation of the
+program. An example:
+
+char var = "test"; // this string will not participate during optimization.
+
+void proc ()
+{
+    WRITESTR ("test"); 	 // this string will participate in optimization.
+    AX = "test"; // the variable AX will assign the address of string, which
+                 // was inserted into the code of the program in the previous string.
+}
+
+    About all cases of detection of repeated string the compiler will
+produce warnings.
+
+    This mode of optimization or from the /ost command line, or is included
+by the instruction #pragma option ost, or string in the file c--.ini - ost.
+To disconnect, included earlier, this mode is possible by the instruction
+#pragma option ost-.
+
+Installation of the identifier in TRUE from the command line.
+---------------------------------------------------------------
+
+    If you have written the program, which can be compiled on any other
+business, in dependences on a state of some identifiers (the mode is used the
+conditional compilation), to you very much needs this option. Installing from
+the command line various identifiers you can receive various variants of the
+program not editing a source code of the program.
+
+    The identifier is entered from the command line by a key /d=idname.
+
+The simplified input of the assembly instructions.
+---------------------------------------------------
+
+    Has become possible to use the assembly instructions without the prefix
+'$' and outside of the block asm. This mode is included: from the command
+line by an option /ia; in the file configurations by string ia or instruction
+#pragma option ia.
+
+    When this mode is included, all names of the assembly instructions become
+by reserved words, i.e. You can not these names use in as of names of
+variables or procedures. The assembly instructions the compiler recognizes
+irrespective of, they are written by small or large characters.
+
+Skip of the repeatedly included file.
+---------------------------------------
+
+    More often, repeatedly to include the file in the compiled project, is
+not present necessities, but it sometimes occurs that some, included, the
+files include other files. That it did not occur it is necessary to make
+check on repeated loading of the file. Now this function incurs the compiler
+and at you passs necessity to make this check.
+
+    But sometimes (is very rare) there is a necessity to make repeated
+inclusion the file. For this purpose in the compiler there is an option of
+the /cri- command line, which Prohibits to the compiler to make check on
+repeated inclusion. Accordingly, For c--.ini of the file, it can be made by
+string cri- or instruction in the compiled file - #pragma option cri-.
+
+Import of names of procedures from DLL.
+-----------------------------------------
+
+    If you want in the program to use DLL, for which is not present the
+heading file with the description of procedures, the compiler can import
+names from this of DLL. For this purpose you should specify a name of this
+library or through an option of the command line /ind=name.dll, or in the INI
+file by string ind=name.dll, or through the instruction #pragma option
+ind=name.dll.
+
+    To a disadvantage of such way of obtaining of names it is possible to
+attribute that at the compilations of the program the library, from which are
+imported names, necessarily should be present at the computer. Also, if names
+in to the library are written without the suffix 'number', the compiler will
+not be to inspect number of parameters transmitted to the procedure. And,
+unfortunately, The compiler knows how to import names from libraries, of
+having only a format, the PE-file.
+
+Substitution stub in programs under windows.
+----------------------------------------------
+
+    As is known, in programs for windows there is DOS a stub, called stub,
+with which is transferred handle at start of such program in pure DOS.
+Usually such stub outputs on the screen the message that this the program
+should be started in the windows environment.
+
+    You can instead of standard stub use. For this purpose to you it is
+necessary to specify a name of the 16-bit EXE-file or through an option of
+command line /ws=filename, or string in the INI-file ws=filename, or
+instruction #pragma option ws=filename.
+
+    Thus, at you the possibility has appeared to create programs, working
+both under DOS and under windows.
+
+/WBSS - to place the not initialized data in separate section.
+----------------------------------------------------------------
+
+    Section .bss is created automatically at compilation of programs with a
+key /w32. If you want to have this section and at compilation of programs
+with keys /w32c Or /dll it is necessary to you to add or in the command line
+an option /wbss, or string in the INI-file wbss, or instruction #pragma
+option wbss.
+
+    Use of section .bss practically does not influence the size, of received,
+the file. Theoretically, for processors, which have separate cache for data,
+use of section .bss, should raise speed of operation programs.
+
+
+/DBG - creation of the debug information.
+
+    If at compilation of the program in the command line to add a key /dbg,
+or in the file of a configuration c--.ini to add string dbg, the compiler the
+ambassador the terminations of compilation will be created file with the
+debug information. This file has the name of the main unit also has the *.tds
+extension.
+
+    The debug information created by the C-- compiler is compatible with by
+the debug information of the Borland corporation, created by compilers. But,
+while, This information is realized yet in full size. Created now, the debug
+information has enough for realization of the elementary debugging programs.
+
+    For 16-bit programs under DOS for debugging it is necessary to use Turbo
+Debugger from a package Borland C v4.5 or is better (td.exe file).
+
+    For programs under Windows it is necessary to use the 32-bit debugger
+from this of a package (td32.exe file).
+
+    For 32-bit programs, using the expander DOS to apply for Debuggings Turbo
+Debugger it is impossible. But, there can be I do not know, how it is to
+make. If you know how to create 32-bit programs with By the DOS-expander by
+compilers of the Borland corporation with inclusion in them debug the
+information, tell to me. And I shall try to apply it for C--.
+
+     At start for debugging programs, the debugger should load it and to
+execute startup the code, i.e. to reach the main procedure and there to stop.
+On to any not clear reasons, at debugging programs under DOS (behind
+exception files compiled with a key /texe), the debugger, only loads the
+program also stops on first byte of the startup-code. With it, certainly, it
+is possible to reconcile, but it is very not convenient. That not trasse the
+startup-block, is possible in the debugger to press keys 'Alt+V', then 'M',
+from the list of obtained units to select the unit with the name of the
+debugged file. In the opened window to install a cursor by the beginning of
+the main procedure and to press 'F4'. After that it is possible to begin a
+program debugging.
+
+The instruction #jumptomain (keys -j0 -j1 -j2).
+-------------------------------------------------
+
+    The instruction #jumptomain executes little bit various functions in
+dependence from a type of an output file.
+
+    Compilation of the file of a type *.com and *.exe memory model tiny:
+
+  #jumptomain NONE (-j0) - in this case upon termination of the code of
+initial initialization of the program jmp on the main procedure is not
+generated. This instruction should be used in case up to the main procedure
+there are no others not dynamic procedures and initialized variables.
+
+  #jumptomain SHORT (-j1) - in this case upon termination of the code of
+initial initialization is generated short jmp on the main procedure. This
+instruction it is necessary to use, if up to the main procedure is no more
+than 128 bytes the code and data.
+
+  #jumptomain NEAR (-j2) is a state is installed by default. At It is
+generated close jmp on the main procedure.
+
+    Compilation of files *.exe (keys -exe -d32 -w32 -w32c):
+
+  #jumptomain NONE (-j0) - in this case code of initial initialization
+programs the handle is not generated also at start is transferred at once on
+the main procedure.
+
+  In all other cases the code of initial initialization and is generated the
+handle is transferred to the main procedure by the instruction call.
+
+    Compilation of files *.dll:
+
+  #jumptomain NONE (-j0) - in this case code of initial initialization
+programs the handle is not generated also at start is transferred at once on
+The main procedure.
+
+  In all other cases the code of a stub and handle on is generated the main
+procedure is not transferred. Actually main procedure in this case not is
+necessary.
+
+  The main procedure at creation of files DLL should look slightly
+differently, than in other cases:
+
+dword main (dword hInstDLL, reason, reserv)
+{
+  ...
+}
+
+
+Creation of assembly listing.
+-------------------------------
+
+    With the help of an additional option of the -lst command line you can
+receive together with the executive file and it assembly listing. The listing
+will be is placed in the file same with the executive file and, having the
+extension, *.lst.
+
+    The assembly listing is created by a part, independent of the compiler,
+of the code with by use of the information of the program, stored at
+compilation. All this has resulted in insignificant growth of the size of the
+compiler and lowering of speed compilations.
+
+Sample disconnecting of types of warnings.
+--------------------------------------------
+
+    Now compiler can produce 10 types of warnings and, sometimes them it
+happens so much, that becomes difficult in them to be oriented. Now it is
+possible selectively to prohibit output of warnings. For this purpose in the
+command line ( or in the file C--.INI) it is possible to set an option
+/nw=number, where number - number from 1 up to 10. To these digits there
+correspond the following types of warnings:
+
+ 1 - "Opimization number"
+ 2 - "Compiler used the register ..."
+ 3 - "Possible use short operator '...'"
+ 4 - "Repeated string "...""
+ 5 - "Expansion variable"
+ 6 - "Returned signed value"
+ 7 - "'...' already defined. Skipped"
+ 8 - "[Variable/Structure/Procedure] '...' possible not used"
+ 9 - "Used, probably not initialized, variable ..."
+10 - "Returned flags are destroyed"
+
+Saving of the address of variable environment.
+-----------------------------------------------
+
+    If at compilation of the program you in the command line will add an
+option -ENV or in the file c--.ini string ENV, the compiler will add in your
+program variable environ, in which at loading will be saved the address
+variable environments of the started program. For programs under Windows it
+is there will be full an address, and for others in this variable will be
+saved only address of a segment.
+
+/CPA - Clearing of post-area of data.
+---------------------------------------
+
+    Variables, which in a body of the program was not set any value, are not
+included in a body of the compilated program. For them the memory outside the
+program is reserved. But this memory can be is filled by the arbitrary
+information.
+
+    If it is necessary, that the unassigned variables at to loading the
+programs always contained one and too value (zero) - include in the command
+line an option -CPA.

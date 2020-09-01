@@ -1,0 +1,476 @@
+The conditional instructions.
+-------------------------------
+
+    The conditional instructions, through which the branching, such is
+carried out as in C.
+
+    C-- has two instructions of branching - if and IF.
+
+    If makes close branch on condition, and IF makes short (8-digit) branch
+on condition. IF is executed faster and can save up to 3 bytes in the size of
+the code, but can carry out transitions only within the limits of 127 bytes
+code.
+
+    The conditional instructions, as well as in C, can be accompanied as
+single by the command, and block from several commands, made in curly
+brackets { }. The conditional instructions have the same limitations, as
+conditional Expressions.
+
+    If the instruction IF is followed more than 127 bytes of the code, by the
+compiler will produce the following message on an error:
+
+        IF jump distance too far, use if.
+
+    It can simple be corrected, by replacing in this place the instruction
+IF on if.
+
+    The else and ELSE commands are used precisely the same as in the C
+language. Difference them in that ELSE has limitation of the jump address of
+127 bytes, same both IF. Esle generates the code on 1 byte longer, than ESLE.
+
+    The IF and else commands, and also if and ELSE can freely mix up as in
+the following example:
+
+        if (x == 2)
+            WRITESTR ("Two");
+        ELSE {WRITESTR (" not two. ");
+              Printmorestuff ();
+           }
+
+    If the instruction ELSE is followed more than 127 bytes of the code,
+by the compiler will produce the following message on an error:
+
+        ELSE jump distance too far, use else.
+
+    It can simple be corrected, by replacing in this place the instruction
+ELSE on esle.
+
+Cycles do {} while.
+--------------------
+
+    In such cycle the block of the code making an iteration body, will
+repeat, while the conditional has value "true".
+
+    The truth of the conditional is checked after execution of an iteration
+body, Therefore block of the code will be executed at least once.
+
+ The example do {}, while of a cycle, in which body will be executed five
+times:
+
+         count = 0;
+         do {
+            count ++;
+            WRITEWORD (count);
+            WRITELN ();
+           } while (count < 5);
+
+The conditional in do {} while of the instruction should correspond to those
+to rules, as in the instructions IF and if.
+
+Cycles loop, LOOPNZ, loopnz.
+------------------------------
+
+    The cycles loop repeat the block of the code, while defined variable or
+the register executing a role of the counter of a cycle, contain value,
+distinct from zero. At the end of execution of the block of the code making
+an iteration body, indicated, the variable or register - decreases on 1, and
+then is checked on equality to zero. If the variable (or register) is not
+equal to zero, the iteration body will be is executed again, and the process
+will be repeated.
+
+    Example of use of a cycle loop in which as the counter of a cycle the
+variable is used:
+
+        Count = 5;
+        Loop (count)
+            {WRITEWORD (count);
+            WRITELN ();
+           }
+
+    The greatest effect gives use of the register CX for cycles with small
+the body, as in this case by compiler generates a cycle with application the
+machine LOOP command.
+
+    If before start the counter of cycles contains zero value, command the
+iteration body will be executed a maximum number of times for a range of
+variable (256 times for the 8-bit counter (variable of a type byte or char),
+65536 for the 16-bit counter (variable of a type word or int), and 4294967296
+for the 32-bit counter (variable of a type dword or long)).
+
+ In the following example the cycle will be executed 256 times:
+
+         BH = 0;
+         Loop (BH)
+            {
+           }
+
+    If in the command is not indicated of any counter of a cycle, the cycle
+will be to proceed indefinitely.
+
+    The following example continuously will output character of an asterisk
+(*) on the screen:
+
+        loop ()
+            WRITE ('*');
+
+    The programmer, if wants, can use or to change value by variable of the
+counter of a cycle inside a cycle.
+
+    For example, the following cycle will be executed only 3 times:
+
+         CX = 1000;
+         loop (CX)
+            {
+            IF (CX > 3)
+                CX = 3;
+           }
+    The cycle can also be interrupted by an operator of break BREAK or break.
+Here that an example with use BREAK:
+
+         CX = 1000;
+         loop (CX)
+            {
+            IF (CX > 3)
+                BREAK;
+           }
+
+    The cycles LOOPNZ/loopnz differ from a cycle loop, that before an input
+in the cycle is checked equality to zero of argument of a cycle. If the
+argument is equal to zero, that iteration body will be never executed (in a
+cycle loop in this case iteration body the maximum number of times) will be
+executed.
+
+! Short a Cycle ^ Bwhile of ^ B, ^ BWHILE ^ B.
+				 Cycle while, WHILE.
+
+     Syntax:
+  While (<expression>)
+       <Operator>
+
+    The cycle is executed so long as the value of <expression> will not become
+False. <Expression> in the beginning is calculated. If <expression> initially is false,
+That body of an operator while is not executed at all and the handle at once is transferred
+On following(тnext) an operator of the program.
+
+    The cycle WHILE is similar to a cycle while, but thus the code on 3 is generated
+Than byte is shorter. The size of the generated code in a cycle WHILE should be less
+127 bytes.
+
+  Examples:
+	 While (i < 20) {
+		 W(i))
+		 I ++;
+	}
+
+	 WHILE (i < 20) W(i)) 	 // the cycle or will be infinite or not
+                                        // Will be executed never
+
+! Short a Cycle ^ Bfor of ^ B, ^ BFOR ^ B.
+				 Cycle for, FOR.
+
+     Syntax:
+  For ([< initial expression >]; [<condition>]; [< increment >])
+    <Operator>
+
+    The cycle for is executed so long as the value of <condition> will not become
+False. If <condition> initially is false, a body of an operator for at all
+The handle at once is executed operator of the program also is transferred on following(тnext).
+< Initial expression > and <increment> are usually used for initialization
+And modification of parameters of a cycle.
+
+    First step at execution for is the calculation < initial
+Expressions >, if it is present. Then the condition > is calculated < and is made
+It an estimation as follows:
+
+    1) If <condition> is true, the body of an operator is executed. Then
+<Increment> is calculated (if it is), and the process repeats.
+
+    2) If <condition> is lowered(omitted), it the value is accepted for true. In
+This case the cycle for represents an infinite cycle, which can
+To be completed only at execution in it a body of operators break, goto,
+Return.
+
+    3) If <condition> is false, the looping for comes to an end and
+The handle is transferred to the following operator.
+
+    The cycle FOR is similar to a cycle for, but thus the code on 3 bytes is generated
+Shorter. The size of the generated code in a cycle FOR should be less than 127
+Byte.
+
+  Examples:
+	 For (i = 0; i < 5; i ++) {
+		 WRITESTR ("STRING"("LINE"));
+		 W(i))
+		 WRITELN ();
+	}
+    The number < of initial expressions > and number of <increments> is not limited. Everyone
+The operator in < initial expressions > and <increments> should be divided
+By comma. An example:
+
+      For (a = 1, b = 2; a < 5; a ++, b + = a) {...
+
+    Also there is a possibility of logical association of <conditions>. To unite
+It is possible up to 32 conditions. Each joined condition should be made in
+Brackets. An example:
+
+      For (a = 0; (a> = 0) . . (a < 10); a ++) {...
+
+! Short an Operator the switch ^ Bswitch of ^ B.
+			 Operator the switch switch.
+
+    Syntax:
+  Switch (<expression>) {
+    Case <constant>:
+      <Operator>
+	...
+    Case <constant>:
+      <Operator>
+	...
+    ...
+    Default:
+      <Operator>
+ }
+    The operator the switch switch is intended for a choice of one of
+Several alternate paths of execution of the program. The execution begins
+From calculation of value of <expression>. After that the handle is transferred to one
+From <operators> of a body of the switch. In a body of the switch contain
+Constructions: case <constant>:, which syntactically represent
+Labels of operators. The operator receiving handle, is that operator,
+Value of which constant coincide with value of <expression>
+The switch. The value of <constant> should be unique.
+
+    The execution of a body of an operator - switch switch begins with, selected,
+Thus of operator up to the end of a body or so long as also proceeds
+Any operator will not transfer handle for bounds of a body.
+
+  The operator the following behind the default key word, is executed, if any
+From constants is not equal to value of <expression>. If default is lowered(omitted), any
+The operator in a body of the switch is not executed, and the handle is transferred on
+Operator the following for switch.
+
+    For an output(exit) from a body of the switch the operator of break is usually used
+Break (BREAK).
+
+  Example:
+  S(i))
+    Case 'A':
+      W(i))
+      I ++;
+      BREAK;
+    Case 32:
+      WRITE ('_');
+      I ++;
+      BREAK;
+    Default:
+      WRITE ('i');
+ }
+
+    The operator 'switch' now in the compiler can be realized two
+By ways: tabulared and method of sequential checks.
+
+    The tabulared method is fastest, and at the large number of operators
+'Case' and at an insignificant difference between maximum and minimum
+By values 'case' it(he) still can be and more compact. But at him(it) is and
+Disadvantages: in a 16-bit mode the compiler always uses the register BX, and in
+32-bit mode, if an operand 'switch' is the register, it value
+Will be desroyed.
+
+    The method of sequential checks was used by the compiler earlier, but in
+This version it(he) has varied slightly: the block of matchings is transferred in a beginning of a body
+Operator 'switch', it has allowed to be saved from 1-2 superfluous 'jmp'. But
+Now compiler can not define(determine), what type of transition to use at
+To check of values 'case'. Now it will be by your care. If the size
+The code from a beginning of a body of an operator 'switch' up to the location of an operator
+'Case' is less than 128 bytes, it is possible to use short transition. In it
+Case you can specify an operator 'CASE', that will result in generation more
+The compact code. The compiler in warnings will to you prompt about
+Possibilities of use of operators 'CASE'. Use of an operator
+'CASE' in cases, when the size of the block of the code more than 128 bytes will result in output
+By the compiler of the message about an error.
+
+    By optimization of the code on the size, the compiler previously calculates
+The size of the code, which can be obtained by both methods and realizes
+Compact. By optimization on speed the advantage is given back tabulared
+To method, if the size of the table turns out not too large.
+
+    For an operator 'switch' the form - 'SWITCH' is entered as well short it.
+It can be applied in case the size of the block of the code between the beginning of a body
+Operator and operator 'default' (if it(he) is absent, by the end of a body
+Operator 'switch') there are less than 128 bytes. About possibility of use of short
+The forms the compiler will communicate in warnings.
+
+    For an operator case/CASE, which can be used only in a body
+The block of an operator switch/SWITCH, it is possible to specify a range of values. At first
+It is necessary to specify smaller value, then after dots greater. An example:
+
+Switch (AX) {
+  Case 1... 5:
+    WRITESTR (" Range AX from 1 to 5 ");
+    BREAK;
+};
+
+    Earlier you had to write a more bulky construction:
+
+Switch (AX) {
+  Case 1:
+  Case 2:
+  Case 3:
+  Case 4:
+  Case 5:
+    WRITESTR (" Range AX from 1 to 5 ");
+    BREAK;
+};
+
+    Besides that the new format of record is more compact and more читабелен,
+But thus the compiler creates the more compact and fast code.
+
+
+! Short an Operator of transition ^ Bgoto of ^ B, ^ BGOTO ^ B.
+			 Operator of transition goto, GOTO.
+
+     Syntax:
+     Goto <label>;
+	.
+	.
+	.
+<Label>:
+
+    The operator of transition goto transfers handle on <operator,> marked,
+<Neat>. Analogue in the assembler to an operator goto is the jmp near command.
+Analogue in the assembler to an operator GOTO is the jmp short command.
+
+! Short an Operator of break ^ Bbreak of ^ B, ^ BBREAK ^ B.
+			 Operator of break break, BREAK.
+
+    The operator of break break interrupts execution of operators do-while, for,
+Switch, while, loop, loopnz, LOOPNZ. It(he) can contain only in a body
+These operators. The handle is transferred to the operator, following(тnext) interrupted,
+By cycle.
+
+  The operator BREAK is similar break, but thus the code on 1 byte is generated
+Shorter. The size of the generated code from a place where is applied BREAK up to
+The end of a cycle should be less than 127 bytes.
+
+  Examples:
+	 FOR (i = 0;; i ++) {
+		 FOR (j = 0; j < WIDTH; j ++) {
+			 IF (i == 5) BREAK;
+		}
+		 IF (i == 10) BREAK;
+	}
+
+! Short an Operator of continuation ^ Bcontinue of ^ B, ^ BCONTINUE ^ B.
+		 Operator of continuation continue, CONTINUE.
+
+  The operator of continuation continue transfers handle to the following iteration in
+Cycles do-while, for, while, loop, loopnz. In cycles do-while, while, loop
+The following iteration begins with calculation of the conditional. For a cycle
+For the following iteration begins with calculation of expression of increment, and
+Then there is a calculation of the conditional.
+
+  The operator CONTINUE is similar continue, but thus the code on 1 is generated
+Byte is shorter. The size of the generated code from a place where is applied CONTINUE
+Prior to the beginning iteration should be less than 127 bytes.
+
+! Short Logical association of conditions.
+			 Logical association of conditions.
+
+    Since the version of the compiler 0.209 the possibility of logical has appeared
+Associations of matchings in conditions IF and if, cycles do {} while, while {},
+WHILE {}, for {} and FOR {}. Each matching at their logical association
+Should be made in brackets. It is possible to unite no more than 32 matchings.
+
+    As against си in C - the analysis of logical associations occurs at the left
+To the right and all superfluous brackets will be perceived(recognized) by the compiler as erroneous.
+It reduces flexibility and a little possibility of application of these associations,
+But the tradition and philosophy incorporated in C - is those.
+
+    Example:
+
+	 If ((a> 3) . . (b> 4) || (c < 8)) {
+
+I.e. if произвисти decryption of this condition, the following will turn out:
+The condition will be executed if a> 3 and b> 4 or a> 3 and c < 8.
+
+! Short Transition through cycles.
+
+   For operators BREAK, break, CONTINUE, continue the support is entered
+The numerical parameter defining how many of cycles is necessary to skip, before
+Than this operator will be executed. For example we have three nested cycles:
+
+Do {
+   Loop (CX) {
+      For (BX = 0; BX < 10; BX ++) {
+	 Break; 	 // a standard operator
+	 Break 0; // break with the parameter - to skip 0 cycles
+	 Break 1; // break with the parameter - to skip 1 cycle
+	 Break 2; // break with the parameter - to skip 2 cycles
+     }
+LABL0:
+  }
+LABL1:
+} While (DX! = 0);
+LABL2:
+
+    In the third cycle there is a group of various variants of an operator 'break'.
+To first cost(stands) a standard operator 'break' at which execution
+The handle will be transferred for bounds of the third cycle - to a label 'LABL0'.
+Second goes an operator ' break 0 ' at which execution will be missed 0
+Cycles and the handle will be transferred(handed) again on a label 'LABL0'. Thus
+Record 'break' and ' break 0 ' are synonyms. Third goes an operator
+ ' Break 1 ' at which execution one cycle and handle will be missed
+Will be transferred(handed) for bounds of the second cycle on a label 'LABL1'. Well and at last
+The latter goes an operator ' break 2 ' at which execution the compiler
+Will skip two cycles and will transfer handle for bounds third to a label
+ 'LABL2'. Labels in this example проставлены for convenience of an explanation. Well and I
+I hope to you clearly, that the value of the parameter can not exceed numbers of cycles
+Taking place before current. So for a single cycle this parameter can
+To accept maximum and unique(sole) value - 0.
+
+! Short Inverting of a flag of check of conditions.
+		 Inverting a flag of check of conditions.
+
+    Inverting of a flag of check of conditions in operations of matching if/IF
+For/FOR while/WHILE occurs to the help of character! - not.
+
+   Expressions
+
+  IF (NOTCARRYFLAG)... And IF (! CARRYFLAG)...
+  IF (proc () == 0)... And IF (! Proc ())...
+
+Are synonyms.
+
+! Short Calculation of expression, and then check of a condition
+    In operations of matching in the left operand now acceptabl& to use
+Calculations of expression with assignment and operation инкремента, decrement.
+For example:
+
+  IF (i = a + 2! = 0)...
+  IF (i ++)...
+  IF (a -)...
+  IF (i + = 4 == 0)...
+
+    In all these examples at first there will be a calculation of expression in left
+Parts of operation of matching, and then matching result with will be made
+By the right part of expression of matching.
+
+! Short: check of bits at operation of matching.
+                Check of bits at operation of matching.
+
+    If in the left part of expression of matching is written: AX and 5, at
+Calculation of expression contents of the register AX will be changed by the instruction
+'And'. But sometimes there is a necessity for check of bits without change
+Contents of the register AX. For these objectives it is necessary to use the instruction
+'Test'. How to specify to the compiler in what situations to use
+The instruction 'and', and in what 'test'? In standard languages Си for this purpose
+The mechanism of priorities - is used if the expression is made in brackets,
+The calculation is made it, if is not present, the check is made. But C - not
+Supports of priorities. For allowing this problem in C - is decided(solved)
+To use directly instruction 'test'. Here acceptablis
+Variants of syntax:
+
+IF ($ test AX, 5)
+IF (! $ test AX, 5)
+IF (asm test AX, 5)
+IF (! Asm {test AX, 5})
+

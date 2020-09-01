@@ -1,0 +1,28 @@
+FROM and EXTRACT commands.
+----------------------------
+
+    In C-- there are very original commands, which are not present in other
+languages. It FROM and EXTRACT.
+
+    The FROM command has syntax:
+
+<type_variable> <name_variable> = FROM <name_file>;
+
+    By meeting this command at compilation, the compiler will load in output
+the file contents of the file <name_file>, and <name_variable> will be the
+identifier beginnings of the loaded code. Here an example of use of this
+command from the file tinydraw.c--:
+
+byte palette [PALSIZE] = FROM "TINYDRAW.PAL"; // buffer for palette
+
+   The EXTRACT command has syntax:
+
+<type_variable> <name_variable> = EXTRACT <name_file>, <beginning>, <length>;
+
+    By meeting this command at compilation, the compiler will load in output
+the file from the file <name_file> number byte equal <length> from offset
+<beginning>, and <name_variable> will be the identifier of a beginning of the
+loaded code. Here an example uses of this command:
+
+byte LIT128 = EXTRACT " 8X16. FNT ", 16*128, 16;
+byte LIT130 = EXTRACT " 8X16. FNT ", 16*130, 16;

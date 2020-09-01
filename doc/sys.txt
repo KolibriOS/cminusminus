@@ -1,0 +1,44 @@
+Compilation of device drivers.
+--------------------------------
+
+    The compiler considerably will facilitate your work at writing drivers.
+The compiler itself will create header of the driver and procedure the
+STRATEGY and INTERRUPTION. You need only to write the code of processing of
+commands.
+
+    What to compile the file of the device driver, it is necessary to add in
+the command line a key /SYS. Besides the new instructions have appeared to
+the compiler, which operate only with this key. Here they:
+
+   ? sysattribute <value> - this instruction transfers the compiler attribute
+the created driver. By default the value 0x2000 is installed.
+
+   ? sysname <text string> - this instruction transfers the compiler a name
+the future driver. By default the name "NO_NAME" is assigned. Length of the
+name not more than 8 characters.
+
+   ? syscommand <command_0>, <command_1>... <command_n>; - this instruction
+is mandatory. Under this instruction the list of names is transferred to the
+compiler procedures of processing of commands of the driver. The names are
+divided by commas. The list owes to come to an end in character a semicolon.
+It is possible to transfer no more than 25 commands. If any command has not
+the code of support, in the list it is necessary to write down word NONE.
+
+    By default the compiler for the driver does not create the stack. The
+driver can to use the system stack. But, speak, that it has small depth.  If
+your procedures actively use the stack and you do not hope on system, that by
+the instruction ?stack <value> is possible to force the driver to use by the
+stack.
+
+    To your procedures of processing of commands by transmission of handle in
+the registers ES:BX will be transferred the address of header of inquiry. The
+register DS is equal CS. At return of handle your procedures should save the
+register DS. In the register AX should be a return code. Other registers can
+be are used arbitrarily.
+
+    The procedure of processing of the command of initialization it is
+desirable to have last (to have possibility to give back address space,
+borrowed, by this procedure to the operating system). Before this procedure,
+if you in other procedures of processing of commands use dynamic procedures,
+necessarily there should be an instruction ?setdinproc. The global variables
+owe it to be necessary initialised.

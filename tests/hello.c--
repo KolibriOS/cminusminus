@@ -1,0 +1,14 @@
+/*
+     SPHINX C-- hello world example program
+     Run file size:  70 bytes.
+*/
+
+? include "write.h--"
+
+main ()              /* execution always starts at main () */
+{
+WRITESTR("Hello World!\n");  /* write the string to the screen */
+}
+
+
+/* end of hello.c-- */

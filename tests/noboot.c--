@@ -1,0 +1,56 @@
+/*
+   SPHINX C-- example file.
+   Title:  NOBOOT.C--
+   Description:  A TSR that disables the <CTRL><ALT><DEL> reboot.
+*/
+
+?include "KEYCODES.H--"
+?include "WRITE.H--"
+?include "SYSTEM.H--"
+?include "DOS.H--"
+?include "TSR.H--"
+
+dword oldkeyhandle={};
+byte altflag=0,ctrlflag=0;
+
+?define s_upalt s_alt+128
+?define s_upctrl s_ctrl+128
+
+interrupt keyhandle ()
+{
+$ PUSH DS
+$ PUSH AX
+DS = CS;
+$ IN AL,KEYBOARD_PORT
+IF( AL == s_alt )
+    altflag = 1;
+ELSE IF( AL == s_ctrl )
+    ctrlflag = 1;
+ELSE IF( AL == s_upalt )
+    altflag = 0;
+ELSE IF( AL == s_upctrl )
+    ctrlflag = 0;
+ELSE IF( AL == s_delete )
+    IF( ctrlflag == 1 )
+        IF( altflag == 1 )
+            {@ EATKEY();
+            @ EOI();
+            $ POP AX
+            $ POP DS
+            return();
+            }
+$ POP AX
+$ POP DS
+$ JMP FAR CSDWORD[#oldkeyhandle]
+}
+
+
+main ()
+{
+@ WRITESTR("NOBOOT installed.  <CTRL><ALT><DEL> is now disabled.\n");
+@ GETINTVECT(#oldkeyhandle,KEYBOARD_INT);
+@ SETINTVECT( ,KEYBOARD_INT,CS,#keyhandle);
+@ KEEP( , , ,#main);
+}
+
+/* end of NOBOOT.C-- */

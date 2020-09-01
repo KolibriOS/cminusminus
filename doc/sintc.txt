@@ -1,0 +1,178 @@
+Operator of rearrangement.
+----------------------------
+
+    In C-- there is an operator, which the author did not meet in other
+languages, it operator of rearrangement. The operator of rearrangement swaps
+contents two variables. The character denotation of this operator ><.
+variables from both sides of an operator of rearrangement should have the
+identical size, 8 bits and 8 Bit, 16 bits and 16 bits, or 32 bits and 32
+bits.
+
+  Here some examples:
+
+    AX >< BX; // saves value BX in AX and value AX in BX
+    CH >< BL; // swaps contents of the registers CH and BL
+    dog >< cat; /* swaps values dog and variable cat */
+    counter >< CX; // swaps values counter
+                   // And contents of the register CX
+
+    If the rearrangement is carried out between two 8-digit variable in
+memories, contents of the register AL will be desroyed.  if rearrangement -
+between two 16-digit variable in memory, will desroy contents the register
+AX. If rearrangement - between two 32-digit variable in Memories, contents
+EAX will be desroyed. In anyone the other case, for example, between variable
+in memory and register, the values of all registers will be are saved.
+
+Operator NEG.
+---------------
+
+    C-- supports fast syntax of change of the sign variable - NEG operator.
+By putting - (sign a minus) in front of the identifier of variable memory or
+register and ; (semicolon) after the identifier, you replace the sign
+variable memory or register.
+
+Here some examples:
+
+         -AX; // result same, as at ' AX = -AX; ', but is faster.
+         -tree; // that most, that ' tree = -tree; ', but is faster.
+         -BH; // changes the BH sign.
+
+Operator NOT.
+--------------
+
+    C-- supports fast syntax of execution of logical inversion - NOT
+operator. By putting ! (shrick) before the identifier of variable memory
+or register and ; (semicolon) the ambassador The identifier, you execute
+logical (the assembly command will be executed NOT) inversion of a current
+value. Here some examples:
+
+       !AX; // that most, that ' AX ^ = 0xFFFF; ' but is faster.
+       !node; // substitutes value 'node' it by logical inversion.
+       !CL; // that most, that ' CL ^ = 0xFF ' but is faster.
+
+The special conditionals.
+---------------------------
+
+    C-- supports eight special conditionals:
+
+         CARRYFLAG
+         NOTCARRYFLAG
+         OVERFLOW
+         NOTOVERFLOW
+         ZEROFLAG
+         NOTZEROFLAG
+         MINUSFLAG
+         PLUSFLAG
+
+    They can be used instead of any normal conditionals. If you wish, for
+example, to execute the block of the code only if the flag is placed carry,
+you follows used the following sequence of commands:
+
+         IF (CARRYFLAG)
+         {
+         // Here you something do
+        }
+
+    If you wish continuously to execute the block of the code until the flag
+of overflow will be placed, you should use something, similar, to the
+following piece of the code:
+
+        do {
+            // Here you again something do
+           } while (NOTOVERFLOW);
+
+The interrupt procedures.
+---------------------------
+
+    The interrupt procedures are defined by the following way:
+
+        interrupt procedure_name ()
+        {
+        // Put code here (here there should be a code of processing)
+       }
+
+    The interrupt procedures do not save any registers automatically, and any
+registers in themselves do not boot before transmission of handle to the
+interrupt handler, therefore, on yours conscience saving of values of the
+registers in the stack and their consequent return, and also loading of the
+register DS by the necessary value.
+
+    Here an example of the interrupt handler, which saves values all
+registers also loads the register DS:
+
+     interrupt safe_handle ()
+     {
+     $ PUSH DS
+     $ PUSH ES
+     $ PUSHA // the processor not worse 80286 is necessary for execution of this command
+     DS = CS; // here DS boots for operation with memory model of a type tiny
+
+
+     /* Do your thing here (here you do the processing) */
+
+     $ POPA // the processor not worse 80286 is necessary for execution of this command
+     $ POP ES
+     $ POP DS
+    }
+
+    At completion of the procedure of interruption will be automatically
+generated instruction exit from the interrupt handler - IRET.
+
+Character $ - inserts a current address of the program.
+--------------------------------------------------------
+
+    Character '$', besides that is tag of consequent assembly the
+instructions, in the C-- language, as well as in the assembler language can
+specify, current, the address (offset) of the compiled program. But in C-- it
+had, limited, possibilities. It could be used only as argument in operators
+GOTO/goto and assembly instructions DW/DD/JMP also should be necessarily by
+first in calculated expression.
+
+    Now this character can be in any place, of calculated, numerical
+expression also can be applied in any place together with others by numerical
+expressions.
+
+Examples of application:
+
+DW #main-$      // to write down distance from the main procedure up to a
+                // current place
+GOTO $ + 2; 	// to proceed to the address on 2 it is more, than current
+                // address
+
+The 'static' key word and operator '::'
+-----------------------------------------
+
+    If before the declaration of a global variable, structure or procedure to
+specify a word 'static', these a variable, structure or procedure will be are
+availablis only in that file, in which they were declared. I.e. if you
+include this file in other instruction 'include', variable, declared, in the
+included file with a word 'static' will not be availablis in the main file,
+and you can in the main file declare other variables with same by names.
+
+    If you apply a word 'static' at the declaration local variable in to the
+procedure, the memory for this variable will be allocated not in the stack,
+and in areas of data of the procedure. But this variable will be availablis
+only inside procedures, in which it was declared.  application 'static' to
+local variable enables to save a value for, following entrance in the
+procedure.
+
+    The word 'static' can be applied to any global object (variable,
+structure, procedure). For local use this word it is possible to apply only
+to a variable.
+
+    If in your program is global and local variable with by identical names,
+in the procedure, in which is declared this local variable, you had not
+access to the same global variable. Now, by applying before the name of a
+variable an operator '::', you receive access to a global variable. An
+example:
+
+int var; // is declared global variable
+
+void proc ()
+int var; // is declared a local variable with the name already, existing,
+          // global variable
+{
+  (e)AX = var; 	 // we have access only to local variable
+  (e)AX =:: var; // and so it is possible to receive access to global variable
+}
+

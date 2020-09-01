@@ -1,0 +1,150 @@
+Output files of a type COM.
+-----------------------------
+
+    This type of an output file turns out automatically by default.
+
+    Initially C-- could make only files of a format of a type COM. In present
+time the possibility has appeared to receive of the file of a type EXE with
+memory models tiny and small for the 16-bit code, and also 32-bit for DOS and
+Windows. Also there is a possibility of obtaining of an output file in a
+format OBJ, that allows to link programs on C-- with programs on other
+languages.
+
+Output files of a type EXE (memory model small).
+--------------------------------------------------
+
+    This file format can be received if to compile with a key of command
+line /exe or /e.
+
+    Probably also support of a EXE-format through an output file of a format
+OBJ, which is possible then to process link, not included in a package C--.
+
+Output files of a type EXE (memory model tiny).
+------------------------------------------------
+
+    Actually code of the *.exe file of a model tiny by nothing differs from
+the code *.com. In effect it is the same com-file to which is added
+32-bytes header of the exe-file. The unique difference arises when
+you compile the file with the instruction #resize TRUE. In the com-file,
+for this instruction, in the code Programs the appropriate code changing
+size of availablis is added memories. In the exe-file for these objectives
+the header will be corrected the exe-file.
+
+    To receive the exe-file with memory model tiny, it is necessary to start
+compiler with a key in the /TEXE command line.
+
+Object output file OBJ.
+------------------------
+
+    Since version 0.195, C-- successfully to create files of a format OBJ -
+object files composed with Microsoft. Now C-- can only to create OBJ-files,
+but can not them compose.
+
+    Earlier C-- created obj-files, which could be connected to the projects
+created on other languages, i.e. conducted (slave) units. And from C-- units
+for the main project the procedures and these were availablis only the
+procedures should not use global variables.
+
+    Now C-- can create the main (master) unit, which can to be link in the
+independent file. It enables to simplify debugging of programs. For example
+you have written the program, which or does not work, or works not as it is
+necessary. Attempt to use for debugging the debugger TD.EXE is complicated by
+that is very heavy to orient in the machine code. Now you can compile this
+file with a key /obj, and, obtained, The obj-file link tlink.exe with a key
+/v. In result you receive the exe-file with the minimum debug information,
+included in it. By starting this file in the debugger you will see in machine
+codes of the name of procedures and variables, that considerably will
+facilitate debugging.
+
+    For obj-files the possibility has appeared to use external (extern)
+procedures, variable or structures. For this purpose it is enough them to
+declare as extern. And the extern key word should be always first. An example
+the declarations of external objects:
+
+extern void cdecl _printf(); // the declaration of the external procedure _printf, having,
+                             // cdecl type and type of return void
+extern int buts, cubs; // the declaration of two external variables of a type int
+extern struct IPXL ipxl; // the declaration of external structure ipxl, of having a tag,
+			 // IPXL, and the tag of this structure should be
+			 // is described earlier.
+
+    Appearance of possibility to declare external objects allows to connect
+to the obj-unit on C-- units written on other languages or to connect to the
+program on C-- procedure from libraries on other languages. At the
+declaration external objects it is very important correctly to specify the
+type of the procedure and it a name. If you will use external procedures
+written on C that more often, you will need to specify the modifier cdecl,
+and to the name of the procedure or By variable to add the prefix '_'.
+
+    From main (master) of the obj-file written on C-- for others obj-units
+all procedures, global variable and global are availablis structures.
+
+    To receive the conducted obj-unit at compilation it is necessary to use a
+key /sobj.
+
+    If the obtained obj-file link with a key /s that you receive the map-file
+with the detailed information. Has disappeared necessity for generation C--
+The map-file, which actually was useless.
+
+    С-- can create obj-files with memory model tiny and small. On default the
+units with a model tiny are created. To receive the obj-file with by memory
+model small it is necessary to start the compiler with keys /obj and /exe.
+
+    For creation of obj-files for 32-bit DOS in the command line to you it is
+necessary to specify keys /d32 and /obj. To use the obtained obj-file to me
+it was possible only with the help wlink and expander zrdx.exe.
+
+    The creation of obj-files under windows is not stipulated.
+
+Compilation of the code of expanders ROM-BIOS.
+------------------------------------------------
+
+    Expanders ROM-BIOS (BIOS of videocontrollers, network cards...) have
+defined structure and requirements. C-- now can facilitate to you the process
+creations of the ROM-BIOS code. If to start the compiler on compilation with
+a key /ROM command lines, the compiler will create a signature (header)
+ROM-BIOS, will fill in the stayed free place up to the indicated size ROM by
+the code of filling, will count up and ROM will correct the check total.
+
+    For this mode of compilation there are some specific instructions:
+
+  1. ?sizerom value - this instruction communicates to the compiler the size
+ROM in bytes. If this instruction is not indicated, the compiler itself will
+select The minimum suitable size ROM from a number: 1024, 2048, 4096, 8192,
+16384, 32762 or 65536. Free from the code and data a place up to the end will
+be filled the size ROM of byte of filling defined by the instruction
+?aligner. On It is equal to default to zero, for ROM-chip a type 27еее this
+byte can be made equal 0xFF. Last byte ROM will be corrected by the compiler
+by such by image, that the check total was equalled to zero.
+
+  2. ?movedatarom TRUE/FALSE - this instruction communicates to the compiler
+whether is necessity to copy data from ROM in the RAM. By default it is
+placed in FALSE. If this instruction to define TRUE, the compiler will insert
+in area of initialization the code moving data from ROM in the RAM. Thus the
+register DS will be placed on a segment of the RAM. The stack also will be
+rearranged On this segment. Thus main procedure will receive handle with by
+the registers AX = ES = DS = SS = to a segment of the RAM with the data,
+transferred in it. If this instruction to place in FALSE, the register DS all
+the same will be is rearranged on the address of a segment of the RAM, as
+your code will use This segment for non-initialized global variables.  The
+initialized variables will stay in ROM and all calls to them will be To be
+made through the register CS. As remain not touched (such what It has
+placed(installed) main BIOS) and stack.
+
+  3. ?dataseg value - this instruction to the compiler is communicated
+segment the address of the RAM, which can be used by your code. By default it
+0x70 is equal. This address you can learn at any moment read it from yours
+the code on offset 4. For example: DS = CSWORD [4];
+
+    Some remarks:
+
+  1. Do not overlook, that at the moment of initialization ROM-BIOS DOS yet
+is loaded and accordingly all procedures using calls DOS to work not will be.
+
+  2. It is impossible to complete operation of the program by procedures
+ABORT() or EXIT() and them similar. The operation of the expander ROM-BIOS
+should be completed only by output from main() procedures.
+
+  3. If the instruction ?movedatarom is installed in FALSE, be close at
+operation with the initialized variables. They in this mode are availablis
+only for reading, also are addressed through the register CS.

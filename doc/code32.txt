@@ -1,0 +1,266 @@
+The introduction.
+--------------------
+
+    The 32-bit code has the features and requirements. For an explanation
+them I can to you advise to esteem the appropriate literature. Because of
+these features practically almost all procedures from available libraries,
+and procedures taking place in the file of dynamic libraries all is absolute
+(as they are compiled in a 16-bit mode), will not work in 32-bit mode.
+Probable, it is necessary hard work in to creation of new 32-bit libraries.
+But under Windows at you the access to a huge amount has appeared
+API-procedures.
+
+The 32-bit code under DOS.
+----------------------------
+
+    To compile the 32-bit program under DOS it is necessary to start the
+compiler with a key of the /d32 command line. But operation of 32-bit
+programs under DOS is impossible without the expander DOS. For C-- it is
+possible to use DOS4GW or zrdx.exe or any other expander DOS. That the
+compiler knew where to search for stub the file and it a name, it is
+necessary in the file c--.ini to register string stub=path_name_to_stub_file.
+An example:
+
+    stub=c:\c--\zrdx.exe
+
+    If not to add in c--.ini this string, the compiler will generate The
+32-bit exe-file, but without the expander DOS. If in the command line
+together with a key /d32 to specify and key /ns, string from a variable stub
+from the file c--.ini will be cancelled, and you receive the file without the
+expander DOS.
+
+    For the 32-bit DOS-file it is possible to use the instructions of the
+compiler ?parsecommandline TRUE/FALSE or it extended variant ?argc
+TRUE/FALSE. The support of the instruction is realized also ?atexit
+TRUE/FALSE.
+
+    At use LE of a format of exe-files under DOS32, in comparison with by the
+used earlier mechanism, the necessity in intermediate passs the loader, that
+increases speed of loading and reduces a file size (for the very large files,
+because of presence of the table of movings, file size new format can be the
+size more previous). As LE a format is standard, now it is possible to use
+almost anyone of stub, understanding this format. The files LE of a format
+can be compressed by programs of a type UPX.EXE and it similar.
+
+    If you use stub, which then loads DOS4GW.EXE, a beginning your program
+should have a special signature. The compiler automatically will generate it,
+if you in the command line or in c--.ini the file Will specify a key
+/DOS4GW. Such key to you will be necessary for applying, if you will use in
+quality stub 4gs.exe.
+
+    The support of the block of the code, of using, is entered into 0.235
+versions of the compiler for transition and operation in a 32-bit mode of
+possibility DPMI of service. Source the text of this block is in the
+startup.h-- file and is compiled, if in to the command line the option
+/stub=dpmi or in the file c--.ini is indicated to write string stub=dpmi. By
+a disadvantage of this way of transition and operation in 32-bit mode are
+necessity of mandatory operation on, started, the computer DPMI of service.
+Also, as, the program boots as usual DOS the program, and only during
+operation passes in 32-bit mode of operations, The size of the program is
+limited to the size free DOS of memory. Well and advantage it is the compact
+size of an executable file.
+
+The 32-bit code under Windows.
+--------------------------------
+
+    To compile the program, written under Windows is necessary to start the
+compiler with a key of the /w32 command line. Then it is necessary to compile
+the file of resources (if it is necessary and exists). About that as to write
+the file of resources to me it is necessary to send you again to,
+appropriate, to the literature. For compilation of resources I used the
+compiler of resources from BC. The following files from a package BC v5.0
+will be necessary for this compilation for you:
+
+  BRC32.EXE
+  BRCC32.EXE
+  TLINK32.EXE
+  RW32CORE.DLL
+  RLINK32.DLL
+
+    But nothing prevents to use compilers of resources from other languages.
+Main, that the syntax of the file of resources corresponded selected
+compiler.
+
+    If you in the program use calls of API-procedures, these the procedures
+should previously necessarily be declared. The declaration of procedures has
+the following form:
+
+extern WINAPI "DLL_name"
+{
+    Returncode procname1 ();
+    Returncode procname2 ();
+    Procname3 ();
+}
+
+  Where:
+       DLL_name   - name and extension of the dll-library in which there are
+                    these procedures.
+       Returncode - type of return from api-procedures. By default it is
+                    equal dword.
+
+    The programs written under Windows, have one important feature - all
+parameters in push-down procedures are transferred in the return order (so
+the called C-style), but clearing of the stack of parameters occurs in
+procedures. The original hybrid C and pascal of styles - stdcall turns out.
+
+    With help of a key /W32C the compiler creates the console file under
+Windows.
+
+    Some compilers create DLL, in which names, of exported, procedures have
+such format:
+
+   ProcName@8
+
+    In this name after character '@' the size of the stack with parameters is
+underlined, transmitted to the procedure.
+
+    To declare such procedures it is necessary so:
+
+extern WINAPI "name.dll"
+{
+   ProcName@8;
+}
+
+I.e. without parentheseses. In the program, at call to such procedure, it a
+name it is necessary to write without the suffix 8, i.e. here so -
+ProcName (param1, param2);
+
+Call API of procedures on ordinal.
+------------------------------------
+
+    In dynamically connected libraries (DLL) to each procedure, except for it
+to the name, there corresponds unique number, which is named ordinal. And
+therefore, except for generally accepted call of the API-procedure on the
+name, it is possible to make call and on ordinal. Theoretically, at use of
+call on ordinal, the loading of the file should occur faster. As in an output
+file will not be the lists of names of procedures are included, which call is
+made on ординалам, that the output file can turn out little bit smaller on
+the size.
+
+    That the compiler has created the file using call of API-procedures on
+ordinal, it is necessary to make two things:
+
+ 1. To permit the compiler it to make. For this purpose it is necessary in
+options of command strings (or in the file C--.INI) to specify a key 'WO'.
+
+ 2. To inform the compiler - what number ordinal corresponds to what name
+procedures. Procedures, for which was not indicated ordinal, the call will be
+created on the name. To place correspondence of names of procedures ordinal
+it is possible two by ways:
+
+    a). Automatically, with the help of an option of the command line
+	'IND=name.dll', on with which the compiler will scan this library and
+	imports from it all names and ordinal of procedures. (Import
+	possible only from libraries having a format PE).
+
+    b). In hand-operated to specify in the declaration of API-procedures and
+	it ordinal. Is made it so: after the name of the procedure the point
+	is put, and behind it is underlined number ordinal.  Here an example
+	of the declaration of the API-procedure with the instruction ordinal:
+
+extern WINAPI "user32.dll"
+{
+  ............
+  long MessageBoxA.429 ();
+  ............
+}
+
+    In libraries (DLL), sometimes there are procedures, for which not their
+name is indicated, but number ordinal is indicated. Call of such procedures
+on the name not is possible, but it is possible it to make on ordinal (if,
+certainly you know, for that this procedure also that it makes). For this
+purpose in the declaration of the API-procedure You should think up for this
+procedure a unique name and to specify real ordinal. Then in the program you
+will address to this procedure on notreal of the name. But if you
+accidentally will compile such file without a key 'WO', at start of this
+program you receive the message, that the given name in the library is not
+present.
+
+    Unfortunately, there are no guarantees that number ordinal for, given,
+procedures will not vary at change of the version of the dynamic library.
+Therefore to use ординалы it is necessary cautiously.
+
+Export of procedures and creation DLL under Windows.
+-----------------------------------------------------
+
+    The dynamically connected libraries will allow to receive more compact
+programs and to speed up the process of compilation. To minuses of use DLL it
+is possible to relate necessity of presence of files DLL on the started
+computer and time of start of the program is increased slightly.
+
+    That the procedure has become availablis for other programs it is
+necessary in sourse before the name of the procedure to register the key word
+- _export. Example:
+
+  void _export testproc ()
+  {
+    ....
+ }
+
+    To create DLL it is necessary to write the file in which will be
+procedures with key words _export. The main procedure in such file not is
+necessary. The auxiliary procedures, which can be necessary for operation
+main exported procedures to declare as _export it is unessential. Then this
+file needs to be compiled with a key /dll. In result you receive the ready
+dynamically connected library.
+
+Initialization DLL at loading.
+-------------------------------
+
+    Sometimes, for operation of procedures from dynamic libraries (DLL), it
+happens necessary to initialize some variables by values, depending from
+current state of the operating system, for example to receive a descriptor by
+this libraries.
+
+  By the instruction #jumptomain NONE (-j0) the handle at start is
+transferred at once on the main procedure.
+
+  In all other cases the code of a stub and handle on is generated the main
+procedure is not transferred. Actually main procedure in this case not is
+necessary.
+
+  The main procedure at creation of files DLL should look slightly
+differently, than in other cases:
+
+dword main (dword hInstDLL, reason, reserv)
+{
+  ...
+}
+
+Compilation of resources.
+--------------------------
+
+    Built-in in C-- the compiler of resources on the possibilities concedes
+to specialized compilers of resources, but these possibilities, as to me it
+seems, will enough for the majority of your tasks.
+
+    It will be easier to enumerate that built-in in C-- compiler of resources
+not knows how to make. The operators of resources are not processed:
+'VERSION', 'VERSIONINFO' and resources, defined by the user. If necessary,
+data, entered with by the help of these operators, it is possible to enter
+with the help of an operator 'RCDATA'. At, вin many respects operators of
+resources there are unessential parameters 'loading' and 'memory'. The
+support of these parameters is not realized. By meeting these parameters,
+compiler them simple will skip.
+
+    To force the C-- compiler to process resources it is possible by two
+ways:
+
+    1. To include in the project by the instruction #include the file with
+the '*.rc extension'. Files with such extension the compiler considers as the
+file with resources. The file resources it is necessary to include in your
+project only after inclusion of heading files Windows.
+
+    2. Resources it is possible to have in a body of the program in an
+arbitrary place, but the text of resources should begin with the instruction
+'#pragma resource start', and to come to an end by the instruction '#pragma
+resoutce end'. The resources can be divided on a part and these parts it is
+possible to have in any, convenient for you, place (it is silly to have
+resources in the block of the comments and then to be surprised, why they
+were not compiled). The compiler will collect these parts and will compile.
+
+    It is possible to write names of operators both large, and small
+characters, but the names of identifiers are sensitive to the register. In
+the text of resources it is possible to use the instructions and comments.
+
+

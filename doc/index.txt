@@ -1,0 +1,163 @@
+Relative addressing.
+----------------------
+
+    The index access to units in the arrays of any type is carried out on
+bytes, irrespective of a declared type of data. The indexes are limited by
+format of a field RM of the processor 8086, thus, are availablis only,
+following formats of indexes (where an index - value of a 16-digit constant
+or fixed expression):
+
+        Variable [index]
+        Variable [index + BX + SI]
+        Variable [index + BX + DI]
+        Variable [index + BP + SI]
+        Variable [index + BP + DI]
+        Variable [index + SI]
+        Variable [index + DI]
+        Variable [index + BP]
+        Variable [index + BX]
+
+    Since version 0.210 the possibility has appeared to use in quality index
+of variables of a type char byte int word long dword. Thus access to array
+cells is carried out depending on a declared type array.
+
+    Also since version 0.210 the possibility has appeared to use in quality
+index and base registers at relative addressing anyone the 32-bit registers.
+I.e. in reply to syntax of a type:
+
+      AX = DSWORD [ECX + EDX*2 + 64];
+
+The compiler create the code, appropriate to it.
+
+    If you for addressing will use 8 or 16-bit registers distinct from BX,
+DI, SI, BP the compiler will transfer their value to the register SI, and
+Then will make multiplying on a constant 1, 2 or 4 depending on a type the
+array.
+
+    It is important to remember such dual approach of the compiler to
+calculation addresses in array. Once again is brief: if you in array are
+addressed using numerical constant or the registers BX, DI, SI, BP the
+compiler uses these values without change. In all other cases there will be a
+correction of value in Dependences on a type of the array.
+
+Some examples:
+    Assigns value to the 1995 third word in the array xlocations,
+    Consisting from units of a type word:
+        Xlocations [4] = 1995; the value of an index is equal 4, as it
+                           ; Differential address of first byte
+                           ; Third array cell, thus
+                           ; The first unit occupies bytes with addresses 0 and 1
+                           ; The second unit occupies bytes with addresses 2 and 3
+
+    Assigns value to the 0 second array cell addresses,
+    Consisting from units of a type long:
+         Addresses [4] = 0; the value of an index is equal 4, as it
+                        ; Differential address of first byte second
+                        ; Array cell, thus the first unit
+                        ; Borrows bytes with addresses 0, 1, 2 and 3
+
+    Uses as an index a value count for
+    Assignments of value TRUE to a unit fast [count]:
+int count;
+int fast [10];
+                BX = count + count;
+                fast [BX] = TRUE;
+    Since version 0.210 it is possible to write it easier:
+		 fast [count] = TRUE;
+    Thus the compiler will involve register SI and will correct it the value
+depending on dimension of the array. Pay attention, that The register SI will
+be involved without yours is conducted. And at operations of exchange type:
+
+	 fast [count] > < fast [count2];
+
+The compiler will involve as well the register DI.
+
+Absolute addressing.
+----------------------
+
+    The absolute addressing also is possible. The same limitations operate on
+indexes, as at relative addressing.
+
+    The calculated index will be absolute in a segment, which register is
+indicated. It is possible to specify any of the registers DS, CS, SS and ES.
+On processors 80386 and newer it is possible to specify also registers FS and
+GS.
+
+    The syntax - is exact same, as well as in relative addressing, for the
+exception that underlines a not variable, and segment and data type. The
+following pointers can be applied:
+
+             // Addressing in a data segment
+         DSBYTE  [offset] // addresses byte in a segment DS
+         DSWORD  [offset] // addresses a word in a segment DS
+         DSCHAR  [offset] // addresses char in a segment DS
+         DSINT   [offset] // addresses int in a segment DS
+         DSDWORD [offset] // addresses dword in a segment DS
+         DSLONG  [offset] // addresses long in a segment DS
+	 DSFLOAT [offset] // addresses float in a segment DS
+
+             // Addressing in a segment of the code
+         CSBYTE  [offset] // addresses byte in a segment CS
+         CSWORD  [offset] // addresses a word in a segment CS
+         CSCHAR  [offset] // addresses char in a segment CS
+         CSINT   [offset] // addresses int in a segment CS
+         CSDWORD [offset] // addresses dword in a segment CS
+         CSLONG  [offset] // addresses long in a segment CS
+	 CSFLOAT [offset] // addresses float in a segment CS
+
+             // Addressing in a stack segment
+         SSBYTE  [offset] // addresses byte in a segment SS
+         SSWORD  [offset] // addresses a word in a segment SS
+         SSCHAR  [offset] // addresses char in a segment SS
+         SSINT   [offset] // addresses int in a segment SS
+         SSDWORD [offset] // addresses dword in a segment SS
+         SSLONG  [offset] // addresses long in a segment SS
+	 SSFLOAT [offset] // addresses float in a segment SS
+
+             // Addressing in an additional data segment
+         ESBYTE  [offset] // addresses byte in a segment ES
+         ESWORD  [offset] // addresses a word in a segment ES
+         ESCHAR  [offset] // addresses char in a segment ES
+         ESINT   [offset] // addresses int in a segment ES
+         ESDWORD [offset] // addresses dword in a segment ES
+         ESLONG  [offset] // addresses long in a segment ES
+	 ESFLOAT [offset] // addresses float in a segment ES
+
+             // Addressing in an additional segment 2 (80386) +
+         FSBYTE  [offset] // addresses byte in a segment FS
+         FSWORD  [offset] // addresses a word in a segment FS
+         FSCHAR  [offset] // addresses char in a segment FS
+         FSINT   [offset] // addresses int in a segment FS
+         FSDWORD [offset] // addresses dword in a segment FS
+         FSLONG  [offset] // addresses long in a segment FS
+	 FSFLOAT [offset] // addresses float in a segment FS
+
+             // Addressing in an additional segment 3 (80386) +
+         GSBYTE  [offset] // address byte in a segment GS
+         GSWORD  [offset] // address a word in a segment GS
+         GSCHAR  [offset] // address char in a segment GS
+         GSINT   [offset] // address int in a segment GS
+         GSDWORD [offset] // address dword in a segment GS
+         GSLONG  [offset] // address long in a segment GS
+	 GSFLOAT [offset] // addresses float in a segment GS
+
+Some examples:
+     To load in AL byte from spot with the hexadecimal address 0000:0417
+                 ES = 0x0000;
+                 AL = ESBYTE [0x417];
+
+     To move a word from spot with the hexadecimal address 2233:4455
+     In spot with the hexadecimal A000:0002 address
+                 $ PUSH DS
+                 DS = 0x2233;
+                 ES = 0xA000;
+                 ESWORD [0x0002] = DSWORD [0x4455];
+                 $ POP DS
+
+     To save the calculated value of expression X + 2,, having,
+     The int type in spot with the hexadecimal FFFF:1234 address
+                 ES = 0xFFFF;
+                 ESINT [0x1234] = X + 2;
+
+     To save BX in a stack segment on offset 42:
+                 SSWORD [42] = BX;

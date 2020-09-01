@@ -1,0 +1,550 @@
+/****************************************************************************
+    SPHINX Programming (C) 2001.
+    NAME:  WRITE.H--
+    DESCRIPTION: Hабор процедур для вывода данных на экран. Библиотека
+                 расчитана для работы в защищенном режиме (/d32), в реальном
+                 и под консолью Windows (/w32c).
+    LAST MODIFIED:  12-09-2001 19:34:27
+ ----------------------------------------------------------------------------
+    PROCEDURES DEFINED IN THIS FILE:
+ void fastcall Write(AL);
+ void fastcall Writeln();
+ void fastcall GotoXY(DL,DH);
+ void WriteFloat(float count);
+ void fastcall WriteChar(AL);
+ void fastcall WriteByte(AL);
+ void fastcall WriteInt(AX);
+ void fastcall WriteWord(AX);
+ void fastcall WriteDWord(EAX);
+ void fastcall WriteLong(EAX);
+ void fastcall WriteByteHex(AL);
+ void fastcall WriteWordHex(AX);
+ void fastcall WriteDWordHex(EAX);
+ void fastcall WriteWordBit(BX);
+ void fastcall WriteWord4Bit(BX);
+ void fastcall WriteDWordBit(EBX);
+ void fastcall WriteDWord4Bit(EBX);
+ void fastcall WriteByteBit(BL);
+ void fastcall WriteByte4Bit(BL);
+ #ifdef __FLAT__
+ void fastcall WriteStr(ESI);
+ #else
+ void fastcall WriteStr(SI);
+ #endif
+ ----------------------------------------------------------------------------
+    Alexey Dryamov (Din)
+    E-Mail : _Din_@Mail.ru
+    Fido   : 2:5055/141.11
+
+****************************************************************************/
+#ifndef _WRITE_
+
+#warning FALSE
+
+#define _WRITE_ TRUE
+
+// Объявляем все процедуры
+void fastcall Write(AL);
+void fastcall Writeln();
+#ifndef __TLS__
+void fastcall GotoXY(DL,DH);
+#endif
+void WriteFloat(float count);
+void fastcall WriteChar(AL);
+void fastcall WriteByte(AL);
+void fastcall WriteInt(AX);
+void fastcall WriteWord(AX);
+void fastcall WriteDWord(EAX);
+void fastcall WriteLong(EAX);
+void fastcall WriteByteHex(AL);
+void fastcall WriteWordHex(AX);
+void fastcall WriteDWordHex(EAX);
+void fastcall WriteWordBit(BX);
+void fastcall WriteWord4Bit(BX);
+void fastcall WriteDWordBit(EBX);
+void fastcall WriteDWord4Bit(EBX);
+void fastcall WriteByteBit(BL);
+void fastcall WriteByte4Bit(BL);
+#ifdef __FLAT__
+void fastcall WriteStr(ESI);
+#else
+void fastcall WriteStr(SI);
+#endif
+
+// Выводе символа в текстовом режиме
+// Параметры (byte symbol)
+#ifdef __TLS__  //если компилируем в режиме W32,W32C,DLL
+
+#ifndef _WINBASE_
+  #define _WINBASE_ TRUE
+#endif
+
+#include "windows.h--"
+
+:void fastcall Write(AL)
+{
+dword cwriten;  // Возврат числа записанных символов
+byte buf;
+  $push ECX
+  buf=AL;
+  WriteFile(hStdOut,#buf,1,#cwriten,NULL);
+  $pop ECX
+}
+
+:void fastcall WriteStr(ESI)
+{
+dword cwriten;  // Возврат числа записанных символов
+  WriteFile(hStdOut,ESI,lstrlen(ESI),#cwriten,NULL);
+}
+
+#else
+
+inline void fastcall Write(AL)
+{
+#ifdef _BIOS_OUT_ // Вывод через BIOS
+  AH=14;
+  $int 0x10
+#else
+  $int 29h
+#endif
+}
+
+// Вывод строки в текстовом режиме
+#ifdef __DOS32__
+// Параметры (dword offset)
+:void fastcall WriteStr(ESI)
+inline
+{
+  loop(){
+    $lodsb
+    IF (AL==0) return;
+    Write();
+  }
+}
+#else
+:void fastcall WriteStr(SI)
+inline
+{
+  loop(){
+    $lodsb
+    IF (AL==0) return;
+    Write();
+  }
+}
+#endif  //__DOS32__
+
+#endif  //__TLS__
+
+:void fastcall WriteChar(AL)
+{
+  IF(char AL<0){
+    $push AX
+    Write('-');
+    $pop AX
+    -AL;
+  }
+  WriteByte(AL);
+}
+
+// Выводит Byte-овское значение
+// Параметры (byte number)
+#ifdef __FLAT__
+:void fastcall WriteByte(AL)
+{
+  ECX=0;  // Сколько раз делим
+  BX=10;  // Hа че делим
+  EAX=AL;
+  do{
+    EDX=0;
+    $div BX   // Делим число на 10
+    $push EDX // Сохраняем остаток на стеке
+    ECX++;
+  }while (EAX!=0);
+
+  loop(ECX){
+    $pop EAX
+    AL+=48;
+    @Write();
+  }
+}
+#else
+:void fastcall WriteByte(AL)
+{
+  CX=0;   // Сколько раз делим
+  BX=10;  // Hа че делим
+  AH=0;
+  do{
+    DX=0;
+    $div BX  // Делим число на 10
+    $push DX // Сохраняем остаток на стеке
+    CX++;
+  }while (AX!=0);
+
+  loop(CX){
+    $pop AX
+    AL+=48;
+    @Write();
+  }
+}
+#endif
+
+:void fastcall WriteInt(AX)
+{
+  IF(int AX<0){
+    $push AX
+    Write('-');
+    $pop AX
+    -AX;
+  }
+  WriteWord(AX);
+}
+
+// Выводит Word-овское значение
+// Параметры (word number)
+#ifdef __FLAT__
+:void fastcall WriteWord(AX)
+{
+  ECX=0;  // Счетчик длины числа в ASCII
+  BX=10;  // Hа че делим
+  do{
+    EDX=0;
+    $div BX   // Делим число на 10
+    $push EDX // Сохраняем остаток на стеке
+    ECX++;    // Приращиваем счетчик длины
+  }while (AX!=0);
+
+  // Выводим ASCII число из стека на экран
+  loop(ECX){
+    $pop EAX
+    AL+=48;
+    @Write();
+  }
+}
+#else
+:void fastcall WriteWord(AX)
+{
+  CX=0;   // Счетчик длины числа в ASCII
+  BX=10;  // Hа че делим
+  do{
+    DX=0;
+    $div BX  // Делим число на 10
+    $push DX // Сохраняем остаток на стеке
+    CX++;    // Приращиваем счетчик длины
+  }while (AX!=0);
+
+  // Выводим ASCII число из стека на экран
+  loop(CX){
+    $pop AX
+    AL+=48;
+    @Write();
+  }
+}
+#endif
+
+// Выводит DWord-овское значение
+// Параметры (dword number)
+#ifdef __FLAT__
+:void fastcall WriteDWord(EAX)
+{
+  ECX=0;   // Счетчик длины числа в ASCII
+  EBX=10;  // Hа че делим
+  do{
+    EDX=0;
+    $div EBX  // Делим число на 10
+    $push EDX // Сохраняем остаток на стеке
+    ECX++;    // Приращиваем счетчик длины
+  }while (EAX!=0);
+
+  // Выводим ASCII число из стека на экран
+  loop(ECX){
+    $pop EAX
+    AL+=48;
+    @Write();
+  }
+}
+#else
+:void fastcall WriteDWord(EAX)
+{
+  CX=0;      // Счетчик длины числа в ASCII
+  EBX=10;    // На че делим
+  do{
+    EDX=0;
+    $div EBX // Делим число на 10
+    $push DX // Сохраняем остаток на стеке
+    CX++;    // Приращиваем счетчик длины
+  }while (AX!=0);
+
+  // Выводим ASCII число из стека на экран
+  loop(CX){
+    $pop AX
+    AL+=48;
+    @Write();
+  }
+}
+#endif
+
+// Переход на начало новой строки
+:void fastcall Writeln()
+{
+  Write(13);
+  Write(10);
+}
+
+// Перемещение курсора
+// Параметры (byte x,byte y)
+#ifndef __TLS__
+:void fastcall GotoXY(DL,DH)
+{
+  AH=2; BH=0; $int 10h
+}
+#endif
+
+// Параметры:
+// float count - флоатовское значение
+:void WriteFloat(float count)
+ dword tmp;
+{
+ #include "fixed.h--"
+ IF (count<0){
+    Write('-');
+    -count;
+ }
+ tmp=float 0.4999999;
+ $fld count
+ $fsub tmp
+ $fistp tmp
+ WriteDWord(tmp);
+ Write('.');
+ $fld count
+ $fisub tmp
+ tmp=float 10000000.0;
+ $fmul tmp
+ $fistp tmp
+ WriteDWordNDigits(tmp,7);
+}
+
+:void fastcall WriteLong(EAX)
+{
+  IF(long EAX<0){
+    $push EAX
+    Write('-');
+    $pop EAX
+    -EAX;
+  }
+  WriteDWord(EAX);
+}
+
+#ifdef __FLAT__
+:void fastcall WriteByteHex(AL)
+{
+  ECX=2;
+  loop(ECX){
+    $rol AL,4
+    $push AX
+    AL&=15;
+    $cmp AL,10
+    $sbb AL,0x69
+    $das
+    Write();
+    $pop AX
+  }
+}
+#else
+:void fastcall WriteByteHex(AL)
+{
+  CX=2;
+  loop(CX){
+    $rol AL,4
+    $push AX
+    AL&=15;
+    $cmp AL,10
+    $sbb AL,0x69
+    $das
+    Write();
+    $pop AX
+  }
+}
+#endif
+
+#ifdef __FLAT__
+:void fastcall WriteWordHex(AX)
+{
+  ECX=4;
+  loop(ECX){
+    $rol AX,4
+    $push AX
+    AL&=15;
+    $cmp AL,10
+    $sbb AL,0x69
+    $das
+    Write();
+    $pop AX
+  }
+}
+#else
+:void fastcall WriteWordHex(AX)
+{
+  CX=4;
+  loop(CX){
+    $rol AX,4
+    $push AX
+    AL&=15;
+    $cmp AL,10
+    $sbb AL,0x69
+    $das
+    Write();
+    $pop AX
+  }
+}
+#endif
+
+#ifdef __FLAT__
+:void fastcall WriteDWordHex(EAX)
+{
+  ECX=8;
+  loop(ECX){
+    $rol EAX,4
+    $push EAX
+    AL&=15;
+    $cmp AL,10
+    $sbb AL,0x69
+    $das
+    Write();
+    $pop EAX
+  }
+}
+#else
+:void fastcall WriteDWordHex(EAX)
+{
+  ECX=8;
+  loop(CX){
+    $rol EAX,4
+    $push EAX
+    AL&=15;
+    $cmp AL,10
+    $sbb AL,0x69
+    $das
+    Write();
+    $pop EAX
+  }
+}
+#endif
+
+#ifdef __FLAT__
+:void fastcall WriteWordBit(BX)
+{
+  ECX=16;
+  loop(ECX){
+    $shl BX,1
+    $setc AL
+    AL+=0x30;
+    @Write();
+  }
+}
+#else
+:void fastcall WriteWordBit(BX)
+{
+  CX=16;
+  loop(CX){
+    $shl BX,1
+    $setc AL
+    AL+=0x30;
+    @Write();
+  }
+}
+#endif
+
+:void fastcall WriteWord4Bit(BX)
+{
+  CH=4;
+  loop(CH){
+    CL=4;
+    loop(CL){
+      $shl BX,1
+      $setc AL
+      AL+=0x30;
+      Write();
+    }
+    Write(' ');
+  }
+}
+
+#ifdef __FLAT__
+:void fastcall WriteDWordBit(EBX)
+{
+  ECX=32;
+  loop(ECX){
+    $shl EBX,1
+    $setc AL
+    AL+=0x30;
+    Write();
+  }
+}
+#else
+:void fastcall WriteDWordBit(EBX)
+{
+  CX=32;
+  loop(CX){
+    $shl EBX,1
+    $setc AL
+    AL+=0x30;
+    Write();
+  }
+}
+#endif
+
+:void fastcall WriteDWord4Bit(EBX)
+{
+  CH=8;
+  loop(CH){
+    CL=4;
+    loop(CL){
+      $shl EBX,1
+      $setc AL
+      AL+=0x30;
+      Write();
+    }
+    Write(' ');
+  }
+}
+
+#ifdef __FLAT__
+:void fastcall WriteByteBit(BL)
+{
+  ECX=8;
+  loop(ECX){
+    $shl BL,1
+    $setc AL
+    AL+=0x30;
+    @Write();
+  }
+}
+#else
+:void fastcall WriteByteBit(BL)
+{
+  CX=8;
+  loop(CX){
+    $shl BL,1
+    $setc AL
+    AL+=0x30;
+    @Write();
+  }
+}
+#endif
+
+:void fastcall WriteByte4Bit(BL)
+{
+  CH=2;
+  loop(CH){
+    CL=4;
+    loop(CL){
+      $shl BL,1
+      $setc AL
+      AL+=0x30;
+      Write();
+    }
+    Write(' ');
+  }
+}
+
+#endif

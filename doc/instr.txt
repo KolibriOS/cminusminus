@@ -1,0 +1,208 @@
+The instructions of the compiler.
+-----------------------------------
+
+    C-- preprocessor does not contain. Nevertheless, there are some functions
+very similar to the C function of the preprocessor.
+
+    They are given as the instruction of the compiler. All instructions of
+the compiler begin with the interrogative sign ? or from character #. Here
+the list, of available, the instructions and their assignment:
+
+? align [val]                  to align data of the program on even on to
+			       default or on the address to the multiple val
+			       value.
+
+? aligncode [val]              to align the code of the program on even by
+                               default or on the address to the multiple val
+                               value. Filling is made by the 0x90 code.
+
+? aligner (aligner value)      to define value of byte of an insert.
+
+? alignword (TRUE or FALSE)    permits or prohibits alignment on
+                               the even address of variables of a type word
+                               and int, default TRUE.
+
+? argc (TRUE or FALSE)         to include or to disconnect, alternate,
+                               the handler of the command line.
+
+? atexit                       inserts in startup the code of support of the
+			       procedure ATEXIT ().
+
+? code32 (TRUE/FALSE)          permits/prohibits generation of the 32-bit
+			       code.
+
+? codesize                     optimization of the size of the code (to the
+			       detriment of speed).
+
+? compilerversion              min-vers specifies the compiler with what
+			       versions is necessary for compilation of the
+			       given program.
+
+? ctrl_c (TRUE or FALSE)       permits or prohibits ignoring pressing CTRL-C.
+
+? dataseg (value)              specifies to the compiler the segment address
+			       of the RAM for variable at compilation
+			       ROM-BIOS.
+
+? define (identifier) (token)  defines the identifier.
+
+? DOSrequired (number)         installs the minimum required version
+                               DOS: high byte - version number,
+                               Low byte - number of modification:
+                                0x0101 for version 1.1 DOS
+                                0x0315 for version 3.21 DOS
+                                0x0303 for version 3.3 DOS
+                                0x0600 for version 6.0 DOS
+                                0x0602 for version 6.2 DOS etc.
+
+? dosstring (TRUE/FALSE)       specifies to the compiler, that in quality the
+			       terminator of string it is necessary to use
+			       character '$'
+
+? else                         generates the alternate code if ?ifdef or
+                               ?ifndef accept value FALSE (example uses look
+			       in the FPU.H-- file)
+
+? endif                        set on the end of operation of the
+			       instructions ifdef also Ifndef
+
+? fastcallapi (FALSE/TRUE)     to prohibit/permit generation of fast call
+			       API-procedures (by default it is authorized).
+			       The instruction works at compilation of
+			       programs for Windows.
+
+? fixuptable (TRUE/FALSE)      to permit/prohibit creation FixUp of the table
+			       (on It is forbidden to default). The
+			       instruction works at compilation of programs
+			       for Windows.
+
+? ifdef (identifier)           if the identifier is defined that returns TRUE
+                               differently FALSE
+
+? imagebase value              sets the Image Base address. By default this
+			       address is equal 0x400000. The instruction
+			       works at compilation of programs for Windows.
+
+? ifndef (identifier)          if the identifier is defined that returns
+                               FALSE differently TRUE
+
+? include ("filename")         includes other file sourse.
+
+? includepath ("path")         the instruction is necessary to the compiler
+                               in what directory to search for included files
+
+? initallvar                   initializes 0 all non-initialized variables.
+
+? jumptomain (NONE, SHORT, NEAR or FALSE)
+                               installs the type of transition to main (),
+                               default - NEAR.
+
+? maxerrors (number)           maximum quantity of the found errors, by
+			       exceeding which the compiler stops Operation,
+                               default - 16.
+
+? movedatarom (TRUE/FALSE)     specifies to the compiler about necessity of
+                               carry Data from ROM in the RAM.
+
+? parsecommandline (TRUE or FALSE)
+                               includes in the program the block of the code
+                               for parse of the command line. Default FALSE.
+
+? pragma                       can declare some other instructions
+
+? print (number or string)     outputs on the screen string or number.
+
+? printhex (number)            outputs on the screen number in hexadecimal
+                               code.
+
+? randombyte                   inserts into the code of the program byte of
+                               casual values.
+
+? resize (TRUE or FALSE)       includes the function of change after start
+			       size of the memory, allocated to the program,
+			       on minimum required size, default TRUE.
+
+? resizemessage (string)       the message, output on the screen before by
+			       abnormal interruption of execution of the
+			       program, If change of the size, of selected to
+			       the program, the memory is not executed.
+
+? setdinproc                   under this instruction the compiler
+			       immediately inserts into the code of the
+			       compiled program all called earlier dynamic
+			       procedures.
+
+? sizerom (value)              specifies to the compiler the size ROM.
+
+? speed                        optimization of speed (value by default) to
+			       the detriment of the size of the code.
+
+? stack (number)               defines the size of the stack of the program
+			       in bytes.
+
+? startaddress (number)        installs the start address of a beginning of
+			       the code, default 0x100.
+
+? startuptomain                in com-files places the startup-code in the
+			       procedure main ().
+
+? startusevar (number)         specifies the address with which it is
+			       authorized to use spots of memory under the
+			       unassigned variables.
+
+? sysattribute (value)         this instruction transfers to the compiler
+			       attribute created driver. By default the value
+			       0x2000 is installed. Operates only with a key
+			       /SYS.
+
+? sysname < text string >      this instruction transfers the compiler a name
+			       of future The driver. By default the name is
+			       assigned " NO _ NAME ". Length of the name no
+			       more than 8 characters. Operates only with a
+			       key /SYS.
+
+? syscommand < command_0>,< command_1>... < command_n>; - this instruction is
+                               Mandatory at creation of drivers. On this the
+			       list of names is transferred to the
+			       instruction to the compiler procedures of
+			       processing of commands of the driver.
+			       Operates only with a key /SYS.
+
+? warning (TRUE or FALSE)      this instruction permits or prohibits output
+                               Warnings. The instruction operates only in
+                               Bounds of the current file also does not
+                               influence on included files.
+
+? winmonoblock FALSE           prohibits placement of the tables of the file
+                               of a format PE In one section.
+
+? undef                        destroys constants declared by the instruction
+                               # define
+
+? use8086                      is limited at code generation by commands
+			       8088/8086 (defaults).
+
+? use8088                      is limited at code generation
+                               by commands 8088/8086 (defaults).
+
+? use80186                     accepts at code generation commands and
+			       optimization for the processor 80186.
+
+? use80286                     accepts at code generation commands and
+			       optimization for the processor 80286.
+
+? use80386                     accepts at code generation commands and
+			       optimization for the processor 80386.
+
+? use80486                     accepts at code generation commands and
+			       optimization for the processor 80486.
+
+? usePentium                   accepts at code generation commands and
+			       optimization for the processor Pentium.
+
+? useMMX                       accepts at code generation Command and
+			       optimization for the processor Pentium MMX.
+
+? Usestartup                   permits to the compiler to use spots memories
+			       occupied by the code of initial initialization
+			       program.

@@ -1,0 +1,30 @@
+Labels of transition.
+______________________
+
+    The labels of transition are applied to the instruction of index points
+of sites of the code, used by commands of transition of the built-in
+assembler and operators goto/GOTO.
+
+    There are two such as labels of transition: global and local. Global
+labels, as follows from the name, - label, which are visible from any place
+in program. The local labels are visible only within the limits of procedural
+block, also are not defined for it by bounds.
+
+    The labels are defined by the identifier terminating in a colon. If
+identifier contains even one character of lower case letters (characters of
+lower the register, small characters), it - global label of transition, in,
+opposite, case it - local label of transition.
+
+    The global labels of transition should not be used inside dynamic
+procedures; there it is possible to use only local labels. It is important
+for remembering, as, because of application of such tool as the macros,
+dynamic procedure can be present at several places of the code, that will be
+mean, that to a label corresponds more than one address.
+
+    The labels outside of procedures actually settle down in the field of
+data of the program. If the data and code are in one segment (namely so sets
+the program written on C--), the labels outside of procedures become simplis
+and effective method for obtaining distances between parts of the program. In
+quality of names for labels outside of procedures can be used unique it is
+possible to use identifiers, in which large, small and mixture large and
+small characters.
