@@ -9,7 +9,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 add_executable (c-- ${CMM_SRC})
 
 if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
-	set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fpermissive -Wno-write-strings")
+	set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wno-write-strings")
 endif()
 if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
 	set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -fpermissive -Wno-write-strings")

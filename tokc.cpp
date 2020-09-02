@@ -1181,7 +1181,7 @@ unsigned int initparamproc() {
             goto cont1;
           }
         noopt:
-          if (newreg = CheckMassiv(strinf.bufstr, strinf.size, reg) != -1)
+          if ((newreg = CheckMassiv(strinf.bufstr, strinf.size, reg)) != -1)
             reg = newreg;
         cont1:
           strinf.bufstr = NULL;
@@ -9124,10 +9124,10 @@ char *dynamic_var() {
             sprintf(itok.name, "%e", itok.dnumber);
             break;
           case tk_qword:
-            sprintf(itok.name, "0x%X%08X", itok.lnumber >> 16, itok.number);
+            sprintf(itok.name, "0x%llX%08lX", itok.lnumber >> 16, itok.number);
             break;
           default:
-            sprintf(itok.name, "0x%X", itok.number);
+            sprintf(itok.name, "0x%lX", itok.number);
             break;
           }
         }
@@ -9154,10 +9154,10 @@ char *dynamic_var() {
         sprintf(itok.name, "%e", itok.dnumber);
         break;
       case tk_qword:
-        sprintf(itok.name, "0x%X%08X", itok.lnumber >> 16, itok.number);
+        sprintf(itok.name, "0x%llX%08lX", itok.lnumber >> 16, itok.number);
         break;
       default:
-        sprintf(itok.name, "0x%X", itok.number);
+        sprintf(itok.name, "0x%lX", itok.number);
         break;
       }
     }
@@ -10190,7 +10190,7 @@ long updatetree() // returns the old number value
 
 unsigned int updatelocalvar(char *str, int tok4, unsigned int num) {
   localrec *ptr;
-  unsigned int retvalue;
+  unsigned int retvalue = 0;
   treelocalrec *ntlr = tlr;
   while (ntlr && ntlr->level > 1)
     ntlr = ntlr->next;
@@ -11121,7 +11121,7 @@ void unpackteg(structteg *tteg) {
   int i;
   elementteg *bazael;
   structteg *newteg;
-  int ssize, count;
+  int ssize = 0, count;
   idrec *newrec, *ptr;
   if (alignword) { //выровнять на четный адрес
     if (am32 == 0) {

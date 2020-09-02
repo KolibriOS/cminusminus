@@ -1074,7 +1074,7 @@ int SelectComand(char *pptr, int *count) {
         AlignCycle = (unsigned char)1 ^ neg;
         if (ptr != NULL) {
           aligncycle = getnumber((unsigned char *)ptr);
-          if (aligncycle < 1 && aligncycle > 4096)
+          if (aligncycle < 1 || aligncycle > 4096)
             aligncycle = 8;
         }
         break;

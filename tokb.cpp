@@ -840,7 +840,7 @@ int RegEqualToLea(int reg) {
     next |= 8;
   switch (next) {
   case 5: // idx=-1  zoom=-1         Rb+N
-    if (reg == EAX && (val > 127 || val < 0xffffff80))
+    if (reg == EAX && (val > 127 && val < 0xffffff80))
       goto retfalse;
     if (val < 3 || val > 0xfffffffd)
       goto retfalse;
@@ -1244,7 +1244,6 @@ int Reg16ToLea(int reg) //оптимизация сложения 16-битны�
     if (am32 == 0)
       break;
   default:
-  retfalse:
     inptr2 = oinptr;
     cha2 = ocha;
     tok = otok;
@@ -9095,7 +9094,6 @@ int doeaxfloatmath(int itreturn, int reg, int addop) {
         }
         if ((itok.rm == tk_float && itok.fnumber == 1.0) ||
             (itok.rm == tk_double && itok.dnumber == 1.0)) {
-        num1:
           if (vop == 0 || vop == 0x28) { // + -
             outword(0xE8D9);             // FLD1
             op(0xDE);
@@ -12656,7 +12654,6 @@ void doregmath64(int reg) {
         op(0xC0 + itok.number * 9);
         warningreg(regs[1][itok.number]);
       case tk_reg32:
-      defreg32:
         op66(r32);
         op(0x01 + vop);
         op(0xC0 + r1 + (unsigned int)itok.number * 8);
