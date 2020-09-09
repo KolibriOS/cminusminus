@@ -565,13 +565,13 @@ void printdword(unsigned int c) {
   else if (c < 0xA0000L || (c > 0xFFFFFL && c < 0xA00000L) ||
            (c > 0xFFFFFFL && c < 0xA000000L) ||
            (c > 0xFFFFFFFL && c < 0xA0000000L))
-    uprintf("%lXh", c);
+    uprintf("%lxh", c);
   else
-    uprintf("0%lXh", c);
+    uprintf("0%lxh", c);
 }
 
 void addr_to_hex(long addr, unsigned char splitup) {
-  static char buffer[11];
+  static char buffer[12];
   WORD32 adr;
   adr.dword = addr;
   if (splitup) {
@@ -599,13 +599,13 @@ unsigned char getbyte(void) {
 }
 
 int modrm() {
-  if (modrmv == -1)
+  if (modrmv == (unsigned int)-1)
     modrmv = getbyte();
   return modrmv;
 }
 
 int sib() {
-  if (sibv == -1)
+  if (sibv == (unsigned int)-1)
     sibv = getbyte();
   return sibv;
 }
@@ -1276,16 +1276,16 @@ void ua_str(char *str) {
 void unassemble(unsigned long ofs) {
   char *str;
   int c;
-  fprintf(hout, seg_size == 16 ? "%04X " : "%08lX ", ofs);
+  fprintf(hout, seg_size == 16 ? "%04lX " : "%08lX ", ofs);
   prefix = 0;
-  modrmv = sibv = -1; /* set modrm and sib flags */
+  modrmv = sibv = (unsigned int)-1; /* set modrm and sib flags */
   opsize = addrsize = seg_size;
   col = 0;
   ubufp = ubuf;
   done_space = 0;
   c = getbyte();
   if (c == 0x9B) {
-    switch (*(short *)&output[outptr]) {
+    switch (*(unsigned short *)&output[outptr]) {
     case 0xE0DB:
     case 0xE1DB:
     case 0xE2DB:
@@ -1381,7 +1381,7 @@ endp:
 
 #define MAXSTR 12
 
-void undata(unsigned ofs, unsigned long len, unsigned int type) {
+void undata(unsigned int ofs, unsigned long len, unsigned int type) {
   unsigned int sizet, c, i, j;
   unsigned long total, d;
   unsigned char data[MAXSTR];
@@ -1392,7 +1392,7 @@ void undata(unsigned ofs, unsigned long len, unsigned int type) {
   for (total = 0; total < len;) {
     col = 0;
     ubufp = ubuf;
-    fprintf(hout, seg_size == 16 ? "%04X " : "%08lX ", ofs);
+    fprintf(hout, seg_size == 16 ? "%04X " : "%08X ", ofs);
     if ((total + sizet) > len) {
       type = sizet = 1;
     }
