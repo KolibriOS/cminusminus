@@ -305,8 +305,8 @@ extern int destructor;
 #if !defined(_RES_)
 extern unsigned char *resbuf;
 extern unsigned int curposbuf;
-extern int numres; //текущее число ресурсов
-extern int numstrtbl;
+extern unsigned int numres; //текущее число ресурсов
+extern unsigned int numstrtbl;
 #endif
 
 extern unsigned char idxregs[5];

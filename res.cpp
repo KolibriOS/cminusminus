@@ -18,8 +18,8 @@
 #include "res.h"
 
 RES *listres;   //таблица ресурсов
-int numres = 0; //текущее число ресурсов
-int maxres = 0; //максимальное число ресурсов
+unsigned int numres = 0; //текущее число ресурсов
+unsigned int maxres = 0; //максимальное число ресурсов
 
 unsigned short *sortidx; //масив отсортированых индексов ресурсов
 RES *curtres; //текущая таблица ресурсов
@@ -36,7 +36,7 @@ unsigned short langdef = 0;
 unsigned short numzerotype = 0;
 
 _STRINGS_ *strinfo = NULL;
-int numstrtbl = 0;
+unsigned int numstrtbl = 0;
 
 struct TUSE {
   unsigned short id;
@@ -392,9 +392,9 @@ void r_Language() {
 
 void r_Stringtable() {
 #define MAXSTRTABINFO 64
-  static int maxstrinf = MAXSTRTABINFO;
+  static unsigned int maxstrinf = MAXSTRTABINFO;
   int num;
-  int j;
+  unsigned int j;
   if (strinfo == NULL)
     strinfo = (_STRINGS_ *)MALLOC(sizeof(_STRINGS_) * MAXSTRTABINFO);
   while (tok != tk_endline && tok != tk_eof)
@@ -429,7 +429,7 @@ void CreatStrTabRes() {
   for (i = 0; i < 65536;) {
     idnum++;
     usesec = FALSE;
-    for (int ii = 0; ii < 16; ii++, i++) {
+    for (unsigned int ii = 0; ii < 16; ii++, i++) {
       for (j = 0; j < numstrtbl; j++) {
         if (i == (strinfo + j)->val) {
           if (usesec == FALSE) {
@@ -1407,8 +1407,8 @@ void r_Accelerators() {
 }
 
 void SortRes() {
-  int i, j, k;
-  int sortpos = 0; //позиция в списке сортировки
+  unsigned int i, j, k;
+  unsigned int sortpos = 0; //позиция в списке сортировки
   for (i = 0; i < numtyperes; i++) {
     for (j = i + 1; j < numtyperes; j++) {
       TUSE buf;
@@ -1536,7 +1536,7 @@ void SortRes() {
 }
 
 int MakeRes(unsigned long ofsres, LISTRELOC **listrel) {
-  int i, j;
+  unsigned int i, j;
   unsigned long nextofs;
   unsigned int startlang, ofsback;
   unsigned int startofsdata, startdata;
@@ -1593,7 +1593,7 @@ int MakeRes(unsigned long ofsres, LISTRELOC **listrel) {
     curposbuf += 16;
     unsigned int type = curres->type;
     while ((unsigned int)curres->type == type) {
-      int k = j;
+      unsigned int k = j;
       if (curres->name) { //добавить имя
         if (j < (numres - 1) &&
             type == (unsigned int)(listres + sortidx[j + 1])->type &&

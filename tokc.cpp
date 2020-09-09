@@ -10562,7 +10562,7 @@ void setreturn() {
     unsigned int pos, dist;
     // int j=0;
     // restart:
-    for (int i = 0; i < numreturn; i++) {
+    for (unsigned int i = 0; i < numreturn; i++) {
       //			if(!(listreturn+i)->use)continue;
       pos = (listreturn + i)->loc;
       dist = outptr - pos;

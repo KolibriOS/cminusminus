@@ -3335,7 +3335,7 @@ void CallDestr(idrec *ptr) {
 elementteg *FindOneDestr(structteg *searcht) {
   elementteg *bazael = searcht->baza, *retrez = NULL;
   idrec *ptrs;
-  int i;
+  unsigned int i;
   /// new!
   for (i = 0; i < searcht->numoper; i++) {
     ptrs = (bazael + i)->rec;
@@ -3550,7 +3550,7 @@ int AskUseDestr(structteg *searcht) {
   elementteg *bazael = searcht->baza;
   if ((searcht->flag & fs_destructor) != 0)
     return TRUE;
-  for (int i = 0; i < searcht->numoper; i++) {
+  for (unsigned int i = 0; i < searcht->numoper; i++) {
     //		printf("tok=%d\n",(bazael+i)->tok);
     if ((bazael + i)->tok == tk_baseclass ||
         (bazael + i)->tok == tk_struct // new 20.06.05 21:33
@@ -3650,7 +3650,7 @@ elementteg *FindClassEl(structteg *searcht, unsigned char *string4, int *addofs,
 int CallDestructor(structteg *searcht) {
   elementteg *bazael = searcht->baza;
   idrec *ptrs;
-  for (int i = 0; i < searcht->numoper; i++) {
+  for (unsigned int i = 0; i < searcht->numoper; i++) {
     ptrs = (bazael + i)->rec;
     if ((searcht->flag & fs_destructor) == 0) {
       if ((bazael + i)->tok == tk_baseclass) {
@@ -4705,7 +4705,7 @@ int GetFirstDestr(structteg *searcht) {
   idrec *ptrs;
   if ((searcht->flag & fs_destructor) != 0)
     return TRUE;
-  for (int i = 0; i < searcht->numoper; i++) {
+  for (unsigned int i = 0; i < searcht->numoper; i++) {
     ptrs = (bazael + i)->rec;
     if ((bazael + i)->tok == tk_baseclass) {
       if (GetFirstDestr((structteg *)ptrs))
@@ -4733,7 +4733,7 @@ int IsClass(structteg *searcht) {
   elementteg *bazael = searcht->baza;
   if ((searcht->flag & fs_destructor) != 0)
     return TRUE;
-  for (int i = 0; i < searcht->numoper; i++) {
+  for (unsigned int i = 0; i < searcht->numoper; i++) {
     if ((bazael + i)->tok == tk_baseclass)
       return TRUE;
     //			if(IsClass((structteg *)(bazael+i)->rec))return TRUE;
