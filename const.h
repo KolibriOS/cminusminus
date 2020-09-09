@@ -117,7 +117,7 @@ enum {
   tk_openblock,
   tk_closeblock,
   tk_colon,
-
+  // 50
   tk_semicolon,
   tk_camma,
   tk_period,

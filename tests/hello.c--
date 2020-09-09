@@ -7,7 +7,7 @@
 
 main ()              /* execution always starts at main () */
 {
-WRITESTR("Hello World!\n");  /* write the string to the screen */
+	WriteStr("Hello World!\n");  /* write the string to the screen */
 }
 
 

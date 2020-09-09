@@ -111,7 +111,7 @@ extern int skipstring(int pos, unsigned char term);
 extern int skipcomment(int pos);
 
 void retoldscanmode(int mode) {
-  if (mode == STDLEX && cha2 == 13 && tok != tk_endline) {
+  if (mode == STDLEX && (cha2 == 13 || cha2 == 10) && tok != tk_endline) {
     cha2 = cha;
   }
   scanlexmode = mode;
@@ -1446,7 +1446,7 @@ void nexttok() {
 void whitespace() //пропуск нзначащих символов
 {
   while (isspace(cha) || cha == 255 || cha == 0) {
-    if (cha == 13) {
+    if (cha == 13 || cha == 10) {
       linenumber++;
       if ((dbg & 2) && displaytokerrors && notdef)
         startline = (char*)input + inptr + 1;
@@ -1466,7 +1466,7 @@ unsigned char convert_char()
   int i;
   unsigned char c;
   if (cha != '\\') {
-    if (cha == 13) {
+    if (cha == 13 || cha == 10) {
       linenumber++;
       if ((dbg & 2) && displaytokerrors && notdef)
         startline = (char*)input + inptr + 1;
@@ -1483,6 +1483,7 @@ unsigned char convert_char()
     return ('\f');
   case 'l':
     return (10);
+  // FIXME: properly handle end of the line for the both UNIX and Windows
   case 'n':
     return (13);
     //		case 'p': return('Ь');
@@ -1557,6 +1558,7 @@ void convert_string(unsigned char *str) {
       case 'l':
         hold = 10;
         break;
+	  // FIXME: Properly handle end of the line for both Windows and UNIX
       case 'n':
         str[j++] = 13;
         hold = 10;
@@ -2282,7 +2284,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
       case '/':
         do {
           nextchar();
-        } while (!endoffile && cha != 13); //строка коментария
+        } while (!endoffile && (cha != 13) && (cha != 10)); //строка коментария
         if (endoffile)
           *tok4 = tk_eof;
         else {
@@ -2290,7 +2292,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
             *tok4 = tk_endline;
           else {
             whitespace();
-            if (cha == 13)
+            if (cha == 13 || cha == 10)
               nextchar();
             tokscan(tok4, itok4, string4);
           }
@@ -2338,7 +2340,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
           *tok4 = tk_orminus; // OR-
         else {
           *tok4 = tk_or;
-          if (cha == 13)
+          if (cha == 13 || cha == 10)
             nextchar(); // OR
           next = 0;
         }
@@ -2746,12 +2748,13 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
     case 26:
       *tok4 = tk_eof;
       return;
-    case 13:
+    case 13: // '\r'
+	case 10: // '\n'
       *tok4 = tk_endline;
       break;
     case '\\':
       nextchar();
-      if (cha == 13) {
+      if (cha == 13 || cha == 10) {
         tokscan(tok4, itok4, string4);
         if (*tok4 == tk_endline)
           tokscan(tok4, itok4, string4);
@@ -6754,7 +6757,7 @@ void FastTok(int mode, int *tok4, ITOK *itok4) {
           itok4->number = inptr - 2;
         do {
           nextchar();
-        } while (!endoffile && cha != 13); //строка коментария
+        } while (!endoffile && (cha != 13) && (cha != 10)); //строка коментария
         if (endoffile)
           *tok4 = tk_eof;
         if (mode == 2)
@@ -6805,12 +6808,13 @@ void FastTok(int mode, int *tok4, ITOK *itok4) {
     case 26:
       *tok4 = tk_eof;
       return;
-    case 13:
+    case 13: // '\r'
+	case 10: // '\n'
       *tok4 = tk_endline;
       break;
     case '\\':
       nextchar();
-      if (cha == 13) {
+      if (cha == 13 || cha == 10) {
         FastTok(mode, tok4, itok4);
         if (tok == tk_endline)
           FastTok(mode, tok4, itok4);

@@ -1,7 +1,8 @@
 /*-----------------14.12.02 ------------------------
-  Этот файл использует компилятор для генерации начального кода программы.
- Файл должен находиться в директории вместе с остальными заголовочными файлами.
- Включать этот файл в свою программу директивой #include нельзя.
+ This file is being used by the compiler for the generation
+ of the initialization for a different types of the output files.
+ It should be located in the directory with the rest of the header files.
+ It SHOULD NOT be included directly!
  --------------------------------------------------*/
 
 :void CLEARPOSTAREA( (E)AX )
@@ -210,7 +211,7 @@ __startexit:
 #else	//__OBJ__
 
 #ifdef __COM__
-//файл типа *.com
+// *.com file
 	#ifdef __argc
 		#define __SIZEBUFCOMSTR 128+80
 	#else
@@ -233,7 +234,7 @@ __startexit:
 __startupproc()
 inline
 {
-	//инициализация com-symbios
+	// com-symbios initialization
 	#ifdef __comsymbios
 		#ifdef cpu==0
 			$push AX,BX,CX,DX,DI,SI,BP,ES;
@@ -257,7 +258,7 @@ inline
 		#undef __STARTVALB
 		#undef __comsymbios
 	#else
-	//остальные com-файлы
+	// the rest of the com files
 		#ifdef __clearpost
 			@CLEARPOSTAREA(0);
 		#endif	//__clearpost
@@ -396,7 +397,7 @@ __startexit:
 }
 #endif	//__COM__
 
-//файл типа *.exe модель small
+// *.exe files, model 'small'
 #ifdef __EXE__
 	#ifdef __argc
 		#define __SIZEBUFCOMSTR 128+80
@@ -523,7 +524,7 @@ __startexit:
 }
 #endif	//__EXE__
 
-//файл типа *.exe модель tiny
+// *.exe file, model 'tiny'
 #ifdef __TEXE__
 	#ifdef __argc
 		#define __SIZEBUFCOMSTR 128+80
@@ -665,7 +666,7 @@ __startexit:
 #endif	//__TEXE__
 #endif	//__OBJ__
 
-//файл типа *.exe модель DOS 32
+// *.exe file, model 'DOS 32'
 #ifdef __DOS32__
 	#ifdef __argc
 		#define __SIZEBUFCOMSTR 128+80
@@ -878,7 +879,7 @@ word GDT_CODE32={-1,0,0xFA00,0xCF};
 #endif	//__DOS32__
 
 #ifdef __TLS__
-//файл типа *.exe под Windows
+// *.exe file, Windows platform
 	#ifndef __DLL__
 		dword hThisInst;
 		#ifdef __CONSOLE__
@@ -980,7 +981,7 @@ __startexit:
 }
 #endif	//__TLS__
 
-//генерация ROM
+// ROM generation
 #ifdef __ROM__
 	#ifdef __SMALL__
 		dword bakstack=0;
@@ -1033,7 +1034,7 @@ __sizedata:
 }
 #endif
 
-//начальный код для драйверов устройств
+// SYS device drivers initialization
 #ifdef __SYS__
 __startupproc()
 inline
@@ -1106,7 +1107,7 @@ NONE()
 }
 #endif	//__SYS__
 
-//убрать ненужные константы
+// remove unnecessary defines
 #ifdef __argc
 	#undef __argc
 #endif

@@ -55,7 +55,7 @@ void preerror3(const char *str, unsigned int line,
 {
   if (error < maxerrors) {
     error++;
-    sprintf((char *)string3, "%s(%d)#%d> %s.\n",
+    sprintf((char *)string3, "%s:%d ERROR #%d> %s.\n",
             startfileinfo == NULL ? "" : (startfileinfo + file)->filename, line,
             error, str);
     printf("%s", (char *)string3);
@@ -142,7 +142,7 @@ void swaperror() { preerror("invalid or incompatable swap item"); }
 void notexternfun() { preerror("Do not insert extern function"); }
 
 void idalreadydefined() {
-  char holdstr[80];
+  char holdstr[96];
   sprintf(holdstr, "identifier '%s' already defined", itok.name);
   preerror(holdstr);
   FindStopTok();
@@ -151,7 +151,7 @@ void idalreadydefined() {
 
 void jumperror(unsigned int line, char *type) {
   char smalltype[IDLENGTH];
-  char buf[80];
+  char buf[160];
   strcpy(smalltype, type);
   cmm_strlwr(smalltype);
   sprintf(buf, "'%s' jump distance too large, use '%s'", type, smalltype);

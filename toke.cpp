@@ -1437,13 +1437,13 @@ void doifdef(int intok) {
   unsigned int i;
   int oscanlexmode;
   dirmode = dm_if;
-  /*	string3[0]=cha2;
+  /*
+   string3[0]=cha2;
           int j=1;
           for(i=inptr2;input[i]>13;i++,j++)string3[j]=input[i];
           string3[j]=0;
-          printf("%s (%u) %s
-     %s",(startfileinfo+currentfileinfo)->filename,linenumber,itok.name,string3);
-          */
+          printf("%s (%u) %s %s",(startfileinfo+currentfileinfo)->filename,linenumber,itok.name,string3);
+*/
   defcond = intok;
   if (intok == d_if || intok == d_elif)
     defcond = d_ifdef;
@@ -1507,8 +1507,7 @@ void doifdef(int intok) {
           stopscan = TRUE;
       }
     }
-    //			printf("lastoper=%d endrez=%d
-    // locrez=%d\n",lastoper,endrez,locrez);
+    // printf("lastoper=%d endrez=%d locrez=%d\n",lastoper,endrez,locrez);
     if (next)
       nexttok();
     while (tok == tk_closebracket) {
@@ -1522,11 +1521,11 @@ void doifdef(int intok) {
       nexttok();
       break;
     }
-    if (tok == tk_oror || tok == tk_andand)
+    if (tok == tk_oror || tok == tk_andand) {
       lastoper = tok;
-    else {
+	} else {
       preerror("bad token in 'ifdef/ifndef/if'");
-      //			printf("tok=%d\n",tok);
+      			printf("tok=%d\n",tok);
     }
   } while (tok != tk_eof && tok != tk_endline);
   dirmode = dm_other;
