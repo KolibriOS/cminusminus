@@ -35,7 +35,7 @@
 #define WARNCOUNT 15 //число различных предупреждений
 
 #define ver1 0
-#define ver2 239
+#define ver2 240
 
 #define BETTA
 

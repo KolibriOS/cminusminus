@@ -11,7 +11,7 @@
 
 static char **_Argv; //!!! simplest way to make your own variable
 
-unsigned char compilerstr[] = "SPHINX C-- 0.239";
+unsigned char compilerstr[] = "SPHINX C-- 0.240";
 char *rawfilename; /* file name */
 char *rawext;
 LISTCOM *listcom;

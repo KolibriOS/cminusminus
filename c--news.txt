@@ -1,3 +1,7 @@
+v0.240
+ - Added support for Linux, MacOS, FreeBSD, OpenBSD
+ - Various bugfixes
+
 v0.239
  - Расширены возможности sizeof.
  - Расширен синтаксис локальных меток.
