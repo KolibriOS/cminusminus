@@ -1,13 +1,13 @@
 #define _ERRORS_
-#include "tok.h"
 #include "misc.h"
+#include "tok.h"
 
 void warningprint(const char *str, int line, int file);
-WARNACT wact[WARNCOUNT] = {{warningprint, 1}, {warningprint, 1}, {warningprint, 1},
-	{warningprint, 1}, {warningprint, 1}, {warningprint, 1},
-	{warningprint, 1}, {warningprint, 1}, {warningprint, 1},
-	{warningprint, 1}, {warningprint, 1}, {warningprint, 1},
-	{warningprint, 1}, {warningprint, 1}, {warningprint, 1}};
+WARNACT wact[WARNCOUNT] = {
+    {warningprint, 1}, {warningprint, 1}, {warningprint, 1}, {warningprint, 1},
+    {warningprint, 1}, {warningprint, 1}, {warningprint, 1}, {warningprint, 1},
+    {warningprint, 1}, {warningprint, 1}, {warningprint, 1}, {warningprint, 1},
+    {warningprint, 1}, {warningprint, 1}, {warningprint, 1}};
 
 int maxerrors = 16; // number of errors to stop at
 
@@ -45,12 +45,10 @@ void FindEndLex() {
 }
 
 /* error on currentline with line number and file name */
-void preerror(const char *str)
-{
-  preerror3(str, linenumber);
-}
+void preerror(const char *str) { preerror3(str, linenumber); }
 
-void preerror3(const char *str, unsigned int line,
+void preerror3(
+    const char *str, unsigned int line,
     unsigned int file) // error message at a different than current line
 {
   if (error < maxerrors) {
@@ -904,8 +902,8 @@ void mapfun(int line) {
             startfileinfo == NULL
                 ? ""
                 : (startfileinfo + currentfileinfo)->filename);
-    fprintf(hmap, "\noffset=0x%lX(%ld)\tsize=0x%X(%d)", itok.number, itok.number,
-            itok.size, itok.size);
+    fprintf(hmap, "\noffset=0x%lX(%ld)\tsize=0x%X(%d)", itok.number,
+            itok.number, itok.size, itok.size);
   }
   fheader = 0;
   for (ftlr = btlr; ftlr != NULL; ftlr = ftlr->next) {

@@ -1,7 +1,7 @@
 #define _RES_
 
-#include <sys/stat.h>
 #include <fcntl.h> /* O_ constant definitions */
+#include <sys/stat.h>
 #ifndef _MSC_VER
 #include <unistd.h>
 #else
@@ -13,11 +13,11 @@
 #include <wchar.h>
 //#include <mbctype.h>
 #endif
-#include "tok.h"
 #include "misc.h"
 #include "res.h"
+#include "tok.h"
 
-RES *listres;   //таблица ресурсов
+RES *listres;            //таблица ресурсов
 unsigned int numres = 0; //текущее число ресурсов
 unsigned int maxres = 0; //максимальное число ресурсов
 
@@ -165,7 +165,7 @@ void input_res() {
       break;
     default:
       //				printf("line %u:
-      //tok=%u\n",linenumber,tok);
+      // tok=%u\n",linenumber,tok);
       unuseableinput();
       break;
     }

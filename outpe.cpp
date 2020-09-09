@@ -9,21 +9,22 @@
 #define SIZESTUB 96
 #define STRVERS 0x20 //смещение текста с номером версии
 
-unsigned char stub[] = {0x4D, 0x5A, 0x50, 0x00, 0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x0F,
-               0x00, 0xFF, 0xFF, 0x00, 0x00, 0xB8, 0x00, 0x00, 0x00, 0x00, 0x00,
-               0x00, 0x00, 0x40, 0x00, 0x1A, 0x00, 0x00, 0x00, 0x00, 0x00,
+unsigned char stub[] = {
+    0x4D, 0x5A, 0x50, 0x00, 0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x0F,
+    0x00, 0xFF, 0xFF, 0x00, 0x00, 0xB8, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x40, 0x00, 0x1A, 0x00, 0x00, 0x00, 0x00, 0x00,
 
-               0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-               0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-               0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x60, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x60, 0x00, 0x00, 0x00,
 
-               0xBA, 0x0E, 0x00, 0x0E, 0x1F, 0xB4, 0x09, 0xCD, 0x21, 0xB8, 0x01,
-               0x4C, 0xCD, 0x21, 0x46, 0x6F, 0x72, 0x20, 0x57, 0x69, 0x6E, 0x33,
-               0x32, 0x20, 0x6F, 0x6E, 0x6C, 0x79, 0x21, 0x0D, 0x0A, 0x24};
+    0xBA, 0x0E, 0x00, 0x0E, 0x1F, 0xB4, 0x09, 0xCD, 0x21, 0xB8, 0x01,
+    0x4C, 0xCD, 0x21, 0x46, 0x6F, 0x72, 0x20, 0x57, 0x69, 0x6E, 0x33,
+    0x32, 0x20, 0x6F, 0x6E, 0x6C, 0x79, 0x21, 0x0D, 0x0A, 0x24};
 
 #define SIZESTUB2 12
 unsigned char stub2[] = {0x4D, 0x5A, 0x53, 0x50, 0x48, 0x49,
-                0x4E, 0x58, 0x20, 0x43, 0x2D, 0x2D};
+                         0x4E, 0x58, 0x20, 0x43, 0x2D, 0x2D};
 unsigned int numdll, numapi;
 unsigned char FixUpTable =
     FALSE; //запретить создание таблици Fix UP for Windows
@@ -169,7 +170,7 @@ int MakePE() {
   OBJECT_ENTRY *objentry = (OBJECT_ENTRY *)MALLOC(sizehead); //тавлица объектов
   memset(objentry, 0, sizehead); //очистить таблицу объектов
                                  //секция .bss
-  if (wbss) {                    //есть post переменные
+  if (wbss) {    //есть post переменные
     numobj++;    //увеличиваем число объектов
     codenum = 1; //номер секции кода
     strcpy(objentry->name, ".bss"); //имя секции
@@ -458,8 +459,8 @@ int MakePE() {
                    FILEALIGN);
   peheader->sign[0] = 0x50; // 'P'
   peheader->sign[1] = 0x45; // 'E'
-  peheader->cpu = 0x14c; //(chip>=4?(chip>=5?0x14e:0x14D):0x14c);
-                         //	peheader->date_time=0;
+  peheader->cpu = 0x14c;    //(chip>=4?(chip>=5?0x14e:0x14D):0x14c);
+                            //	peheader->date_time=0;
   peheader->DLLflag = dllflag;
   peheader->numobj = numobj;
   peheader->NTheadsize = 0xe0;
@@ -653,7 +654,7 @@ void ImportName(char *name) {
     OBJECT_ENTRY obj;
   };
   unsigned long temp;
-  unsigned long exportdir;    //секция с експортом
+  unsigned long exportdir; //секция с експортом
   unsigned long numobj;    //число объектов
   unsigned long posdll;    //позиция секции в файле
   unsigned long nameadr;   //таблица адресов имен
@@ -788,7 +789,7 @@ void ImportName(char *name) {
 void CreatStub(char *name) {
   sizestub = SIZESTUB;
   hout = CreateOutPut(outext, "wb");
-  sprintf((char*)&stub[STRVERS], "%s%s", compilerstr, __DATE__);
+  sprintf((char *)&stub[STRVERS], "%s%s", compilerstr, __DATE__);
   if (name == NULL) {
   stdstub:
     if (fwrite(stub, SIZESTUB, 1, hout) != 1) {
@@ -817,7 +818,7 @@ void CreatStub(char *name) {
     }
     fseek(stubin, 0, SEEK_END);
     sizestub = ftell(stubin);
-	unsigned long temp;
+    unsigned long temp;
     if (exeheader.ofsreloc >= 0x40) { //проверка что это не 32-битный файл
       fseek(stubin, 0x3c, SEEK_SET);
       if (fread(&temp, 4, 1, stubin) != 1)
@@ -826,16 +827,17 @@ void CreatStub(char *name) {
         fseek(stubin, temp, SEEK_SET);
         if (fread(&temp, 4, 1, stubin) != 1)
           goto errread;
-		unsigned char* tmpsign = (unsigned char*)&temp;
-		if ((((tmpsign[0] == 0x50) || (tmpsign[0] == 0x4e)
-				|| (tmpsign[0] == 0x4c)) && (tmpsign[1] == 0x45)) /* PE, NE, LE */
-			|| ((tmpsign[0] == 0x4c) && (tmpsign[1] = 0x58))) /* LX */
+        unsigned char *tmpsign = (unsigned char *)&temp;
+        if ((((tmpsign[0] == 0x50) || (tmpsign[0] == 0x4e) ||
+              (tmpsign[0] == 0x4c)) &&
+             (tmpsign[1] == 0x45))                            /* PE, NE, LE */
+            || ((tmpsign[0] == 0x4c) && (tmpsign[1] = 0x58))) /* LX */
           goto errstub;
-        }
+      }
       exeheader.ofsreloc += (unsigned short)0x20;
     } else {
       exeheader.ofsreloc = 0x40;
-	}
+    }
     //размер файла
     sizestub = Align(sizestub + 32, 8);
     fseek(stubin, 0x20, SEEK_SET);
@@ -1023,8 +1025,8 @@ int MakeCoff() {
   lastoffset = sizehead + sizeof(COFF_HEADER);
   //	if(header){
   strcpy((objentry + curobj)->name, ".version");
-  sprintf((char*)&stub[STRVERS], "%s%s", compilerstr, __DATE__);
-  (objentry + curobj)->psize = strlen((char*)&stub[STRVERS]) + 1;
+  sprintf((char *)&stub[STRVERS], "%s%s", compilerstr, __DATE__);
+  (objentry + curobj)->psize = strlen((char *)&stub[STRVERS]) + 1;
   (objentry + curobj)->pOffset = lastoffset;
   (objentry + curobj)->flags = 0x100A00;
   headernum = curobj;

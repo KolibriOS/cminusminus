@@ -29,8 +29,8 @@ typedef struct _idrec_ {
     struct _idrec_ *left;
     struct _localrec_ *next;
   };
-  struct _idrec_ *right;  //предыдущ и следующ запись
-  char recid[IDLENGTH]; //имя
+  struct _idrec_ *right; //предыдущ и следующ запись
+  char recid[IDLENGTH];  //имя
   unsigned int flag;
   char *newid; //блок с даными, для структур адрес тега,для процедур параметры
   int rectok;  //тип
@@ -145,8 +145,8 @@ typedef struct _elementteg_ {
 typedef struct _structteg_ {
   struct _structteg_ *left;  //следующий тег
   struct _structteg_ *right; //следующий тег
-  unsigned int size;       //размер тега
-  unsigned int numoper;    //число операндов структуры
+  unsigned int size;         //размер тега
+  unsigned int numoper;      //число операндов структуры
   elementteg *baza; //адрес с описанием элементов тега
   unsigned int flag;
   char name[IDLENGTH];
@@ -194,8 +194,8 @@ typedef struct _DLLLIST_ {
 } DLLLIST;
 
 typedef struct _PE_HEADER_ {
-  unsigned char sign[4];      //сигнатура - всегда  'PE\0x00\0x00'
-  short cpu;      //мин тип CPU - всегда 0x14C
+  unsigned char sign[4]; //сигнатура - всегда  'PE\0x00\0x00'
+  short cpu;             //мин тип CPU - всегда 0x14C
   short numobj;   //число входов в таблицу объектов
   long date_time; //дата модификации линкером
   long pCOFF;

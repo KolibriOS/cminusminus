@@ -1,18 +1,18 @@
 /* Этот файл сгенерирован программой 'FASTLIST.EXE' */
 
 unsigned short ofsmnem[26] = {0x0000, 0x0082,  // A B
-                     0x00AF, 0x0451,  // C D
-                     0x048F, 0x049E,  // E F
-                     0xFFFF, 0x078A,  // G H
-                     0x07B7, 0x0806,  // I J
-                     0xFFFF, 0x08AA,  // K L
-                     0x096C, 0x0B00,  // M N
-                     0x0B11, 0x0B45,  // O P
-                     0xFFFF, 0x0DE9,  // Q R
-                     0x0E63, 0x102C,  // S T
-                     0x1034, 0x1075,  // U V
-                     0x1083, 0x109A,  // W X
-                     0xFFFF, 0xFFFF}; // Y Z
+                              0x00AF, 0x0451,  // C D
+                              0x048F, 0x049E,  // E F
+                              0xFFFF, 0x078A,  // G H
+                              0x07B7, 0x0806,  // I J
+                              0xFFFF, 0x08AA,  // K L
+                              0x096C, 0x0B00,  // M N
+                              0x0B11, 0x0B45,  // O P
+                              0xFFFF, 0x0DE9,  // Q R
+                              0x0E63, 0x102C,  // S T
+                              0x1034, 0x1075,  // U V
+                              0x1083, 0x109A,  // W X
+                              0xFFFF, 0xFFFF}; // Y Z
 
 unsigned char asmMnem[] = {
     0x22, 0x00, 0x41, 0x41, 0,                               // AAA

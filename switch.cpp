@@ -1,7 +1,7 @@
 #define _SWITCH_
 
-#include "tok.h"
 #include "misc.h"
+#include "tok.h"
 
 extern int lastcommand; //последний оператор в блоке
 
@@ -430,7 +430,7 @@ void doswitch() {
         mode = 2;
     }
     //		printf("Num CASE %d Metod 0 size=%d. Metod 1 size=%d. Metod 2
-    //size=%d\n",numcase,size0,size1,size2);
+    // size=%d\n",numcase,size0,size1,size2);
     if (mode == 2) {
       reg = AX;
       reg0 = idxregs[1];

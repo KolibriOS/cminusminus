@@ -3948,7 +3948,7 @@ loopswitch:
       AddUndefOff(2, itok.name);
       //				AddUndefOff(0,itok.name);
       ////22.11.04 20:52 				itok.flag=0;	//new
-      ///07.07.04 23:57
+      /// 07.07.04 23:57
     } else
       (itok.flag & f_extern) == 0 ? setwordpost(&itok)
                                   : setwordext(&itok.number);
@@ -9430,9 +9430,10 @@ void setwordpost(ITOK *stok) /* for post word num setting */
     (postbuf + posts)->type = (unsigned short)(am32 == 0 ? DIN_VAR : DIN_VAR32);
     //			printf("Add tok=%d
     //%s\n",stok->rec->rectok,stok->rec->recid);
-    //printf("rec=%08X\n",stok->rec);
+    // printf("rec=%08X\n",stok->rec);
     if (stok->rec->rectok == tk_structvar && stok->rec->recsib == tp_gvar) {
-      (postbuf + posts)->num = (int)(size_t)stok->rec; // 02.09.05 17:11 ->right;
+      (postbuf + posts)->num =
+          (int)(size_t)stok->rec; // 02.09.05 17:11 ->right;
     } else
       (postbuf + posts)->num = (int)(size_t)stok->rec;
   } else if (stok->post >= CODE_SIZE && stok->post <= STACK_SIZE32)
@@ -10208,7 +10209,8 @@ int getintoreg(int reg, int razr, int sign, char **ofsstr) {
     endoffile = 0;
     //			printf("input=%08X inptr=%08X
     //%s\n",input,inptr2,input+inptr2);
-    //if(bufrm)free(bufrm); 			if(strinf.bufstr)free(strinf.bufstr);
+    // if(bufrm)free(bufrm);
+    // if(strinf.bufstr)free(strinf.bufstr);
     bufrm = obuf;
     strinf = ostr;
     break;

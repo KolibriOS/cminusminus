@@ -1,7 +1,7 @@
 #define _TOKR_
 
-#include "tok.h"
 #include "misc.h"
+#include "tok.h"
 
 char useasm = FALSE;
 char asmparam = FALSE;

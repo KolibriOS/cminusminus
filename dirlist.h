@@ -1,19 +1,19 @@
 /* Этот файл сгенерирован программой 'FASTLIST.EXE' */
 
 unsigned short ofsdir[27] = {0x0000, 0x000F, // D a
-                    0xFFFF, 0x0045, // b c
-                    0x0072, 0x0090, // d e
-                    0x00A5, 0xFFFF, // f g
-                    0xFFFF, 0x00C0, // h i
-                    0x010A, 0xFFFF, // j k
-                    0xFFFF, 0x0118, // l m
-                    0xFFFF, 0xFFFF, // n o
-                    0x0132, 0xFFFF, // p q
-                    0x015F, 0x0184, // r s
-                    0xFFFF, 0x01F6, // t u
-                    0xFFFF, 0x0263, // v w
-                    0xFFFF, 0xFFFF, // x y
-                    0xFFFF};        // z
+                             0xFFFF, 0x0045, // b c
+                             0x0072, 0x0090, // d e
+                             0x00A5, 0xFFFF, // f g
+                             0xFFFF, 0x00C0, // h i
+                             0x010A, 0xFFFF, // j k
+                             0xFFFF, 0x0118, // l m
+                             0xFFFF, 0xFFFF, // n o
+                             0x0132, 0xFFFF, // p q
+                             0x015F, 0x0184, // r s
+                             0xFFFF, 0x01F6, // t u
+                             0xFFFF, 0x0263, // v w
+                             0xFFFF, 0xFFFF, // x y
+                             0xFFFF};        // z
 
 unsigned char dirlist[] = {
     0x19, 0x00, 0x4F, 0x53, 0x72, 0x65, 0x71, 0x75, 0x69, 0x72, 0x65,

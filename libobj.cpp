@@ -259,7 +259,7 @@ int ScanName(COFF_HEADER *head) {
       ConvertName((char *)string);
       seg = (listnamesymbol + j)->seg = GetSegm(tsym->SectionNumber);
       //			printf("find name \"%s\" seg=%d type=%d
-      //class=%d\n",(char *)string,seg,tsym->Type,tsym->StorageClass);
+      // class=%d\n",(char *)string,seg,tsym->Type,tsym->StorageClass);
       (listnamesymbol + j)->adr = tsym->Value + GetOffSec(tsym->SectionNumber);
       (listnamesymbol + j)->dbg = 0;
       strcpy((listnamesymbol + j)->name, (char *)string);
@@ -273,7 +273,7 @@ int ScanName(COFF_HEADER *head) {
         outptr = (listnamesymbol + j)->adr; // 11.08.04 23:59 +ooutptr;
         count = FindOff(string, CS);
         //				printf("adr=%08X
-        //count=%d\n",outptr,count);
+        // count=%d\n",outptr,count);
       }
       displaytokerrors = FALSE;
       if (searchtree2(treestart, &itok, &tok, string)) {
@@ -309,7 +309,7 @@ int ScanName(COFF_HEADER *head) {
           secondcallnum++;
         } else {
           //					printf("type=%d
-          //seg=%d\n",tsym->Type,seg);
+          // seg=%d\n",tsym->Type,seg);
           if (/*tsym->Type==32*/ tsym->StorageClass != 3 && seg == s_code) {
             tok = tk_proc;
             itok.number = outptr;
@@ -332,8 +332,8 @@ int ScanName(COFF_HEADER *head) {
               //							puts("323");
               preerror(meserr);
               //			printf("Type=%d Class=%d seg=%d
-              //%s\n",tsym->Type,tsym->StorageClass,seg,string); 							printf("???
-              //%s\n",string);
+              //%s\n",tsym->Type,tsym->StorageClass,seg,string);
+              //printf("??? %s\n",string);
             }
           }
         }
@@ -401,7 +401,8 @@ void LoadObj() {
         }
         lns = (LISTNAMESYMBOL *)(listnamesymbol + ii);
         idrec *rec = lns->rec;
-        //					printf("type=%d seg=%d tok=%d num=%d
+        //					printf("type=%d seg=%d tok=%d
+        //num=%d
         //%s\n",(trel+j)->Type,lns->seg,rec->rectok,rec->recnumber,lns->name);
         switch ((trel + j)->Type) {
         case IMAGE_REL_I386_DIR32:
@@ -485,7 +486,7 @@ void LoadObj() {
             break;
         }
         lns = (LISTNAMESYMBOL *)(listnamesymbol + ii);
-        //idrec *rec = lns->rec;
+        // idrec *rec = lns->rec;
         switch ((trel + j)->Type) {
         case IMAGE_REL_I386_DIR32:
           *(long *)&buf[(trel + j)->VirtualAddress] += lns->adr;

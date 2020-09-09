@@ -1,15 +1,15 @@
 #define _TOKE_
 
-#include <sys/stat.h>
 #include <fcntl.h> /* O_ constant definitions */
+#include <sys/stat.h>
 #ifndef _MSC_VER
 #include <unistd.h>
 #else
 #include <io.h>
 #endif
 
-#include "tok.h"
 #include "misc.h"
+#include "tok.h"
 
 unsigned char gotoendif = FALSE;
 unsigned char atex = FALSE;
@@ -23,10 +23,10 @@ unsigned int postnumflag; //флаг последнего идентификат
 int calcnumber = FALSE;
 
 char mesmain[] = "main";
-const char *macroname[] = {"inp",      "inportb", "inport",   "inportd", "outp",
-                     "outportb", "outport", "outportd", "sqrt",    "cos",
-                     "sin",      "atan2",   "tan",      "log",     "log10",
-                     "exp",      "atan",    "fabs",     NULL};
+const char *macroname[] = {
+    "inp",      "inportb", "inport", "inportd", "outp",  "outportb", "outport",
+    "outportd", "sqrt",    "cos",    "sin",     "atan2", "tan",      "log",
+    "log10",    "exp",     "atan",   "fabs",    NULL};
 enum {
   m_ib,
   m_ibt,
@@ -1442,7 +1442,8 @@ void doifdef(int intok) {
           int j=1;
           for(i=inptr2;input[i]>13;i++,j++)string3[j]=input[i];
           string3[j]=0;
-          printf("%s (%u) %s %s",(startfileinfo+currentfileinfo)->filename,linenumber,itok.name,string3);
+          printf("%s (%u) %s
+   %s",(startfileinfo+currentfileinfo)->filename,linenumber,itok.name,string3);
 */
   defcond = intok;
   if (intok == d_if || intok == d_elif)
@@ -1523,9 +1524,9 @@ void doifdef(int intok) {
     }
     if (tok == tk_oror || tok == tk_andand) {
       lastoper = tok;
-	} else {
+    } else {
       preerror("bad token in 'ifdef/ifndef/if'");
-      			printf("tok=%d\n",tok);
+      printf("tok=%d\n", tok);
     }
   } while (tok != tk_eof && tok != tk_endline);
   dirmode = dm_other;
@@ -2301,7 +2302,7 @@ void directive() {
       // tok=%d\n",ptr,input,tok);
       inptr2 = inptr;
       cha2 = cha;
-      while (ptr == (char*)input)
+      while (ptr == (char *)input)
         nexttok();
       next = 0;
       break;

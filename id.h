@@ -1,32 +1,32 @@
 /* Этот файл сгенерирован программой 'FASTLIST.EXE' */
 
 unsigned short idofs[53] = {0xFFFF, 0x0000, // A B
-                   0x0009, 0xFFFF, // C D
-                   0x0026, 0x0037, // E F
-                   0x0044, 0xFFFF, // G H
-                   0x004C, 0xFFFF, // I J
-                   0xFFFF, 0x0052, // K L
-                   0x005C, 0x0069, // M N
-                   0x0093, 0x009F, // O P
-                   0xFFFF, 0x00AB, // Q R
-                   0x00B5, 0xFFFF, // S T
-                   0xFFFF, 0xFFFF, // U V
-                   0x00BF, 0xFFFF, // W X
-                   0xFFFF, 0x00C8, // Y Z
-                   0x00D4, 0x011A, //_ a
-                   0x0121, 0x0130, // b c
-                   0x014F, 0x0175, // d e
-                   0x018B, 0x01A8, // f g
-                   0xFFFF, 0x01B0, // h i
-                   0xFFFF, 0xFFFF, // j k
-                   0x01CE, 0xFFFF, // l m
-                   0x01E4, 0xFFFF, // n o
-                   0x01EB, 0x01F5, // p q
-                   0x01FE, 0x0208, // r s
-                   0xFFFF, 0x0242, // t u
-                   0x0255, 0x025D, // v w
-                   0xFFFF, 0xFFFF, // x y
-                   0xFFFF};        // z
+                            0x0009, 0xFFFF, // C D
+                            0x0026, 0x0037, // E F
+                            0x0044, 0xFFFF, // G H
+                            0x004C, 0xFFFF, // I J
+                            0xFFFF, 0x0052, // K L
+                            0x005C, 0x0069, // M N
+                            0x0093, 0x009F, // O P
+                            0xFFFF, 0x00AB, // Q R
+                            0x00B5, 0xFFFF, // S T
+                            0xFFFF, 0xFFFF, // U V
+                            0x00BF, 0xFFFF, // W X
+                            0xFFFF, 0x00C8, // Y Z
+                            0x00D4, 0x011A, //_ a
+                            0x0121, 0x0130, // b c
+                            0x014F, 0x0175, // d e
+                            0x018B, 0x01A8, // f g
+                            0xFFFF, 0x01B0, // h i
+                            0xFFFF, 0xFFFF, // j k
+                            0x01CE, 0xFFFF, // l m
+                            0x01E4, 0xFFFF, // n o
+                            0x01EB, 0x01F5, // p q
+                            0x01FE, 0x0208, // r s
+                            0xFFFF, 0x0242, // t u
+                            0x0255, 0x025D, // v w
+                            0xFFFF, 0xFFFF, // x y
+                            0xFFFF};        // z
 
 unsigned char id[] = {
     0x7A, 0x00, 0x52, 0x45, 0x41, 0x4B, 0, // BREAK

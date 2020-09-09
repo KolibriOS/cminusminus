@@ -1460,7 +1460,7 @@ void undata(unsigned int ofs, unsigned long len, unsigned int type) {
         d += data[j++] << 8;
         printword((unsigned short)d);
         //					uprintf("%05Xh",(unsigned
-        //int)d);
+        // int)d);
         if (j != i)
           uputchar(',');
       }
@@ -1497,7 +1497,7 @@ void undata(unsigned int ofs, unsigned long len, unsigned int type) {
         d += data[j++] << 24;
         printdword((unsigned int)d);
         //					uprintf("%09lXh",(unsigned
-        //int)d);
+        // int)d);
         if (j != i)
           uputchar(',');
       }

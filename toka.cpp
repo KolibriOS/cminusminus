@@ -14,17 +14,17 @@
 #include <wchar.h>
 #endif
 
-#include "tok.h"
 #include "dirlist.h"
 #include "id.h"
-#include "resname.h"
 #include "misc.h"
+#include "resname.h"
+#include "tok.h"
 
 idrec *treestart = NULL;
 idrec *definestart = NULL;
 UNDEFOFF *undefoffstart = NULL;
 DLLLIST *listdll = NULL;
-structteg *tegtree = NULL; //глобальный срисок тегов
+structteg *tegtree = NULL;  //глобальный срисок тегов
 structteg *ltegtree = NULL; //локальный срисок тегов
 // idrec *lstructlist=NULL;  //список локальных структур
 SINFO strinf = {NULL};
@@ -51,8 +51,8 @@ char id2[ID2S][9] = {
     "GSWORD",  "GSLONG",  "GSDWORD",  "GSFLOAT", "GSQWORD", "GSDOUBLE",
 };
 
-char regs[2][8][4] = {{"AX",  "CX",  "DX",  "BX",  "SP",  "BP",  "SI",  "DI"},
-					{"EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI"}};
+char regs[2][8][4] = {{"AX", "CX", "DX", "BX", "SP", "BP", "SI", "DI"},
+                      {"EAX", "ECX", "EDX", "EBX", "ESP", "EBP", "ESI", "EDI"}};
 char begs[8][3] = {"AL", "CL", "DL", "BL", "AH", "CH", "DH", "BH"};
 char segs[6][3] = {"ES", "CS", "SS", "DS", "FS", "GS"};
 
@@ -1247,8 +1247,8 @@ void nextchar() {
         if (temp->freze == FALSE) {
           if (temp->paramdef)
             free(temp->paramdef);
-          //					if(debug)printf("Free curmod %08X new
-          //cur_mod %08X\n",temp,cur_mod);
+          //					if(debug)printf("Free curmod %08X
+          //new cur_mod %08X\n",temp,cur_mod);
           free(temp);
         }
         //				else if(debug)printf("Freze curmod
@@ -1449,7 +1449,7 @@ void whitespace() //пропуск нзначащих символов
     if (cha == 13 || cha == 10) {
       linenumber++;
       if ((dbg & 2) && displaytokerrors && notdef)
-        startline = (char*)input + inptr + 1;
+        startline = (char *)input + inptr + 1;
       if (scanlexmode == RESLEX || scanlexmode == DEFLEX ||
           scanlexmode == ASMLEX)
         break;
@@ -1469,7 +1469,7 @@ unsigned char convert_char()
     if (cha == 13 || cha == 10) {
       linenumber++;
       if ((dbg & 2) && displaytokerrors && notdef)
-        startline = (char*)input + inptr + 1;
+        startline = (char *)input + inptr + 1;
     }
     return (cha);
   }
@@ -1558,7 +1558,7 @@ void convert_string(unsigned char *str) {
       case 'l':
         hold = 10;
         break;
-	  // FIXME: Properly handle end of the line for both Windows and UNIX
+        // FIXME: Properly handle end of the line for both Windows and UNIX
       case 'n':
         str[j++] = 13;
         hold = 10;
@@ -2121,8 +2121,8 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
     case tk_id:
       if (findofset == FALSE) {
         structteg *tteg;
-        //					if(displaytokerrors)printf("find teg
-        //%s cha=%02X\n",itok4->name,cha);
+        //					if(displaytokerrors)printf("find
+        //teg %s cha=%02X\n",itok4->name,cha);
         if (((tteg = FindTeg(FALSE, itok4->name)) != NULL ||
              (tteg = FindTeg(TRUE, itok4->name)) != NULL) &&
             (cha == '.' || precha == '.')) {
@@ -2499,7 +2499,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
         if ((itok4->sib & 1) == 0) {
           ofsstr(tok4, itok4);
           //		if(displaytokerrors)printf("sib=%08X tok=%d rm=%d
-          //post=%d number=%d size=%d segm=%d flag=%08X
+          // post=%d number=%d size=%d segm=%d flag=%08X
           //%s\n",itok4->sib,*tok4,itok4->rm,itok4->post,itok4->number,itok4->size,itok4->segm,itok4->flag,itok4->name/*,buf*/);
           break;
         }
@@ -2557,7 +2557,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
              (tteg = FindTeg(TRUE, itok4->name)) != NULL) /*&&cha=='.'*/) {
           dostructvar2(tok4, itok4, tteg, string4);
           //			printf("sib=%08X tok=%d rm=%d post=%d number=%d
-          //size=%d
+          // size=%d
           //%s\n",itok4->sib,*tok4,itok4->rm,itok4->post,itok4->number,itok4->size,itok4->name/*,buf*/);
 
           if (*tok4 == tk_proc)
@@ -2577,7 +2577,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
             else
               itok4->flag &= ~f_reloc;
             //							else
-            //itok4->flag&=!f_reloc; 16.08.04 18:51
+            // itok4->flag&=!f_reloc; 16.08.04 18:51
 
             // 30.09.04 20:22
             if (itok4->post) {
@@ -2655,30 +2655,30 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
       // rm=%d\n",itok4->name,*tok4,itok4->post,itok4->flag,itok4->rm);
       break;
     case '(': {
-	    char* inputptr = (char*)&input[inptr];
-		if (strncmp(inputptr, "E)", 2) || strncmp(inputptr, "e)", 2)) {
-			for (useme = 0; useme < 8; useme++) {
-			  int i;
-			  if (asmparam)
-				i = strncasecmp((char *)input + inptr + 2, regs[0][useme], 2);
-			  else
-				i = strncmp((char *)input + inptr + 2, regs[0][useme], 2);
-			  if (i == 0) {
-				inptr += 4;
-				nextchar();
-				itok4->number = useme;
-				if (am32) {
-				  *tok4 = tk_reg32;
-				  goto extreg32;
-				}
-				*tok4 = tk_reg;
-				goto extreg;
-			  }
-			}
-		}
-		*tok4 = tk_openbracket;
-		break;
-	}
+      char *inputptr = (char *)&input[inptr];
+      if (strncmp(inputptr, "E)", 2) || strncmp(inputptr, "e)", 2)) {
+        for (useme = 0; useme < 8; useme++) {
+          int i;
+          if (asmparam)
+            i = strncasecmp((char *)input + inptr + 2, regs[0][useme], 2);
+          else
+            i = strncmp((char *)input + inptr + 2, regs[0][useme], 2);
+          if (i == 0) {
+            inptr += 4;
+            nextchar();
+            itok4->number = useme;
+            if (am32) {
+              *tok4 = tk_reg32;
+              goto extreg32;
+            }
+            *tok4 = tk_reg;
+            goto extreg;
+          }
+        }
+      }
+      *tok4 = tk_openbracket;
+      break;
+    }
     case ':':
       nextchar();
       if (cha != ':') {
@@ -2749,7 +2749,7 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
       *tok4 = tk_eof;
       return;
     case 13: // '\r'
-	case 10: // '\n'
+    case 10: // '\n'
       *tok4 = tk_endline;
       break;
     case '\\':
@@ -2933,7 +2933,7 @@ void SetNewStr(char *name) {
   cur_mod = fmod;
   //	if(debug)printf("new curmod %08X prev cur_mod=%08X old input %08X
   //%s\n",cur_mod,cur_mod->next,input,name);
-  input = (unsigned char*)name;
+  input = (unsigned char *)name;
   inptr = 1;
   cha = input[0];
   endinptr = strlen(name) + 1;
@@ -2979,13 +2979,13 @@ int searchtree2(idrec *fptr, ITOK *itok4, int *tok4, unsigned char *string4)
           NewMod(itok4->size);
           notdef = FALSE;
           cur_mod->declareparamdef = ptr->newid;
-          input = (unsigned char*)ptr->sbuf;
+          input = (unsigned char *)ptr->sbuf;
           inptr = 1;
           cha = input[0];
           endinptr = strlen((char *)input);
-          //					if(debug)printf("New cur_mod tok=%d numpar=%d
-          //%s %s\n",*tok4,cur_mod->numparamdef,itok4->name,input);
-          //debug=TRUE;
+          //					if(debug)printf("New cur_mod tok=%d
+          //numpar=%d %s %s\n",*tok4,cur_mod->numparamdef,itok4->name,input);
+          // debug=TRUE;
           clearregstat();
           *tok4 = tk_endline;
           return TRUE;
@@ -3118,8 +3118,8 @@ void docals(idrec *ptr)
             break;
         }
         if (cmpname != 0) {
-          lexport = (listexport *)REALLOC(
-              lexport, sizeof(listexport) * (numexport + 1));
+          lexport = (listexport *)REALLOC(lexport,
+                                          sizeof(listexport) * (numexport + 1));
           if (cmpname < 0) {
             for (int j = numexport; j > i; j--) {
               memcpy(&(lexport + j)->address, &(lexport + j - 1)->address,
@@ -3180,7 +3180,7 @@ void docals(idrec *ptr)
         if (itok.segm == DYNAMIC_USED) {
           //				printf("%08X
           //%s\n",ptr->recpost,ptr->recid);
-          //if(updatecall((unsigned int)ptr->recnumber,outptr,0)>0){
+          // if(updatecall((unsigned int)ptr->recnumber,outptr,0)>0){
           itok.number = ptr->recnumber;
           itok.flag = ptr->flag;
           itok.post = ptr->recpost;
@@ -3317,7 +3317,7 @@ void CallDestr(idrec *ptr) {
   if (itok.segm == DYNAMIC)
     AddDynamicList(ptr);
   tok2 = tk_openbracket;
-  input = (unsigned char*)"();";
+  input = (unsigned char *)"();";
   inptr2 = 1;
   cha2 = '(';
   endinptr = 3;
@@ -3389,7 +3389,7 @@ void RunNew(int size) {
   otok = tok;
   otok2 = tok2;
   oinput = input;
-  input = (unsigned char*)buf;
+  input = (unsigned char *)buf;
   inptr2 = 1;
   cha2 = '_';
   tok = tk_openbrace;
@@ -3530,7 +3530,7 @@ void dodelete() {
         op(0x58);
       }
     }
-    input = (unsigned char*)"__delete((E)AX);}";
+    input = (unsigned char *)"__delete((E)AX);}";
     inptr2 = 1;
     cha2 = '_';
     endinptr = strlen((char *)input);
@@ -4508,7 +4508,7 @@ int FindOff(unsigned char *name, int base) //поиск ссылок на тек
               // short *)&output[ofs];
               // else valofs=*(unsigned long
               //*)&output[ofs];
-              //valofs+=(base==CS?outptr:outptrdata);
+              // valofs+=(base==CS?outptr:outptrdata);
               valofs = (base == CS ? outptr : outptrdata);
             } else
               valofs = postsize;
@@ -4746,7 +4746,7 @@ int IsClass(structteg *searcht) {
 }
 
 structteg *CreatTeg(int Global, int useunion,
-                           int noname) //создать новый тег
+                    int noname) //создать новый тег
 {
   structteg *newteg, *tteg;
   elementteg *bazael;
@@ -4775,8 +4775,8 @@ structteg *CreatTeg(int Global, int useunion,
         if (numel == 0)
           bazael = (elementteg *)MALLOC(sizeof(elementteg));
         else
-          bazael = (elementteg *)REALLOC(
-              bazael, sizeof(elementteg) * (numel + 1));
+          bazael =
+              (elementteg *)REALLOC(bazael, sizeof(elementteg) * (numel + 1));
         for (i = 0; i < numel; i++) {
           if (strcmp((bazael + i)->name, itok.name) == 0) {
             sprintf((char *)string, "Dublicate base class '%s'", itok.name);
@@ -4878,11 +4878,10 @@ structteg *CreatTeg(int Global, int useunion,
       if ((tteg = CreatTeg(Global, TRUE, i)) != NULL) {
         if (tok == tk_semicolon) {
           if (numel == 0)
-            bazael = (elementteg *)MALLOC(sizeof(elementteg) *
-                                                 tteg->numoper);
+            bazael = (elementteg *)MALLOC(sizeof(elementteg) * tteg->numoper);
           else
-            bazael = (elementteg *)REALLOC(
-                bazael, sizeof(elementteg) * (numel + tteg->numoper));
+            bazael = (elementteg *)REALLOC(bazael, sizeof(elementteg) *
+                                                       (numel + tteg->numoper));
           for (i = 0; i < tteg->numoper; i++)
             (tteg->baza + i)->ofs += ssize;
           memcpy((elementteg *)(bazael + numel), tteg->baza,
@@ -4927,8 +4926,7 @@ structteg *CreatTeg(int Global, int useunion,
             goto dproc2;
           } else {
             if (numel == 0)
-              bazael = (elementteg *)MALLOC(sizeof(elementteg) *
-                                                   tteg->numoper);
+              bazael = (elementteg *)MALLOC(sizeof(elementteg) * tteg->numoper);
             else
               bazael = (elementteg *)REALLOC(
                   bazael, sizeof(elementteg) * (numel + tteg->numoper));
@@ -5036,8 +5034,8 @@ structteg *CreatTeg(int Global, int useunion,
         if (numel == 0)
           bazael = (elementteg *)MALLOC(sizeof(elementteg));
         else
-          bazael = (elementteg *)REALLOC(
-              bazael, sizeof(elementteg) * (numel + 1));
+          bazael =
+              (elementteg *)REALLOC(bazael, sizeof(elementteg) * (numel + 1));
         if (tok != tk_ID && tok != tk_id) {
           utestInitVar = TRUE;
           if (testInitVar() ==
@@ -5342,8 +5340,7 @@ structteg *CreatTeg(int Global, int useunion,
         oflag = tp_fastcall;
       else
         oflag = (comfile == file_w32 ? tp_stdcall : tp_pascal);
-      bazael = (elementteg *)REALLOC(bazael, sizeof(elementteg) *
-                                                        (numel + 1));
+      bazael = (elementteg *)REALLOC(bazael, sizeof(elementteg) * (numel + 1));
       strcpy((bazael + numel)->name, itok.name);
       strcat((bazael + numel)->name, "~");
       itok.rec = nrec = (bazael + numel)->rec = (idrec *)MALLOC(sizeof(idrec));
@@ -5367,7 +5364,7 @@ structteg *CreatTeg(int Global, int useunion,
       itok.number = nrec->recnumber = secondcallnum++;
       (bazael + numel)->numel = 1;
       numel++;
-      input = (unsigned char*)buf;
+      input = (unsigned char *)buf;
       inptr2 = 1;
       cha2 = '(';
       endinptr = strlen(buf);
@@ -5482,8 +5479,7 @@ void FillTeg(unsigned long long val, unsigned int numel, structteg *tteg)
         }
         for (unsigned int i = 0; i < (elem + c)->numel; i++) {
           if (type == tk_struct || type == tk_baseclass) {
-            FillTeg(val, (elem + c)->numel,
-                    (structteg *)(elem + c)->nteg);
+            FillTeg(val, (elem + c)->numel, (structteg *)(elem + c)->nteg);
             break;
           }
           SaveVal(val, type);
@@ -5535,8 +5531,8 @@ unsigned int Fill2Teg(unsigned int numel, structteg *tteg)
     //		puts((elem+ttype)->name);
     if (type == tk_struct || type == tk_baseclass) {
       tnumel = (elem + ttype)->numel;
-      loop += Fill2Teg((elem + ttype)->numel,
-                       (structteg *)(elem + ttype)->nteg);
+      loop +=
+          Fill2Teg((elem + ttype)->numel, (structteg *)(elem + ttype)->nteg);
       if (tok == tk_closebrace)
         break;
       continue;
@@ -6809,7 +6805,7 @@ void FastTok(int mode, int *tok4, ITOK *itok4) {
       *tok4 = tk_eof;
       return;
     case 13: // '\r'
-	case 10: // '\n'
+    case 10: // '\n'
       *tok4 = tk_endline;
       break;
     case '\\':

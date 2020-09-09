@@ -44,28 +44,32 @@ struct _STRINGS_ {
   short val;
 };
 
-_STRINGS_ typemem[7] = {{"MOVEABLE",    0x0010}, {"FIXED",      ~0x0010},
-	{"PURE",        0x0020}, {"IMPURE",     ~0x0020},
-	{"PRELOAD",     0x0040}, {"LOADONCALL", ~0x0040},
-	{"DISCARDABLE", 0x1000}};
+_STRINGS_ typemem[7] = {{"MOVEABLE", 0x0010},   {"FIXED", ~0x0010},
+                        {"PURE", 0x0020},       {"IMPURE", ~0x0020},
+                        {"PRELOAD", 0x0040},    {"LOADONCALL", ~0x0040},
+                        {"DISCARDABLE", 0x1000}};
 
-_STRINGS_ typeclass[6] = {{"BUTTON",  0x80}, {"EDIT",      0x81}, {"STATIC",   0x82},
-	{"LISTBOX", 0x83}, {"SCROLLBAR", 0x84}, {"COMBOBOX", 0x85}};
+_STRINGS_ typeclass[6] = {{"BUTTON", 0x80},    {"EDIT", 0x81},
+                          {"STATIC", 0x82},    {"LISTBOX", 0x83},
+                          {"SCROLLBAR", 0x84}, {"COMBOBOX", 0x85}};
 
 _STRINGS_ typemenu[NUMMENUPOPUP] = {
-	{"GREYED",    0x0001}, {"INACTIVE", 0x0002}, {"BITMAP",       0x0004},
-	{"OWNERDRAW", 0x0100}, {"CHECKED",  0x0008}, {"MENUBARBREAK", 0x0020},
-	{"MENUBREAK", 0x0040}, {"HELP",     0x4000}};
+    {"GREYED", 0x0001},    {"INACTIVE", 0x0002}, {"BITMAP", 0x0004},
+    {"OWNERDRAW", 0x0100}, {"CHECKED", 0x0008},  {"MENUBARBREAK", 0x0020},
+    {"MENUBREAK", 0x0040}, {"HELP", 0x4000}};
 
-_STRINGS_ typeacceler[5] = {
-	{"VIRTKEY", 0x01}, {"NOINVERT", 0x02},  {"SHIFT", 0x04},
-	{"CONTROL", 0x08}, {"ALT", 0x10}};
+_STRINGS_ typeacceler[5] = {{"VIRTKEY", 0x01},
+                            {"NOINVERT", 0x02},
+                            {"SHIFT", 0x04},
+                            {"CONTROL", 0x08},
+                            {"ALT", 0x10}};
 
 enum { v_fv = 1, v_pv, v_ffm, v_ff, v_fo, v_ft, v_fs };
 
-_STRINGS_ typeversion[7] = {{"FILEVERSION",   v_fv},  {"PRODUCTVERSION", v_pv},
-	{"FILEFLAGSMASK", v_ffm}, {"FILEFLAGS",      v_ff}, {"FILEOS",        v_fo},
-	{"FILETYPE",       v_ft}, {"FILESUBTYPE",   v_fs}};
+_STRINGS_ typeversion[7] = {{"FILEVERSION", v_fv},    {"PRODUCTVERSION", v_pv},
+                            {"FILEFLAGSMASK", v_ffm}, {"FILEFLAGS", v_ff},
+                            {"FILEOS", v_fo},         {"FILETYPE", v_ft},
+                            {"FILESUBTYPE", v_fs}};
 
 enum {
   rc_accelerators,
@@ -116,41 +120,41 @@ struct {
   unsigned short dclass;
   unsigned long style;
 } defdialog[rc_state3 + 1] = {
-	{0,    0},
-	{0x80, 6},              // BS_AUTO3STATE
-	{0x80, 3 | 0x00010000}, // BS_AUTOCHECKBOX|WS_TABSTOP,
-	{0x80, 9},              // BS_AUTORADIOBUTTON,
-	{0,    0},
-	{0,    0},
-	{0,    0},
-	{0x80, 0x00010002}, // BS_CHECKBOX|WS_TABSTOP,
-	{0,    0},
-	{0x85, 0x00010000},              // 0,WS_TABSTOP
-	{0,    0x40000000 | 0x10000000}, // WS_CHILD|WS_VISIBLE,
-	{0x82, 1},                       // ES_CENTER,
-	{0,    0},
-	{0x80, 1 | 0x00010000}, // BS_DEFPUSHBUTTON|WS_TABSTOP,
-	{0,    0},
-	{0,    0},
-	{0x81, 0x00800000 | 0x00010000}, // ES_LEFT|WS_BORDER|WS_TABSTOP,
-	{0,    0},
-	{0,    0},
-	{0x80, 7 | 0x00010000}, // BS_GROUPBOX,
-	{0x82, 3},              // SS_ICON,
-	{0x83, 0x00800000 | 1}, // WS_BORDER|LBS_NOTIFY,
-	{0x82, 0x00020000},     // ES_LEFT|WS_GROUP,
-	{0,    0},
-	{0,    0},
-	{0,    0},
-	{0,    0},
-	{0,    0},
-	{0x80, 0x00010000}, // ??? BS_PUSHBOX,
-	{0x80, 0x00010000}, // BS_PUSHBUTTON|WS_TABSTOP,
-	{0x80, 4},          // BS_RADIOBUTTON,
-	{0,    0},
-	{0x82, 2 | 0x00020000}, // ES_RIGHT|WS_GROUP,
-	{0x84, 0},
-	{0x80, 5} // BS_3STATE
+    {0, 0},
+    {0x80, 6},              // BS_AUTO3STATE
+    {0x80, 3 | 0x00010000}, // BS_AUTOCHECKBOX|WS_TABSTOP,
+    {0x80, 9},              // BS_AUTORADIOBUTTON,
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0x80, 0x00010002}, // BS_CHECKBOX|WS_TABSTOP,
+    {0, 0},
+    {0x85, 0x00010000},           // 0,WS_TABSTOP
+    {0, 0x40000000 | 0x10000000}, // WS_CHILD|WS_VISIBLE,
+    {0x82, 1},                    // ES_CENTER,
+    {0, 0},
+    {0x80, 1 | 0x00010000}, // BS_DEFPUSHBUTTON|WS_TABSTOP,
+    {0, 0},
+    {0, 0},
+    {0x81, 0x00800000 | 0x00010000}, // ES_LEFT|WS_BORDER|WS_TABSTOP,
+    {0, 0},
+    {0, 0},
+    {0x80, 7 | 0x00010000}, // BS_GROUPBOX,
+    {0x82, 3},              // SS_ICON,
+    {0x83, 0x00800000 | 1}, // WS_BORDER|LBS_NOTIFY,
+    {0x82, 0x00020000},     // ES_LEFT|WS_GROUP,
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0, 0},
+    {0x80, 0x00010000}, // ??? BS_PUSHBOX,
+    {0x80, 0x00010000}, // BS_PUSHBUTTON|WS_TABSTOP,
+    {0x80, 4},          // BS_RADIOBUTTON,
+    {0, 0},
+    {0x82, 2 | 0x00020000}, // ES_RIGHT|WS_GROUP,
+    {0x84, 0},
+    {0x80, 5} // BS_3STATE
 };
 
 union NameOrdinal {

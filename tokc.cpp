@@ -1,15 +1,15 @@
 #define _TOKC_
 
-#include <sys/stat.h>
 #include <fcntl.h> /* O_ constant definitions */
+#include <sys/stat.h>
 #ifndef _MSC_VER
 #include <unistd.h>
 #else
 #include <io.h>
 #endif
 
-#include "tok.h"
 #include "misc.h"
+#include "tok.h"
 
 #if !defined(__WIN32__)
 void GetFileTime(int fd, struct ftime *buf);
@@ -211,7 +211,7 @@ void compilefile(char *filename, int firstflag) {
     startupfile = currentfileinfo;
   inptr = 0;
   endoffile = 0;
-  startline = (char*)input;
+  startline = (char *)input;
   endinput = startline + endinptr;
   warning = gwarning;
   nextchar();
@@ -3036,8 +3036,8 @@ int constructcompare(int invertflag, unsigned int startloc)
       default:
         if (itok.flag & f_retproc) {
           comparetok = (itok.flag & f_retproc) / 256 + tk_overflowflag - 1;
-          //							printf("tok=%d flag=%08X
-          //comparetok=%u %s\n",tok,itok.flag,comparetok,itok.name);
+          //							printf("tok=%d
+          //flag=%08X comparetok=%u %s\n",tok,itok.flag,comparetok,itok.name);
           //							notflag=(notflag==FALSE?TRUE:FALSE);
           switch (tok) {
           case tk_undefproc:
@@ -6428,7 +6428,7 @@ void setproc(int defflag) {
   //	printf("rm=%d %s\n",itok.rm,itok.name);
   if (defflag) { //ранее уже были вызовы
                  //		updatecall(updatetree(),(unsigned
-                 //int)itok.number,0);
+                 // int)itok.number,0);
     regs = itok.post;
     if (updatecall(updatetree(), (unsigned int)itok.number, 0) == -1 &&
         strcmp(itok.name, mesmain) == 0 /*&&jumptomain!=CALL_NONE*/) {
@@ -7124,7 +7124,8 @@ void declareparams() /* declare procedure parameters */
           //					newrec=(idrec
           //*)MALLOC(sizeof(idrec));
           // if(lstructlist==NULL)lstructlist=newrec;
-          // else{ 						trec=lstructlist; 						while(trec->left!=NULL)trec=trec->left;
+          // else{ 						trec=lstructlist;
+          // while(trec->left!=NULL)trec=trec->left;
           //						trec->left=newrec;
           //					}
           //					newrec->right=newrec->left=NULL;
@@ -7272,7 +7273,7 @@ void RunBackText() {
   tok = tk_openbrace;
   SizeBackBuf = 0;
   ostartline = startline;
-  startline = (char*)input;
+  startline = (char *)input;
   endinptr = strlen((char *)input);
   endinput = startline + endinptr;
 
@@ -7330,7 +7331,7 @@ int PushLocInit(int ofs) {
   ostartline = startline;
   cha2 = input[inptr2++];
   endinptr = strlen((char *)input);
-  startline = (char*)input + ofs;
+  startline = (char *)input + ofs;
   endinput = startline + endinptr;
   nexttok();
   wtok = itok;
@@ -9772,7 +9773,8 @@ void outseg(ITOK *outtok, unsigned int locadd) {
       //%s\n",outtok->rec->rectok,outtok->rec->right,outtok->rec->recsib,outtok->rec->recid);
       if (outtok->rec->rectok == tk_structvar &&
           outtok->rec->recsib == tp_gvar) {
-        (postbuf + posts)->num = (int)(size_t)outtok->rec; // 02.09.05 17:10 ->right;
+        (postbuf + posts)->num =
+            (int)(size_t)outtok->rec; // 02.09.05 17:10 ->right;
       } else
         (postbuf + posts)->num = (int)(size_t)outtok->rec;
     }
@@ -10048,7 +10050,7 @@ void insert_dynamic(int insert) {
   pinfo = ptr->pinfo;
   input = (unsigned char *)pinfo->buf;
   inptr2 = 1;
-  startline = (char*)input;
+  startline = (char *)input;
   cha2 = input[0];
   endinptr = strlen((char *)input);
   endinput = startline + endinptr;
@@ -10365,8 +10367,8 @@ int loadinputfile(char *inpfile) //считывание файла в памят
       goto cont_load;
     }
     totalmodule++;
-    startfileinfo = (FILEINFO *)REALLOC(
-        startfileinfo, sizeof(FILEINFO) * (totalmodule));
+    startfileinfo =
+        (FILEINFO *)REALLOC(startfileinfo, sizeof(FILEINFO) * (totalmodule));
   }
   (startfileinfo + currentfileinfo)->stlist = NULL;
   (startfileinfo + currentfileinfo)->filename =

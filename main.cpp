@@ -1,13 +1,13 @@
 #define _MAIN_
-#include <sys/stat.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 #ifndef _MSC_VER
 #include <unistd.h>
 #else
 #include <io.h>
 #endif
-#include "tok.h"
 #include "misc.h"
+#include "tok.h"
 
 static char **_Argv; //!!! simplest way to make your own variable
 
@@ -473,7 +473,7 @@ void compile() {
         *(short *)&output[dataromstart] = (short)(outptr + 4);
         *(short *)&output[dataromsize] = (short)(outptrdata / 2);
         //				printf("outptr=%d outptrdate=%d
-        //outptrsize=%d\n",outptr,outptrdata,outptrsize);
+        // outptrsize=%d\n",outptr,outptrdata,outptrsize);
         for (unsigned int i = 0; i < outptrdata; i++)
           op(outputdata[i]);
       }
@@ -506,7 +506,7 @@ void compile() {
     } else if (modelmem == SMALL && comfile == file_exe) { // if an EXE file
       longhold += AlignCD(CS, 16);
       //			if((outptr%16)!=0)outptr+=16-outptr%16;//
-      //paragraph align the end of the code seg
+      // paragraph align the end of the code seg
       if (((long)outptrdata + (long)postsize + (long)stacksize) > 65535L)
         preerror("Data and stack total exceeds 64k");
     } else if (comfile == file_sys) {
@@ -575,8 +575,8 @@ void compile() {
       printf("Created file of a format PE for Windows.\nFor alignment section "
              "code, added %u zero bytes.\n",
              filingzerope);
-    //		else if(FILEALIGN&&fobj==FALSE)printf("For alignment file, added %u
-    //zero bytes.\n",filingzerope);
+    //		else if(FILEALIGN&&fobj==FALSE)printf("For alignment file, added
+    //%u zero bytes.\n",filingzerope);
   }
   if (pdbg)
     DoTDS();
@@ -1247,7 +1247,7 @@ void *MALLOC(unsigned long size) {
     OutMemory();
 
   //	if(((unsigned long)mem+size)>maxusedmem)maxusedmem=(unsigned
-  //long)mem+size;
+  // long)mem+size;
 
   return mem;
 }
@@ -1259,7 +1259,7 @@ void *REALLOC(void *block, unsigned long size) {
     OutMemory();
 
   //	if(((unsigned long)mem+size)>maxusedmem)maxusedmem=(unsigned
-  //long)mem+size;
+  // long)mem+size;
 
   return mem;
 }
@@ -1761,7 +1761,8 @@ void addinitvar() {
           *(unsigned short *)&output[(postbuf + i)->loc] +=
               (unsigned short)(ptr->recnumber);
         } else {
-          //					printf("loc=%08X num=%08X\n",*(unsigned long
+          //					printf("loc=%08X num=%08X\n",*(unsigned
+          //long
           //*)&output[(postbuf+i)->loc],ptr->recnumber);
           *(unsigned long *)&output[(postbuf + i)->loc] += ptr->recnumber;
         }
@@ -1807,7 +1808,7 @@ void setdindata(idrec *ptr, int i) {
   input = (unsigned char *)ptr->sbuf;
   inptr2 = 1;
   ostartline = startline;
-  startline = (char*)input;
+  startline = (char *)input;
   cha2 = input[0];
   linenum2 = ptr->line;
   currentfileinfo = ptr->file;

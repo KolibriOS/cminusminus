@@ -1,5 +1,5 @@
-#include "tok.h"
 #include "misc.h"
+#include "tok.h"
 
 #define _DEBUG_
 
@@ -228,7 +228,7 @@ void AddLine(int SkipLineInfo) {
       lstflag[pdbg] = (unsigned char)(am32 | lsttypedata);
       AddEndLine();
       //		printf("%s(%d)
-      //outptr=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,outptr);
+      // outptr=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,outptr);
     }
     pdbg++;
     (startfileinfo + currentfileinfo)->numdline++;
@@ -237,14 +237,14 @@ void AddLine(int SkipLineInfo) {
 
 void KillLastLine() {
   //	printf("dbgact=%d pdbg=%d outptr=%08X
-  //ooutptr=%08X\n",dbgact,pdbg,outptr,ooutptr);
+  // ooutptr=%08X\n",dbgact,pdbg,outptr,ooutptr);
   if (outptr == 0 && ooutptr == 0x100) {
     ooutptr = 0;
     return;
   }
   if (dbgact == 0 && pdbg != 0) {
     //		printf("pdbg=%d dbgmod=%d
-    //currentfileinfo=%d\n",pdbg,dbgmod[0],currentfileinfo);
+    // currentfileinfo=%d\n",pdbg,dbgmod[0],currentfileinfo);
     if (pdbg == 1 && dbgmod[0] != (unsigned short)currentfileinfo)
       return;
     pdbg--;
@@ -257,7 +257,7 @@ void KillLastLine() {
       ooutptr = dbgloc[pdbg];
     }
     //		printf("%s(%d) pdbg=%d oline=%d
-    //ooutptr=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,pdbg,oline,ooutptr);
+    // ooutptr=%d\n",(startfileinfo+currentfileinfo)->filename,linenumber,pdbg,oline,ooutptr);
     (startfileinfo + dbgmod[pdbg])->numdline--;
   }
 }

@@ -1,18 +1,18 @@
 /* Этот файл сгенерирован программой 'FASTLIST.EXE' */
 
 unsigned short ofsres[26] = {0x0000, 0x003B,  // a b
-                    0x004C, 0x009B,  // c d
-                    0x00BE, 0x00D8,  // e f
-                    0x00E0, 0xFFFF,  // g h
-                    0x00EC, 0xFFFF,  // i j
-                    0xFFFF, 0x00F4,  // k l
-                    0x0110, 0xFFFF,  // m n
-                    0xFFFF, 0x0138,  // o p
-                    0xFFFF, 0x0156,  // q r
-                    0x0174, 0xFFFF,  // s t
-                    0xFFFF, 0x019D,  // u v
-                    0xFFFF, 0xFFFF,  // w x
-                    0xFFFF, 0xFFFF}; // y z
+                             0x004C, 0x009B,  // c d
+                             0x00BE, 0x00D8,  // e f
+                             0x00E0, 0xFFFF,  // g h
+                             0x00EC, 0xFFFF,  // i j
+                             0xFFFF, 0x00F4,  // k l
+                             0x0110, 0xFFFF,  // m n
+                             0xFFFF, 0x0138,  // o p
+                             0xFFFF, 0x0156,  // q r
+                             0x0174, 0xFFFF,  // s t
+                             0xFFFF, 0x019D,  // u v
+                             0xFFFF, 0xFFFF,  // w x
+                             0xFFFF, 0xFFFF}; // y z
 
 unsigned char resMnem[] = {
     0x00, 0x00, 0x63, 0x63, 0x65, 0x6C, 0x65, 0x72, 0x61, 0x74, 0x6F,

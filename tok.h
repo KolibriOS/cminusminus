@@ -208,7 +208,7 @@ extern char *bufrm;
 extern UNDEFOFF *undefoffstart;
 extern DLLLIST *listdll;
 extern char skipfind;
-extern structteg *tegtree; //глобальный срисок тегов
+extern structteg *tegtree;  //глобальный срисок тегов
 extern structteg *ltegtree; //локальный срисок тегов
 // extern idrec *lstructlist; //список локальных структур
 extern idrec *definestart;
@@ -372,8 +372,7 @@ void DateToStr(char *buf);
 int CalcRm16(int base, int idx);
 int CheckDef();
 void SetNewStr(char *name);
-structteg *CreatTeg(int Global, int useunion = FALSE,
-                           int noname = FALSE);
+structteg *CreatTeg(int Global, int useunion = FALSE, int noname = FALSE);
 void InitStruct2(unsigned int flag, structteg *tteg);
 unsigned long LocalStruct2(int flag, int *localline, int binptr, char bcha,
                            structteg *tteg);
@@ -563,9 +562,11 @@ void tobigpost();
 void expected(char ch);
 int expecting(int want);
 void outprocedure(unsigned char *array, unsigned int length);
-void preerror(const char *str); // error on currentline with line number and file name
+void preerror(
+    const char *str); // error on currentline with line number and file name
 void thisundefined(const char *str, int next = TRUE);
-void addconsttotree(const char *keystring, long long constvalue, int type = tk_dword);
+void addconsttotree(const char *keystring, long long constvalue,
+                    int type = tk_dword);
 void directive();
 void doenum();
 void doprestuff(); // do initial code things, like resize mem, jump to main...
@@ -623,7 +624,8 @@ int Push(ITOK *wtok = NULL);
         --------------------------------------------------*/
 void warningstring();
 void warningexpand();
-void warningjmp(const char *str2, int line = linenumber, int file = currentfileinfo);
+void warningjmp(const char *str2, int line = linenumber,
+                int file = currentfileinfo);
 void warningreg(char *str2);
 void preerror3(
     const char *str, unsigned int line,
