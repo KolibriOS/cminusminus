@@ -603,7 +603,7 @@ void printmemsizes() {
     codeword -= datasize;
   printf("Code: %u bytes, Data: %u bytes, Post: %u bytes, Stack: %u bytes\n",
          codeword, datasize, postword, stackword);
-  for (int i = 0; i < posts; i++) {
+  for (unsigned int i = 0; i < posts; i++) {
     switch ((postbuf + i)->type) {
     case CODE_SIZE:
       *(short *)&output[(postbuf + i)->loc] += codeword;

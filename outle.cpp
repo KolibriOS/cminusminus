@@ -69,11 +69,8 @@ int MakeLE() {
   int sizeb;
   CreatStub(stubfile);
   memset(&hdr, 0, sizeof(LE_Header));
-#ifdef _WC_
-  hdr.Signature = 'EL';
-#else
-  hdr.Signature = 'LE';
-#endif
+  hdr.Signature[0] = 'L';
+  hdr.Signature[1] = 'E';
   hdr.CPU_Type = i80386;
   hdr.Target_OS = 1;
   hdr.Type_Flags = 0x200;

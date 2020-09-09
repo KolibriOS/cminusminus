@@ -38,7 +38,7 @@ struct Module_Type_Flags {
 };
 
 struct LE_Header {
-  unsigned short Signature; // Signature 'LE' for exe header
+  unsigned char Signature[2]; // Signature 'LE' for exe header
   unsigned char Byte_Order;
   unsigned char Word_Order;
   unsigned long Exec_Format_Level;

@@ -456,11 +456,8 @@ int MakePE() {
   sizehead = Align(sizeof(PE_HEADER) + sizestub +
                        (numobj + (numres != 0 ? 0 : 1)) * sizeof(OBJECT_ENTRY),
                    FILEALIGN);
-#ifdef _WC_
-  peheader->sign = 'EP';
-#else
-  peheader->sign = 'PE';
-#endif
+  peheader->sign[0] = 0x50; // 'P'
+  peheader->sign[1] = 0x45; // 'E'
   peheader->cpu = 0x14c; //(chip>=4?(chip>=5?0x14e:0x14D):0x14c);
                          //	peheader->date_time=0;
   peheader->DLLflag = dllflag;
@@ -685,13 +682,7 @@ void ImportName(char *name) {
   fseek(infile, temp, SEEK_SET);
   if (fread(&pe, sizeof(PE_HEADER), 1, infile) != 1)
     goto errread;
-  if (pe.sign !=
-#ifdef _WC_
-      'EP'
-#else
-      'PE'
-#endif
-  ) {
+  if ((pe.sign[0] != 0x50) && (pe.sign[1] != 0x45)) {
     fprintf(stderr, "For DLL support only format PE.\n");
     fclose(infile);
     return;
@@ -826,7 +817,7 @@ void CreatStub(char *name) {
     }
     fseek(stubin, 0, SEEK_END);
     sizestub = ftell(stubin);
-    unsigned long temp;
+	unsigned long temp;
     if (exeheader.ofsreloc >= 0x40) { //проверка что это не 32-битный файл
       fseek(stubin, 0x3c, SEEK_SET);
       if (fread(&temp, 4, 1, stubin) != 1)
@@ -835,24 +826,16 @@ void CreatStub(char *name) {
         fseek(stubin, temp, SEEK_SET);
         if (fread(&temp, 4, 1, stubin) != 1)
           goto errread;
-        switch (temp) {
-#ifdef _WC_
-        case 'EP':
-        case 'EN':
-        case 'EL':
-        case 'XL':
-#else
-        case 'PE':
-        case 'NE':
-        case 'LE':
-        case 'LX':
-#endif
+		unsigned char* tmpsign = (unsigned char*)&temp;
+		if ((((tmpsign[0] == 0x50) || (tmpsign[0] == 0x4e)
+				|| (tmpsign[0] == 0x4c)) && (tmpsign[1] == 0x45)) /* PE, NE, LE */
+			|| ((tmpsign[0] == 0x4c) && (tmpsign[1] = 0x58))) /* LX */
           goto errstub;
         }
-      }
       exeheader.ofsreloc += (unsigned short)0x20;
-    } else
+    } else {
       exeheader.ofsreloc = 0x40;
+	}
     //размер файла
     sizestub = Align(sizestub + 32, 8);
     fseek(stubin, 0x20, SEEK_SET);

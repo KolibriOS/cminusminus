@@ -2652,41 +2652,31 @@ void tokscan(int *tok4, ITOK *itok4, unsigned char *string4)
       // post=%d flag=%08X
       // rm=%d\n",itok4->name,*tok4,itok4->post,itok4->flag,itok4->rm);
       break;
-    case '(':
-      if (*(unsigned short *)&(input[inptr]) ==
-#ifdef _WC_
-              ')E'
-#else
-              'E)'
-#endif
-          || (*(unsigned short *)&(input[inptr]) ==
-#ifdef _WC_
-              ')e'
-#else
-              'e)'
-#endif
-              )) {
-        for (useme = 0; useme < 8; useme++) {
-          int i;
-          if (asmparam)
-            i = strncasecmp((char *)input + inptr + 2, regs[0][useme], 2);
-          else
-            i = strncmp((char *)input + inptr + 2, regs[0][useme], 2);
-          if (i == 0) {
-            inptr += 4;
-            nextchar();
-            itok4->number = useme;
-            if (am32) {
-              *tok4 = tk_reg32;
-              goto extreg32;
-            }
-            *tok4 = tk_reg;
-            goto extreg;
-          }
-        }
-      }
-      *tok4 = tk_openbracket;
-      break;
+    case '(': {
+	    char* inputptr = (char*)&input[inptr];
+		if (strncmp(inputptr, "E)", 2) || strncmp(inputptr, "e)", 2)) {
+			for (useme = 0; useme < 8; useme++) {
+			  int i;
+			  if (asmparam)
+				i = strncasecmp((char *)input + inptr + 2, regs[0][useme], 2);
+			  else
+				i = strncmp((char *)input + inptr + 2, regs[0][useme], 2);
+			  if (i == 0) {
+				inptr += 4;
+				nextchar();
+				itok4->number = useme;
+				if (am32) {
+				  *tok4 = tk_reg32;
+				  goto extreg32;
+				}
+				*tok4 = tk_reg;
+				goto extreg;
+			  }
+			}
+		}
+		*tok4 = tk_openbracket;
+		break;
+	}
     case ':':
       nextchar();
       if (cha != ':') {
@@ -3362,7 +3352,7 @@ elementteg *FindOneDestr(structteg *searcht) {
 }
 
 void Destructor(idrec *ptrs) {
-  char name[IDLENGTH];
+  char name[IDLENGTH + 1];
   elementteg *bazael;
   int addofs;
   structteg *tteg;

@@ -194,7 +194,7 @@ typedef struct _DLLLIST_ {
 } DLLLIST;
 
 typedef struct _PE_HEADER_ {
-  long sign;      //сигнатура - всегда  'PE'
+  unsigned char sign[4];      //сигнатура - всегда  'PE\0x00\0x00'
   short cpu;      //мин тип CPU - всегда 0x14C
   short numobj;   //число входов в таблицу объектов
   long date_time; //дата модификации линкером
