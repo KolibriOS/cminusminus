@@ -1099,7 +1099,7 @@ int CheckMassiv(char *&buf, int sizeel, int treg, int *idx, int *base,
     int idx0, base0;
     long numr;
     int operand;
-    int startptr, skipvar;
+    unsigned int startptr, skipvar;
     int firsttok;
     i = 0;
     idx0 = base0 = -1;
@@ -4750,10 +4750,10 @@ structteg *CreatTeg(int Global, int useunion,
 {
   structteg *newteg, *tteg;
   elementteg *bazael;
-  int ssize = 0, numel = 0, localtok, size, numt, nameid = FALSE, tsize;
-  int bitofs = 0, bitsize = 0, i, type;
-  int isdestr = FALSE, isbase = 0;
-  int unionsize = 0;
+  unsigned int isdestr = FALSE, isbase = 0;
+  unsigned int ssize = 0, numel = 0, localtok, size, numt, nameid = FALSE, tsize;
+  unsigned int bitofs = 0, bitsize = 0, i, type;
+  unsigned int unionsize = 0;
   newteg = (structteg *)MALLOC(sizeof(structteg));
   newteg->left = newteg->right = NULL;
   newteg->baza = NULL;

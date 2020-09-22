@@ -10932,7 +10932,7 @@ int doqwordvar(int terminater) // 64 bit memory variable
             }
             break;
           }
-          if (itok.lnumber == 0xFFFFFFFFFFFFFFFFLL) {
+          if (itok.lnumber == (long long)0xFFFFFFFFFFFFFFFFLL) {
             CheckAllMassiv(wbuf, 8, &wstr, &wtok);
             for (i = 0; i < 2; i++) {
               op66(r32);
