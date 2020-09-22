@@ -1,5 +1,6 @@
 *.o
 *.exe
 *.err
+.gdb_history
 c--
 build/
